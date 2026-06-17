@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Input;
 using HuntAndPeck.Models;
 using HuntAndPeck.Services.Interfaces;
 
@@ -78,8 +79,29 @@ namespace HuntAndPeck.ViewModels
 
                 if (matching.Count() == 1)
                 {
-                    matching.First().Hint.Invoke();
-                    CloseOverlay?.Invoke();
+                    var selectedHint = matching.First().Hint;
+
+                    if (Keyboard.IsKeyDown(Key.RightShift))
+                    {
+                        // Hold Right Shift: real right click (e.g. open a context menu).
+                        // Close the overlay first so the click lands on the target window.
+                        CloseOverlay?.Invoke();
+                        selectedHint.RightClick();
+                    }
+                    else if (Keyboard.IsKeyDown(Key.LeftShift))
+                    {
+                        // Hold Left Shift: real left click. Works universally, including Electron/web
+                        // apps like Microsoft Teams where the UI Automation InvokePattern does nothing.
+                        // Close the overlay first so the click lands on the target window.
+                        CloseOverlay?.Invoke();
+                        selectedHint.Click();
+                    }
+                    else
+                    {
+                        // Default: UI Automation invoke.
+                        selectedHint.Invoke();
+                        CloseOverlay?.Invoke();
+                    }
                 }
             }
         }
