@@ -5,23 +5,13 @@
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
-    "mtime": 1781797018.115342,
-    "ast_hash": "4f5078ce79b70f5634d8bee47a517e05",
-    "semantic_hash": ""
-  },
-  "src/CheckInterop/CheckInterop.csproj": {
-    "mtime": 1781836433.8634555,
-    "ast_hash": "0b9b823cf2652c0d4a52e8a2dab1aee1",
-    "semantic_hash": ""
-  },
-  "src/CheckInterop/Program.cs": {
-    "mtime": 1781836433.8644555,
-    "ast_hash": "26c817580bdd13ff8fde2038895a49dd",
+    "mtime": 1781872334.3686626,
+    "ast_hash": "c7ac458ef7fd16ee6ff5bac5f17c524a",
     "semantic_hash": ""
   },
   "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj": {
-    "mtime": 1781802552.0463276,
-    "ast_hash": "7defbe15c31e1682d509131ede914177",
+    "mtime": 1781877344.0026126,
+    "ast_hash": "69cf6f4e7bb827746d30cf1a3e6b9ec9",
     "semantic_hash": ""
   },
   "src/HuntAndPeck.Tests/Properties/AssemblyInfo.cs": {
@@ -40,8 +30,8 @@
     "semantic_hash": ""
   },
   "src/HuntAndPeck/App.xaml.cs": {
-    "mtime": 1781694361.8738844,
-    "ast_hash": "9ca49a5d8b5bc9b964944b6b4a68718e",
+    "mtime": 1781879531.4734766,
+    "ast_hash": "b221989f535572a44a5c3a288ed4037c",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Extensions/IEnumerableTExtensions.cs": {
@@ -55,8 +45,8 @@
     "semantic_hash": ""
   },
   "src/HuntAndPeck/HuntAndPeck.csproj": {
-    "mtime": 1781835808.9586384,
-    "ast_hash": "8a5047bbc2b551662f946c57e7ca326e",
+    "mtime": 1781878849.610886,
+    "ast_hash": "3c8b2558781ded4de5494facbf26b3b5",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Models/DebugHint.cs": {
@@ -75,28 +65,28 @@
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs": {
-    "mtime": 1781694361.8758836,
-    "ast_hash": "2ad54f2bbc7110de8cf53a95175d9943",
+    "mtime": 1781877284.4298244,
+    "ast_hash": "38f643b38b3d8d5a29c78a7d3732beb3",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Models/UiAutomationFocusHint.cs": {
-    "mtime": 1781694361.8758836,
-    "ast_hash": "a383d8cd8b6b96797ec65616fce9b04f",
+    "mtime": 1781877283.7287204,
+    "ast_hash": "11e241bbc77259971e2486ef540acdda",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs": {
-    "mtime": 1781694361.8758836,
-    "ast_hash": "fc8ffe652be016bd5c1121d3e5d94561",
+    "mtime": 1781877274.7686372,
+    "ast_hash": "ed945991af3c9b2e1096b35d8467aa76",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Models/UiAutomationSelectHint.cs": {
-    "mtime": 1781694361.8758836,
-    "ast_hash": "e2c6315b22d138444a6f0ddcd5d6dadf",
+    "mtime": 1781877285.1224895,
+    "ast_hash": "773c7087d573b7db4ad862ae57b72b84",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Models/UiAutomationToggleHint.cs": {
-    "mtime": 1781694361.8768835,
-    "ast_hash": "b5aa345eba02c344ca71791bbdf72b9a",
+    "mtime": 1781877283.0634277,
+    "ast_hash": "1e36a589bd2478654ae8660afc90a115",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Properties/Resources.Designer.cs": {
@@ -125,8 +115,8 @@
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs": {
-    "mtime": 1781694361.879884,
-    "ast_hash": "017fa35685a6305540582f815b6ea14d",
+    "mtime": 1781879478.2255726,
+    "ast_hash": "518ee3a9c1ddda03ac48494136cb05da",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Services/Interfaces/IKeyListenerService.cs": {
@@ -135,8 +125,8 @@
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Services/KeyListenerService.cs": {
-    "mtime": 1781694361.879884,
-    "ast_hash": "b300c0b5c3aad3526f53f9595fff0940",
+    "mtime": 1781877311.517036,
+    "ast_hash": "bfba81632bdf7726df85b79f3068cec7",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Services/KeyboardHookService.cs": {
@@ -145,13 +135,13 @@
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs": {
-    "mtime": 1781694361.879884,
-    "ast_hash": "de5cfb47c55acbcccb8ca639873582f3",
+    "mtime": 1781879455.2750242,
+    "ast_hash": "22fdc88767028fd3db3302cc310d5d32",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Services/UiAutomationPatternIds.cs": {
-    "mtime": 1781694361.8808844,
-    "ast_hash": "c0a001a5b4da8ba6a9a6f4f06f69c704",
+    "mtime": 1781877275.4331186,
+    "ast_hash": "1aa38d7d608cc3325d7e52898a2c5250",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/SingleLaunchMutex.cs": {
@@ -190,13 +180,13 @@
     "semantic_hash": ""
   },
   "src/HuntAndPeck/ViewModels/OverlayViewModel.cs": {
-    "mtime": 1781694361.8823946,
-    "ast_hash": "097f4ce40071c4014fa0b8e79f0e290a",
+    "mtime": 1781879399.4711058,
+    "ast_hash": "e2e2e3e763cec538d69162b78c982242",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/ViewModels/ShellViewModel.cs": {
-    "mtime": 1781794162.57467,
-    "ast_hash": "f40f9b61b3d7aec41b8d052ded7472c0",
+    "mtime": 1781879471.0228095,
+    "ast_hash": "5e130b2cf6f940e7d4f183bcabf6832c",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Views/DebugOverlayView.xaml.cs": {
@@ -215,8 +205,8 @@
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Views/OverlayView.xaml.cs": {
-    "mtime": 1781694361.8843956,
-    "ast_hash": "9b77d2d3278233d75c24681e39611809",
+    "mtime": 1781879485.1081915,
+    "ast_hash": "d1c4729648e45bdb94f9ac6c7b175285",
     "semantic_hash": ""
   },
   "src/HuntAndPeck/Views/ShellView.xaml.cs": {
@@ -270,18 +260,13 @@
     "semantic_hash": ""
   },
   "src/SolutionInfo.cs": {
-    "mtime": 1781694361.8871732,
-    "ast_hash": "d3522644caf7cba5c724cdf829e9ceef",
+    "mtime": 1781877377.676484,
+    "ast_hash": "eb41c7dd9f4a08de8e0646736c22a9db",
     "semantic_hash": ""
   },
   "src/build.ps1": {
     "mtime": 1781694361.8881626,
     "ast_hash": "8567bfc3df6897c979c19551defb0d8b",
-    "semantic_hash": ""
-  },
-  "src/dotnet-tools.json": {
-    "mtime": 1781834598.330439,
-    "ast_hash": "ff68aa4f1bc0825effd9162e571fa113",
     "semantic_hash": ""
   },
   "src/register-startup-task.ps1": {
