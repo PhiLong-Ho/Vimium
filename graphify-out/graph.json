@@ -4,1414 +4,254 @@
   "graph": {},
   "nodes": [
     {
-      "label": "HuntAndPeck.Tests",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "huntandpeck_tests_huntandpeck_tests",
-      "community": 5,
-      "norm_label": "huntandpeck.tests"
-    },
-    {
-      "label": "net10.0-windows",
-      "file_type": "concept",
-      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "src_huntandpeck_tests_huntandpeck_tests_csproj_framework_net10_0_windows",
-      "community": 5,
-      "norm_label": "net10.0-windows"
-    },
-    {
-      "label": "Microsoft.NET.Test.Sdk (17.11.1)",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "nuget_microsoft_net_test_sdk",
-      "community": 5,
-      "norm_label": "microsoft.net.test.sdk (17.11.1)"
-    },
-    {
-      "label": "xunit (2.9.0)",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "nuget_xunit",
-      "community": 5,
-      "norm_label": "xunit (2.9.0)"
-    },
-    {
-      "label": "xunit.runner.visualstudio (2.8.0)",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "nuget_xunit_runner_visualstudio",
-      "community": 5,
-      "norm_label": "xunit.runner.visualstudio (2.8.0)"
-    },
-    {
-      "label": "HuntAndPeck.csproj",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "huntandpeck_huntandpeck",
-      "community": 5,
-      "norm_label": "huntandpeck.csproj"
-    },
-    {
-      "label": "Microsoft.NET.Sdk",
-      "file_type": "concept",
-      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "src_huntandpeck_tests_huntandpeck_tests_csproj_sdk_microsoft_net_sdk",
-      "community": 5,
-      "norm_label": "microsoft.net.sdk"
-    },
-    {
-      "label": "HuntAndPeck.sln",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck.sln",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "src_huntandpeck",
-      "community": 5,
-      "norm_label": "huntandpeck.sln"
-    },
-    {
-      "label": "NativeMethods.csproj",
-      "file_type": "code",
-      "source_file": "src/NativeMethods/NativeMethods.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "nativemethods_nativemethods",
-      "community": 5,
-      "norm_label": "nativemethods.csproj"
-    },
-    {
-      "label": ".nuget",
-      "file_type": "code",
-      "source_file": "src/.nuget",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "d_workspace_vim_with_mouse_src_nuget",
-      "community": 5,
-      "norm_label": ".nuget"
-    },
-    {
-      "label": "Solution Items",
-      "file_type": "code",
-      "source_file": "src/Solution Items",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "d_workspace_vim_with_mouse_src_solution_items",
-      "community": 5,
-      "norm_label": "solution items"
-    },
-    {
-      "label": "App.xaml.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "huntandpeck_app_xaml",
-      "community": 8,
-      "norm_label": "app.xaml.cs"
+      "id": "readme",
+      "community": 13,
+      "norm_label": "readme.md"
     },
     {
-      "label": "HuntAndPeck",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "huntandpeck_app_xaml_huntandpeck",
-      "community": 8,
-      "norm_label": "huntandpeck"
-    },
-    {
-      "label": "App",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L15",
-      "_origin": "ast",
-      "id": "huntandpeck_app_xaml_app",
-      "community": 8,
-      "norm_label": "app"
-    },
-    {
-      "label": "Application",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "application",
-      "community": 7,
-      "norm_label": "application"
-    },
-    {
-      "label": "SingleLaunchMutex",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L17",
-      "_origin": "ast",
-      "id": "singlelaunchmutex",
-      "community": 8,
-      "norm_label": "singlelaunchmutex"
-    },
-    {
-      "label": "UiAutomationHintProviderService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "uiautomationhintproviderservice",
-      "community": 8,
-      "norm_label": "uiautomationhintproviderservice"
-    },
-    {
-      "label": "HintLabelService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "hintlabelservice",
-      "community": 8,
-      "norm_label": "hintlabelservice"
-    },
-    {
-      "label": "KeyListenerService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L21",
-      "_origin": "ast",
-      "id": "keylistenerservice",
-      "community": 8,
-      "norm_label": "keylistenerservice"
-    },
-    {
-      "label": ".ShowOverlay()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L35",
-      "_origin": "ast",
-      "id": "huntandpeck_app_xaml_app_showoverlay",
-      "community": 8,
-      "norm_label": ".showoverlay()"
-    },
-    {
-      "label": "OverlayViewModel",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L35",
-      "_origin": "ast",
-      "id": "overlayviewmodel",
-      "community": 8,
-      "norm_label": "overlayviewmodel"
-    },
-    {
-      "label": ".ShowDebugOverlay()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L46",
-      "_origin": "ast",
-      "id": "huntandpeck_app_xaml_app_showdebugoverlay",
-      "community": 8,
-      "norm_label": ".showdebugoverlay()"
-    },
-    {
-      "label": "DebugOverlayViewModel",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L46",
-      "_origin": "ast",
-      "id": "debugoverlayviewmodel",
-      "community": 8,
-      "norm_label": "debugoverlayviewmodel"
-    },
-    {
-      "label": ".ShowOptions()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L55",
-      "_origin": "ast",
-      "id": "huntandpeck_app_xaml_app_showoptions",
-      "community": 8,
-      "norm_label": ".showoptions()"
-    },
-    {
-      "label": "OptionsViewModel",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L55",
-      "_origin": "ast",
-      "id": "optionsviewmodel",
-      "community": 8,
-      "norm_label": "optionsviewmodel"
-    },
-    {
-      "label": ".OnStartup()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "huntandpeck_app_xaml_app_onstartup",
-      "community": 8,
-      "norm_label": ".onstartup()"
-    },
-    {
-      "label": "StartupEventArgs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/App.xaml.cs",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "startupeventargs",
-      "community": 8,
-      "norm_label": "startupeventargs"
-    },
-    {
-      "label": "net10.0-windows",
-      "file_type": "concept",
-      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "src_huntandpeck_huntandpeck_csproj_framework_net10_0_windows",
-      "community": 5,
-      "norm_label": "net10.0-windows"
-    },
-    {
-      "label": "Hardcodet.NotifyIcon.Wpf (1.1.0)",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "nuget_hardcodet_notifyicon_wpf",
-      "community": 5,
-      "norm_label": "hardcodet.notifyicon.wpf (1.1.0)"
-    },
-    {
-      "label": "System.Data.DataSetExtensions (4.5.0)",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "nuget_system_data_datasetextensions",
-      "community": 5,
-      "norm_label": "system.data.datasetextensions (4.5.0)"
-    },
-    {
-      "label": "Microsoft.NET.Sdk",
-      "file_type": "concept",
-      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "src_huntandpeck_huntandpeck_csproj_sdk_microsoft_net_sdk",
-      "community": 5,
-      "norm_label": "microsoft.net.sdk"
-    },
-    {
-      "label": "UiAutomationExpandCollapseHint.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
+      "label": "Vimium",
+      "file_type": "document",
+      "source_file": "README.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "models_uiautomationexpandcollapsehint",
-      "community": 1,
-      "norm_label": "uiautomationexpandcollapsehint.cs"
+      "id": "readme_vimium",
+      "community": 13,
+      "norm_label": "vimium"
     },
     {
-      "label": "HuntAndPeck.Models",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "models_uiautomationexpandcollapsehint_huntandpeck_models",
-      "community": 1,
-      "norm_label": "huntandpeck.models"
-    },
-    {
-      "label": "UiAutomationExpandCollapseHint",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "models_uiautomationexpandcollapsehint_uiautomationexpandcollapsehint",
-      "community": 1,
-      "norm_label": "uiautomationexpandcollapsehint"
-    },
-    {
-      "label": "IUIAutomationExpandCollapsePattern",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "iuiautomationexpandcollapsepattern",
-      "community": 1,
-      "norm_label": "iuiautomationexpandcollapsepattern"
-    },
-    {
-      "label": ".Invoke()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "models_uiautomationexpandcollapsehint_uiautomationexpandcollapsehint_invoke",
-      "community": 1,
-      "norm_label": ".invoke()"
-    },
-    {
-      "label": "UiAutomationFocusHint.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "models_uiautomationfocushint",
-      "community": 1,
-      "norm_label": "uiautomationfocushint.cs"
-    },
-    {
-      "label": "HuntAndPeck.Models",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "models_uiautomationfocushint_huntandpeck_models",
-      "community": 1,
-      "norm_label": "huntandpeck.models"
-    },
-    {
-      "label": "UiAutomationFocusHint",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "models_uiautomationfocushint_uiautomationfocushint",
-      "community": 1,
-      "norm_label": "uiautomationfocushint"
-    },
-    {
-      "label": "IUIAutomationElement",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "src_huntandpeck_models_uiautomationfocushint_cs_iuiautomationelement",
-      "community": 1,
-      "norm_label": "iuiautomationelement"
-    },
-    {
-      "label": ".Invoke()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "models_uiautomationfocushint_uiautomationfocushint_invoke",
-      "community": 1,
-      "norm_label": ".invoke()"
-    },
-    {
-      "label": "UiAutomationInvokeHint.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "models_uiautomationinvokehint",
-      "community": 1,
-      "norm_label": "uiautomationinvokehint.cs"
-    },
-    {
-      "label": "HuntAndPeck.Models",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "models_uiautomationinvokehint_huntandpeck_models",
-      "community": 1,
-      "norm_label": "huntandpeck.models"
-    },
-    {
-      "label": "UiAutomationInvokeHint",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "models_uiautomationinvokehint_uiautomationinvokehint",
-      "community": 1,
-      "norm_label": "uiautomationinvokehint"
-    },
-    {
-      "label": "IUIAutomationInvokePattern",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "iuiautomationinvokepattern",
-      "community": 1,
-      "norm_label": "iuiautomationinvokepattern"
-    },
-    {
-      "label": ".Invoke()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "models_uiautomationinvokehint_uiautomationinvokehint_invoke",
-      "community": 1,
-      "norm_label": ".invoke()"
-    },
-    {
-      "label": "UiAutomationSelectHint.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "models_uiautomationselecthint",
-      "community": 1,
-      "norm_label": "uiautomationselecthint.cs"
-    },
-    {
-      "label": "HuntAndPeck.Models",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "models_uiautomationselecthint_huntandpeck_models",
-      "community": 1,
-      "norm_label": "huntandpeck.models"
-    },
-    {
-      "label": "UiAutomationSelectHint",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "models_uiautomationselecthint_uiautomationselecthint",
-      "community": 1,
-      "norm_label": "uiautomationselecthint"
-    },
-    {
-      "label": "IUIAutomationSelectionItemPattern",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "iuiautomationselectionitempattern",
-      "community": 1,
-      "norm_label": "iuiautomationselectionitempattern"
-    },
-    {
-      "label": ".Invoke()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "models_uiautomationselecthint_uiautomationselecthint_invoke",
-      "community": 1,
-      "norm_label": ".invoke()"
-    },
-    {
-      "label": "UiAutomationToggleHint.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "models_uiautomationtogglehint",
-      "community": 1,
-      "norm_label": "uiautomationtogglehint.cs"
-    },
-    {
-      "label": "HuntAndPeck.Models",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "models_uiautomationtogglehint_huntandpeck_models",
-      "community": 1,
-      "norm_label": "huntandpeck.models"
-    },
-    {
-      "label": "UiAutomationToggleHint",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "models_uiautomationtogglehint_uiautomationtogglehint",
-      "community": 1,
-      "norm_label": "uiautomationtogglehint"
-    },
-    {
-      "label": "IUIAutomationTogglePattern",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "iuiautomationtogglepattern",
-      "community": 1,
-      "norm_label": "iuiautomationtogglepattern"
-    },
-    {
-      "label": ".Invoke()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "models_uiautomationtogglehint_uiautomationtogglehint_invoke",
-      "community": 1,
-      "norm_label": ".invoke()"
-    },
-    {
-      "label": "IHintProviderService.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "interfaces_ihintproviderservice",
-      "community": 20,
-      "norm_label": "ihintproviderservice.cs"
-    },
-    {
-      "label": "HuntAndPeck.Services.Interfaces",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
-      "source_location": "L5",
-      "_origin": "ast",
-      "id": "interfaces_ihintproviderservice_huntandpeck_services_interfaces",
-      "community": 20,
-      "norm_label": "huntandpeck.services.interfaces"
-    },
-    {
-      "label": "IHintProviderService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "interfaces_ihintproviderservice_ihintproviderservice",
-      "community": 20,
-      "norm_label": "ihintproviderservice"
-    },
-    {
-      "label": ".EnumHints()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
-      "source_location": "L16",
-      "_origin": "ast",
-      "id": "interfaces_ihintproviderservice_ihintproviderservice_enumhints",
-      "community": 20,
-      "norm_label": ".enumhints()"
-    },
-    {
-      "label": "HintSession",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
-      "source_location": "L16",
-      "_origin": "ast",
-      "id": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_hintsession",
-      "community": 20,
-      "norm_label": "hintsession"
-    },
-    {
-      "label": "IntPtr",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_intptr",
-      "community": 20,
-      "norm_label": "intptr"
-    },
-    {
-      "label": ".EnumHintsAsync()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
-      "source_location": "L23",
-      "_origin": "ast",
-      "id": "interfaces_ihintproviderservice_ihintproviderservice_enumhintsasync",
-      "community": 20,
-      "norm_label": ".enumhintsasync()"
-    },
-    {
-      "label": "Task",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
-      "source_location": "L23",
-      "_origin": "ast",
-      "id": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_task",
-      "community": 20,
-      "norm_label": "task"
-    },
-    {
-      "label": "KeyListenerService.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "services_keylistenerservice",
-      "community": 9,
-      "norm_label": "keylistenerservice.cs"
-    },
-    {
-      "label": "HuntAndPeck.Services",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "label": "Features",
+      "file_type": "document",
+      "source_file": "README.md",
       "source_location": "L7",
       "_origin": "ast",
-      "id": "services_keylistenerservice_huntandpeck_services",
-      "community": 9,
-      "norm_label": "huntandpeck.services"
+      "id": "readme_features",
+      "community": 13,
+      "norm_label": "features"
     },
     {
-      "label": "KeyListenerService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
-      "source_location": "L9",
-      "_origin": "ast",
-      "id": "services_keylistenerservice_keylistenerservice",
-      "community": 9,
-      "norm_label": "keylistenerservice"
-    },
-    {
-      "label": "Form",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "form",
-      "community": 9,
-      "norm_label": "form"
-    },
-    {
-      "label": "IKeyListenerService",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "ikeylistenerservice",
-      "community": 9,
-      "norm_label": "ikeylistenerservice"
-    },
-    {
-      "label": "IDisposable",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "idisposable",
-      "community": 3,
-      "norm_label": "idisposable"
-    },
-    {
-      "label": "int",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "int",
-      "community": 9,
-      "norm_label": "int"
-    },
-    {
-      "label": "HotKey",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
-      "source_location": "L20",
-      "_origin": "ast",
-      "id": "hotkey",
-      "community": 9,
-      "norm_label": "hotkey"
-    },
-    {
-      "label": ".ReRegisterHotKey()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
-      "source_location": "L27",
-      "_origin": "ast",
-      "id": "services_keylistenerservice_keylistenerservice_reregisterhotkey",
-      "community": 9,
-      "norm_label": ".reregisterhotkey()"
-    },
-    {
-      "label": ".WndProc()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
-      "source_location": "L89",
-      "_origin": "ast",
-      "id": "services_keylistenerservice_keylistenerservice_wndproc",
-      "community": 9,
-      "norm_label": ".wndproc()"
-    },
-    {
-      "label": "Message",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
-      "source_location": "L89",
-      "_origin": "ast",
-      "id": "message",
-      "community": 9,
-      "norm_label": "message"
-    },
-    {
-      "label": ".SetVisibleCore()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
-      "source_location": "L126",
-      "_origin": "ast",
-      "id": "services_keylistenerservice_keylistenerservice_setvisiblecore",
-      "community": 9,
-      "norm_label": ".setvisiblecore()"
-    },
-    {
-      "label": "UiAutomationHintProviderService.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice",
-      "community": 4,
-      "norm_label": "uiautomationhintproviderservice.cs"
-    },
-    {
-      "label": "HuntAndPeck.Services",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L13",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_huntandpeck_services",
-      "community": 4,
-      "norm_label": "huntandpeck.services"
-    },
-    {
-      "label": "UiAutomationHintProviderService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L15",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice",
-      "community": 4,
-      "norm_label": "uiautomationhintproviderservice"
-    },
-    {
-      "label": "IHintProviderService",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "ihintproviderservice",
-      "community": 4,
-      "norm_label": "ihintproviderservice"
-    },
-    {
-      "label": "IUIAutomation",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L17",
-      "_origin": "ast",
-      "id": "iuiautomation",
-      "community": 4,
-      "norm_label": "iuiautomation"
-    },
-    {
-      "label": ".EnumHints()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L33",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhints",
-      "community": 4,
-      "norm_label": ".enumhints()"
-    },
-    {
-      "label": "HintSession",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L33",
-      "_origin": "ast",
-      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hintsession",
-      "community": 4,
-      "norm_label": "hintsession"
-    },
-    {
-      "label": "IntPtr",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L43",
-      "_origin": "ast",
-      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_intptr",
-      "community": 4,
-      "norm_label": "intptr"
-    },
-    {
-      "label": ".EnumHintsAsync()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L59",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhintsasync",
-      "community": 4,
-      "norm_label": ".enumhintsasync()"
-    },
-    {
-      "label": "Task",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L59",
-      "_origin": "ast",
-      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_task",
-      "community": 4,
-      "norm_label": "task"
-    },
-    {
-      "label": ".EnumDebugHints()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L70",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumdebughints",
-      "community": 4,
-      "norm_label": ".enumdebughints()"
-    },
-    {
-      "label": ".EnumWindowHints()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L91",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumwindowhints",
-      "community": 4,
-      "norm_label": ".enumwindowhints()"
-    },
-    {
-      "label": "Func",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L91",
-      "_origin": "ast",
-      "id": "func",
-      "community": 4,
-      "norm_label": "func"
-    },
-    {
-      "label": "Rect",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L91",
-      "_origin": "ast",
-      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_rect",
-      "community": 4,
-      "norm_label": "rect"
-    },
-    {
-      "label": "IUIAutomationElement",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L91",
-      "_origin": "ast",
-      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_iuiautomationelement",
-      "community": 4,
-      "norm_label": "iuiautomationelement"
-    },
-    {
-      "label": "Hint",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L91",
-      "_origin": "ast",
-      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint",
-      "community": 1,
-      "norm_label": "hint"
-    },
-    {
-      "label": ".EnumElements()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L134",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumelements",
-      "community": 4,
-      "norm_label": ".enumelements()"
-    },
-    {
-      "label": "List",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L134",
-      "_origin": "ast",
-      "id": "list",
-      "community": 4,
-      "norm_label": "list"
-    },
-    {
-      "label": ".CreateHint()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L179",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_createhint",
-      "community": 4,
-      "norm_label": ".createhint()"
-    },
-    {
-      "label": ".IsCachedReadOnly()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L234",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_iscachedreadonly",
-      "community": 4,
-      "norm_label": ".iscachedreadonly()"
-    },
-    {
-      "label": ".CreateDebugHint()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L262",
-      "_origin": "ast",
-      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_createdebughint",
-      "community": 4,
-      "norm_label": ".createdebughint()"
-    },
-    {
-      "label": "DebugHint",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
-      "source_location": "L262",
-      "_origin": "ast",
-      "id": "debughint",
-      "community": 4,
-      "norm_label": "debughint"
-    },
-    {
-      "label": "UiAutomationPatternIds.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationPatternIds.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "services_uiautomationpatternids",
-      "community": 26,
-      "norm_label": "uiautomationpatternids.cs"
-    },
-    {
-      "label": "HuntAndPeck.Services",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationPatternIds.cs",
-      "source_location": "L4",
-      "_origin": "ast",
-      "id": "services_uiautomationpatternids_huntandpeck_services",
-      "community": 26,
-      "norm_label": "huntandpeck.services"
-    },
-    {
-      "label": "UiAutomationPatternIds",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationPatternIds.cs",
-      "source_location": "L6",
-      "_origin": "ast",
-      "id": "services_uiautomationpatternids_uiautomationpatternids",
-      "community": 26,
-      "norm_label": "uiautomationpatternids"
-    },
-    {
-      "label": "Dictionary",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Services/UiAutomationPatternIds.cs",
-      "source_location": "L11",
-      "_origin": "ast",
-      "id": "dictionary",
-      "community": 26,
-      "norm_label": "dictionary"
-    },
-    {
-      "label": "OverlayViewModel.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "viewmodels_overlayviewmodel",
-      "community": 2,
-      "norm_label": "overlayviewmodel.cs"
-    },
-    {
-      "label": "HuntAndPeck.ViewModels",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
-      "source_location": "L9",
-      "_origin": "ast",
-      "id": "viewmodels_overlayviewmodel_huntandpeck_viewmodels",
-      "community": 2,
-      "norm_label": "huntandpeck.viewmodels"
-    },
-    {
-      "label": "OverlayViewModel",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
-      "source_location": "L11",
-      "_origin": "ast",
-      "id": "viewmodels_overlayviewmodel_overlayviewmodel",
-      "community": 2,
-      "norm_label": "overlayviewmodel"
-    },
-    {
-      "label": "NotifyPropertyChanged",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "notifypropertychanged",
-      "community": 2,
-      "norm_label": "notifypropertychanged"
-    },
-    {
-      "label": "Rect",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
-      "source_location": "L13",
-      "_origin": "ast",
-      "id": "src_huntandpeck_viewmodels_overlayviewmodel_cs_rect",
-      "community": 2,
-      "norm_label": "rect"
-    },
-    {
-      "label": "ObservableCollection",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
-      "source_location": "L14",
-      "_origin": "ast",
-      "id": "observablecollection",
-      "community": 2,
-      "norm_label": "observablecollection"
-    },
-    {
-      "label": "bool",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
-      "source_location": "L15",
-      "_origin": "ast",
-      "id": "src_huntandpeck_viewmodels_overlayviewmodel_cs_bool",
-      "community": 2,
-      "norm_label": "bool"
-    },
-    {
-      "label": ".PopulateHints()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
-      "source_location": "L41",
-      "_origin": "ast",
-      "id": "viewmodels_overlayviewmodel_overlayviewmodel_populatehints",
-      "community": 2,
-      "norm_label": ".populatehints()"
-    },
-    {
-      "label": "HintSession",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
-      "source_location": "L41",
-      "_origin": "ast",
-      "id": "src_huntandpeck_viewmodels_overlayviewmodel_cs_hintsession",
-      "community": 2,
-      "norm_label": "hintsession"
-    },
-    {
-      "label": "IHintLabelService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
-      "source_location": "L41",
-      "_origin": "ast",
-      "id": "src_huntandpeck_viewmodels_overlayviewmodel_cs_ihintlabelservice",
-      "community": 2,
-      "norm_label": "ihintlabelservice"
-    },
-    {
-      "label": "ShellViewModel.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "viewmodels_shellviewmodel",
-      "community": 7,
-      "norm_label": "shellviewmodel.cs"
-    },
-    {
-      "label": "HuntAndPeck.ViewModels",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L10",
-      "_origin": "ast",
-      "id": "viewmodels_shellviewmodel_huntandpeck_viewmodels",
-      "community": 7,
-      "norm_label": "huntandpeck.viewmodels"
-    },
-    {
-      "label": "ShellViewModel",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L12",
-      "_origin": "ast",
-      "id": "viewmodels_shellviewmodel_shellviewmodel",
-      "community": 7,
-      "norm_label": "shellviewmodel"
-    },
-    {
-      "label": "Action",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L14",
-      "_origin": "ast",
-      "id": "action",
-      "community": 7,
-      "norm_label": "action"
-    },
-    {
-      "label": "IHintLabelService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L17",
-      "_origin": "ast",
-      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_ihintlabelservice",
-      "community": 7,
-      "norm_label": "ihintlabelservice"
-    },
-    {
-      "label": "IHintProviderService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L18",
-      "_origin": "ast",
-      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_ihintproviderservice",
-      "community": 7,
-      "norm_label": "ihintproviderservice"
-    },
-    {
-      "label": "IDebugHintProviderService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "label": "Download",
+      "file_type": "document",
+      "source_file": "README.md",
       "source_location": "L19",
       "_origin": "ast",
-      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_idebughintproviderservice",
-      "community": 7,
-      "norm_label": "idebughintproviderservice"
+      "id": "readme_download",
+      "community": 13,
+      "norm_label": "download"
     },
     {
-      "label": "bool",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L73",
+      "label": "How to use",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L23",
       "_origin": "ast",
-      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_bool",
-      "community": 7,
-      "norm_label": "bool"
+      "id": "readme_how_to_use",
+      "community": 13,
+      "norm_label": "how to use"
     },
     {
-      "label": "._keyListener_OnHotKeyActivated()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "label": "Interaction modes",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L30",
+      "_origin": "ast",
+      "id": "readme_interaction_modes",
+      "community": 13,
+      "norm_label": "interaction modes"
+    },
+    {
+      "label": "Command-line",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "readme_command_line",
+      "community": 13,
+      "norm_label": "command-line"
+    },
+    {
+      "label": "Auto-start with elevated privileges",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "readme_auto_start_with_elevated_privileges",
+      "community": 13,
+      "norm_label": "auto-start with elevated privileges"
+    },
+    {
+      "label": "Supported controls",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "readme_supported_controls",
+      "community": 13,
+      "norm_label": "supported controls"
+    },
+    {
+      "label": "How to change font size",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L71",
+      "_origin": "ast",
+      "id": "readme_how_to_change_font_size",
+      "community": 13,
+      "norm_label": "how to change font size"
+    },
+    {
+      "label": "Screenshots",
+      "file_type": "document",
+      "source_file": "README.md",
       "source_location": "L75",
       "_origin": "ast",
-      "id": "viewmodels_shellviewmodel_shellviewmodel_keylistener_onhotkeyactivated",
-      "community": 7,
-      "norm_label": "._keylistener_onhotkeyactivated()"
+      "id": "readme_screenshots",
+      "community": 13,
+      "norm_label": "screenshots"
     },
     {
-      "label": "EventArgs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L75",
+      "label": "Building",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L80",
       "_origin": "ast",
-      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_eventargs",
-      "community": 7,
-      "norm_label": "eventargs"
+      "id": "readme_building",
+      "community": 13,
+      "norm_label": "building"
     },
     {
-      "label": "._keyListener_OnTaskbarHotKeyActivated()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L120",
+      "label": "License & Credits",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L88",
       "_origin": "ast",
-      "id": "viewmodels_shellviewmodel_shellviewmodel_keylistener_ontaskbarhotkeyactivated",
-      "community": 7,
-      "norm_label": "._keylistener_ontaskbarhotkeyactivated()"
+      "id": "readme_license_credits",
+      "community": 13,
+      "norm_label": "license & credits"
     },
     {
-      "label": "._keyListener_OnDebugHotKeyActivated()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L162",
-      "_origin": "ast",
-      "id": "viewmodels_shellviewmodel_shellviewmodel_keylistener_ondebughotkeyactivated",
-      "community": 7,
-      "norm_label": "._keylistener_ondebughotkeyactivated()"
-    },
-    {
-      "label": ".Exit()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L172",
-      "_origin": "ast",
-      "id": "viewmodels_shellviewmodel_shellviewmodel_exit",
-      "community": 7,
-      "norm_label": ".exit()"
-    },
-    {
-      "label": ".ShowOptions()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
-      "source_location": "L177",
-      "_origin": "ast",
-      "id": "viewmodels_shellviewmodel_shellviewmodel_showoptions",
-      "community": 7,
-      "norm_label": ".showoptions()"
-    },
-    {
-      "label": "OverlayView.xaml.cs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "label": "CHANGELOG.md",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "views_overlayview_xaml",
-      "community": 10,
-      "norm_label": "overlayview.xaml.cs"
+      "community": 12,
+      "norm_label": "changelog.md",
+      "id": "changelog"
     },
     {
-      "label": "HuntAndPeck.Views",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L9",
+      "label": "Changelog",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L1",
       "_origin": "ast",
-      "id": "views_overlayview_xaml_huntandpeck_views",
-      "community": 10,
-      "norm_label": "huntandpeck.views"
+      "community": 12,
+      "norm_label": "changelog",
+      "id": "changelog_changelog"
     },
     {
-      "label": "OverlayView",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L14",
+      "label": "v1.2 \u2014 Instant overlay, async hints",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L5",
       "_origin": "ast",
-      "id": "views_overlayview_xaml_overlayview",
-      "community": 10,
-      "norm_label": "overlayview"
+      "community": 12,
+      "norm_label": "v1.2 \u2014 instant overlay, async hints",
+      "id": "changelog_v1_2_instant_overlay_async_hints"
     },
     {
-      "label": "KeyboardHookService",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "label": "Changed",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "community": 12,
+      "norm_label": "changed",
+      "id": "changelog_changed"
+    },
+    {
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 12,
+      "norm_label": "added",
+      "id": "changelog_added"
+    },
+    {
+      "label": "Removed",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
       "source_location": "L16",
       "_origin": "ast",
-      "id": "keyboardhookservice",
-      "community": 10,
-      "norm_label": "keyboardhookservice"
+      "community": 12,
+      "norm_label": "removed",
+      "id": "changelog_removed"
     },
     {
-      "label": "DispatcherTimer",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L17",
+      "label": "v1.1 \u2014 Elevated, popup-friendly, faster",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L20",
       "_origin": "ast",
-      "id": "dispatchertimer",
-      "community": 10,
-      "norm_label": "dispatchertimer"
+      "community": 12,
+      "norm_label": "v1.1 \u2014 elevated, popup-friendly, faster",
+      "id": "changelog_v1_1_elevated_popup_friendly_faster"
     },
     {
-      "label": "string",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L18",
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L22",
       "_origin": "ast",
-      "id": "src_huntandpeck_views_overlayview_xaml_cs_string",
-      "community": 10,
-      "norm_label": "string"
+      "community": 12,
+      "norm_label": "added",
+      "id": "changelog_added_22"
     },
     {
-      "label": ".OverlayView_OnLoaded()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "label": "Changed",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
       "source_location": "L31",
       "_origin": "ast",
-      "id": "views_overlayview_xaml_overlayview_overlayview_onloaded",
-      "community": 10,
-      "norm_label": ".overlayview_onloaded()"
+      "community": 12,
+      "norm_label": "changed",
+      "id": "changelog_changed_31"
     },
     {
-      "label": "RoutedEventArgs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L31",
+      "label": "Fixed",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L38",
       "_origin": "ast",
-      "id": "routedeventargs",
-      "community": 10,
-      "norm_label": "routedeventargs"
+      "community": 12,
+      "norm_label": "fixed",
+      "id": "changelog_fixed"
     },
     {
-      "label": ".OverlayView_OnClosed()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L56",
+      "label": "v1.0 \u2014 Mouse interaction",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L42",
       "_origin": "ast",
-      "id": "views_overlayview_xaml_overlayview_overlayview_onclosed",
-      "community": 10,
-      "norm_label": ".overlayview_onclosed()"
+      "community": 12,
+      "norm_label": "v1.0 \u2014 mouse interaction",
+      "id": "changelog_v1_0_mouse_interaction"
     },
     {
-      "label": "EventArgs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L56",
+      "label": "Added",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L44",
       "_origin": "ast",
-      "id": "src_huntandpeck_views_overlayview_xaml_cs_eventargs",
-      "community": 10,
-      "norm_label": "eventargs"
-    },
-    {
-      "label": ".KeyboardHook_KeyDown()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "views_overlayview_xaml_overlayview_keyboardhook_keydown",
-      "community": 10,
-      "norm_label": ".keyboardhook_keydown()"
-    },
-    {
-      "label": "KeyDownEventArgs",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L64",
-      "_origin": "ast",
-      "id": "keydowneventargs",
-      "community": 10,
-      "norm_label": "keydowneventargs"
-    },
-    {
-      "label": ".UpdateInput()",
-      "file_type": "code",
-      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
-      "source_location": "L106",
-      "_origin": "ast",
-      "id": "views_overlayview_xaml_overlayview_updateinput",
-      "community": 10,
-      "norm_label": ".updateinput()"
-    },
-    {
-      "label": "net10.0-windows",
-      "file_type": "concept",
-      "source_file": "src/NativeMethods/NativeMethods.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "src_nativemethods_nativemethods_csproj_framework_net10_0_windows",
-      "community": 5,
-      "norm_label": "net10.0-windows"
-    },
-    {
-      "label": "Microsoft.NET.Sdk",
-      "file_type": "concept",
-      "source_file": "src/NativeMethods/NativeMethods.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "src_nativemethods_nativemethods_csproj_sdk_microsoft_net_sdk",
-      "community": 5,
-      "norm_label": "microsoft.net.sdk"
+      "community": 12,
+      "norm_label": "added",
+      "id": "changelog_added_44"
     },
     {
       "label": "SolutionInfo.cs",
@@ -1419,9 +259,9 @@
       "source_file": "src/SolutionInfo.cs",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "src_solutioninfo",
       "community": 28,
-      "norm_label": "solutioninfo.cs"
+      "norm_label": "solutioninfo.cs",
+      "id": "src_solutioninfo"
     },
     {
       "label": "System",
@@ -1429,9 +269,9 @@
       "source_file": "src/SolutionInfo.cs",
       "source_location": "L10",
       "_origin": "ast",
-      "id": "src_solutioninfo_system",
       "community": 28,
-      "norm_label": "system"
+      "norm_label": "system",
+      "id": "src_solutioninfo_system"
     },
     {
       "label": "AssemblyVersionInformation",
@@ -1439,9 +279,9 @@
       "source_file": "src/SolutionInfo.cs",
       "source_location": "L11",
       "_origin": "ast",
-      "id": "src_solutioninfo_assemblyversioninformation",
       "community": 28,
-      "norm_label": "assemblyversioninformation"
+      "norm_label": "assemblyversioninformation",
+      "id": "src_solutioninfo_assemblyversioninformation"
     },
     {
       "label": "string",
@@ -1449,9 +289,1419 @@
       "source_file": "src/SolutionInfo.cs",
       "source_location": "L12",
       "_origin": "ast",
-      "id": "src_solutioninfo_cs_string",
       "community": 28,
-      "norm_label": "string"
+      "norm_label": "string",
+      "id": "string"
+    },
+    {
+      "label": "HuntAndPeck.Tests",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "huntandpeck.tests",
+      "id": "huntandpeck_tests_huntandpeck_tests"
+    },
+    {
+      "label": "net10.0-windows",
+      "file_type": "concept",
+      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "net10.0-windows",
+      "id": "src_huntandpeck_tests_huntandpeck_tests_csproj_framework_net10_0_windows"
+    },
+    {
+      "label": "Microsoft.NET.Test.Sdk (17.11.1)",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "microsoft.net.test.sdk (17.11.1)",
+      "id": "nuget_microsoft_net_test_sdk"
+    },
+    {
+      "label": "xunit (2.9.0)",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "xunit (2.9.0)",
+      "id": "nuget_xunit"
+    },
+    {
+      "label": "xunit.runner.visualstudio (2.8.0)",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "xunit.runner.visualstudio (2.8.0)",
+      "id": "nuget_xunit_runner_visualstudio"
+    },
+    {
+      "label": "HuntAndPeck.csproj",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "huntandpeck.csproj",
+      "id": "huntandpeck_huntandpeck"
+    },
+    {
+      "label": "Microsoft.NET.Sdk",
+      "file_type": "concept",
+      "source_file": "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "microsoft.net.sdk",
+      "id": "src_huntandpeck_tests_huntandpeck_tests_csproj_sdk_microsoft_net_sdk"
+    },
+    {
+      "label": "HuntAndPeck.sln",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck.sln",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "huntandpeck.sln",
+      "id": "src_huntandpeck"
+    },
+    {
+      "label": "NativeMethods.csproj",
+      "file_type": "code",
+      "source_file": "src/NativeMethods/NativeMethods.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "nativemethods.csproj",
+      "id": "nativemethods_nativemethods"
+    },
+    {
+      "label": ".nuget",
+      "file_type": "code",
+      "source_file": "src/.nuget",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": ".nuget",
+      "id": "d_workspace_vim_with_mouse_src_nuget"
+    },
+    {
+      "label": "Solution Items",
+      "file_type": "code",
+      "source_file": "src/Solution Items",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "solution items",
+      "id": "d_workspace_vim_with_mouse_src_solution_items"
+    },
+    {
+      "label": "App.xaml.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "app.xaml.cs",
+      "id": "huntandpeck_app_xaml"
+    },
+    {
+      "label": "HuntAndPeck",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L10",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "huntandpeck",
+      "id": "huntandpeck_app_xaml_huntandpeck"
+    },
+    {
+      "label": "App",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L15",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "app",
+      "id": "huntandpeck_app_xaml_app"
+    },
+    {
+      "label": "Application",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "application",
+      "id": "application"
+    },
+    {
+      "label": "SingleLaunchMutex",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L17",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "singlelaunchmutex",
+      "id": "singlelaunchmutex"
+    },
+    {
+      "label": "UiAutomationHintProviderService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L18",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "uiautomationhintproviderservice",
+      "id": "uiautomationhintproviderservice"
+    },
+    {
+      "label": "HintLabelService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "hintlabelservice",
+      "id": "hintlabelservice"
+    },
+    {
+      "label": "KeyListenerService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L21",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "keylistenerservice",
+      "id": "keylistenerservice"
+    },
+    {
+      "label": ".ShowOverlay()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L35",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": ".showoverlay()",
+      "id": "huntandpeck_app_xaml_app_showoverlay"
+    },
+    {
+      "label": "OverlayViewModel",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L35",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "overlayviewmodel",
+      "id": "overlayviewmodel"
+    },
+    {
+      "label": ".ShowDebugOverlay()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L46",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": ".showdebugoverlay()",
+      "id": "huntandpeck_app_xaml_app_showdebugoverlay"
+    },
+    {
+      "label": "DebugOverlayViewModel",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L46",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "debugoverlayviewmodel",
+      "id": "debugoverlayviewmodel"
+    },
+    {
+      "label": ".ShowOptions()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L55",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": ".showoptions()",
+      "id": "huntandpeck_app_xaml_app_showoptions"
+    },
+    {
+      "label": "OptionsViewModel",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L55",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "optionsviewmodel",
+      "id": "optionsviewmodel"
+    },
+    {
+      "label": ".OnStartup()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L64",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": ".onstartup()",
+      "id": "huntandpeck_app_xaml_app_onstartup"
+    },
+    {
+      "label": "StartupEventArgs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/App.xaml.cs",
+      "source_location": "L64",
+      "_origin": "ast",
+      "community": 8,
+      "norm_label": "startupeventargs",
+      "id": "startupeventargs"
+    },
+    {
+      "label": "net10.0-windows",
+      "file_type": "concept",
+      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "net10.0-windows",
+      "id": "src_huntandpeck_huntandpeck_csproj_framework_net10_0_windows"
+    },
+    {
+      "label": "Hardcodet.NotifyIcon.Wpf (1.1.0)",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "hardcodet.notifyicon.wpf (1.1.0)",
+      "id": "nuget_hardcodet_notifyicon_wpf"
+    },
+    {
+      "label": "System.Data.DataSetExtensions (4.5.0)",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "system.data.datasetextensions (4.5.0)",
+      "id": "nuget_system_data_datasetextensions"
+    },
+    {
+      "label": "Microsoft.NET.Sdk",
+      "file_type": "concept",
+      "source_file": "src/HuntAndPeck/HuntAndPeck.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "microsoft.net.sdk",
+      "id": "src_huntandpeck_huntandpeck_csproj_sdk_microsoft_net_sdk"
+    },
+    {
+      "label": "UiAutomationExpandCollapseHint.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationexpandcollapsehint.cs",
+      "id": "models_uiautomationexpandcollapsehint"
+    },
+    {
+      "label": "HuntAndPeck.Models",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
+      "source_location": "L5",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "huntandpeck.models",
+      "id": "models_uiautomationexpandcollapsehint_huntandpeck_models"
+    },
+    {
+      "label": "UiAutomationExpandCollapseHint",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
+      "source_location": "L10",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationexpandcollapsehint",
+      "id": "models_uiautomationexpandcollapsehint_uiautomationexpandcollapsehint"
+    },
+    {
+      "label": "IUIAutomationExpandCollapsePattern",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "iuiautomationexpandcollapsepattern",
+      "id": "iuiautomationexpandcollapsepattern"
+    },
+    {
+      "label": ".Invoke()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": ".invoke()",
+      "id": "models_uiautomationexpandcollapsehint_uiautomationexpandcollapsehint_invoke"
+    },
+    {
+      "label": "UiAutomationFocusHint.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationfocushint.cs",
+      "id": "models_uiautomationfocushint"
+    },
+    {
+      "label": "HuntAndPeck.Models",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
+      "source_location": "L5",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "huntandpeck.models",
+      "id": "models_uiautomationfocushint_huntandpeck_models"
+    },
+    {
+      "label": "UiAutomationFocusHint",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
+      "source_location": "L10",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationfocushint",
+      "id": "models_uiautomationfocushint_uiautomationfocushint"
+    },
+    {
+      "label": "IUIAutomationElement",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "iuiautomationelement",
+      "id": "src_huntandpeck_models_uiautomationfocushint_cs_iuiautomationelement"
+    },
+    {
+      "label": ".Invoke()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": ".invoke()",
+      "id": "models_uiautomationfocushint_uiautomationfocushint_invoke"
+    },
+    {
+      "label": "UiAutomationInvokeHint.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationinvokehint.cs",
+      "id": "models_uiautomationinvokehint"
+    },
+    {
+      "label": "HuntAndPeck.Models",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
+      "source_location": "L5",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "huntandpeck.models",
+      "id": "models_uiautomationinvokehint_huntandpeck_models"
+    },
+    {
+      "label": "UiAutomationInvokeHint",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
+      "source_location": "L10",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationinvokehint",
+      "id": "models_uiautomationinvokehint_uiautomationinvokehint"
+    },
+    {
+      "label": "IUIAutomationInvokePattern",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "iuiautomationinvokepattern",
+      "id": "iuiautomationinvokepattern"
+    },
+    {
+      "label": ".Invoke()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": ".invoke()",
+      "id": "models_uiautomationinvokehint_uiautomationinvokehint_invoke"
+    },
+    {
+      "label": "UiAutomationSelectHint.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationselecthint.cs",
+      "id": "models_uiautomationselecthint"
+    },
+    {
+      "label": "HuntAndPeck.Models",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
+      "source_location": "L5",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "huntandpeck.models",
+      "id": "models_uiautomationselecthint_huntandpeck_models"
+    },
+    {
+      "label": "UiAutomationSelectHint",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
+      "source_location": "L10",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationselecthint",
+      "id": "models_uiautomationselecthint_uiautomationselecthint"
+    },
+    {
+      "label": "IUIAutomationSelectionItemPattern",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "iuiautomationselectionitempattern",
+      "id": "iuiautomationselectionitempattern"
+    },
+    {
+      "label": ".Invoke()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": ".invoke()",
+      "id": "models_uiautomationselecthint_uiautomationselecthint_invoke"
+    },
+    {
+      "label": "UiAutomationToggleHint.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationtogglehint.cs",
+      "id": "models_uiautomationtogglehint"
+    },
+    {
+      "label": "HuntAndPeck.Models",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
+      "source_location": "L5",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "huntandpeck.models",
+      "id": "models_uiautomationtogglehint_huntandpeck_models"
+    },
+    {
+      "label": "UiAutomationToggleHint",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
+      "source_location": "L10",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "uiautomationtogglehint",
+      "id": "models_uiautomationtogglehint_uiautomationtogglehint"
+    },
+    {
+      "label": "IUIAutomationTogglePattern",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "iuiautomationtogglepattern",
+      "id": "iuiautomationtogglepattern"
+    },
+    {
+      "label": ".Invoke()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": ".invoke()",
+      "id": "models_uiautomationtogglehint_uiautomationtogglehint_invoke"
+    },
+    {
+      "label": "IHintProviderService.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 20,
+      "norm_label": "ihintproviderservice.cs",
+      "id": "interfaces_ihintproviderservice"
+    },
+    {
+      "label": "HuntAndPeck.Services.Interfaces",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
+      "source_location": "L5",
+      "_origin": "ast",
+      "community": 20,
+      "norm_label": "huntandpeck.services.interfaces",
+      "id": "interfaces_ihintproviderservice_huntandpeck_services_interfaces"
+    },
+    {
+      "label": "IHintProviderService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
+      "source_location": "L10",
+      "_origin": "ast",
+      "community": 20,
+      "norm_label": "ihintproviderservice",
+      "id": "interfaces_ihintproviderservice_ihintproviderservice"
+    },
+    {
+      "label": ".EnumHints()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
+      "source_location": "L16",
+      "_origin": "ast",
+      "community": 20,
+      "norm_label": ".enumhints()",
+      "id": "interfaces_ihintproviderservice_ihintproviderservice_enumhints"
+    },
+    {
+      "label": "HintSession",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
+      "source_location": "L16",
+      "_origin": "ast",
+      "community": 20,
+      "norm_label": "hintsession",
+      "id": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_hintsession"
+    },
+    {
+      "label": "IntPtr",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
+      "source_location": "L18",
+      "_origin": "ast",
+      "community": 20,
+      "norm_label": "intptr",
+      "id": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_intptr"
+    },
+    {
+      "label": ".EnumHintsAsync()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
+      "source_location": "L23",
+      "_origin": "ast",
+      "community": 20,
+      "norm_label": ".enumhintsasync()",
+      "id": "interfaces_ihintproviderservice_ihintproviderservice_enumhintsasync"
+    },
+    {
+      "label": "Task",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
+      "source_location": "L23",
+      "_origin": "ast",
+      "community": 20,
+      "norm_label": "task",
+      "id": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_task"
+    },
+    {
+      "label": "KeyListenerService.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "keylistenerservice.cs",
+      "id": "services_keylistenerservice"
+    },
+    {
+      "label": "HuntAndPeck.Services",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "source_location": "L7",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "huntandpeck.services",
+      "id": "services_keylistenerservice_huntandpeck_services"
+    },
+    {
+      "label": "KeyListenerService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "source_location": "L9",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "keylistenerservice",
+      "id": "services_keylistenerservice_keylistenerservice"
+    },
+    {
+      "label": "Form",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "form",
+      "id": "form"
+    },
+    {
+      "label": "IKeyListenerService",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "ikeylistenerservice",
+      "id": "ikeylistenerservice"
+    },
+    {
+      "label": "IDisposable",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "idisposable",
+      "id": "idisposable"
+    },
+    {
+      "label": "int",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "source_location": "L18",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "int",
+      "id": "int"
+    },
+    {
+      "label": "HotKey",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "source_location": "L20",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "hotkey",
+      "id": "hotkey"
+    },
+    {
+      "label": ".ReRegisterHotKey()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "source_location": "L27",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": ".reregisterhotkey()",
+      "id": "services_keylistenerservice_keylistenerservice_reregisterhotkey"
+    },
+    {
+      "label": ".WndProc()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "source_location": "L89",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": ".wndproc()",
+      "id": "services_keylistenerservice_keylistenerservice_wndproc"
+    },
+    {
+      "label": "Message",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "source_location": "L89",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": "message",
+      "id": "message"
+    },
+    {
+      "label": ".SetVisibleCore()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
+      "source_location": "L126",
+      "_origin": "ast",
+      "community": 9,
+      "norm_label": ".setvisiblecore()",
+      "id": "services_keylistenerservice_keylistenerservice_setvisiblecore"
+    },
+    {
+      "label": "UiAutomationHintProviderService.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "uiautomationhintproviderservice.cs",
+      "id": "services_uiautomationhintproviderservice"
+    },
+    {
+      "label": "HuntAndPeck.Services",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L13",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "huntandpeck.services",
+      "id": "services_uiautomationhintproviderservice_huntandpeck_services"
+    },
+    {
+      "label": "UiAutomationHintProviderService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L15",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "uiautomationhintproviderservice",
+      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice"
+    },
+    {
+      "label": "IHintProviderService",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "ihintproviderservice",
+      "id": "ihintproviderservice"
+    },
+    {
+      "label": "IUIAutomation",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L17",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "iuiautomation",
+      "id": "iuiautomation"
+    },
+    {
+      "label": ".EnumHints()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L33",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": ".enumhints()",
+      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhints"
+    },
+    {
+      "label": "HintSession",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L33",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "hintsession",
+      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hintsession"
+    },
+    {
+      "label": "IntPtr",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L43",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "intptr",
+      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_intptr"
+    },
+    {
+      "label": ".EnumHintsAsync()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L59",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": ".enumhintsasync()",
+      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhintsasync"
+    },
+    {
+      "label": "Task",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L59",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "task",
+      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_task"
+    },
+    {
+      "label": ".EnumDebugHints()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L70",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": ".enumdebughints()",
+      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumdebughints"
+    },
+    {
+      "label": ".EnumWindowHints()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L91",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": ".enumwindowhints()",
+      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumwindowhints"
+    },
+    {
+      "label": "Func",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L91",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "func",
+      "id": "func"
+    },
+    {
+      "label": "Rect",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L91",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "rect",
+      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_rect"
+    },
+    {
+      "label": "IUIAutomationElement",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L91",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "iuiautomationelement",
+      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_iuiautomationelement"
+    },
+    {
+      "label": "Hint",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L91",
+      "_origin": "ast",
+      "community": 1,
+      "norm_label": "hint",
+      "id": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint"
+    },
+    {
+      "label": ".EnumElements()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L134",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": ".enumelements()",
+      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumelements"
+    },
+    {
+      "label": "List",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L134",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "list",
+      "id": "list"
+    },
+    {
+      "label": ".CreateHint()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L179",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": ".createhint()",
+      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_createhint"
+    },
+    {
+      "label": ".IsCachedReadOnly()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L234",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": ".iscachedreadonly()",
+      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_iscachedreadonly"
+    },
+    {
+      "label": ".CreateDebugHint()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L262",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": ".createdebughint()",
+      "id": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_createdebughint"
+    },
+    {
+      "label": "DebugHint",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
+      "source_location": "L262",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "debughint",
+      "id": "debughint"
+    },
+    {
+      "label": "UiAutomationPatternIds.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationPatternIds.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 26,
+      "norm_label": "uiautomationpatternids.cs",
+      "id": "services_uiautomationpatternids"
+    },
+    {
+      "label": "HuntAndPeck.Services",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationPatternIds.cs",
+      "source_location": "L4",
+      "_origin": "ast",
+      "community": 26,
+      "norm_label": "huntandpeck.services",
+      "id": "services_uiautomationpatternids_huntandpeck_services"
+    },
+    {
+      "label": "UiAutomationPatternIds",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationPatternIds.cs",
+      "source_location": "L6",
+      "_origin": "ast",
+      "community": 26,
+      "norm_label": "uiautomationpatternids",
+      "id": "services_uiautomationpatternids_uiautomationpatternids"
+    },
+    {
+      "label": "Dictionary",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Services/UiAutomationPatternIds.cs",
+      "source_location": "L11",
+      "_origin": "ast",
+      "community": 26,
+      "norm_label": "dictionary",
+      "id": "dictionary"
+    },
+    {
+      "label": "OverlayViewModel.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "overlayviewmodel.cs",
+      "id": "viewmodels_overlayviewmodel"
+    },
+    {
+      "label": "HuntAndPeck.ViewModels",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
+      "source_location": "L9",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "huntandpeck.viewmodels",
+      "id": "viewmodels_overlayviewmodel_huntandpeck_viewmodels"
+    },
+    {
+      "label": "OverlayViewModel",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
+      "source_location": "L11",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "overlayviewmodel",
+      "id": "viewmodels_overlayviewmodel_overlayviewmodel"
+    },
+    {
+      "label": "NotifyPropertyChanged",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "notifypropertychanged",
+      "id": "notifypropertychanged"
+    },
+    {
+      "label": "Rect",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
+      "source_location": "L13",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "rect",
+      "id": "src_huntandpeck_viewmodels_overlayviewmodel_cs_rect"
+    },
+    {
+      "label": "ObservableCollection",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
+      "source_location": "L14",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "observablecollection",
+      "id": "observablecollection"
+    },
+    {
+      "label": "bool",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
+      "source_location": "L15",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "bool",
+      "id": "src_huntandpeck_viewmodels_overlayviewmodel_cs_bool"
+    },
+    {
+      "label": ".PopulateHints()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
+      "source_location": "L41",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": ".populatehints()",
+      "id": "viewmodels_overlayviewmodel_overlayviewmodel_populatehints"
+    },
+    {
+      "label": "HintSession",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
+      "source_location": "L41",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "hintsession",
+      "id": "src_huntandpeck_viewmodels_overlayviewmodel_cs_hintsession"
+    },
+    {
+      "label": "IHintLabelService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
+      "source_location": "L41",
+      "_origin": "ast",
+      "community": 2,
+      "norm_label": "ihintlabelservice",
+      "id": "src_huntandpeck_viewmodels_overlayviewmodel_cs_ihintlabelservice"
+    },
+    {
+      "label": "ShellViewModel.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "shellviewmodel.cs",
+      "id": "viewmodels_shellviewmodel"
+    },
+    {
+      "label": "HuntAndPeck.ViewModels",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L10",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "huntandpeck.viewmodels",
+      "id": "viewmodels_shellviewmodel_huntandpeck_viewmodels"
+    },
+    {
+      "label": "ShellViewModel",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L12",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "shellviewmodel",
+      "id": "viewmodels_shellviewmodel_shellviewmodel"
+    },
+    {
+      "label": "Action",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L14",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "action",
+      "id": "action"
+    },
+    {
+      "label": "IHintLabelService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L17",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "ihintlabelservice",
+      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_ihintlabelservice"
+    },
+    {
+      "label": "IHintProviderService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L18",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "ihintproviderservice",
+      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_ihintproviderservice"
+    },
+    {
+      "label": "IDebugHintProviderService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L19",
+      "_origin": "ast",
+      "community": 4,
+      "norm_label": "idebughintproviderservice",
+      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_idebughintproviderservice"
+    },
+    {
+      "label": "bool",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L73",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "bool",
+      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_bool"
+    },
+    {
+      "label": "._keyListener_OnHotKeyActivated()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L75",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "._keylistener_onhotkeyactivated()",
+      "id": "viewmodels_shellviewmodel_shellviewmodel_keylistener_onhotkeyactivated"
+    },
+    {
+      "label": "EventArgs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L75",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "eventargs",
+      "id": "src_huntandpeck_viewmodels_shellviewmodel_cs_eventargs"
+    },
+    {
+      "label": "._keyListener_OnTaskbarHotKeyActivated()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L120",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "._keylistener_ontaskbarhotkeyactivated()",
+      "id": "viewmodels_shellviewmodel_shellviewmodel_keylistener_ontaskbarhotkeyactivated"
+    },
+    {
+      "label": "._keyListener_OnDebugHotKeyActivated()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L162",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": "._keylistener_ondebughotkeyactivated()",
+      "id": "viewmodels_shellviewmodel_shellviewmodel_keylistener_ondebughotkeyactivated"
+    },
+    {
+      "label": ".Exit()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L172",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": ".exit()",
+      "id": "viewmodels_shellviewmodel_shellviewmodel_exit"
+    },
+    {
+      "label": ".ShowOptions()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/ViewModels/ShellViewModel.cs",
+      "source_location": "L177",
+      "_origin": "ast",
+      "community": 7,
+      "norm_label": ".showoptions()",
+      "id": "viewmodels_shellviewmodel_shellviewmodel_showoptions"
+    },
+    {
+      "label": "OverlayView.xaml.cs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "overlayview.xaml.cs",
+      "id": "views_overlayview_xaml"
+    },
+    {
+      "label": "HuntAndPeck.Views",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L9",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "huntandpeck.views",
+      "id": "views_overlayview_xaml_huntandpeck_views"
+    },
+    {
+      "label": "OverlayView",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L14",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "overlayview",
+      "id": "views_overlayview_xaml_overlayview"
+    },
+    {
+      "label": "KeyboardHookService",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L16",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "keyboardhookservice",
+      "id": "keyboardhookservice"
+    },
+    {
+      "label": "DispatcherTimer",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L17",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "dispatchertimer",
+      "id": "dispatchertimer"
+    },
+    {
+      "label": "string",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L18",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "string",
+      "id": "src_huntandpeck_views_overlayview_xaml_cs_string"
+    },
+    {
+      "label": ".OverlayView_OnLoaded()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L31",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": ".overlayview_onloaded()",
+      "id": "views_overlayview_xaml_overlayview_overlayview_onloaded"
+    },
+    {
+      "label": "RoutedEventArgs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L31",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "routedeventargs",
+      "id": "routedeventargs"
+    },
+    {
+      "label": ".OverlayView_OnClosed()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L56",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": ".overlayview_onclosed()",
+      "id": "views_overlayview_xaml_overlayview_overlayview_onclosed"
+    },
+    {
+      "label": "EventArgs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L56",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "eventargs",
+      "id": "src_huntandpeck_views_overlayview_xaml_cs_eventargs"
+    },
+    {
+      "label": ".KeyboardHook_KeyDown()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L64",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": ".keyboardhook_keydown()",
+      "id": "views_overlayview_xaml_overlayview_keyboardhook_keydown"
+    },
+    {
+      "label": "KeyDownEventArgs",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L64",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": "keydowneventargs",
+      "id": "keydowneventargs"
+    },
+    {
+      "label": ".UpdateInput()",
+      "file_type": "code",
+      "source_file": "src/HuntAndPeck/Views/OverlayView.xaml.cs",
+      "source_location": "L106",
+      "_origin": "ast",
+      "community": 10,
+      "norm_label": ".updateinput()",
+      "id": "views_overlayview_xaml_overlayview_updateinput"
+    },
+    {
+      "label": "net10.0-windows",
+      "file_type": "concept",
+      "source_file": "src/NativeMethods/NativeMethods.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "net10.0-windows",
+      "id": "src_nativemethods_nativemethods_csproj_framework_net10_0_windows"
+    },
+    {
+      "label": "Microsoft.NET.Sdk",
+      "file_type": "concept",
+      "source_file": "src/NativeMethods/NativeMethods.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "community": 5,
+      "norm_label": "microsoft.net.sdk",
+      "id": "src_nativemethods_nativemethods_csproj_sdk_microsoft_net_sdk"
     },
     {
       "label": "CheckInterop.csproj",
@@ -2259,7 +2509,7 @@
       "source_file": "src/HuntAndPeck/SingleLaunchMutex.cs",
       "source_location": "L1",
       "_origin": "ast",
-      "community": 3,
+      "community": 9,
       "norm_label": "singlelaunchmutex.cs",
       "id": "huntandpeck_singlelaunchmutex"
     },
@@ -2269,7 +2519,7 @@
       "source_file": "src/HuntAndPeck/SingleLaunchMutex.cs",
       "source_location": "L4",
       "_origin": "ast",
-      "community": 3,
+      "community": 9,
       "norm_label": "huntandpeck",
       "id": "huntandpeck_singlelaunchmutex_huntandpeck"
     },
@@ -2279,7 +2529,7 @@
       "source_file": "src/HuntAndPeck/SingleLaunchMutex.cs",
       "source_location": "L6",
       "_origin": "ast",
-      "community": 3,
+      "community": 9,
       "norm_label": "singlelaunchmutex",
       "id": "huntandpeck_singlelaunchmutex_singlelaunchmutex"
     },
@@ -2289,7 +2539,7 @@
       "source_file": "src/HuntAndPeck/SingleLaunchMutex.cs",
       "source_location": "L8",
       "_origin": "ast",
-      "community": 3,
+      "community": 9,
       "norm_label": "bool",
       "id": "src_huntandpeck_singlelaunchmutex_cs_bool"
     },
@@ -2299,7 +2549,7 @@
       "source_file": "src/HuntAndPeck/SingleLaunchMutex.cs",
       "source_location": "L9",
       "_origin": "ast",
-      "community": 3,
+      "community": 9,
       "norm_label": "mutex",
       "id": "mutex"
     },
@@ -2309,7 +2559,7 @@
       "source_file": "src/HuntAndPeck/SingleLaunchMutex.cs",
       "source_location": "L29",
       "_origin": "ast",
-      "community": 3,
+      "community": 9,
       "norm_label": ".dispose()",
       "id": "huntandpeck_singlelaunchmutex_singlelaunchmutex_dispose"
     },
@@ -3464,86 +3714,6 @@
       "id": "src_register_startup_task"
     },
     {
-      "label": "CHANGELOG.md",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "changelog.md",
-      "id": "changelog"
-    },
-    {
-      "label": "Changelog",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "changelog",
-      "id": "changelog_changelog"
-    },
-    {
-      "label": "v1.1 \u2014 Elevated, popup-friendly, faster",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L5",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "v1.1 \u2014 elevated, popup-friendly, faster",
-      "id": "changelog_v1_1_elevated_popup_friendly_faster"
-    },
-    {
-      "label": "Added",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L7",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "added",
-      "id": "changelog_added"
-    },
-    {
-      "label": "Changed",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L16",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "changed",
-      "id": "changelog_changed"
-    },
-    {
-      "label": "Fixed",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L23",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "fixed",
-      "id": "changelog_fixed"
-    },
-    {
-      "label": "v1.0 \u2014 Mouse interaction",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L27",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "v1.0 \u2014 mouse interaction",
-      "id": "changelog_v1_0_mouse_interaction"
-    },
-    {
-      "label": "Added",
-      "file_type": "document",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L29",
-      "_origin": "ast",
-      "community": 12,
-      "norm_label": "added",
-      "id": "changelog_added_29"
-    },
-    {
       "label": "CLAUDE.md",
       "file_type": "document",
       "source_file": "CLAUDE.md",
@@ -3562,89 +3732,330 @@
       "community": 32,
       "norm_label": "graphify",
       "id": "claude_graphify"
-    },
-    {
-      "label": "README.md",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "readme.md",
-      "id": "readme"
-    },
-    {
-      "label": "hunt-n-peck",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L1",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "hunt-n-peck",
-      "id": "readme_hunt_n_peck"
-    },
-    {
-      "label": "Download",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L13",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "download",
-      "id": "readme_download"
-    },
-    {
-      "label": "How to change font size",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L17",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "how to change font size",
-      "id": "readme_how_to_change_font_size"
-    },
-    {
-      "label": "Screenshots",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L21",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "screenshots",
-      "id": "readme_screenshots"
-    },
-    {
-      "label": "To use",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L26",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "to use",
-      "id": "readme_to_use"
-    },
-    {
-      "label": "Interaction modes",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L33",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "interaction modes",
-      "id": "readme_interaction_modes"
-    },
-    {
-      "label": "Supported Elements",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "L57",
-      "_origin": "ast",
-      "community": 13,
-      "norm_label": "supported elements",
-      "id": "readme_supported_elements"
     }
   ],
   "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme",
+      "target": "readme_download"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme",
+      "target": "readme_how_to_change_font_size"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme",
+      "target": "readme_screenshots"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "readme",
+      "target": "readme_vimium",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "readme_vimium",
+      "target": "readme_building",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "readme_vimium",
+      "target": "readme_download",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "readme_vimium",
+      "target": "readme_features",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "readme_vimium",
+      "target": "readme_how_to_change_font_size",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "readme_vimium",
+      "target": "readme_how_to_use",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L88",
+      "weight": 1.0,
+      "source": "readme_vimium",
+      "target": "readme_license_credits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "readme_vimium",
+      "target": "readme_screenshots",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "readme_vimium",
+      "target": "readme_supported_controls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "readme_how_to_use",
+      "target": "readme_auto_start_with_elevated_privileges",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "readme_how_to_use",
+      "target": "readme_command_line",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "readme_how_to_use",
+      "target": "readme_interaction_modes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "readme_screenshots",
+      "target": "readme_interaction_modes"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog",
+      "target": "changelog_changelog"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_changelog",
+      "target": "changelog_v1_0_mouse_interaction"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_changelog",
+      "target": "changelog_v1_1_elevated_popup_friendly_faster"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_changelog",
+      "target": "changelog_v1_2_instant_overlay_async_hints"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_v1_2_instant_overlay_async_hints",
+      "target": "changelog_added"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_v1_2_instant_overlay_async_hints",
+      "target": "changelog_changed"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_v1_2_instant_overlay_async_hints",
+      "target": "changelog_removed"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_v1_1_elevated_popup_friendly_faster",
+      "target": "changelog_changed"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_v1_1_elevated_popup_friendly_faster",
+      "target": "changelog_added"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L22",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_v1_1_elevated_popup_friendly_faster",
+      "target": "changelog_added_22"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_v1_1_elevated_popup_friendly_faster",
+      "target": "changelog_changed_31"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_v1_1_elevated_popup_friendly_faster",
+      "target": "changelog_fixed"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "CHANGELOG.md",
+      "source_location": "L44",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "changelog_v1_0_mouse_interaction",
+      "target": "changelog_added_44"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/SolutionInfo.cs",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_solutioninfo",
+      "target": "src_solutioninfo_assemblyversioninformation"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/SolutionInfo.cs",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_solutioninfo",
+      "target": "src_solutioninfo_system"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/SolutionInfo.cs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "context": "field",
+      "confidence_score": 1.0,
+      "source": "src_solutioninfo_assemblyversioninformation",
+      "target": "string"
+    },
     {
       "relation": "imports",
       "confidence": "EXTRACTED",
@@ -4033,9 +4444,9 @@
       "source_file": "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "models_uiautomationexpandcollapsehint_uiautomationexpandcollapsehint",
-      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint"
     },
     {
       "relation": "contains",
@@ -4094,9 +4505,9 @@
       "source_file": "src/HuntAndPeck/Models/UiAutomationFocusHint.cs",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "models_uiautomationfocushint_uiautomationfocushint",
-      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint"
     },
     {
       "relation": "contains",
@@ -4155,9 +4566,9 @@
       "source_file": "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "models_uiautomationinvokehint_uiautomationinvokehint",
-      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint"
     },
     {
       "relation": "contains",
@@ -4216,9 +4627,9 @@
       "source_file": "src/HuntAndPeck/Models/UiAutomationSelectHint.cs",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "models_uiautomationselecthint_uiautomationselecthint",
-      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint"
     },
     {
       "relation": "contains",
@@ -4277,9 +4688,9 @@
       "source_file": "src/HuntAndPeck/Models/UiAutomationToggleHint.cs",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "models_uiautomationtogglehint_uiautomationtogglehint",
-      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hint"
     },
     {
       "relation": "contains",
@@ -4317,9 +4728,9 @@
       "source_file": "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs",
       "source_location": "L23",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "interfaces_ihintproviderservice_ihintproviderservice",
-      "target": "interfaces_ihintproviderservice_ihintproviderservice_enumhintsasync",
-      "confidence_score": 1.0
+      "target": "interfaces_ihintproviderservice_ihintproviderservice_enumhintsasync"
     },
     {
       "relation": "references",
@@ -4350,9 +4761,9 @@
       "source_location": "L23",
       "weight": 1.0,
       "context": "generic_arg",
+      "confidence_score": 1.0,
       "source": "interfaces_ihintproviderservice_ihintproviderservice_enumhintsasync",
-      "target": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_hintsession",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_hintsession"
     },
     {
       "relation": "references",
@@ -4361,9 +4772,9 @@
       "source_location": "L23",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "interfaces_ihintproviderservice_ihintproviderservice_enumhintsasync",
-      "target": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_intptr",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_intptr"
     },
     {
       "relation": "references",
@@ -4372,9 +4783,9 @@
       "source_location": "L23",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "interfaces_ihintproviderservice_ihintproviderservice_enumhintsasync",
-      "target": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_task",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_interfaces_ihintproviderservice_cs_task"
     },
     {
       "relation": "contains",
@@ -4433,9 +4844,9 @@
       "source_file": "src/HuntAndPeck/Services/KeyListenerService.cs",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_keylistenerservice_keylistenerservice",
-      "target": "ikeylistenerservice",
-      "confidence_score": 1.0
+      "target": "ikeylistenerservice"
     },
     {
       "relation": "references",
@@ -4444,9 +4855,9 @@
       "source_location": "L18",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "services_keylistenerservice_keylistenerservice",
-      "target": "int",
-      "confidence_score": 1.0
+      "target": "int"
     },
     {
       "relation": "implements",
@@ -4637,9 +5048,9 @@
       "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
       "source_location": "L59",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_uiautomationhintproviderservice_uiautomationhintproviderservice",
-      "target": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhintsasync",
-      "confidence_score": 1.0
+      "target": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhintsasync"
     },
     {
       "relation": "method",
@@ -4667,9 +5078,9 @@
       "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_uiautomationhintproviderservice_uiautomationhintproviderservice",
-      "target": "src_huntandpeck_viewmodels_shellviewmodel_cs_idebughintproviderservice",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_viewmodels_shellviewmodel_cs_idebughintproviderservice"
     },
     {
       "relation": "calls",
@@ -4711,9 +5122,9 @@
       "source_file": "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs",
       "source_location": "L66",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhintsasync",
-      "target": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhints",
-      "confidence_score": 1.0
+      "target": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhints"
     },
     {
       "relation": "references",
@@ -4733,9 +5144,9 @@
       "source_location": "L59",
       "weight": 1.0,
       "context": "generic_arg",
+      "confidence_score": 1.0,
       "source": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhintsasync",
-      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hintsession",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_hintsession"
     },
     {
       "relation": "references",
@@ -4799,9 +5210,9 @@
       "source_location": "L59",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhintsasync",
-      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_intptr",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_intptr"
     },
     {
       "relation": "references",
@@ -4821,9 +5232,9 @@
       "source_location": "L59",
       "weight": 1.0,
       "context": "return_type",
+      "confidence_score": 1.0,
       "source": "services_uiautomationhintproviderservice_uiautomationhintproviderservice_enumhintsasync",
-      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_task",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_services_uiautomationhintproviderservice_cs_task"
     },
     {
       "relation": "calls",
@@ -5058,9 +5469,9 @@
       "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "viewmodels_overlayviewmodel_overlayviewmodel",
-      "target": "notifypropertychanged",
-      "confidence_score": 1.0
+      "target": "notifypropertychanged"
     },
     {
       "relation": "references",
@@ -5080,9 +5491,9 @@
       "source_location": "L15",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "viewmodels_overlayviewmodel_overlayviewmodel",
-      "target": "src_huntandpeck_viewmodels_overlayviewmodel_cs_bool",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_viewmodels_overlayviewmodel_cs_bool"
     },
     {
       "relation": "references",
@@ -5111,9 +5522,9 @@
       "source_file": "src/HuntAndPeck/ViewModels/OverlayViewModel.cs",
       "source_location": "L41",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "viewmodels_overlayviewmodel_overlayviewmodel",
-      "target": "viewmodels_overlayviewmodel_overlayviewmodel_populatehints",
-      "confidence_score": 1.0
+      "target": "viewmodels_overlayviewmodel_overlayviewmodel_populatehints"
     },
     {
       "relation": "references",
@@ -5122,9 +5533,9 @@
       "source_location": "L41",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "viewmodels_overlayviewmodel_overlayviewmodel_populatehints",
-      "target": "src_huntandpeck_viewmodels_overlayviewmodel_cs_hintsession",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_viewmodels_overlayviewmodel_cs_hintsession"
     },
     {
       "relation": "references",
@@ -5133,9 +5544,9 @@
       "source_location": "L41",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "viewmodels_overlayviewmodel_overlayviewmodel_populatehints",
-      "target": "src_huntandpeck_viewmodels_overlayviewmodel_cs_ihintlabelservice",
-      "confidence_score": 1.0
+      "target": "src_huntandpeck_viewmodels_overlayviewmodel_cs_ihintlabelservice"
     },
     {
       "relation": "contains",
@@ -5164,9 +5575,9 @@
       "source_location": "L16",
       "weight": 1.0,
       "context": "field",
+      "confidence_score": 1.0,
       "source": "viewmodels_shellviewmodel_shellviewmodel",
-      "target": "action",
-      "confidence_score": 1.0
+      "target": "action"
     },
     {
       "relation": "references",
@@ -5395,9 +5806,9 @@
       "source_location": "L31",
       "weight": 1.0,
       "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "views_overlayview_xaml_overlayview_overlayview_onloaded",
-      "target": "routedeventargs",
-      "confidence_score": 1.0
+      "target": "routedeventargs"
     },
     {
       "relation": "references",
@@ -5431,37 +5842,6 @@
       "confidence_score": 1.0,
       "source": "views_overlayview_xaml_overlayview_keyboardhook_keydown",
       "target": "views_overlayview_xaml_overlayview_updateinput"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/SolutionInfo.cs",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_solutioninfo",
-      "target": "src_solutioninfo_assemblyversioninformation"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/SolutionInfo.cs",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "src_solutioninfo",
-      "target": "src_solutioninfo_system"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/SolutionInfo.cs",
-      "source_location": "L10",
-      "weight": 1.0,
-      "context": "field",
-      "confidence_score": 1.0,
-      "source": "src_solutioninfo_assemblyversioninformation",
-      "target": "src_solutioninfo_cs_string"
     },
     {
       "relation": "references",
@@ -7745,154 +8125,14 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "changelog",
-      "target": "changelog_changelog"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L27",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "changelog_changelog",
-      "target": "changelog_v1_0_mouse_interaction"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "changelog_changelog",
-      "target": "changelog_v1_1_elevated_popup_friendly_faster"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "changelog_v1_1_elevated_popup_friendly_faster",
-      "target": "changelog_added"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L16",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "changelog_v1_1_elevated_popup_friendly_faster",
-      "target": "changelog_changed"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L23",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "changelog_v1_1_elevated_popup_friendly_faster",
-      "target": "changelog_fixed"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "CHANGELOG.md",
-      "source_location": "L29",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "changelog_v1_0_mouse_interaction",
-      "target": "changelog_added_29"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "CLAUDE.md",
       "source_location": "L1",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "claude",
       "target": "claude_graphify"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L13",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme",
-      "target": "readme_download"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L17",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme",
-      "target": "readme_how_to_change_font_size"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme",
-      "target": "readme_hunt_n_peck"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L21",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme",
-      "target": "readme_screenshots"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L57",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme",
-      "target": "readme_supported_elements"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L33",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_screenshots",
-      "target": "readme_interaction_modes"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "README.md",
-      "source_location": "L26",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "readme_screenshots",
-      "target": "readme_to_use"
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "efe928999f3d6a4e9014b0000cc785c706844037"
+  "built_at_commit": "52a4656a11870a683fda00b6d4e7fbd6053d9c8c"
 }

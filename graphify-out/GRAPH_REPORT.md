@@ -1,16 +1,16 @@
-# Graph Report - Vim_with_mouse  (2026-06-19)
+# Graph Report - Vimium  (2026-06-19)
 
 ## Corpus Check
-- 58 files · ~17,102 words
+- 58 files · ~17,355 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 364 nodes · 410 edges · 41 communities (33 shown, 8 thin omitted)
+- 373 nodes · 425 edges · 41 communities (33 shown, 8 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `efe92899`
+- Built from commit: `52a4656a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -60,15 +60,15 @@
 5. `ShellViewModel` - 11 edges
 6. `App` - 10 edges
 7. `KeyListenerService` - 10 edges
-8. `OverlayView` - 8 edges
-9. `HuntAndPeck.Tests` - 7 edges
-10. `IntPtr` - 7 edges
+8. `Vimium` - 9 edges
+9. `OverlayView` - 8 edges
+10. `HuntAndPeck.Tests` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `UiAutomationHintProviderService` --implements--> `IDebugHintProviderService`  [EXTRACTED]
-  src/HuntAndPeck/Services/UiAutomationHintProviderService.cs → src/HuntAndPeck/ViewModels/ShellViewModel.cs
 - `KeyListenerService` --implements--> `IKeyListenerService`  [EXTRACTED]
   src/HuntAndPeck/Services/KeyListenerService.cs → src/HuntAndPeck/Services/Interfaces/IKeyListenerService.cs
+- `UiAutomationHintProviderService` --implements--> `IDebugHintProviderService`  [EXTRACTED]
+  src/HuntAndPeck/Services/UiAutomationHintProviderService.cs → src/HuntAndPeck/ViewModels/ShellViewModel.cs
 - `UiAutomationExpandCollapseHint` --inherits--> `Hint`  [EXTRACTED]
   src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs → src/HuntAndPeck/Services/UiAutomationHintProviderService.cs
 - `UiAutomationFocusHint` --inherits--> `Hint`  [EXTRACTED]
@@ -94,12 +94,12 @@ Cohesion: 0.06
 Nodes (22): INotifyPropertyChanged, NotifyPropertyChanged, ObservableCollection, PropertyChangedEventArgs, Rect, bool, string, string (+14 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.10
-Nodes (15): EventArgs, HuntAndPeck, SingleLaunchMutex, IDisposable, KeyModifier, Keys, Mutex, HotKeyEventArgs (+7 more)
+Cohesion: 0.14
+Nodes (10): EventArgs, KeyModifier, Keys, HotKeyEventArgs, HuntAndPeck.NativeMethods, HuntAndPeck.Services, KeyboardHookService, KeyDownEventArgs (+2 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.18
-Nodes (13): DebugHint, Func, IDebugHintProviderService, IHintProviderService, IUIAutomation, List, HuntAndPeck.Services, UiAutomationHintProviderService (+5 more)
+Cohesion: 0.17
+Nodes (14): DebugHint, Func, IDebugHintProviderService, IHintProviderService, IUIAutomation, List, HuntAndPeck.Services, UiAutomationHintProviderService (+6 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.13
@@ -110,16 +110,16 @@ Cohesion: 0.12
 Nodes (11): CancelEventArgs, DrawingContext, bool, EventArgs, ForegroundWindow, HuntAndPeck.Views, HuntAndPeck.Views, OptionsView (+3 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.15
-Nodes (9): Action, Application, bool, EventArgs, IDebugHintProviderService, IHintLabelService, IHintProviderService, HuntAndPeck.ViewModels (+1 more)
+Cohesion: 0.16
+Nodes (8): Action, Application, bool, EventArgs, IHintLabelService, IHintProviderService, HuntAndPeck.ViewModels, ShellViewModel
 
 ### Community 8 - "Community 8"
 Cohesion: 0.13
 Nodes (10): DebugOverlayViewModel, HintLabelService, App, HuntAndPeck, KeyListenerService, OptionsViewModel, OverlayViewModel, SingleLaunchMutex (+2 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.14
-Nodes (10): Form, HotKey, IKeyListenerService, int, HotKey, HuntAndPeck.Services.Interfaces, IKeyListenerService, Message (+2 more)
+Cohesion: 0.10
+Nodes (15): Form, HotKey, HuntAndPeck, SingleLaunchMutex, IDisposable, IKeyListenerService, int, HotKey (+7 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.17
@@ -130,12 +130,12 @@ Cohesion: 0.22
 Nodes (5): ICommand, Predicate, Action, DelegateCommand, HuntAndPeck.ViewModels
 
 ### Community 12 - "Community 12"
-Cohesion: 0.25
-Nodes (7): Added, Added, Changed, Changelog, Fixed, v1.0 — Mouse interaction, v1.1 — Elevated, popup-friendly, faster
+Cohesion: 0.20
+Nodes (11): Added, Added, Added, Changed, Changed, Changelog, Fixed, Removed (+3 more)
 
 ### Community 13 - "Community 13"
-Cohesion: 0.25
-Nodes (7): Download, How to change font size, hunt-n-peck, Interaction modes, Screenshots, Supported Elements, To use
+Cohesion: 0.21
+Nodes (12): Auto-start with elevated privileges, Building, Command-line, Download, Features, How to change font size, How to use, Interaction modes (+4 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.33
@@ -191,22 +191,22 @@ Nodes (3): Constants, HuntAndPeck.NativeMethods, UInt32
 
 ### Community 28 - "Community 28"
 Cohesion: 0.50
-Nodes (3): AssemblyVersionInformation, string, System
+Nodes (3): AssemblyVersionInformation, System, string
 
 ## Knowledge Gaps
-- **145 isolated node(s):** `net10.0-windows`, `Microsoft.NET.Test.Sdk (17.11.1)`, `xunit (2.9.0)`, `xunit.runner.visualstudio (2.8.0)`, `Microsoft.NET.Sdk` (+140 more)
+- **146 isolated node(s):** `Features`, `Command-line`, `Auto-start with elevated privileges`, `Supported controls`, `Building` (+141 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `UiAutomationHintProviderService` connect `Community 4` to `Community 7`?**
-  _High betweenness centrality (0.028) - this node is a cross-community bridge._
+- **Why does `ShellViewModel` connect `Community 7` to `Community 4`?**
+  _High betweenness centrality (0.025) - this node is a cross-community bridge._
 - **Why does `Hint` connect `Community 1` to `Community 4`?**
-  _High betweenness centrality (0.026) - this node is a cross-community bridge._
-- **What connects `net10.0-windows`, `Microsoft.NET.Test.Sdk (17.11.1)`, `xunit (2.9.0)` to the rest of the system?**
-  _145 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _High betweenness centrality (0.024) - this node is a cross-community bridge._
+- **What connects `Features`, `Command-line`, `Auto-start with elevated privileges` to the rest of the system?**
+  _146 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.14015151515151514 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
@@ -214,4 +214,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `Community 2` be split into smaller, more focused modules?**
   _Cohesion score 0.06451612903225806 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
-  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.14285714285714285 - nodes in this community are weakly interconnected._

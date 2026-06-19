@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
-    "mtime": 1781872334.3686626,
-    "ast_hash": "c7ac458ef7fd16ee6ff5bac5f17c524a",
+    "mtime": 1781880713.6484466,
+    "ast_hash": "0ce0b224d08865411e079f9748327d99",
     "semantic_hash": ""
   },
   "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj": {
@@ -260,8 +260,8 @@
     "semantic_hash": ""
   },
   "src/SolutionInfo.cs": {
-    "mtime": 1781877377.676484,
-    "ast_hash": "eb41c7dd9f4a08de8e0646736c22a9db",
+    "mtime": 1781880220.1654186,
+    "ast_hash": "57c3218cc98a190a0ceda7a635146499",
     "semantic_hash": ""
   },
   "src/build.ps1": {
@@ -269,14 +269,9 @@
     "ast_hash": "8567bfc3df6897c979c19551defb0d8b",
     "semantic_hash": ""
   },
-  "src/register-startup-task.ps1": {
-    "mtime": 1781694361.8891683,
-    "ast_hash": "d3373ed152f3d77d6e52575504bd073b",
-    "semantic_hash": ""
-  },
   "CHANGELOG.md": {
-    "mtime": 1781694361.8628762,
-    "ast_hash": "cb35edbfd2dea735dbcbbbcbb7dc2606",
+    "mtime": 1781880211.546599,
+    "ast_hash": "408c789a78a50fdb36b76cc725b580c7",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
@@ -285,8 +280,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1781694361.8628762,
-    "ast_hash": "c61b8891ef35b9955684f4f6cdd025a8",
+    "mtime": 1781880737.9759512,
+    "ast_hash": "c4c6ea4c92b8f2ebaf2f08714d1bea30",
     "semantic_hash": ""
   },
   "screenshots/explorer.png": {
@@ -297,6 +292,11 @@
   "screenshots/visual-studio.png": {
     "mtime": 1781694361.864877,
     "ast_hash": "468c3f2b540063e1af08cbc371e7aeb2",
+    "semantic_hash": ""
+  },
+  "register-startup-task.ps1": {
+    "mtime": 1781694361.8891683,
+    "ast_hash": "d3373ed152f3d77d6e52575504bd073b",
     "semantic_hash": ""
   }
 }

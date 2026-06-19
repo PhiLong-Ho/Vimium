@@ -50,13 +50,21 @@ Vimium.exe /tray
 
 Useful with AutoHotKey or custom key bindings.
 
-### Auto-start with elevated privileges
+### Install (auto-start + Start menu shortcut)
 
-Run `src/register-startup-task.ps1` in an elevated PowerShell to register a scheduled task that starts Vimium at logon without a UAC prompt:
+1. Copy the published files to a permanent location:
+   ```powershell
+   mkdir $env:LOCALAPPDATA\Programs\Vimium -Force
+   Copy-Item publish\win-x64\* $env:LOCALAPPDATA\Programs\Vimium\ -Recurse
+   ```
+2. Run `register-startup-task.ps1` in an **elevated** PowerShell. It does two things:
+   - Registers a scheduled task so Vimium auto-starts (elevated, no UAC prompt) at logon.
+   - Creates a Start menu shortcut (`Vimium.lnk`) so you can pin it to Start.
 
-```powershell
-.\register-startup-task.ps1
-```
+   ```powershell
+   .\register-startup-task.ps1
+   ```
+3. To pin to Start: press **Win**, type `Vimium`, right-click → **Pin to Start**.
 
 ## Supported controls
 
