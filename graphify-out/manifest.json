@@ -1,0 +1,317 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1781838312.1580808,
+    "ast_hash": "7bf81dca0376bde3a32244b82bc7cbc0",
+    "semantic_hash": ""
+  },
+  ".claude/settings.local.json": {
+    "mtime": 1781797018.115342,
+    "ast_hash": "4f5078ce79b70f5634d8bee47a517e05",
+    "semantic_hash": ""
+  },
+  "src/CheckInterop/CheckInterop.csproj": {
+    "mtime": 1781836433.8634555,
+    "ast_hash": "0b9b823cf2652c0d4a52e8a2dab1aee1",
+    "semantic_hash": ""
+  },
+  "src/CheckInterop/Program.cs": {
+    "mtime": 1781836433.8644555,
+    "ast_hash": "26c817580bdd13ff8fde2038895a49dd",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj": {
+    "mtime": 1781802552.0463276,
+    "ast_hash": "7defbe15c31e1682d509131ede914177",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck.Tests/Properties/AssemblyInfo.cs": {
+    "mtime": 1781694361.871884,
+    "ast_hash": "dd5bfae9aba447c1f21386d165229c99",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck.Tests/Services/HintLabelServiceTest.cs": {
+    "mtime": 1781694361.871884,
+    "ast_hash": "c7c970698f9d536c67a0b782248a6941",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck.sln": {
+    "mtime": 1781794292.1436694,
+    "ast_hash": "26152a9d0a06d99d426ae37c640e9a3c",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/App.xaml.cs": {
+    "mtime": 1781694361.8738844,
+    "ast_hash": "9ca49a5d8b5bc9b964944b6b4a68718e",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Extensions/IEnumerableTExtensions.cs": {
+    "mtime": 1781694361.8738844,
+    "ast_hash": "a9eb2282eafd7b765bdccea79068b6ad",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Extensions/RectExtensions.cs": {
+    "mtime": 1781694361.8738844,
+    "ast_hash": "f3467407ef3c820cbb7460fb45a4fe21",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/HuntAndPeck.csproj": {
+    "mtime": 1781835808.9586384,
+    "ast_hash": "8a5047bbc2b551662f946c57e7ca326e",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Models/DebugHint.cs": {
+    "mtime": 1781694361.8748832,
+    "ast_hash": "29978fa9caf2ff99588f3b76a37280f2",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Models/Hint.cs": {
+    "mtime": 1781694361.8748832,
+    "ast_hash": "19b14631d4a09861b820d996910865ea",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Models/HintSession.cs": {
+    "mtime": 1781694361.8748832,
+    "ast_hash": "beb30c03dc496d8ae3aafe1ab1c509cb",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs": {
+    "mtime": 1781694361.8758836,
+    "ast_hash": "2ad54f2bbc7110de8cf53a95175d9943",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Models/UiAutomationFocusHint.cs": {
+    "mtime": 1781694361.8758836,
+    "ast_hash": "a383d8cd8b6b96797ec65616fce9b04f",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs": {
+    "mtime": 1781694361.8758836,
+    "ast_hash": "fc8ffe652be016bd5c1121d3e5d94561",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Models/UiAutomationSelectHint.cs": {
+    "mtime": 1781694361.8758836,
+    "ast_hash": "e2c6315b22d138444a6f0ddcd5d6dadf",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Models/UiAutomationToggleHint.cs": {
+    "mtime": 1781694361.8768835,
+    "ast_hash": "b5aa345eba02c344ca71791bbdf72b9a",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Properties/Resources.Designer.cs": {
+    "mtime": 1781694361.8768835,
+    "ast_hash": "172e0e1568ace427249a93b7ec9b570f",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Properties/Settings.Designer.cs": {
+    "mtime": 1781694361.877884,
+    "ast_hash": "4fa7c68d8ed58a765bbbc2707146377c",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Services/HintLabelService.cs": {
+    "mtime": 1781694361.8788838,
+    "ast_hash": "a5915df5bbfd3a00b215fe38c8f42786",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Services/Interfaces/IDebugHintProviderService.cs": {
+    "mtime": 1781694361.8788838,
+    "ast_hash": "c8578ecff9efd5e279532b30b769b399",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Services/Interfaces/IHintLabelService.cs": {
+    "mtime": 1781694361.8788838,
+    "ast_hash": "e0668d6eea8273b2c42984e85cd4b65a",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs": {
+    "mtime": 1781694361.879884,
+    "ast_hash": "017fa35685a6305540582f815b6ea14d",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Services/Interfaces/IKeyListenerService.cs": {
+    "mtime": 1781694361.879884,
+    "ast_hash": "f4b0d9110b2c6e89ce40b83c325a1798",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Services/KeyListenerService.cs": {
+    "mtime": 1781694361.879884,
+    "ast_hash": "b300c0b5c3aad3526f53f9595fff0940",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Services/KeyboardHookService.cs": {
+    "mtime": 1781694361.879884,
+    "ast_hash": "ded24bb843841da9fbb88fcd1d8e996e",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs": {
+    "mtime": 1781694361.879884,
+    "ast_hash": "de5cfb47c55acbcccb8ca639873582f3",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Services/UiAutomationPatternIds.cs": {
+    "mtime": 1781694361.8808844,
+    "ast_hash": "c0a001a5b4da8ba6a9a6f4f06f69c704",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/SingleLaunchMutex.cs": {
+    "mtime": 1781694361.8808844,
+    "ast_hash": "0e159347de4f2a860e190037a02dee04",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/ViewModels/DebugHintViewModel.cs": {
+    "mtime": 1781694361.8808844,
+    "ast_hash": "a84df967285399532be44f293d0cac2c",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/ViewModels/DebugOverlayViewModel.cs": {
+    "mtime": 1781694361.8813908,
+    "ast_hash": "9669b281d95dda8cfbf072fd6bcefca4",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/ViewModels/DelegateCommand.cs": {
+    "mtime": 1781694361.8813908,
+    "ast_hash": "213e73b241609de8e5d3a867daa92446",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/ViewModels/HintViewModel.cs": {
+    "mtime": 1781694361.8813908,
+    "ast_hash": "eb985ebd949d3f872b44e4a4ad388b61",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/ViewModels/NotifyPropertyChanged.cs": {
+    "mtime": 1781694361.8813908,
+    "ast_hash": "1d58a01a6ec85932b49a42296a986ad5",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/ViewModels/OptionsViewModel.cs": {
+    "mtime": 1781694361.8823946,
+    "ast_hash": "225173f868f7e44d8d529b6e9a8c3ac3",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/ViewModels/OverlayViewModel.cs": {
+    "mtime": 1781694361.8823946,
+    "ast_hash": "097f4ce40071c4014fa0b8e79f0e290a",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/ViewModels/ShellViewModel.cs": {
+    "mtime": 1781794162.57467,
+    "ast_hash": "f40f9b61b3d7aec41b8d052ded7472c0",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Views/DebugOverlayView.xaml.cs": {
+    "mtime": 1781694361.8823946,
+    "ast_hash": "abb8417c6004b6990bbfabeff700840f",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Views/ForegroundWindow.cs": {
+    "mtime": 1781694361.8833952,
+    "ast_hash": "99391455eb3de76da6b1f38d2cd0ef96",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Views/OptionsView.xaml.cs": {
+    "mtime": 1781694361.8833952,
+    "ast_hash": "927546945f5e3235c4a5edfd2a004437",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Views/OverlayView.xaml.cs": {
+    "mtime": 1781694361.8843956,
+    "ast_hash": "9b77d2d3278233d75c24681e39611809",
+    "semantic_hash": ""
+  },
+  "src/HuntAndPeck/Views/ShellView.xaml.cs": {
+    "mtime": 1781694361.8843956,
+    "ast_hash": "c8ce2945fcd18b9f09b9413514eced85",
+    "semantic_hash": ""
+  },
+  "src/NativeMethods/Constants.cs": {
+    "mtime": 1781694361.885398,
+    "ast_hash": "5b67d0ec7b0f902b8abfea7fb382cc47",
+    "semantic_hash": ""
+  },
+  "src/NativeMethods/HotKeyEventArgs.cs": {
+    "mtime": 1781694361.885398,
+    "ast_hash": "0e6c9abda49e7a608ef6f103e5b2008c",
+    "semantic_hash": ""
+  },
+  "src/NativeMethods/Kernel32.cs": {
+    "mtime": 1781694361.885398,
+    "ast_hash": "5af0002c66c50bdf3969c2e0e679bbbb",
+    "semantic_hash": ""
+  },
+  "src/NativeMethods/KeyModifier.cs": {
+    "mtime": 1781694361.885398,
+    "ast_hash": "83b2521fb88823e3d26807b5f0e47f59",
+    "semantic_hash": ""
+  },
+  "src/NativeMethods/NativeMethods.csproj": {
+    "mtime": 1781802154.9424205,
+    "ast_hash": "128817ff0fee2c69fd79e3be75063ba3",
+    "semantic_hash": ""
+  },
+  "src/NativeMethods/POINT.cs": {
+    "mtime": 1781694361.8863962,
+    "ast_hash": "1f715d6e88da8b1ced43a8564ea09da3",
+    "semantic_hash": ""
+  },
+  "src/NativeMethods/Properties/AssemblyInfo.cs": {
+    "mtime": 1781694361.8871732,
+    "ast_hash": "78e540ecf7ae8fe8f8560853926e7572",
+    "semantic_hash": ""
+  },
+  "src/NativeMethods/RECT.cs": {
+    "mtime": 1781694361.8871732,
+    "ast_hash": "fc3a4eae206eade5765b96c617e2bde9",
+    "semantic_hash": ""
+  },
+  "src/NativeMethods/User32.cs": {
+    "mtime": 1781694361.8871732,
+    "ast_hash": "f6f62ef6157d9ae53d64969bf921e817",
+    "semantic_hash": ""
+  },
+  "src/SolutionInfo.cs": {
+    "mtime": 1781694361.8871732,
+    "ast_hash": "d3522644caf7cba5c724cdf829e9ceef",
+    "semantic_hash": ""
+  },
+  "src/build.ps1": {
+    "mtime": 1781694361.8881626,
+    "ast_hash": "8567bfc3df6897c979c19551defb0d8b",
+    "semantic_hash": ""
+  },
+  "src/dotnet-tools.json": {
+    "mtime": 1781834598.330439,
+    "ast_hash": "ff68aa4f1bc0825effd9162e571fa113",
+    "semantic_hash": ""
+  },
+  "src/register-startup-task.ps1": {
+    "mtime": 1781694361.8891683,
+    "ast_hash": "d3373ed152f3d77d6e52575504bd073b",
+    "semantic_hash": ""
+  },
+  "CHANGELOG.md": {
+    "mtime": 1781694361.8628762,
+    "ast_hash": "cb35edbfd2dea735dbcbbbcbb7dc2606",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1781838312.1580808,
+    "ast_hash": "8a6643a420fdad6bfb583523bc6cef16",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1781694361.8628762,
+    "ast_hash": "c61b8891ef35b9955684f4f6cdd025a8",
+    "semantic_hash": ""
+  },
+  "screenshots/explorer.png": {
+    "mtime": 1781694361.8638768,
+    "ast_hash": "a4c352641223c525492289c2c5fa71c6",
+    "semantic_hash": ""
+  },
+  "screenshots/visual-studio.png": {
+    "mtime": 1781694361.864877,
+    "ast_hash": "468c3f2b540063e1af08cbc371e7aeb2",
+    "semantic_hash": ""
+  }
+}
