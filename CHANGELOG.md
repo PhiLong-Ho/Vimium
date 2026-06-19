@@ -2,6 +2,21 @@
 
 This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 
+## v1.2 — Instant overlay, async hints
+
+### Changed
+
+- **Overlay appears instantly.** Hints are now enumerated on a background thread while the overlay shows a "Generating hints…" loading indicator, instead of blocking the UI for up to 1 second before anything appeared.
+- **Async hint enumeration.** `FindAllBuildCache` and pattern resolution run off the UI thread so the app stays responsive even on complex windows with many elements.
+
+### Added
+
+- **Loading indicator** in the overlay: a pulsing "Generating hints…" label visible until hints are ready.
+
+### Removed
+
+- Dropped stale `CheckInterop` scratch project that was never part of the solution.
+
 ## v1.1 — Elevated, popup-friendly, faster
 
 ### Added
