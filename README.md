@@ -1,59 +1,91 @@
-# hunt-n-peck
+# Vimium
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jet85wsdqn10grhk/branch/master?svg=true)](https://ci.appveyor.com/project/zsims/hunt-and-peck/branch/master)
+> Vimium/vimperator style keyboard navigation for Windows — now on .NET 10.
 
-> **This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).** It adds multiple interaction modes so a hint can move the mouse and click (left or right) in addition to the original UI Automation invoke. See [Interaction modes](#interaction-modes) below.
+A lightweight keyboard-driven UI overlay for Windows. Press a hotkey, type a hint, and interact with any control — buttons, links, menus, tabs — without touching the mouse. Built on the Windows UI Automation framework (like screen readers), so it works with almost any Windows desktop application.
 
-Simple vimium/vimperator style navigation for Windows applications based on the UI Automation framework. In essence, it works the same as screen readers or accessibility programs but with the goal of making any Windows program faster to use.
+## Features
 
-It works for any Windows program (excluding Modern UI apps :))
+| Feature | Description |
+| --- | --- |
+| **Instant overlay** | Overlay appears immediately; hints populate asynchronously in the background. |
+| **Multiple interaction modes** | Invoke (default), Left Click, Right Click — hold the modifier while typing. |
+| **Elevated by default** | Runs as administrator so it can interact with elevated apps. |
+| **Popup-friendly** | Overlay never steals focus — menus, dropdowns, and popups stay open. |
+| **Auto-start** | Optional scheduled-task script for login launch without a UAC prompt. |
+| **Configurable font size** | Tray icon → Options → FontSize. |
+| **Taskbar mode** | `Ctrl + '` to highlight the Windows taskbar. |
 
-NOTE: hunt-n-peck is sporadically maintained, please consider one of the various forks.
+## Download
 
-# Download
+Releases are published at: <https://github.com/PhiLong-Ho/Vim_with_mouse/releases>
 
-<https://github.com/zsims/hunt-and-peck/releases/download/release%2F1.7/HuntAndPeck-1.7.zip>
+## How to use
 
-# How to change font size
+1. Launch **Vimium.exe** (runs in the system tray).
+2. With any window focused, press **`Ctrl + ;`** to show hints for the active window.
+   - Press **`Ctrl + '`** to show hints for the taskbar.
+3. Type the hint letters shown on the control you want, then release the modifier key.
 
-Find the application icon in tray, click right mouse button, select `Options`, then use the `FontSize` menu to change the font size.
+### Interaction modes
 
-# Screenshots
-
-![ScreenShot](https://raw.github.com/zsims/hunt-n-peck/master/screenshots/explorer.png)
-![ScreenShot](https://raw.github.com/zsims/hunt-n-peck/master/screenshots/visual-studio.png)
-
-## To use
-
-1. Launch the executable.
-2. With any window focused, press `Ctrl + ;`
-    - The tray can be highlighted with `Ctrl + '`
-3. An overlay window will be displayed, type any of the hint characters you see.
-
-## Interaction modes
-
-This fork adds modifier keys that change what happens when a hint is selected. Hold the modifier while typing the hint characters:
+Hold one of these modifiers while typing the hint:
 
 | Modifier | Action |
 | --- | --- |
-| _(none)_ | UI Automation **invoke** (the element's primary action, e.g. press a button). This is the original behaviour. |
-| **Left Shift** | Move the mouse pointer to the hint and perform a real **left click**. |
-| **Right Shift** | Move the mouse pointer to the hint and perform a real **right click** (e.g. open a context menu). |
+| _(none)_ | **UI Automation invoke** — the element's primary action (press a button, follow a link). |
+| **Left Shift** | Move the mouse and perform a real **left click**. |
+| **Right Shift** | Move the mouse and perform a real **right click** (e.g. open a context menu). |
 
-Why the click modes? Invoke talks to a control through the UI Automation `InvokePattern`. Some applications (notably Electron / web-based apps such as Microsoft Teams) expose hints but do not implement that pattern, so invoke does nothing. A real synthesized mouse click goes through the normal OS input path and works on those controls.
+Why the click modes? Some apps (notably Electron / web-based apps like Microsoft Teams) expose hints through UI Automation but don't implement the `InvokePattern`. A synthesized mouse click goes through the normal OS input path and works on those controls.
 
-Alternatively, Hunt and Peck can be launched via the command-line or AutoHotKey by specifying `/hint`:
+### Command-line
 
-```
-hap.exe /hint
-```
-
-Or in tray mode with
+Vimium can be launched directly with `/hint` or `/tray` for headless (no tray icon) use:
 
 ```
-hap.exe /tray
+Vimium.exe /hint
+Vimium.exe /tray
 ```
 
-# Supported Elements
+Useful with AutoHotKey or custom key bindings.
 
-Only UI Automation elements with "Invoke" patterns are supported (and displayed).
+### Auto-start with elevated privileges
+
+Run `src/register-startup-task.ps1` in an elevated PowerShell to register a scheduled task that starts Vimium at logon without a UAC prompt:
+
+```powershell
+.\register-startup-task.ps1
+```
+
+## Supported controls
+
+Vimium shows hints for UI Automation elements that support any of these patterns:
+
+- **Invoke** — buttons, links, menu items
+- **Toggle** — checkboxes, radio buttons
+- **Focus** — text fields, input areas
+- **Expand / Collapse** — tree items, expandable panels
+- **Selection** — list items, tabs
+
+## How to change font size
+
+Right-click the Vimium tray icon, select **Options**, then use the **FontSize** menu.
+
+## Screenshots
+
+![ScreenShot](screenshots/explorer.png)
+![ScreenShot](screenshots/visual-studio.png)
+
+## Building
+
+Requirements: [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) and Windows.
+
+```bash
+dotnet build src\HuntAndPeck.sln
+```
+
+## License & Credits
+
+This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck), significantly reworked.
+Original copyright © Zachary Sims. Licensed under the original project's license.
