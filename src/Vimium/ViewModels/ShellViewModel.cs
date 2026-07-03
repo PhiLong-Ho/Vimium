@@ -80,7 +80,7 @@ namespace Vimium.ViewModels
 
         private async void _keyListener_OnHotKeyActivated(object sender, EventArgs e)
         {
-            if (_overlayActive || Views.ShellView.IsTrayMenuOpen) return;
+            if (_overlayActive) return;
             _overlayActive = true;
 
             var hWnd = User32.GetForegroundWindow();
@@ -122,7 +122,7 @@ namespace Vimium.ViewModels
 
         private async void _keyListener_OnTaskbarHotKeyActivated(object sender, EventArgs e)
         {
-            if (_overlayActive || Views.ShellView.IsTrayMenuOpen) return;
+            if (_overlayActive) return;
             _overlayActive = true;
 
             var taskbarHWnd = User32.FindWindow("Shell_traywnd", "");

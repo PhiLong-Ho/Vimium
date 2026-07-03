@@ -169,24 +169,25 @@ namespace Vimium.ViewModels
                         if ((User32.GetAsyncKeyState(User32.VK_RSHIFT) & 0x8000) != 0)
                         {
                             // Hold Right Shift: real right click (e.g. open a context menu).
-                            // Close the overlay first so the click lands on the target window.
                             CloseOverlay?.Invoke();
-                            selectedHint.RightClick();
+                            var h = selectedHint;
+                            System.Threading.Tasks.Task.Run(() => h.RightClick());
                         }
                         else if ((User32.GetAsyncKeyState(User32.VK_LSHIFT) & 0x8000) != 0)
                         {
-                            // Hold Left Shift: real left click. Works universally, including Electron/web
-                            // apps like Microsoft Teams where the UI Automation InvokePattern does nothing.
-                            // Close the overlay first so the click lands on the target window.
+                            // Hold Left Shift: real left click.
                             CloseOverlay?.Invoke();
-                            selectedHint.Click();
+                            var h = selectedHint;
+                            System.Threading.Tasks.Task.Run(() => h.Click());
                         }
                         else
                         {
                             // Default: UI Automation invoke.
-                            // Close first so Invoke() can safely open modal dialogs
+                            // Run on background thread so it can't deadlock if invoke
+                            // triggers our own UI (e.g. Options ShowDialog).
                             CloseOverlay?.Invoke();
-                            selectedHint.Invoke();
+                            var h = selectedHint;
+                            System.Threading.Tasks.Task.Run(() => h.Invoke());
                         }
                     }
                     catch (Exception)
