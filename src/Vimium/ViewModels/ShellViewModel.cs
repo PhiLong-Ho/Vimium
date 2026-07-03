@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Threading;
 using Vimium.NativeMethods;
+using Vimium.Services;
 using Vimium.Services.Interfaces;
 using Application = System.Windows.Application;
 
@@ -35,16 +37,14 @@ namespace Vimium.ViewModels
             _hintProviderService = hintProviderService;
             _debugHintProviderService = debugHintProviderService;
 
-            keyListener1.HotKey = new HotKey
-            {
-                Keys = Keys.OemSemicolon,
-                Modifier = KeyModifier.Control
-            };
+            // Read hotkeys from config (with fallback to defaults)
+            ApplyHotkeys(keyListener1);
 
-            keyListener1.TaskbarHotKey = new HotKey
+            // Re-register hotkeys when config changes
+            ConfigService.Instance.PropertyChanged += (s, e) =>
             {
-                Keys = Keys.Oem7,
-                Modifier = KeyModifier.Control
+                if (e.PropertyName is null or "" or "OverlayModifier" or "TaskbarModifier")
+                    ApplyHotkeys(keyListener1);
             };
 
 #if DEBUG
@@ -65,6 +65,13 @@ namespace Vimium.ViewModels
 
         public DelegateCommand ShowOptionsCommand { get; }
         public DelegateCommand ExitCommand { get; }
+
+        private static void ApplyHotkeys(IKeyListenerService keyListener)
+        {
+            var cfg = ConfigService.Instance;
+            keyListener.HotKey = HotKey.Parse(cfg.OverlayModifier);
+            keyListener.TaskbarHotKey = HotKey.Parse(cfg.TaskbarModifier);
+        }
 
         /// <summary>
         /// True while a hint overlay is being prepared or shown. Used to ignore
