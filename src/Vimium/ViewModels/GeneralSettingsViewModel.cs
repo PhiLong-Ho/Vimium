@@ -14,7 +14,7 @@ public class GeneralSettingsViewModel : NotifyPropertyChanged
     }
 
     public string Icon => "⚙";
-    public string DisplayName => "General";
+    public string DisplayName => "_General";
 
     public string FontSize
     {

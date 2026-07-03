@@ -6,8 +6,7 @@
         Title="Vimium Settings" Height="600" Width="800"
         MinHeight="500" MinWidth="600"
         WindowStartupLocation="CenterOwner"
-        Background="{DynamicResource WindowBackgroundBrush}"
-        PreviewKeyDown="Window_PreviewKeyDown">
+        Background="{DynamicResource WindowBackgroundBrush}">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -248,7 +247,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Icon}" FontSize="16"
                                                Margin="0,0,10,0" />
-                                    <TextBlock Text="{Binding DisplayName}" />
+                                    <AccessText Text="{Binding DisplayName}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
