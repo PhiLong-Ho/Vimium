@@ -197,3 +197,5 @@ FakesAssemblies/
 src/tools/*
 !src/tools/packages.config
 src/Dist
+# Added by code-review-graph
+.code-review-graph/

@@ -193,6 +193,7 @@ public class ConfigService : INotifyPropertyChanged
 
         setter(newValue);
         OnPropertyChanged(propertyName!);
+        SaveInternal(_current);  // auto-save on every change
         return true;
     }
 

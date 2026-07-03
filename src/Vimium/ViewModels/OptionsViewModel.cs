@@ -23,8 +23,7 @@ internal class OptionsViewModel : NotifyPropertyChanged
 
         SelectedPage = Pages.First();
 
-        SaveCommand = new DelegateCommand(Save);
-        CancelCommand = new DelegateCommand(Cancel);
+        CloseCommand = new DelegateCommand(CloseWindow);
         ResetCommand = new DelegateCommand(Reset);
     }
 
@@ -64,33 +63,8 @@ internal class OptionsViewModel : NotifyPropertyChanged
 
     // ── Commands ────────────────────────────────────────────
 
-    public ICommand SaveCommand { get; }
-    public ICommand CancelCommand { get; }
+    public ICommand CloseCommand { get; }
     public ICommand ResetCommand { get; }
-
-    private void Save()
-    {
-        _config.Save();
-        CloseWindow();
-    }
-
-    private void Cancel()
-    {
-        if (_config.IsDirty)
-        {
-            var result = MessageBox.Show(
-                "Discard unsaved changes?",
-                "Vimium",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
-
-            if (result != MessageBoxResult.Yes)
-                return;
-        }
-
-        _config.Cancel();
-        CloseWindow();
-    }
 
     private void Reset()
     {

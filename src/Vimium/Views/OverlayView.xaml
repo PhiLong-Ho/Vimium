@@ -14,10 +14,11 @@
     <local:ForegroundWindow.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
         <Style x:Key="HintStyle" TargetType="TextBlock">
-            <Setter Property="Background" Value="Yellow" />
+            <Setter Property="Background" Value="{Binding DataContext.HintActiveBrush, RelativeSource={RelativeSource AncestorType=local:ForegroundWindow}}" />
+            <Setter Property="Foreground" Value="{Binding DataContext.HintTextBrush, RelativeSource={RelativeSource AncestorType=local:ForegroundWindow}}" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Active}" Value="false">
-                    <Setter Property="Background" Value="LightYellow" />
+                    <Setter Property="Background" Value="{Binding DataContext.HintInactiveBrush, RelativeSource={RelativeSource AncestorType=local:ForegroundWindow}}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>

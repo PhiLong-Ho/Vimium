@@ -18,7 +18,7 @@ public partial class OptionsView : Window
         {
             if (DataContext is OptionsViewModel vm)
             {
-                vm.CancelCommand.Execute(null);
+                vm.CloseCommand.Execute(null);
             }
             e.Handled = true;
         }

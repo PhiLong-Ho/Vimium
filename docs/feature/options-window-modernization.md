@@ -83,7 +83,7 @@ Redesign the Vimium options window with a modern visual style, full keyboard nav
 | 6.1 | **Auto-save** | Every property change in ConfigService persists to JSON immediately — no explicit Save needed |
 | 6.2 | **Live overlay colors** | Overlay hint colors read from ConfigService on every activation and update in real-time via `INotifyPropertyChanged` |
 | 6.3 | **Live font size** | Hint font size reflects the current config value each time the overlay is created |
-| 6.4 | **Options window** | Save button closes the window; Cancel closes with a discard prompt if dirty; Reset clears to defaults |
+| 6.4 | **No Save button** | Footer has only Reset and Close; all changes auto-save immediately via ConfigService |
 
 ### 7. Project Rename: HuntAndPeck → Vimium
 
@@ -127,7 +127,7 @@ Redesign the Vimium options window with a modern visual style, full keyboard nav
 │          │  └────────────────────────────────┘  │
 │          │                                       │
 ├──────────┴───────────────────────────────────────┤
-│                    [Reset]    [Cancel]  [ Save ]  │  ← footer
+│                       [Reset to defaults]  [Close]  │  ← footer
 └──────────────────────────────────────────────────┘
 ```
 

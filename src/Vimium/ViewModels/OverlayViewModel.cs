@@ -1,15 +1,19 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Media;
 using Vimium.Models;
 using Vimium.NativeMethods;
+using Vimium.Services;
 using Vimium.Services.Interfaces;
 
 namespace Vimium.ViewModels
 {
     internal class OverlayViewModel : NotifyPropertyChanged
     {
+        private readonly ConfigService _config = ConfigService.Instance;
         private Rect _bounds;
         private ObservableCollection<HintViewModel> _hints = new ObservableCollection<HintViewModel>();
         private bool _isLoading;
@@ -24,6 +28,7 @@ namespace Vimium.ViewModels
         {
             _bounds = bounds;
             _isLoading = true;
+            _config.PropertyChanged += OnConfigChanged;
         }
 
         public OverlayViewModel(
@@ -32,6 +37,37 @@ namespace Vimium.ViewModels
         {
             _bounds = session.OwningWindowBounds;
             PopulateHints(session, hintLabelService);
+            _config.PropertyChanged += OnConfigChanged;
+        }
+
+        private void OnConfigChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName is null or "" or "FontSize" or "HintActiveBackground"
+                or "HintInactiveBackground" or "HintTextColor" or "HintFontFamily")
+            {
+                NotifyOfPropertyChange(nameof(HintActiveBrush));
+                NotifyOfPropertyChange(nameof(HintInactiveBrush));
+                NotifyOfPropertyChange(nameof(HintTextBrush));
+            }
+        }
+
+        // ── Dynamic hint colors (from ConfigService) ─────────
+
+        public Brush HintActiveBrush => HexToBrush(_config.HintActiveBackground);
+        public Brush HintInactiveBrush => HexToBrush(_config.HintInactiveBackground);
+        public Brush HintTextBrush => HexToBrush(_config.HintTextColor);
+
+        private static Brush HexToBrush(string hex)
+        {
+            try
+            {
+                var color = (Color)ColorConverter.ConvertFromString(hex);
+                return new SolidColorBrush(color);
+            }
+            catch
+            {
+                return Brushes.Yellow;
+            }
         }
 
         /// <summary>
