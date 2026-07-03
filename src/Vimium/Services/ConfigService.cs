@@ -53,7 +53,41 @@ public class ConfigService : INotifyPropertyChanged
     public string Theme
     {
         get => _current.Theme;
-        set { if (SetProperty(_current.Theme, value, v => _current.Theme = v)) OnPropertyChanged(nameof(IsDirty)); }
+        set
+        {
+            if (!SetProperty(_current.Theme, value, v => _current.Theme = v)) return;
+            ApplyThemeHintDefaults(value);
+            OnPropertyChanged(nameof(IsDirty));
+        }
+    }
+
+    /// <summary>Apply sensible hint color defaults when changing theme.</summary>
+    private void ApplyThemeHintDefaults(string theme)
+    {
+        switch (theme)
+        {
+            case "Dark":
+                _current.HintActiveBackground = "#FFD700";   // gold
+                _current.HintInactiveBackground = "#B8860B"; // dark goldenrod
+                _current.HintTextColor = "#000000";
+                break;
+            case "Skadi":
+                _current.HintActiveBackground = "#4FC3F7";   // cyan
+                _current.HintInactiveBackground = "#1A6B9A"; // darker cyan
+                _current.HintTextColor = "#000000";
+                break;
+            default: // Light
+                _current.HintActiveBackground = "#FFFF00";   // yellow
+                _current.HintInactiveBackground = "#FFFFE0"; // light yellow
+                _current.HintTextColor = "#000000";
+                break;
+        }
+        // Notify all hint color bindings and save
+        OnPropertyChanged(nameof(HintActiveBackground));
+        OnPropertyChanged(nameof(HintInactiveBackground));
+        OnPropertyChanged(nameof(HintTextColor));
+        OnPropertyChanged(nameof(IsDirty));
+        SaveInternal(_current);
     }
 
     public string Language
