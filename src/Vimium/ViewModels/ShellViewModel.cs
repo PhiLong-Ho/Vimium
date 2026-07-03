@@ -79,18 +79,9 @@ namespace Vimium.ViewModels
         /// </summary>
         private bool _overlayActive;
 
-        /// <summary>Dismiss any open tray context menu before showing overlay.</summary>
-        private static void DismissTrayMenu()
-        {
-            if (Views.ShellView.TrayMenu is { IsOpen: true } menu)
-                menu.IsOpen = false;
-        }
-
         private async void _keyListener_OnHotKeyActivated(object sender, EventArgs e)
         {
             if (_overlayActive) return;
-
-            DismissTrayMenu();
             _overlayActive = true;
 
             var hWnd = User32.GetForegroundWindow();
@@ -133,8 +124,6 @@ namespace Vimium.ViewModels
         private async void _keyListener_OnTaskbarHotKeyActivated(object sender, EventArgs e)
         {
             if (_overlayActive) return;
-
-            DismissTrayMenu();
             _overlayActive = true;
 
             var taskbarHWnd = User32.FindWindow("Shell_traywnd", "");

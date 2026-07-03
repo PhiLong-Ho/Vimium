@@ -60,9 +60,15 @@ namespace Vimium.Views
             _keyboardHook.Install();
 
             // Safety net: never leave the overlay (and its global hook) hanging around
-            _safetyTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(10) };
+            _safetyTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
             _safetyTimer.Tick += (s, args) => Close();
             _safetyTimer.Start();
+        }
+
+        /// <summary>Click anywhere on the overlay background to dismiss it.</summary>
+        private void Overlay_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Close();
         }
 
         private void OverlayView_OnClosed(object sender, EventArgs e)

@@ -26,7 +26,7 @@
     <local:ForegroundWindow.Background>
         <SolidColorBrush Color="Transparent" />
     </local:ForegroundWindow.Background>
-    <Grid x:Name="layoutGrid">
+    <Grid x:Name="layoutGrid" Background="Transparent" MouseDown="Overlay_MouseDown">
         <TextBox x:Name="MatchStringControl" IsReadOnly="True" IsHitTestVisible="False" Width="50" VerticalAlignment="Bottom" Background="Transparent" Foreground="{DynamicResource OverlayMatchStringForegroundBrush}" />
         <!-- Loading indicator: shown while hints are being enumerated on a background thread -->
         <StackPanel HorizontalAlignment="Center"

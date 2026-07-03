@@ -8,7 +8,7 @@
                     IconSource="/Resources/skadi.ico"
                     MenuActivation="LeftOrRightClick">
         <tb:TaskbarIcon.ContextMenu>
-            <ContextMenu x:Name="TrayContextMenu"
+            <ContextMenu
                          Background="{DynamicResource CardBackgroundBrush}"
                          Foreground="{DynamicResource TextPrimaryBrush}"
                          BorderBrush="{DynamicResource BorderBrush}">
