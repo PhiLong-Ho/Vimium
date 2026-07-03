@@ -261,11 +261,9 @@ Redesign the Vimium options window with a modern visual style, full keyboard nav
 
 ### 🔧 In Progress
 
-- §6 Immediate Apply: code written, needs build verification (Vimium.exe lock preventing rebuild)
-- §2.2 Localization: Resources.resx still empty — strings hardcoded in XAML
-- §2.3 Language selector: visible but disabled (no translations exist)
-- §4.3 Skadi theme: dictionary exists but theme-switching at runtime not yet wired to App.xaml.cs
-- §4.6 Theme switching: option to change theme in options window not yet reflected in app (requires App.xaml.cs dictionary swap logic)
+- §3.7 Window size: default 800×600 (currently 560×460)
+- §6 Immediate Apply: sub-viewmodel property changes must relay ConfigService notifications so preview text and other bindings update live
+- §4.6 Theme switching: changing theme in options window must trigger App.xaml.cs dictionary swap at runtime
 
 ### ❌ Deferred
 

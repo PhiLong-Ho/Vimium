@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Media;
 using Vimium.Services;
 
@@ -8,7 +9,12 @@ public class OverlaySettingsViewModel : NotifyPropertyChanged
 {
     private readonly ConfigService _config = ConfigService.Instance;
 
-    public string Icon => "🖥";  // 🖥 desktop
+    public OverlaySettingsViewModel()
+    {
+        _config.PropertyChanged += OnConfigChanged;
+    }
+
+    public string Icon => "\U0001F5A5";  // 🖥 desktop
     public string DisplayName => "Overlay";
 
     public string HintFontFamily
@@ -41,24 +47,13 @@ public class OverlaySettingsViewModel : NotifyPropertyChanged
         set => _config.HintAnimationEnabled = value;
     }
 
-    /// <summary>Preset colors for quick selection.</summary>
     public List<string> PresetColors => new()
     {
-        "#FFFF00", // Yellow
-        "#FFFFE0", // LightYellow
-        "#FFD700", // Gold
-        "#FFA500", // Orange
-        "#FF6347", // Tomato
-        "#90EE90", // LightGreen
-        "#00FF00", // Lime
-        "#00FFFF", // Cyan
-        "#87CEEB", // SkyBlue
-        "#FF69B4", // HotPink
-        "#FFFFFF", // White
-        "#000000", // Black
+        "#FFFF00", "#FFFFE0", "#FFD700", "#FFA500",
+        "#FF6347", "#90EE90", "#00FF00", "#00FFFF",
+        "#87CEEB", "#FF69B4", "#FFFFFF", "#000000",
     };
 
-    /// <summary>Safely converts a hex string to a SolidColorBrush, falls back to Transparent.</summary>
     public static SolidColorBrush HexToBrush(string hex)
     {
         try
@@ -70,5 +65,20 @@ public class OverlaySettingsViewModel : NotifyPropertyChanged
         {
             return Brushes.Transparent;
         }
+    }
+
+    private void OnConfigChanged(object sender, PropertyChangedEventArgs e)
+    {
+        var name = e.PropertyName;
+        if (name is null or "" or "HintFontFamily")
+            NotifyOfPropertyChange(nameof(HintFontFamily));
+        if (name is null or "" or "HintActiveBackground")
+            NotifyOfPropertyChange(nameof(HintActiveBackground));
+        if (name is null or "" or "HintInactiveBackground")
+            NotifyOfPropertyChange(nameof(HintInactiveBackground));
+        if (name is null or "" or "HintTextColor")
+            NotifyOfPropertyChange(nameof(HintTextColor));
+        if (name is null or "" or "HintAnimationEnabled")
+            NotifyOfPropertyChange(nameof(HintAnimationEnabled));
     }
 }

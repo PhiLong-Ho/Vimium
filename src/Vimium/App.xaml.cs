@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using Vimium.ViewModels;
 using System.Linq;
@@ -32,6 +33,24 @@ namespace Vimium
             };
         }
 
+        private void ApplyTheme(string theme)
+        {
+            var dicts = Current.Resources.MergedDictionaries;
+            for (int i = dicts.Count - 1; i >= 0; i--)
+            {
+                var src = dicts[i].Source?.ToString() ?? "";
+                if (src.Contains("Themes/"))
+                    dicts.RemoveAt(i);
+            }
+            var path = theme switch
+            {
+                "Dark" => "Themes/DarkTheme.xaml",
+                "Skadi" => "Themes/SkadiTheme.xaml",
+                _ => "Themes/LightTheme.xaml",
+            };
+            dicts.Insert(0, new ResourceDictionary { Source = new Uri(path, UriKind.Relative) });
+        }
+
         private void ShowOverlay(OverlayViewModel vm)
         {
             var view = new OverlayView
@@ -63,6 +82,14 @@ namespace Vimium
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            // Apply saved theme and listen for changes
+            ApplyTheme(ConfigService.Instance.Theme);
+            ConfigService.Instance.PropertyChanged += (s, args) =>
+            {
+                if (args.PropertyName is null or "" or "Theme")
+                    Dispatcher.Invoke(() => ApplyTheme(ConfigService.Instance.Theme));
+            };
+
             if (e.Args.Contains("/hint"))
             {
                 // support headless mode — show overlay immediately, enumerate on background
