@@ -1,6 +1,13 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!-- ── Override system colors so dropdowns are dark ─────── -->
+
+    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#152535" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#152535" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="#E8F4FF" />
+    <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="#E8F4FF" />
+
     <!-- ── Skadi Theme (Arknights) ────────────────────────── -->
 
     <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#0D1B2A" />
@@ -45,6 +52,17 @@
 
     <Style TargetType="ListBoxItem">
         <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}" />
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
+    </Style>
+
+    <Style TargetType="ComboBoxItem">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}" />
     </Style>
 
 </ResourceDictionary>
