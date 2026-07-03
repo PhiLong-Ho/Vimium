@@ -11,9 +11,31 @@
     <SolidColorBrush x:Key="FooterBackgroundBrush" Color="#111D2B" />
     <SolidColorBrush x:Key="SidebarBackgroundBrush" Color="#0F1E2E" />
     <SolidColorBrush x:Key="SidebarActiveBackgroundBrush" Color="#1A2E42" />
-    <!-- Skadi uses a fixed cyan accent instead of system color -->
     <SolidColorBrush x:Key="AccentBrush" Color="#4FC3F7" />
     <SolidColorBrush x:Key="InputBackgroundBrush" Color="#1E3040" />
     <SolidColorBrush x:Key="PresetSwatchBorderBrush" Color="#3A5068" />
+
+    <!-- ── Implicit text defaults ─────────────────────────── -->
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="CaretBrush" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style TargetType="ListBoxItem">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
 
 </ResourceDictionary>

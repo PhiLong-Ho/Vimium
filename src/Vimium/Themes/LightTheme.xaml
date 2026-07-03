@@ -15,4 +15,27 @@
     <SolidColorBrush x:Key="InputBackgroundBrush" Color="#FFFFFF" />
     <SolidColorBrush x:Key="PresetSwatchBorderBrush" Color="#CCCCCC" />
 
+    <!-- ── Implicit text defaults ─────────────────────────── -->
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style TargetType="TextBox">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+        <Setter Property="CaretBrush" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
+    <Style TargetType="ListBoxItem">
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
+    </Style>
+
 </ResourceDictionary>
