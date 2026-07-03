@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace HuntAndPeck.NativeMethods
+namespace Vimium.NativeMethods
 {
     public static class User32
     {

@@ -1,0 +1,8 @@
+﻿<Application x:Class="Vimium.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <!-- Define the icon once globally -->
+        <BitmapImage x:Key="AppIcon" UriSource="/Resources/skadi.ico" />
+    </Application.Resources>
+</Application>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace HuntAndPeck.NativeMethods
+namespace Vimium.NativeMethods
 {
     public class HotKeyEventArgs : EventArgs
     {

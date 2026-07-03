@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace HuntAndPeck.NativeMethods
+namespace Vimium.NativeMethods
 {
     [StructLayout(LayoutKind.Sequential)]
     public struct POINT

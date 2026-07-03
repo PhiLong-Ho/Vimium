@@ -1,6 +1,6 @@
 using System;
 
-namespace HuntAndPeck.NativeMethods
+namespace Vimium.NativeMethods
 {
     // https://stackoverflow.com/questions/61144651
     [Flags]

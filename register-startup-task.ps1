@@ -13,7 +13,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 if (-not (Test-Path $ExePath)) {
-    throw "Vimium.exe not found at '$ExePath'. Build with: dotnet publish src\HuntAndPeck\HuntAndPeck.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true"
+    throw "Vimium.exe not found at '$ExePath'. Build with: dotnet publish src\Vimium\Vimium.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true"
 }
 
 # -- Stage 1: Scheduled Task (elevated auto-start, no UAC prompt) --

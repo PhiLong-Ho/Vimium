@@ -4,9 +4,9 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyVersionAttribute("1.2.0.0")]
 [assembly: AssemblyFileVersionAttribute("1.2.0.0")]
-[assembly: AssemblyProductAttribute("HuntAndPeck")]
+[assembly: AssemblyProductAttribute("Vimium")]
 [assembly: AssemblyCopyrightAttribute("Copyright Zachary Sims")]
-[assembly: InternalsVisibleTo("HuntAndPeck.Tests")]
+[assembly: InternalsVisibleTo("Vimium.Tests")]
 namespace System {
     internal static class AssemblyVersionInformation {
         internal const string Version = "1.2.0.0";

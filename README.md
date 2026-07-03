@@ -90,7 +90,7 @@ Right-click the Vimium tray icon, select **Options**, then use the **FontSize** 
 Requirements: [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) and Windows.
 
 ```bash
-dotnet build src\HuntAndPeck.sln
+dotnet build src\Vimium.sln
 ```
 
 ## License & Credits

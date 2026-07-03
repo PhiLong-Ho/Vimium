@@ -6,14 +6,14 @@ readonly var configuration = Argument("configuration", "Release");
 Task("Restore")
     .Does(() =>
 {
-    NuGetRestore("./HuntAndPeck.sln");
+    NuGetRestore("./Vimium.sln");
 });
 
 Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
 {
-    MSBuild("./HuntAndPeck.sln", new MSBuildSettings {
+    MSBuild("./Vimium.sln", new MSBuildSettings {
         Verbosity = Verbosity.Minimal,
         ToolVersion = MSBuildToolVersion.VS2017,
         Configuration = configuration,
@@ -27,7 +27,7 @@ Task("Test")
 {
     EnsureDirectoryExists("./TestResults");
     XUnit2(new[] {
-        string.Format("./HuntAndPeck.Tests/bin/{0}/HuntAndPeck.Tests.dll", configuration)
+        string.Format("./Vimium.Tests/bin/{0}/Vimium.Tests.dll", configuration)
     }, new XUnit2Settings {
         Parallelism = ParallelismOption.All,
         XmlReport = true,
@@ -41,7 +41,7 @@ Task("Package")
     .Does(() =>
 {
     EnsureDirectoryExists("./Dist");
-    Zip(string.Format("./HuntAndPeck/bin/{0}", configuration), "./Dist/HuntAndPeck.zip");
+    Zip(string.Format("./Vimium/bin/{0}", configuration), "./Dist/Vimium.zip");
 });
 
 Task("Default")
