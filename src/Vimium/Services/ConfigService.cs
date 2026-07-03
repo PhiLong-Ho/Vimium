@@ -92,6 +92,18 @@ public class ConfigService : INotifyPropertyChanged
         set { if (SetProperty(_current.HintAnimationEnabled, value, v => _current.HintAnimationEnabled = v)) OnPropertyChanged(nameof(IsDirty)); }
     }
 
+    public string OverlayModifier
+    {
+        get => _current.OverlayModifier;
+        set { if (SetProperty(_current.OverlayModifier, value, v => _current.OverlayModifier = v)) OnPropertyChanged(nameof(IsDirty)); }
+    }
+
+    public string TaskbarModifier
+    {
+        get => _current.TaskbarModifier;
+        set { if (SetProperty(_current.TaskbarModifier, value, v => _current.TaskbarModifier = v)) OnPropertyChanged(nameof(IsDirty)); }
+    }
+
     // ── Load / Save / Reset ──────────────────────────────────
 
     private VimiumConfig Load()

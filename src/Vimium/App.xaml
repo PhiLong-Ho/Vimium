@@ -1,8 +1,15 @@
-﻿<Application x:Class="Vimium.App"
+<Application x:Class="Vimium.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
-        <!-- Define the icon once globally -->
-        <BitmapImage x:Key="AppIcon" UriSource="/Resources/skadi.ico" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/LightTheme.xaml" />
+                <ResourceDictionary Source="Views/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Define the icon once globally -->
+            <BitmapImage x:Key="AppIcon" UriSource="/Resources/skadi.ico" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

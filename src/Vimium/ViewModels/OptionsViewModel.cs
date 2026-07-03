@@ -1,55 +1,119 @@
-﻿using Vimium.Properties;
-using System;
-using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
+using System.Windows.Input;
+using Vimium.Services;
 
-namespace Vimium.ViewModels
+namespace Vimium.ViewModels;
+
+internal class OptionsViewModel : NotifyPropertyChanged
 {
-    internal class OptionsViewModel : INotifyPropertyChanged
+    private readonly ConfigService _config = ConfigService.Instance;
+
+    public OptionsViewModel()
     {
-        public OptionsViewModel()
-        {
-            DisplayName = "Options";
-            FontSize = Settings.Default.FontSize;
-            Settings.Default.PropertyChanged += OnSettingsPropertyChanged;
-        }
+        DisplayName = "Options";
 
-        public string DisplayName { get; set; }
-
-        private string _fontSize;
-        public string FontSize
-        // Assign the font size value to a variable and update it every time user 
-        // changes the option in tray menu
+        Pages = new ObservableCollection<NotifyPropertyChanged>
         {
-            get { return _fontSize; }
-            set
+            new GeneralSettingsViewModel(),
+            new OverlaySettingsViewModel(),
+            new KeyboardSettingsViewModel(),
+        };
+
+        SelectedPage = Pages.First();
+
+        SaveCommand = new DelegateCommand(Save);
+        CancelCommand = new DelegateCommand(Cancel);
+        ResetCommand = new DelegateCommand(Reset);
+    }
+
+    public string DisplayName { get; set; }
+
+    // ── Sidebar ────────────────────────────────────────────
+
+    public ObservableCollection<NotifyPropertyChanged> Pages { get; }
+
+    private NotifyPropertyChanged _selectedPage;
+    public NotifyPropertyChanged SelectedPage
+    {
+        get => _selectedPage;
+        set
+        {
+            if (_selectedPage != value)
             {
-                if (_fontSize != value)
-                {
-                    _fontSize = value;
-                    OnPropertyChanged("FontSize");
-                    Settings.Default.FontSize = value;
-                    Settings.Default.Save();
-                }
+                _selectedPage = value;
+                NotifyOfPropertyChange(nameof(SelectedPage));
             }
         }
+    }
 
+    public void SelectNextPage()
+    {
+        var idx = Pages.IndexOf(SelectedPage);
+        if (idx < Pages.Count - 1)
+            SelectedPage = Pages[idx + 1];
+    }
 
-        private void OnSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+    public void SelectPreviousPage()
+    {
+        var idx = Pages.IndexOf(SelectedPage);
+        if (idx > 0)
+            SelectedPage = Pages[idx - 1];
+    }
+
+    // ── Commands ────────────────────────────────────────────
+
+    public ICommand SaveCommand { get; }
+    public ICommand CancelCommand { get; }
+    public ICommand ResetCommand { get; }
+
+    private void Save()
+    {
+        _config.Save();
+        CloseWindow();
+    }
+
+    private void Cancel()
+    {
+        if (_config.IsDirty)
         {
-            if (e.PropertyName == "FontSize")
-            {
-                FontSize = Settings.Default.FontSize;
-            }
+            var result = MessageBox.Show(
+                "Discard unsaved changes?",
+                "Vimium",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+                return;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        _config.Cancel();
+        CloseWindow();
+    }
 
-        private void OnPropertyChanged(string propertyName)
+    private void Reset()
+    {
+        var result = MessageBox.Show(
+            "Reset all settings to their default values?",
+            "Vimium",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question);
+
+        if (result == MessageBoxResult.Yes)
         {
-            if (PropertyChanged != null)
+            _config.ResetToDefaults();
+        }
+    }
+
+    private void CloseWindow()
+    {
+        foreach (Window window in Application.Current.Windows)
+        {
+            if (window.DataContext == this)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                window.Close();
+                break;
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿using Vimium.Models;
-using Vimium.Properties;
+using Vimium.Services;
 
 namespace Vimium.ViewModels
 {
@@ -12,7 +12,7 @@ namespace Vimium.ViewModels
         public HintViewModel(Hint hint)
         {
             Hint = hint;
-            FontSizeReadValue = Settings.Default.FontSize;
+            FontSizeReadValue = ConfigService.Instance.FontSize;
         }
 
         public Hint Hint { get; set; }
