@@ -21,6 +21,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <c:HexToColorConverter x:Key="HexToColorConverter" />
+            <c:AccessKeyTextConverter x:Key="AccessKeyTextConverter" />
 
             <!-- Page content templates — auto-selected by DataType -->
 
@@ -253,7 +254,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Icon}" FontSize="16"
                                                Margin="0,0,10,0" />
-                                    <TextBlock Text="{Binding DisplayName}" />
+                                    <ContentPresenter Content="{Binding DisplayName, Converter={StaticResource AccessKeyTextConverter}}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
