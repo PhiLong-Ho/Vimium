@@ -6,7 +6,7 @@
         Visibility="Hidden">
     <tb:TaskbarIcon Visibility="Visible"
                     IconSource="/Resources/skadi.ico"
-                    MenuActivation="LeftOrRightClick">
+                    MenuActivation="RightClick">
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu
                          Background="{DynamicResource CardBackgroundBrush}"

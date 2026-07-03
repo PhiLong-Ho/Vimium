@@ -174,8 +174,9 @@ namespace Vimium.ViewModels
                         else
                         {
                             // Default: UI Automation invoke.
-                            selectedHint.Invoke();
+                            // Close first so Invoke() can safely open modal dialogs
                             CloseOverlay?.Invoke();
+                            selectedHint.Invoke();
                         }
                     }
                     catch (Exception)
