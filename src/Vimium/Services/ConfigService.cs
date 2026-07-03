@@ -61,25 +61,25 @@ public class ConfigService : INotifyPropertyChanged
         }
     }
 
-    /// <summary>Apply theme-matching hint color defaults when changing theme.</summary>
+    /// <summary>Apply hint color defaults matching the theme's exact UI colors.</summary>
     private void ApplyThemeHintDefaults(string theme)
     {
         switch (theme)
         {
             case "Dark":
-                _current.HintActiveBackground = "#4CA1FF";   // accent blue
-                _current.HintInactiveBackground = "#2A5A8A"; // muted blue
-                _current.HintTextColor = "#FFFFFF";           // white text
+                _current.HintActiveBackground = "#2A2A2A";   // card background
+                _current.HintInactiveBackground = "#1A1A1A"; // window background
+                _current.HintTextColor = "#F0F0F0";           // text primary
                 break;
             case "Skadi":
-                _current.HintActiveBackground = "#4FC3F7";   // accent cyan
-                _current.HintInactiveBackground = "#1A6B9A"; // darker cyan
-                _current.HintTextColor = "#0D1B2A";           // navy text
+                _current.HintActiveBackground = "#152535";   // card background
+                _current.HintInactiveBackground = "#0D1B2A"; // window background
+                _current.HintTextColor = "#E8F4FF";           // text primary
                 break;
             default: // Light
-                _current.HintActiveBackground = "#FFC107";   // amber
-                _current.HintInactiveBackground = "#FFE082"; // light amber
-                _current.HintTextColor = "#000000";           // black text
+                _current.HintActiveBackground = "#FFFFFF";   // card background
+                _current.HintInactiveBackground = "#F0F0F0"; // window background
+                _current.HintTextColor = "#1A1A1A";           // text primary
                 break;
         }
         // Notify all hint color bindings and save
