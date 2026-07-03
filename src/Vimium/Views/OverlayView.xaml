@@ -33,10 +33,11 @@
                     VerticalAlignment="Center"
                     Orientation="Horizontal"
                     Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}">
-            <Image Source="{DynamicResource SkadiLoadingIcon}"
+            <Image x:Name="LoadingIcon"
                    Width="20" Height="20"
                    Margin="0,0,8,0"
-                   VerticalAlignment="Center" />
+                   VerticalAlignment="Center"
+                   Visibility="Collapsed" />
             <TextBlock x:Name="LoadingIndicator"
                        Text="Generating hints…"
                        Foreground="{DynamicResource OverlayLoadingForegroundBrush}"

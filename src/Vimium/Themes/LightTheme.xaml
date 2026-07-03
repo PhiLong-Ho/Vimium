@@ -27,10 +27,6 @@
     <SolidColorBrush x:Key="OverlayLoadingForegroundBrush" Color="#FFFFFF" />
     <SolidColorBrush x:Key="OverlayMatchStringForegroundBrush" Color="#FFFFFF" />
 
-    <!-- ── Loading indicator icon (shown in all themes) ──── -->
-
-    <BitmapImage x:Key="SkadiLoadingIcon" UriSource="/Resources/skadi.ico" />
-
     <!-- ── Implicit text defaults ─────────────────────────── -->
 
     <Style TargetType="TextBlock">

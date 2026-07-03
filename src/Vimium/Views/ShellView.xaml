@@ -8,10 +8,21 @@
                     IconSource="/Resources/skadi.ico"
                     MenuActivation="LeftOrRightClick">
         <tb:TaskbarIcon.ContextMenu>
-            <ContextMenu>
-                <MenuItem Header="Options" Command="{Binding ShowOptionsCommand}"></MenuItem>
+            <ContextMenu Background="{DynamicResource CardBackgroundBrush}"
+                         Foreground="{DynamicResource TextPrimaryBrush}"
+                         BorderBrush="{DynamicResource BorderBrush}">
+                <ContextMenu.Resources>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+                    </Style>
+                    <Style TargetType="Separator">
+                        <Setter Property="Background" Value="{DynamicResource BorderBrush}" />
+                    </Style>
+                </ContextMenu.Resources>
+                <MenuItem Header="Options" Command="{Binding ShowOptionsCommand}" />
                 <Separator />
-                <MenuItem Header="Exit" Command="{Binding ExitCommand}"></MenuItem>
+                <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
             </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>
     </tb:TaskbarIcon>

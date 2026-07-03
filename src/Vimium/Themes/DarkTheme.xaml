@@ -22,10 +22,6 @@
     <SolidColorBrush x:Key="InputBackgroundBrush" Color="#333333" />
     <SolidColorBrush x:Key="PresetSwatchBorderBrush" Color="#505050" />
 
-    <!-- ── Loading indicator icon ────────────────────────── -->
-
-    <BitmapImage x:Key="SkadiLoadingIcon" UriSource="/Resources/skadi.ico" />
-
     <!-- ── Overlay-specific brushes ──────────────────────── -->
 
     <SolidColorBrush x:Key="OverlayLoadingForegroundBrush" Color="#F0F0F0" />

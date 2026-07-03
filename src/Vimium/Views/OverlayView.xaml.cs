@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Vimium.NativeMethods;
 using Vimium.Services;
@@ -30,6 +31,17 @@ namespace Vimium.Views
 
         private void OverlayView_OnLoaded(object sender, RoutedEventArgs e)
         {
+            // Show Skadi loading icon only for Skadi theme
+            if (ConfigService.Instance.Theme == "Skadi")
+            {
+                try
+                {
+                    LoadingIcon.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/skadi.ico"));
+                    LoadingIcon.Visibility = Visibility.Visible;
+                }
+                catch { }
+            }
+
             var m = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice;
             var scaleX = m.M11;
             var scaleY = m.M22;
