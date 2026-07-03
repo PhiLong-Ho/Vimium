@@ -79,9 +79,21 @@ namespace Vimium.ViewModels
         /// </summary>
         private bool _overlayActive;
 
+        /// <summary>True if the options window is currently shown as a modal dialog.</summary>
+        private static bool IsOptionsOpen
+        {
+            get
+            {
+                foreach (Window w in Application.Current.Windows)
+                    if (w is Views.OptionsView)
+                        return true;
+                return false;
+            }
+        }
+
         private async void _keyListener_OnHotKeyActivated(object sender, EventArgs e)
         {
-            if (_overlayActive)
+            if (_overlayActive || IsOptionsOpen)
             {
                 return;
             }
@@ -126,7 +138,7 @@ namespace Vimium.ViewModels
 
         private async void _keyListener_OnTaskbarHotKeyActivated(object sender, EventArgs e)
         {
-            if (_overlayActive)
+            if (_overlayActive || IsOptionsOpen)
             {
                 return;
             }
