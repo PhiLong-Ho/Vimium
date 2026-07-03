@@ -25,7 +25,6 @@ internal class OptionsViewModel : NotifyPropertyChanged
 
         CloseCommand = new DelegateCommand(CloseWindow);
         ResetCommand = new DelegateCommand(Reset);
-        SelectPageCommand = new DelegateCommand(SelectPageByIndex);
     }
 
     public string DisplayName { get; set; }
@@ -66,15 +65,6 @@ internal class OptionsViewModel : NotifyPropertyChanged
 
     public ICommand CloseCommand { get; }
     public ICommand ResetCommand { get; }
-    public ICommand SelectPageCommand { get; }
-
-    public void SelectPageByIndex(object indexObj)
-    {
-        var idxStr = indexObj?.ToString() ?? "0";
-        if (int.TryParse(idxStr, out var idx) && idx >= 0 && idx < Pages.Count)
-            SelectedPage = Pages[idx];
-    }
-
     private void Reset()
     {
         var result = MessageBox.Show(
