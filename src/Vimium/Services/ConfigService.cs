@@ -61,25 +61,25 @@ public class ConfigService : INotifyPropertyChanged
         }
     }
 
-    /// <summary>Apply sensible hint color defaults when changing theme.</summary>
+    /// <summary>Apply theme-matching hint color defaults when changing theme.</summary>
     private void ApplyThemeHintDefaults(string theme)
     {
         switch (theme)
         {
             case "Dark":
-                _current.HintActiveBackground = "#FFD700";   // gold
-                _current.HintInactiveBackground = "#B8860B"; // dark goldenrod
-                _current.HintTextColor = "#000000";
+                _current.HintActiveBackground = "#4CA1FF";   // accent blue
+                _current.HintInactiveBackground = "#2A5A8A"; // muted blue
+                _current.HintTextColor = "#FFFFFF";           // white text
                 break;
             case "Skadi":
-                _current.HintActiveBackground = "#4FC3F7";   // cyan
+                _current.HintActiveBackground = "#4FC3F7";   // accent cyan
                 _current.HintInactiveBackground = "#1A6B9A"; // darker cyan
-                _current.HintTextColor = "#000000";
+                _current.HintTextColor = "#0D1B2A";           // navy text
                 break;
             default: // Light
-                _current.HintActiveBackground = "#FFFF00";   // yellow
-                _current.HintInactiveBackground = "#FFFFE0"; // light yellow
-                _current.HintTextColor = "#000000";
+                _current.HintActiveBackground = "#FFC107";   // amber
+                _current.HintInactiveBackground = "#FFE082"; // light amber
+                _current.HintTextColor = "#000000";           // black text
                 break;
         }
         // Notify all hint color bindings and save

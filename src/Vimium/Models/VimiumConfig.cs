@@ -22,10 +22,10 @@ public class VimiumConfig
     public string HintFontFamily { get; set; } = "";
 
     /// <summary>Background color for the active hint (hex #RRGGBB).</summary>
-    public string HintActiveBackground { get; set; } = "#FFFF00";
+    public string HintActiveBackground { get; set; } = "#FFC107";
 
     /// <summary>Background color for inactive hints (hex #RRGGBB).</summary>
-    public string HintInactiveBackground { get; set; } = "#FFFFE0";
+    public string HintInactiveBackground { get; set; } = "#FFE082";
 
     /// <summary>Text color for hints (hex #RRGGBB).</summary>
     public string HintTextColor { get; set; } = "#000000";

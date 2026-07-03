@@ -27,7 +27,7 @@
         <SolidColorBrush Color="Transparent" />
     </local:ForegroundWindow.Background>
     <Grid x:Name="layoutGrid" Background="Transparent" MouseDown="Overlay_MouseDown">
-        <TextBox x:Name="MatchStringControl" IsReadOnly="True" IsHitTestVisible="False" Width="50" VerticalAlignment="Bottom" Background="{Binding DataContext.HintActiveBrush, RelativeSource={RelativeSource AncestorType=local:ForegroundWindow}}" Foreground="{DynamicResource OverlayMatchStringForegroundBrush}" FontWeight="Bold" />
+        <TextBox x:Name="MatchStringControl" IsReadOnly="True" IsHitTestVisible="False" Width="50" VerticalAlignment="Bottom" Background="{Binding DataContext.HintActiveBrush, RelativeSource={RelativeSource AncestorType=local:ForegroundWindow}}" Foreground="{Binding DataContext.HintTextBrush, RelativeSource={RelativeSource AncestorType=local:ForegroundWindow}}" FontWeight="Bold" FontFamily="Segoe UI, Helvetica, Arial" />
         <!-- Loading indicator: shown while hints are being enumerated on a background thread -->
         <Border HorizontalAlignment="Center"
                 VerticalAlignment="Center"
@@ -43,7 +43,7 @@
                        Visibility="Collapsed" />
                 <TextBlock x:Name="LoadingIndicator"
                            Text="Generating hints…"
-                           Foreground="{DynamicResource OverlayLoadingForegroundBrush}"
+                           Foreground="{Binding DataContext.HintTextBrush, RelativeSource={RelativeSource AncestorType=local:ForegroundWindow}}"
                            FontSize="16"
                            FontWeight="Bold"
                            FontFamily="Segoe UI, Helvetica, Arial">
