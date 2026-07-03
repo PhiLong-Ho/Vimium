@@ -121,6 +121,9 @@
                                       BorderThickness="{TemplateBinding BorderThickness}"
                                       Foreground="{TemplateBinding Foreground}"
                                       Padding="{TemplateBinding Padding}"
+                                      Content="{TemplateBinding SelectionBoxItem}"
+                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                      ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                                       Focusable="False"
                                       ClickMode="Press"
                                       IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
@@ -136,9 +139,12 @@
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="Auto" />
                                             </Grid.ColumnDefinitions>
-                                            <ContentPresenter Content="{TemplateBinding Content}"
+                                            <ContentPresenter x:Name="ContentSite"
+                                                              Content="{TemplateBinding Content}"
                                                               ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                              VerticalAlignment="Center" />
+                                                              VerticalAlignment="Center"
+                                                              Margin="3,0,0,0"
+                                                              IsHitTestVisible="False" />
                                             <Path Grid.Column="1"
                                                   Data="M 0 0 L 4 4 L 8 0 Z"
                                                   Fill="{TemplateBinding Foreground}"
