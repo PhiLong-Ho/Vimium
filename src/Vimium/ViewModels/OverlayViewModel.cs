@@ -135,10 +135,20 @@ namespace Vimium.ViewModels
         /// </summary>
         public Action Closed { get; set; }
 
+        /// <summary>Guard against reentrant calls — Invoke() can trigger a modal
+        /// dialog (e.g. Options) which runs a nested message loop.</summary>
+        private bool _resolving;
+
         public string MatchString
         {
             set
             {
+                if (_resolving) return;
+                _resolving = true;
+
+                try
+                {
+
                 foreach (var x in Hints)
                 {
                     x.Active = false;
@@ -186,6 +196,11 @@ namespace Vimium.ViewModels
                         // throws COMException). Never let that crash the app -- just close.
                         CloseOverlay?.Invoke();
                     }
+                }
+                }
+                finally
+                {
+                    _resolving = false;
                 }
             }
         }
