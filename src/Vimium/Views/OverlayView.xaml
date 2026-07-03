@@ -27,27 +27,33 @@
         <SolidColorBrush Color="Transparent" />
     </local:ForegroundWindow.Background>
     <Grid x:Name="layoutGrid">
-        <TextBox x:Name="MatchStringControl" IsReadOnly="True" IsHitTestVisible="False" Width="50" VerticalAlignment="Bottom" Background="Transparent" Foreground="White" />
+        <TextBox x:Name="MatchStringControl" IsReadOnly="True" IsHitTestVisible="False" Width="50" VerticalAlignment="Bottom" Background="Transparent" Foreground="{DynamicResource OverlayMatchStringForegroundBrush}" />
         <!-- Loading indicator: shown while hints are being enumerated on a background thread -->
-        <TextBlock x:Name="LoadingIndicator"
-                   Text="Generating hints…"
-                   Foreground="White"
-                   FontSize="16"
-                   FontFamily="Segoe UI, Helvetica, Arial"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}">
-            <TextBlock.Triggers>
-                <EventTrigger RoutedEvent="TextBlock.Loaded">
-                    <BeginStoryboard>
-                        <Storyboard AutoReverse="True" RepeatBehavior="Forever">
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                             From="1.0" To="0.3" Duration="0:0:0.6" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </TextBlock.Triggers>
-        </TextBlock>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal"
+                    Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibility}}">
+            <Image Source="{DynamicResource SkadiLoadingIcon}"
+                   Width="20" Height="20"
+                   Margin="0,0,8,0"
+                   VerticalAlignment="Center" />
+            <TextBlock x:Name="LoadingIndicator"
+                       Text="Generating hints…"
+                       Foreground="{DynamicResource OverlayLoadingForegroundBrush}"
+                       FontSize="16"
+                       FontFamily="Segoe UI, Helvetica, Arial">
+                <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="TextBlock.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard AutoReverse="True" RepeatBehavior="Forever">
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="1.0" To="0.3" Duration="0:0:0.6" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </TextBlock.Triggers>
+            </TextBlock>
+        </StackPanel>
         <ItemsControl ItemsSource="{Binding Hints}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

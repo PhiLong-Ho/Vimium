@@ -4,18 +4,27 @@
     <!-- ── Skadi Theme (Arknights) ────────────────────────── -->
 
     <SolidColorBrush x:Key="WindowBackgroundBrush" Color="#0D1B2A" />
-    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#1B2838" />
-    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#E0F0FF" />
-    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#7B9DBF" />
-    <SolidColorBrush x:Key="BorderBrush" Color="#2A3F55" />
-    <SolidColorBrush x:Key="FooterBackgroundBrush" Color="#111D2B" />
-    <SolidColorBrush x:Key="SidebarBackgroundBrush" Color="#0F1E2E" />
-    <SolidColorBrush x:Key="SidebarActiveBackgroundBrush" Color="#1A2E42" />
+    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#152535" />
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#E8F4FF" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#90B8D8" />
+    <SolidColorBrush x:Key="BorderBrush" Color="#253A50" />
+    <SolidColorBrush x:Key="FooterBackgroundBrush" Color="#0F1D2D" />
+    <SolidColorBrush x:Key="SidebarBackgroundBrush" Color="#0E1C2C" />
+    <SolidColorBrush x:Key="SidebarActiveBackgroundBrush" Color="#1C3045" />
     <SolidColorBrush x:Key="AccentBrush" Color="#4FC3F7" />
-    <SolidColorBrush x:Key="InputBackgroundBrush" Color="#1E3040" />
-    <SolidColorBrush x:Key="PresetSwatchBorderBrush" Color="#3A5068" />
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="#1A2E42" />
+    <SolidColorBrush x:Key="PresetSwatchBorderBrush" Color="#355070" />
 
-    <!-- ── Implicit text defaults ─────────────────────────── -->
+    <!-- ── Overlay-specific brushes ──────────────────────── -->
+
+    <SolidColorBrush x:Key="OverlayLoadingForegroundBrush" Color="#7BC8F0" />
+    <SolidColorBrush x:Key="OverlayMatchStringForegroundBrush" Color="#E0F0FF" />
+
+    <!-- ── Skadi loading icon ────────────────────────────── -->
+
+    <BitmapImage x:Key="SkadiLoadingIcon" UriSource="/Resources/skadi.ico" />
+
+    <!-- ── Implicit defaults ──────────────────────────────── -->
 
     <Style TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
