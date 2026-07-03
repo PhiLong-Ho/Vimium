@@ -46,3 +46,16 @@ Fall back to Grep/Glob/Read **only** when the graph doesn't cover what you need.
 2. Use `detect_changes` for code review.
 3. Use `get_affected_flows` to understand impact.
 4. Use `query_graph` pattern="tests_for" to check coverage.
+
+## Development Workflow: Spec-Driven
+
+This project uses the **spec-driven-dev** skill for all feature work. The cycle is:
+
+1. **Spec** — write/update `docs/feature/<name>.md` with numbered, testable requirements
+2. **Review** — discuss with user, commit spec before any code
+3. **Build** — implement one phase at a time, build (0 errors), commit
+4. **Verify** — cross-check every requirement against the spec
+
+**New requirements always go into the spec first** — never implement before the spec is updated and reviewed.
+
+Commit messages are brief with conventional prefixes: `feat:`, `fix:`, `refactor:`, `docs:`.
