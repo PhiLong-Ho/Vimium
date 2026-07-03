@@ -19,7 +19,7 @@
     <SolidColorBrush x:Key="SidebarBackgroundBrush" Color="#0E1C2C" />
     <SolidColorBrush x:Key="SidebarActiveBackgroundBrush" Color="#1C3045" />
     <SolidColorBrush x:Key="AccentBrush" Color="#4FC3F7" />
-    <SolidColorBrush x:Key="InputBackgroundBrush" Color="#1A2E42" />
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="#0F2030" />
     <SolidColorBrush x:Key="PresetSwatchBorderBrush" Color="#355070" />
 
     <!-- ── Overlay-specific brushes ──────────────────────── -->
