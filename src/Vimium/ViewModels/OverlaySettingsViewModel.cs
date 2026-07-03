@@ -15,7 +15,7 @@ public class OverlaySettingsViewModel : NotifyPropertyChanged
     }
 
     public string Icon => "\U0001F5A5";  // 🖥 desktop
-    public string DisplayName => "_Overlay";
+    public string DisplayName => "Overlay";
 
     public string HintFontFamily
     {

@@ -8,6 +8,12 @@
         WindowStartupLocation="CenterOwner"
         Background="{DynamicResource WindowBackgroundBrush}">
 
+    <Window.InputBindings>
+        <KeyBinding Key="G" Modifiers="Alt" Command="{Binding SelectPageCommand}" CommandParameter="0" />
+        <KeyBinding Key="O" Modifiers="Alt" Command="{Binding SelectPageCommand}" CommandParameter="1" />
+        <KeyBinding Key="K" Modifiers="Alt" Command="{Binding SelectPageCommand}" CommandParameter="2" />
+    </Window.InputBindings>
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -247,7 +253,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Icon}" FontSize="16"
                                                Margin="0,0,10,0" />
-                                    <AccessText Text="{Binding DisplayName}" />
+                                    <TextBlock Text="{Binding DisplayName}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>

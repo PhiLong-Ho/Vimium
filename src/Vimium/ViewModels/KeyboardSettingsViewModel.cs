@@ -13,7 +13,7 @@ public class KeyboardSettingsViewModel : NotifyPropertyChanged
     }
 
     public string Icon => "⌨";
-    public string DisplayName => "_Keyboard";
+    public string DisplayName => "Keyboard";
 
     public string OverlayModifier
     {
