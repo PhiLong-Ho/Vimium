@@ -1,8 +1,8 @@
 # Options Window Modernization
 
-**Status:** Draft — Updated after review  
+**Status:** In Progress — Post-implementation fixes  
 **Date:** 2026-07-03  
-**Branch:** TBD
+**Branch:** master
 
 ## Overview
 
@@ -76,7 +76,16 @@ Redesign the Vimium options window with a modern visual style, full keyboard nav
 | 5.4 | **Defaults** | Shipped defaults defined in code (not in the JSON file); missing keys get defaults |
 | 5.5 | **Save semantics** | Save only on explicit user action (click Save); detect unsaved changes for Cancel/close |
 
-### 6. Project Rename: HuntAndPeck → Vimium
+### 6. Immediate Apply (Live Settings)
+
+| # | Requirement | Details |
+|---|-------------|---------|
+| 6.1 | **Auto-save** | Every property change in ConfigService persists to JSON immediately — no explicit Save needed |
+| 6.2 | **Live overlay colors** | Overlay hint colors read from ConfigService on every activation and update in real-time via `INotifyPropertyChanged` |
+| 6.3 | **Live font size** | Hint font size reflects the current config value each time the overlay is created |
+| 6.4 | **Options window** | Save button closes the window; Cancel closes with a discard prompt if dirty; Reset clears to defaults |
+
+### 7. Project Rename: HuntAndPeck → Vimium
 
 | # | Requirement | Details |
 |---|-------------|---------|
@@ -235,7 +244,32 @@ Redesign the Vimium options window with a modern visual style, full keyboard nav
 | `README.md` | Update name references |
 | `docs/feature/options-window-modernization.md` | This file — keep in sync |
 | `register-startup-task.ps1` | Update path references |
+| `src/Vimium/ViewModels/OverlayViewModel.cs` | Add dynamic color properties, ConfigService subscription |
+| `src/Vimium/Views/OverlayView.xaml` | Replace hardcoded Yellow/LightYellow with ConfigService bindings |
+| `.claude/skills/spec-driven-dev/skill.md` | **New** — this development workflow skill |
 
 ---
 
-*Ready for review. Once approved, implementation begins with Phase 1.*
+## Post-Implementation Findings
+
+### ✅ Done (all phases committed)
+
+- Phase 0–4 complete: rename, JSON config, themes, styles, modern layout, keyboard nav, access keys
+- Auto-save on every property change (ConfigService.SetProperty)
+- OverlayViewModel exposes `HintActiveBrush`/`HintInactiveBrush`/`HintTextBrush` from ConfigService
+- OverlayView.xaml HintStyle binds to dynamic brushes via RelativeSource
+
+### 🔧 In Progress
+
+- §6 Immediate Apply: code written, needs build verification (Vimium.exe lock preventing rebuild)
+- §2.2 Localization: Resources.resx still empty — strings hardcoded in XAML
+- §2.3 Language selector: visible but disabled (no translations exist)
+- §4.3 Skadi theme: dictionary exists but theme-switching at runtime not yet wired to App.xaml.cs
+- §4.6 Theme switching: option to change theme in options window not yet reflected in app (requires App.xaml.cs dictionary swap logic)
+
+### ❌ Deferred
+
+- §2.3 Language selector functional (needs actual translation files)
+- Keyboard tab → full shortcut binding UI (placeholder text in place)
+- Interactions tab entirely
+- Dark mode → Options window itself doesn't switch themes live yet
