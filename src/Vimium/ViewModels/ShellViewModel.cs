@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -79,13 +81,23 @@ namespace Vimium.ViewModels
         /// </summary>
         private bool _overlayActive;
 
+        /// <summary>True if the given window belongs to the Vimium process.</summary>
+        private static bool IsOwnWindow(IntPtr hWnd)
+        {
+            GetWindowThreadProcessId(hWnd, out uint pid);
+            return pid == (uint)Environment.ProcessId;
+        }
+
+        [DllImport("user32.dll")]
+        private static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint processId);
+
         private async void _keyListener_OnHotKeyActivated(object sender, EventArgs e)
         {
             if (_overlayActive) return;
             _overlayActive = true;
 
             var hWnd = User32.GetForegroundWindow();
-            if (hWnd == IntPtr.Zero)
+            if (hWnd == IntPtr.Zero || IsOwnWindow(hWnd))
             {
                 _overlayActive = false;
                 return;
@@ -124,6 +136,12 @@ namespace Vimium.ViewModels
         private async void _keyListener_OnTaskbarHotKeyActivated(object sender, EventArgs e)
         {
             if (_overlayActive) return;
+
+            // Don't activate on our own windows
+            var fg = User32.GetForegroundWindow();
+            if (fg != IntPtr.Zero && IsOwnWindow(fg))
+                return;
+
             _overlayActive = true;
 
             var taskbarHWnd = User32.FindWindow("Shell_traywnd", "");
