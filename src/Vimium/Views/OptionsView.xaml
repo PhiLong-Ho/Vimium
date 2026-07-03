@@ -165,6 +165,8 @@
                                 <TextBlock Text="Activation Shortcuts" Style="{StaticResource SectionTitleStyle}" />
                                 <TextBlock Text="Configure which key combinations trigger the overlay."
                                            Style="{StaticResource DescriptionStyle}" />
+                                <TextBlock Text="Format: Ctrl+;  —  supported modifiers: Ctrl, Alt, Shift, Win  —  key: letter, digit, or symbol (; , . / etc.)"
+                                           Style="{StaticResource DescriptionStyle}" />
                                 <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
                                     <Label Content="Overlay:" Style="{StaticResource SettingLabelStyle}"
                                            Width="100" />
