@@ -5,7 +5,7 @@ description: Develop features by iterating on a spec document — design → rev
 
 ## Spec-Driven Development
 
-This skill encodes the project's development cycle. Every feature starts and ends with a spec file in `docs/feature/<feature-name>.md`.
+This skill encodes the project's development cycle. Every feature starts and ends with a spec file in `docs/features/<version>/<feature-name>.md`.
 
 ### The Cycle
 
@@ -21,7 +21,7 @@ This skill encodes the project's development cycle. Every feature starts and end
 
 ### 1. SPEC — Create or update the spec document
 
-- Write specs in `docs/feature/<name>.md`.
+- Write specs in `docs/features/<version>/<name>.md` (e.g. `docs/features/v1.3/options-window-modernization.md`).
 - Include sections: **Overview**, **Requirements** (numbered tables: `| # | Req | Details |`), **Design** (diagrams, palettes), **Implementation Plan** (phased steps), **Files Changed**.
 - Keep requirements **testable** — each `#` should be verifiable.
 - If a spec already exists, update it; don't create a duplicate.
