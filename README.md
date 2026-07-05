@@ -9,22 +9,25 @@ A lightweight keyboard-driven UI overlay for Windows. Press a hotkey, type a hin
 | Feature | Description |
 | --- | --- |
 | **Instant overlay** | Overlay appears immediately; hints populate asynchronously in the background. |
-| **Multiple interaction modes** | Invoke (default), Left Click, Right Click — hold the modifier while typing. |
+| **Multiple interaction modes** | Invoke (default), Left Click (Shift), Right Click (Shift) — hold modifier while typing. |
+| **Themes** | Light, Dark, and Skadi themes with runtime switching via the options window. |
+| **Modern options window** | Sidebar-navigated settings: font size, hint colors, shortcuts — all auto-save. |
+| **Configurable hotkeys** | Change overlay/taskbar activation shortcuts in Options → Keyboard. |
 | **Elevated by default** | Runs as administrator so it can interact with elevated apps. |
 | **Popup-friendly** | Overlay never steals focus — menus, dropdowns, and popups stay open. |
 | **Auto-start** | Optional scheduled-task script for login launch without a UAC prompt. |
-| **Configurable font size** | Tray icon → Options → FontSize. |
 | **Taskbar mode** | `Ctrl + '` to highlight the Windows taskbar. |
 
 ## Download
 
-Releases are published at: <https://github.com/PhiLong-Ho/Vim_with_mouse/releases>
+Releases are published at: <https://github.com/PhiLong-Ho/Vimium/releases>
 
 ## How to use
 
 1. Launch **Vimium.exe** (runs in the system tray).
 2. With any window focused, press **`Ctrl + ;`** to show hints for the active window.
    - Press **`Ctrl + '`** to show hints for the taskbar.
+   - Hotkeys are configurable in Options → Keyboard.
 3. Type the hint letters shown on the control you want, then release the modifier key.
 
 ### Interaction modes
@@ -76,9 +79,15 @@ Vimium shows hints for UI Automation elements that support any of these patterns
 - **Expand / Collapse** — tree items, expandable panels
 - **Selection** — list items, tabs
 
-## How to change font size
+## How to configure
 
-Right-click the Vimium tray icon, select **Options**, then use the **FontSize** menu.
+Right-click the Vimium tray icon, select **Options** to open the settings window:
+
+- **General** — font size (with live preview), theme (Light / Dark / Skadi)
+- **Overlay** — hint background colors (hex input + preset swatches), animation toggle
+- **Keyboard** — customizable overlay/taskbar activation shortcuts
+
+All settings auto-save. Press `↑`/`↓` to navigate sidebar, `Alt+C` to close.
 
 ## Screenshots
 

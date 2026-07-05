@@ -2,6 +2,38 @@
 
 This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 
+## v1.3 — Modern options window, themes, live settings
+
+### Added
+
+- **Modern options window** with sidebar navigation (General / Overlay / Keyboard), card-based sections, and full keyboard support (arrow keys, Tab, Alt+C/R).
+- **Theme system** — Light, Dark, and Skadi (Arknights) themes with runtime switching. Themes affect the options window, tray context menu, and hint overlay colors.
+- **JSON-backed settings** (`%APPDATA%\Vimium\config.json`) with auto-save — no manual Save button needed.
+- **Configurable hotkeys** via Options → Keyboard tab. Supports Ctrl/Alt/Shift/Win + any letter, digit, or symbol.
+- **Hint color customization** — hex color inputs with 12 preset swatches for active/inactive hint backgrounds and text color.
+- **Live font size preview** in the options window; hint colors update overlay in real time.
+- **Theme-matching hint defaults** — switching themes auto-applies appropriate hint colors; manual override still works.
+- **Skadi loading icon** — appears during hint generation when Skadi theme is active.
+
+### Changed
+
+- **Project renamed** from `HuntAndPeck` to `Vimium` (namespaces, folders, assemblies).
+- Overlay loading indicator and match string now use hint background colors for visibility.
+- Invoke actions run on a background thread to prevent nested-message-loop deadlocks when navigating Vimium's own UI.
+- `ShowDialog()` for tray menu options — menu now blocks until closed.
+
+### Fixed
+
+- **Overlay stuck** — click anywhere on the overlay to dismiss; 5-second safety auto-close timer; Escape always works.
+- **ComboBox theming** — custom template with properly themed toggle button, popup, and system color overrides.
+- **Context menu theming** — tray menu now matches theme with custom templates for MenuItem, Separator.
+- **Digit key parsing** (`Ctrl+1` → `D1`) in `HotKey.Parse`.
+
+### Dev
+
+- Unit tests for `VimiumConfig`, `HotKey.Parse`, `HexToColorConverter`, `HintLabelService` (26 tests, all green).
+- `spec-driven-dev` Claude Code skill for iterative spec → build → verify workflow.
+
 ## v1.2 — Instant overlay, async hints
 
 ### Changed
