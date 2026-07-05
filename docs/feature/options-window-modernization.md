@@ -1,8 +1,9 @@
 # Options Window Modernization
 
-**Status:** In Progress — Fixes & Verification
-**Date:** 2026-07-04
+**Status:** Complete
+**Date:** 2026-07-05
 **Branch:** master
+**Release:** [v1.3.0](https://github.com/PhiLong-Ho/Vimium/releases/tag/v1.3.0)
 
 ## Overview
 
@@ -245,6 +246,33 @@ Redesign the Vimium options window with a modern visual style, full keyboard nav
 | `register-startup-task.ps1` | Path updated |
 | `.claude/skills/spec-driven-dev/skill.md` | **New** — development workflow skill |
 | `.claude/CLAUDE.md` | Add spec-driven-dev workflow section |
+| `src/Vimium.Tests/Models/VimiumConfigTest.cs` | **New** — 6 tests |
+| `src/Vimium.Tests/Services/HotKeyTest.cs` | **New** — 11 tests |
+| `src/Vimium.Tests/Converters/HexToColorConverterTest.cs` | **New** — 8 tests |
+| `CHANGELOG.md` | Add v1.3 entry |
+| `docs/feature/options-window-modernization.md` | This file |
+
+## Test Coverage
+
+26 tests across 4 test classes (all passing):
+
+| Class | Tests | Coverage |
+|-------|-------|----------|
+| `VimiumConfigTest` | 6 | Defaults, JSON roundtrip, edge cases |
+| `HotKeyTest` | 11 | All modifier/key combos, invalid input |
+| `HexToColorConverterTest` | 8 | Valid/invalid hex, null handling, ConvertBack |
+| `HintLabelServiceTest` | 1 | Uniqueness of generated hint strings |
+
+Core logic coverage: `HexToColorConverter` 100%, `HotKey` 97.6%, `HintLabelService` 95.4%, `VimiumConfig` 89.2%.
+
+## Deferred (for future releases)
+
+- §2.2 Localization — strings still hardcoded in XAML/C#; Resources.resx is empty
+- §2.3 Language selector functional — needs actual translation files
+- §2.4 Culture-aware defaults — CJK locale font-size bump
+- Keyboard tab — full custom shortcut binding UI (add/edit/remove actions)
+- Interactions tab — per-element-type action configuration
+- Clean up old `src/HuntAndPeck/` and `src/HuntAndPeck.Tests/` directories from disk (still present due to file locks at rename time)
 
 ## Remaining Work
 
