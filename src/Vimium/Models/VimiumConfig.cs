@@ -58,7 +58,17 @@ public class VimiumConfig
 
     public static VimiumConfig FromJson(string json)
     {
-        var config = JsonSerializer.Deserialize<VimiumConfig>(json, JsonOptions);
-        return config ?? Default;
+        if (string.IsNullOrWhiteSpace(json))
+            return Default;
+
+        try
+        {
+            var config = JsonSerializer.Deserialize<VimiumConfig>(json, JsonOptions);
+            return config ?? Default;
+        }
+        catch
+        {
+            return Default;
+        }
     }
 }

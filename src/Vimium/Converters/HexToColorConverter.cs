@@ -30,7 +30,10 @@ public class HexToColorConverter : IValueConverter
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is SolidColorBrush brush)
-            return brush.Color.ToString();
+        {
+            var c = brush.Color;
+            return $"#{c.R:X2}{c.G:X2}{c.B:X2}";
+        }
 
         return "#000000";
     }
