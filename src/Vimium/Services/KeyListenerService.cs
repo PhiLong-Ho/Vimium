@@ -11,6 +11,7 @@ namespace Vimium.Services
         public event EventHandler OnHotKeyActivated;
         public event EventHandler OnTaskbarHotKeyActivated;
         public event EventHandler OnDebugHotKeyActivated;
+        public event EventHandler OnLineNavigationHotKeyActivated;
 
         /// <summary>
         /// Global counter for assigning ids to identiy the hot key registration
@@ -20,6 +21,7 @@ namespace Vimium.Services
         private HotKey _hotKey;
         private HotKey _taskbarHotKey;
         private HotKey _debugHotKey;
+        private HotKey _lineNavigationHotKey;
 
         /// <summary>
         /// Re-registers the current hotkey, unregistering any previous key
@@ -86,6 +88,20 @@ namespace Vimium.Services
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public HotKey LineNavigationHotKey
+        {
+            get
+            {
+                return _lineNavigationHotKey;
+            }
+            set
+            {
+                _lineNavigationHotKey = value;
+                ReRegisterHotKey(_lineNavigationHotKey);
+            }
+        }
+
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == Constants.WM_HOTKEY)
@@ -99,6 +115,7 @@ namespace Vimium.Services
                     OnHotKeyActivated != null)
                 {
                     OnHotKeyActivated(this, new EventArgs());
+                    return;
                 }
 
                 // Task bar hotkey
@@ -108,6 +125,7 @@ namespace Vimium.Services
                     OnHotKeyActivated != null)
                 {
                     OnTaskbarHotKeyActivated(this, new EventArgs());
+                    return;
                 }
 
                 // Debug hotkey
@@ -117,7 +135,22 @@ namespace Vimium.Services
                     OnDebugHotKeyActivated != null)
                 {
                     OnDebugHotKeyActivated(this, new EventArgs());
+                    return;
                 }
+
+                // Line navigation hotkey
+                if (_lineNavigationHotKey != null &&
+                    e.Key == _lineNavigationHotKey.Keys &&
+                    e.Modifiers == _lineNavigationHotKey.Modifier &&
+                    OnLineNavigationHotKeyActivated != null)
+                {
+                    Services.LogService.Info($"WM_HOTKEY: LineNav matched! Key={e.Key}, Mod={e.Modifiers}");
+                    OnLineNavigationHotKeyActivated(this, new EventArgs());
+                    return;
+                }
+
+                // Unrecognized hotkey
+                Services.LogService.Warn($"WM_HOTKEY: No match — Key={e.Key}, Mod={e.Modifiers}. Registered: LineNav=(Key={_lineNavigationHotKey?.Keys}, Mod={_lineNavigationHotKey?.Modifier}), Overlay=(Key={_hotKey?.Keys}, Mod={_hotKey?.Modifier})");
             }
 
             base.WndProc(ref m);

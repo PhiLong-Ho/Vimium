@@ -10,17 +10,15 @@ A lightweight keyboard-driven UI overlay for Windows. Press a hotkey, type a hin
 | --- | --- |
 | **Instant overlay** | Overlay appears immediately; hints populate asynchronously in the background. |
 | **Multiple interaction modes** | Invoke (default), Left Click (Shift), Right Click (Shift) — hold modifier while typing. |
+| **Line navigation mode** | `Ctrl+.` to label every visible text line in the active window. Jump, search, select, and copy text with keyboard alone. |
+| **Sub-line selection & copy** | Hold `Ctrl` + hint label → search → Tab/arrows → Enter to copy exact text portions to clipboard. |
 | **Themes** | Light, Dark, and Skadi themes with runtime switching via the options window. |
 | **Modern options window** | Sidebar-navigated settings: font size, hint colors, shortcuts — all auto-save. |
-| **Configurable hotkeys** | Change overlay/taskbar activation shortcuts in Options → Keyboard. |
+| **Configurable hotkeys** | Change overlay/taskbar/line-nav activation shortcuts in Options → Keyboard. |
 | **Elevated by default** | Runs as administrator so it can interact with elevated apps. |
 | **Popup-friendly** | Overlay never steals focus — menus, dropdowns, and popups stay open. |
 | **Auto-start** | Optional scheduled-task script for login launch without a UAC prompt. |
 | **Taskbar mode** | `Ctrl + '` to highlight the Windows taskbar. |
-
-## Download
-
-Releases are published at: <https://github.com/PhiLong-Ho/Vimium/releases>
 
 ## How to use
 
@@ -41,6 +39,19 @@ Hold one of these modifiers while typing the hint:
 | **Right Shift** | Move the mouse and perform a real **right click** (e.g. open a context menu). |
 
 Why the click modes? Some apps (notably Electron / web-based apps like Microsoft Teams) expose hints through UI Automation but don't implement the `InvokePattern`. A synthesized mouse click goes through the normal OS input path and works on those controls.
+
+### Line navigation mode
+
+Press **`Ctrl + .`** (configurable) to enter line navigation mode. The overlay shows hint labels on every visible text line in the active window.
+
+| Action | How |
+| --- | --- |
+| **Jump to line** | Type the hint label (without modifier) — cursor moves to the line center. |
+| **Copy whole line** | Hold `Ctrl` (or configured copy modifier) + type hint label, then press `Enter`. |
+| **Copy text portion** | Hold copy modifier + hint label → type search text → `Tab`/`Shift+Tab` to cycle matches → arrow keys to refine → `Shift+Arrow` to select → `Enter` to copy. |
+| **Dismiss** | Press `Escape` at any time. |
+
+Line mode is independent of element mode (`Ctrl+;`). Both modes have hotkeys and operate on the active foreground window. Hotkeys and the copy modifier can be changed in **Options → Keyboard**.
 
 ### Command-line
 

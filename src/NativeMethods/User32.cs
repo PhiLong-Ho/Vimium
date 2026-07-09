@@ -83,9 +83,19 @@ namespace Vimium.NativeMethods
         public const int WM_SYSKEYDOWN = 0x0104;
 
         public const int VK_BACK = 0x08;
+        public const int VK_TAB = 0x09;
+        public const int VK_RETURN = 0x0D;
         public const int VK_ESCAPE = 0x1B;
+        public const int VK_LEFT = 0x25;
+        public const int VK_RIGHT = 0x27;
+        public const int VK_HOME = 0x24;
+        public const int VK_END = 0x23;
         public const int VK_LSHIFT = 0xA0;
         public const int VK_RSHIFT = 0xA1;
+        public const int VK_LCONTROL = 0xA2;
+        public const int VK_RCONTROL = 0xA3;
+        public const int VK_LMENU = 0xA4;
+        public const int VK_RMENU = 0xA5;
 
         public delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 
@@ -111,5 +121,11 @@ namespace Vimium.NativeMethods
 
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int GetWindowText(IntPtr hWnd, System.Text.StringBuilder lpString, int nMaxCount);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int GetClassName(IntPtr hWnd, System.Text.StringBuilder lpClassName, int nMaxCount);
     }
 }

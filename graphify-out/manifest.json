@@ -1,267 +1,62 @@
 {
   ".claude/settings.json": {
-    "mtime": 1781838312.1580808,
-    "ast_hash": "7bf81dca0376bde3a32244b82bc7cbc0",
+    "mtime": 1783084236.1197908,
+    "ast_hash": "203db8e01dd9f0abbbe8382ee7b6b7ce",
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
-    "mtime": 1781880713.6484466,
-    "ast_hash": "0ce0b224d08865411e079f9748327d99",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck.Tests/HuntAndPeck.Tests.csproj": {
-    "mtime": 1781877344.0026126,
-    "ast_hash": "69cf6f4e7bb827746d30cf1a3e6b9ec9",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck.Tests/Properties/AssemblyInfo.cs": {
-    "mtime": 1781694361.871884,
-    "ast_hash": "dd5bfae9aba447c1f21386d165229c99",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck.Tests/Services/HintLabelServiceTest.cs": {
-    "mtime": 1781694361.871884,
-    "ast_hash": "c7c970698f9d536c67a0b782248a6941",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck.sln": {
-    "mtime": 1781794292.1436694,
-    "ast_hash": "26152a9d0a06d99d426ae37c640e9a3c",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/App.xaml.cs": {
-    "mtime": 1781879531.4734766,
-    "ast_hash": "b221989f535572a44a5c3a288ed4037c",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Extensions/IEnumerableTExtensions.cs": {
-    "mtime": 1781694361.8738844,
-    "ast_hash": "a9eb2282eafd7b765bdccea79068b6ad",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Extensions/RectExtensions.cs": {
-    "mtime": 1781694361.8738844,
-    "ast_hash": "f3467407ef3c820cbb7460fb45a4fe21",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/HuntAndPeck.csproj": {
-    "mtime": 1781878849.610886,
-    "ast_hash": "3c8b2558781ded4de5494facbf26b3b5",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Models/DebugHint.cs": {
-    "mtime": 1781694361.8748832,
-    "ast_hash": "29978fa9caf2ff99588f3b76a37280f2",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Models/Hint.cs": {
-    "mtime": 1781694361.8748832,
-    "ast_hash": "19b14631d4a09861b820d996910865ea",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Models/HintSession.cs": {
-    "mtime": 1781694361.8748832,
-    "ast_hash": "beb30c03dc496d8ae3aafe1ab1c509cb",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Models/UiAutomationExpandCollapseHint.cs": {
-    "mtime": 1781877284.4298244,
-    "ast_hash": "38f643b38b3d8d5a29c78a7d3732beb3",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Models/UiAutomationFocusHint.cs": {
-    "mtime": 1781877283.7287204,
-    "ast_hash": "11e241bbc77259971e2486ef540acdda",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Models/UiAutomationInvokeHint.cs": {
-    "mtime": 1781877274.7686372,
-    "ast_hash": "ed945991af3c9b2e1096b35d8467aa76",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Models/UiAutomationSelectHint.cs": {
-    "mtime": 1781877285.1224895,
-    "ast_hash": "773c7087d573b7db4ad862ae57b72b84",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Models/UiAutomationToggleHint.cs": {
-    "mtime": 1781877283.0634277,
-    "ast_hash": "1e36a589bd2478654ae8660afc90a115",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Properties/Resources.Designer.cs": {
-    "mtime": 1781694361.8768835,
-    "ast_hash": "172e0e1568ace427249a93b7ec9b570f",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Properties/Settings.Designer.cs": {
-    "mtime": 1781694361.877884,
-    "ast_hash": "4fa7c68d8ed58a765bbbc2707146377c",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Services/HintLabelService.cs": {
-    "mtime": 1781694361.8788838,
-    "ast_hash": "a5915df5bbfd3a00b215fe38c8f42786",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Services/Interfaces/IDebugHintProviderService.cs": {
-    "mtime": 1781694361.8788838,
-    "ast_hash": "c8578ecff9efd5e279532b30b769b399",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Services/Interfaces/IHintLabelService.cs": {
-    "mtime": 1781694361.8788838,
-    "ast_hash": "e0668d6eea8273b2c42984e85cd4b65a",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Services/Interfaces/IHintProviderService.cs": {
-    "mtime": 1781879478.2255726,
-    "ast_hash": "518ee3a9c1ddda03ac48494136cb05da",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Services/Interfaces/IKeyListenerService.cs": {
-    "mtime": 1781694361.879884,
-    "ast_hash": "f4b0d9110b2c6e89ce40b83c325a1798",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Services/KeyListenerService.cs": {
-    "mtime": 1781877311.517036,
-    "ast_hash": "bfba81632bdf7726df85b79f3068cec7",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Services/KeyboardHookService.cs": {
-    "mtime": 1781694361.879884,
-    "ast_hash": "ded24bb843841da9fbb88fcd1d8e996e",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Services/UiAutomationHintProviderService.cs": {
-    "mtime": 1781879455.2750242,
-    "ast_hash": "22fdc88767028fd3db3302cc310d5d32",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Services/UiAutomationPatternIds.cs": {
-    "mtime": 1781877275.4331186,
-    "ast_hash": "1aa38d7d608cc3325d7e52898a2c5250",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/SingleLaunchMutex.cs": {
-    "mtime": 1781694361.8808844,
-    "ast_hash": "0e159347de4f2a860e190037a02dee04",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/ViewModels/DebugHintViewModel.cs": {
-    "mtime": 1781694361.8808844,
-    "ast_hash": "a84df967285399532be44f293d0cac2c",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/ViewModels/DebugOverlayViewModel.cs": {
-    "mtime": 1781694361.8813908,
-    "ast_hash": "9669b281d95dda8cfbf072fd6bcefca4",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/ViewModels/DelegateCommand.cs": {
-    "mtime": 1781694361.8813908,
-    "ast_hash": "213e73b241609de8e5d3a867daa92446",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/ViewModels/HintViewModel.cs": {
-    "mtime": 1781694361.8813908,
-    "ast_hash": "eb985ebd949d3f872b44e4a4ad388b61",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/ViewModels/NotifyPropertyChanged.cs": {
-    "mtime": 1781694361.8813908,
-    "ast_hash": "1d58a01a6ec85932b49a42296a986ad5",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/ViewModels/OptionsViewModel.cs": {
-    "mtime": 1781694361.8823946,
-    "ast_hash": "225173f868f7e44d8d529b6e9a8c3ac3",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/ViewModels/OverlayViewModel.cs": {
-    "mtime": 1781879399.4711058,
-    "ast_hash": "e2e2e3e763cec538d69162b78c982242",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/ViewModels/ShellViewModel.cs": {
-    "mtime": 1781879471.0228095,
-    "ast_hash": "5e130b2cf6f940e7d4f183bcabf6832c",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Views/DebugOverlayView.xaml.cs": {
-    "mtime": 1781694361.8823946,
-    "ast_hash": "abb8417c6004b6990bbfabeff700840f",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Views/ForegroundWindow.cs": {
-    "mtime": 1781694361.8833952,
-    "ast_hash": "99391455eb3de76da6b1f38d2cd0ef96",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Views/OptionsView.xaml.cs": {
-    "mtime": 1781694361.8833952,
-    "ast_hash": "927546945f5e3235c4a5edfd2a004437",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Views/OverlayView.xaml.cs": {
-    "mtime": 1781879485.1081915,
-    "ast_hash": "d1c4729648e45bdb94f9ac6c7b175285",
-    "semantic_hash": ""
-  },
-  "src/HuntAndPeck/Views/ShellView.xaml.cs": {
-    "mtime": 1781694361.8843956,
-    "ast_hash": "c8ce2945fcd18b9f09b9413514eced85",
+    "mtime": 1783084420.0773785,
+    "ast_hash": "c3587649fa17a9d76d8ca61b806acb6c",
     "semantic_hash": ""
   },
   "src/NativeMethods/Constants.cs": {
-    "mtime": 1781694361.885398,
-    "ast_hash": "5b67d0ec7b0f902b8abfea7fb382cc47",
+    "mtime": 1783086813.4415033,
+    "ast_hash": "3ecf6870b0f4c084fbc045b9af659bb4",
     "semantic_hash": ""
   },
   "src/NativeMethods/HotKeyEventArgs.cs": {
-    "mtime": 1781694361.885398,
-    "ast_hash": "0e6c9abda49e7a608ef6f103e5b2008c",
+    "mtime": 1783086813.4492285,
+    "ast_hash": "0e610b1ba4864bc655aa6f706dfbf9db",
     "semantic_hash": ""
   },
   "src/NativeMethods/Kernel32.cs": {
-    "mtime": 1781694361.885398,
-    "ast_hash": "5af0002c66c50bdf3969c2e0e679bbbb",
+    "mtime": 1783086813.4567375,
+    "ast_hash": "61cfaebd103afaa25b4f1c81fd91e78c",
     "semantic_hash": ""
   },
   "src/NativeMethods/KeyModifier.cs": {
-    "mtime": 1781694361.885398,
-    "ast_hash": "83b2521fb88823e3d26807b5f0e47f59",
+    "mtime": 1783086813.464244,
+    "ast_hash": "8436c46c9a1e5cdd217f426a847680b9",
     "semantic_hash": ""
   },
   "src/NativeMethods/NativeMethods.csproj": {
-    "mtime": 1781802154.9424205,
-    "ast_hash": "128817ff0fee2c69fd79e3be75063ba3",
+    "mtime": 1783086823.1575913,
+    "ast_hash": "94271dc367fb81ce0d1d424b0c27eb5b",
     "semantic_hash": ""
   },
   "src/NativeMethods/POINT.cs": {
-    "mtime": 1781694361.8863962,
-    "ast_hash": "1f715d6e88da8b1ced43a8564ea09da3",
+    "mtime": 1783086813.473259,
+    "ast_hash": "255dd4e664959f5e36bad1f70aef8c7d",
     "semantic_hash": ""
   },
   "src/NativeMethods/Properties/AssemblyInfo.cs": {
-    "mtime": 1781694361.8871732,
-    "ast_hash": "78e540ecf7ae8fe8f8560853926e7572",
+    "mtime": 1783086813.4819477,
+    "ast_hash": "822a6bfa167e6bbe5d98894e082697c6",
     "semantic_hash": ""
   },
   "src/NativeMethods/RECT.cs": {
-    "mtime": 1781694361.8871732,
-    "ast_hash": "fc3a4eae206eade5765b96c617e2bde9",
+    "mtime": 1783086813.489452,
+    "ast_hash": "e8f8a2c893629b64ab43dc253088a320",
     "semantic_hash": ""
   },
   "src/NativeMethods/User32.cs": {
-    "mtime": 1781694361.8871732,
-    "ast_hash": "f6f62ef6157d9ae53d64969bf921e817",
+    "mtime": 1783086813.49796,
+    "ast_hash": "91976cbe04d273e3d3084c9b36a788bf",
     "semantic_hash": ""
   },
   "src/SolutionInfo.cs": {
-    "mtime": 1781880220.1654186,
-    "ast_hash": "57c3218cc98a190a0ceda7a635146499",
+    "mtime": 1783256698.548625,
+    "ast_hash": "34c7d7bf73e4cb1087db856220c70b80",
     "semantic_hash": ""
   },
   "src/build.ps1": {
@@ -270,18 +65,18 @@
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "mtime": 1781880211.546599,
-    "ast_hash": "408c789a78a50fdb36b76cc725b580c7",
+    "mtime": 1783258224.6935985,
+    "ast_hash": "97ef64c8dcf28cfbd596db23e5f241ef",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1781838312.1580808,
-    "ast_hash": "8a6643a420fdad6bfb583523bc6cef16",
+    "mtime": 1783259119.1168718,
+    "ast_hash": "a88860c2e37d77633351f15e344eba13",
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1781880737.9759512,
-    "ast_hash": "c4c6ea4c92b8f2ebaf2f08714d1bea30",
+    "mtime": 1783258251.3155653,
+    "ast_hash": "a3928443a8bef3eb3b685a50e3642144",
     "semantic_hash": ""
   },
   "screenshots/explorer.png": {
@@ -295,8 +90,443 @@
     "semantic_hash": ""
   },
   "register-startup-task.ps1": {
-    "mtime": 1781694361.8891683,
-    "ast_hash": "d3373ed152f3d77d6e52575504bd073b",
+    "mtime": 1783086824.833388,
+    "ast_hash": "f48af82ee6ef4434d79710dc5b193143",
+    "semantic_hash": ""
+  },
+  ".mcp.json": {
+    "mtime": 1783084233.9084778,
+    "ast_hash": "2f706af651b0f5bffd91047cd36d04e5",
+    "semantic_hash": ""
+  },
+  ".claude/skills/debug-issue/skill.md": {
+    "mtime": 1783084233.9105084,
+    "ast_hash": "83266930cd7096aee27fd30edc55c85f",
+    "semantic_hash": ""
+  },
+  ".claude/skills/explore-codebase/skill.md": {
+    "mtime": 1783084233.9095092,
+    "ast_hash": "b70f59c577a3ce3a3e72d8c61ce3469a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/refactor-safely/skill.md": {
+    "mtime": 1783084233.9105084,
+    "ast_hash": "de0e5b1c85bd387821268d0f9411a778",
+    "semantic_hash": ""
+  },
+  ".claude/skills/review-changes/skill.md": {
+    "mtime": 1783084233.9105084,
+    "ast_hash": "1ce0725b638aed739326a7687c7fffb0",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Properties/AssemblyInfo.cs": {
+    "mtime": 1783086813.4249709,
+    "ast_hash": "ec90dede22787eec7b379eb56d9d8fc2",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Services/HintLabelServiceTest.cs": {
+    "mtime": 1783086813.4339995,
+    "ast_hash": "9fe44168f17c17f29cea5ec4d347b2b1",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Vimium.Tests.csproj": {
+    "mtime": 1783091057.5415545,
+    "ast_hash": "ad294741472022b579dcc5dae13e2976",
+    "semantic_hash": ""
+  },
+  "src/Vimium.sln": {
+    "mtime": 1783086781.2618263,
+    "ast_hash": "da6769187349861359e82ba921338286",
+    "semantic_hash": ""
+  },
+  "src/Vimium/App.xaml.cs": {
+    "mtime": 1783091820.6192994,
+    "ast_hash": "234cc2e1013299a8f9896cbc5cd099a1",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Extensions/IEnumerableTExtensions.cs": {
+    "mtime": 1783086812.9871526,
+    "ast_hash": "870df0e2ec48a287ccf22f0869f2123e",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Extensions/RectExtensions.cs": {
+    "mtime": 1783086812.9941785,
+    "ast_hash": "311d62ec328be3bba8dc5648c70c3a58",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/DebugHint.cs": {
+    "mtime": 1783086813.0026875,
+    "ast_hash": "ac3b223802847b14c402d6f9f616305a",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/Hint.cs": {
+    "mtime": 1783086813.0106885,
+    "ast_hash": "42424e792dc78ddfaa4c7700f986d86d",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/HintSession.cs": {
+    "mtime": 1783086813.0188735,
+    "ast_hash": "4d8f3ae2c68680693976047dd49c7d73",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/UiAutomationExpandCollapseHint.cs": {
+    "mtime": 1783086813.0263848,
+    "ast_hash": "f5b27f36adb41891b3d0d1fa08ee3800",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/UiAutomationFocusHint.cs": {
+    "mtime": 1783086813.033895,
+    "ast_hash": "e69c496a551804fd03deccd38f6c881d",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/UiAutomationInvokeHint.cs": {
+    "mtime": 1783086813.0408945,
+    "ast_hash": "f90624379a45d12053eaede9c6d85ec9",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/UiAutomationSelectHint.cs": {
+    "mtime": 1783086813.0492642,
+    "ast_hash": "0df887c393a0cebff4fdb8b1efc45464",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/UiAutomationToggleHint.cs": {
+    "mtime": 1783086813.0557714,
+    "ast_hash": "81620e1fa053f63016326248df4494ef",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Properties/Resources.Designer.cs": {
+    "mtime": 1783086813.162999,
+    "ast_hash": "7a80931785bfb26bc641a92a9732e26f",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Properties/Settings.Designer.cs": {
+    "mtime": 1783086813.1720767,
+    "ast_hash": "c787f21a997a2ce2d7c7e5e33db48ab7",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/HintLabelService.cs": {
+    "mtime": 1783086813.1800797,
+    "ast_hash": "4b25b31dfd973d7c160ba686b6fab4ee",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/Interfaces/IDebugHintProviderService.cs": {
+    "mtime": 1783086813.1901028,
+    "ast_hash": "192e754fe692d7eaff4b59821d2e68d8",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/Interfaces/IHintLabelService.cs": {
+    "mtime": 1783086813.197151,
+    "ast_hash": "2fa445f0f69dc2d512027fa229f30a84",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/Interfaces/IHintProviderService.cs": {
+    "mtime": 1783086813.2041845,
+    "ast_hash": "3381294dd2b1b7e5031f06c594a894ba",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/Interfaces/IKeyListenerService.cs": {
+    "mtime": 1783095076.2730572,
+    "ast_hash": "d262415ea33cfc2b6fdfe94b2ed93513",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/KeyListenerService.cs": {
+    "mtime": 1783086813.226205,
+    "ast_hash": "eb2ef488c08c87c6a294e02c30c7da4f",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/KeyboardHookService.cs": {
+    "mtime": 1783086813.218698,
+    "ast_hash": "d951d853a98f6f5c48b156043a417933",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/UiAutomationHintProviderService.cs": {
+    "mtime": 1783086813.234711,
+    "ast_hash": "295980025d93fd5708f14e38bbfaaa0f",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/UiAutomationPatternIds.cs": {
+    "mtime": 1783086813.2442176,
+    "ast_hash": "0cb6832d000c3a2b0974430cd9a8770e",
+    "semantic_hash": ""
+  },
+  "src/Vimium/SingleLaunchMutex.cs": {
+    "mtime": 1783086813.2527213,
+    "ast_hash": "8b6dee505b01115537dda2ff35498159",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/DebugHintViewModel.cs": {
+    "mtime": 1783086813.259724,
+    "ast_hash": "4bf4ae2465a65d25fd9c433f1cd22bf6",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/DebugOverlayViewModel.cs": {
+    "mtime": 1783086813.267733,
+    "ast_hash": "869910f12adbf7cd5da18966d4467ba1",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/DelegateCommand.cs": {
+    "mtime": 1783086813.2762477,
+    "ast_hash": "a792ce2a3e6368728bb4c90a161e2a3b",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/HintViewModel.cs": {
+    "mtime": 1783087221.877384,
+    "ast_hash": "4f83225f19152a3ef96033c4850bd9e4",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/NotifyPropertyChanged.cs": {
+    "mtime": 1783086813.2932613,
+    "ast_hash": "4c57a1a840162dcc66a8446920a6a217",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/OptionsViewModel.cs": {
+    "mtime": 1783099855.8754501,
+    "ast_hash": "22dc180134c7af06cd12de7b41388ed6",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/OverlayViewModel.cs": {
+    "mtime": 1783097371.3199983,
+    "ast_hash": "679798c0d61eff6546c8734655466c84",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/ShellViewModel.cs": {
+    "mtime": 1783097381.5044725,
+    "ast_hash": "abf440782204981dfddb564d9f1f51bf",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Views/DebugOverlayView.xaml.cs": {
+    "mtime": 1783086813.3368642,
+    "ast_hash": "f2ead62af5af2d94ba5616dac98a44bb",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Views/ForegroundWindow.cs": {
+    "mtime": 1783086813.3459756,
+    "ast_hash": "ad3172f936548325f888fdfb968ae6ef",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Views/OptionsView.xaml.cs": {
+    "mtime": 1783098942.953801,
+    "ast_hash": "9c8e238f4bb82c1df84431e0361e6e46",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Views/OverlayView.xaml.cs": {
+    "mtime": 1783096214.0145621,
+    "ast_hash": "6a77d748347c715dfdf734904a3f3d2e",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Views/ShellView.xaml.cs": {
+    "mtime": 1783097095.6682074,
+    "ast_hash": "357b5b2372eda759a4d9c9d3090953f0",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Vimium.csproj": {
+    "mtime": 1783086774.5407884,
+    "ast_hash": "cff904227fd2d79ba8636097f4823b97",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/VimiumConfig.cs": {
+    "mtime": 1783245621.4053526,
+    "ast_hash": "f3a60e27c88a42065e5ea1ce7f7ca234",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/ConfigService.cs": {
+    "mtime": 1783098563.8812358,
+    "ast_hash": "bdf10e5a24ca1394a3ffcf44a8d7d3eb",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Converters/HexToColorConverter.cs": {
+    "mtime": 1783245623.2163122,
+    "ast_hash": "5e0bc81a3c159140cf40acb169a06c81",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/GeneralSettingsViewModel.cs": {
+    "mtime": 1783099107.1382608,
+    "ast_hash": "5c17ff7ec56852c85fb70f7933b5642e",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/KeyboardSettingsViewModel.cs": {
+    "mtime": 1783099108.8733113,
+    "ast_hash": "e16dee5fdf3b716dfdf3f8fab20d8f49",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/OverlaySettingsViewModel.cs": {
+    "mtime": 1783099108.0043187,
+    "ast_hash": "14f5afd530fabb6eee3185242cfafcb6",
+    "semantic_hash": ""
+  },
+  ".claude/skills/spec-driven-dev/skill.md": {
+    "mtime": 1783259118.597669,
+    "ast_hash": "858586e74bc4d599de97033b08d57fc7",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Converters/HexToColorConverterTest.cs": {
+    "mtime": 1783245555.1133306,
+    "ast_hash": "a5b3520be2684e72ade1b2918913e106",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Models/VimiumConfigTest.cs": {
+    "mtime": 1783245542.457561,
+    "ast_hash": "078bbc66201a1dd7a616174ee3fa9ad0",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Services/HotKeyTest.cs": {
+    "mtime": 1783245619.6809525,
+    "ast_hash": "fe5c6506f1eb434e83c14533022b099c",
+    "semantic_hash": ""
+  },
+  "coverage-report/Summary.txt": {
+    "mtime": 1783245908.8381095,
+    "ast_hash": "f50f8bc20d501148e9d1f7d8d7dcdbef",
+    "semantic_hash": ""
+  },
+  "docs/SDD_HandsOn_Guide.md": {
+    "mtime": 1783259112.4865482,
+    "ast_hash": "e55be73f072c9a662f3742365426f6bb",
+    "semantic_hash": ""
+  },
+  "docs/features/v1.3/options-window-modernization.md": {
+    "mtime": 1783258706.5287237,
+    "ast_hash": "021966442e169d9792f21f194728a50a",
+    "semantic_hash": ""
+  },
+  "docs/SDD_Article_Final.md.pdf": {
+    "mtime": 1783259080.3978536,
+    "ast_hash": "7d296dc314a4f79444dff544c2f1ca5e",
+    "semantic_hash": ""
+  },
+  ".specify/integrations/claude.manifest.json": {
+    "mtime": 1783262234.695295,
+    "ast_hash": "04f47e462a4172f2b0a842c77898c3f8",
+    "semantic_hash": ""
+  },
+  ".specify/integrations/speckit.manifest.json": {
+    "mtime": 1783262234.777802,
+    "ast_hash": "b4184d54e1dd3714f658de8f887f3d71",
+    "semantic_hash": ""
+  },
+  "init-options.json": {
+    "mtime": 1783262234.804309,
+    "ast_hash": "33e396ad77033dc1d51d643282f1c5ba",
+    "semantic_hash": ""
+  },
+  "integration.json": {
+    "mtime": 1783262234.697296,
+    "ast_hash": "3cbf0f5f424249b2ca334a6329bb107a",
+    "semantic_hash": ""
+  },
+  "scripts/powershell/check-prerequisites.ps1": {
+    "mtime": 1783262234.7088022,
+    "ast_hash": "889ef9d5f647faf6c3f9974a4b924caa",
+    "semantic_hash": ""
+  },
+  "scripts/powershell/common.ps1": {
+    "mtime": 1783262234.7198024,
+    "ast_hash": "b3244b25559c2e950f52d9f11046bf2d",
+    "semantic_hash": ""
+  },
+  "scripts/powershell/create-new-feature.ps1": {
+    "mtime": 1783262234.7298026,
+    "ast_hash": "8b953a13e73eb06f3811cb1738a4f0f5",
+    "semantic_hash": ""
+  },
+  "scripts/powershell/setup-plan.ps1": {
+    "mtime": 1783262234.7398024,
+    "ast_hash": "cc96e75d185b2fcd79c7e969762e277e",
+    "semantic_hash": ""
+  },
+  "scripts/powershell/setup-tasks.ps1": {
+    "mtime": 1783262234.7428024,
+    "ast_hash": "1f5a59359bc55ba2501150435f4d6fbd",
+    "semantic_hash": ""
+  },
+  "workflows/workflow-registry.json": {
+    "mtime": 1783262234.8028064,
+    "ast_hash": "8f63a768eb8832b32046ef663572f42c",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-analyze/SKILL.md": {
+    "mtime": 1783262234.609424,
+    "ast_hash": "75a31304705598dd45a8ee8b709d90c1",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-checklist/SKILL.md": {
+    "mtime": 1783262234.6642919,
+    "ast_hash": "d1f923d8963ece0f653656604e26d3d8",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-clarify/SKILL.md": {
+    "mtime": 1783262234.6194303,
+    "ast_hash": "2f12f51867b3abdfce644f949980b9d6",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-constitution/SKILL.md": {
+    "mtime": 1783262234.6284237,
+    "ast_hash": "42dd031d706a6b1a1501f86e55e8cda4",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-converge/SKILL.md": {
+    "mtime": 1783262234.6474254,
+    "ast_hash": "99bc4bae169d3b4539f87577ba353c3b",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-implement/SKILL.md": {
+    "mtime": 1783262234.6384232,
+    "ast_hash": "0b48be70f6cda70adb7f016aa18a1337",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-plan/SKILL.md": {
+    "mtime": 1783262234.6552887,
+    "ast_hash": "2831c1250ea7d51acc1b8c30d6e976a9",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-specify/SKILL.md": {
+    "mtime": 1783262234.673292,
+    "ast_hash": "40453e4e33564de6cb059ea16c9c2700",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-tasks/SKILL.md": {
+    "mtime": 1783262234.6812918,
+    "ast_hash": "cd2b88616547deab4657b96d2547acb5",
+    "semantic_hash": ""
+  },
+  ".claude/skills/speckit-taskstoissues/SKILL.md": {
+    "mtime": 1783262234.689292,
+    "ast_hash": "bf98c61fd602132535732f3b3eef6ac0",
+    "semantic_hash": ""
+  },
+  "memory/constitution.md": {
+    "mtime": 1783262234.7568023,
+    "ast_hash": "dcefb6b60e7cb3db2e966977b6f02f18",
+    "semantic_hash": ""
+  },
+  "templates/checklist-template.md": {
+    "mtime": 1783262234.7518027,
+    "ast_hash": "af4274efb13cbb2263029402deb14f6b",
+    "semantic_hash": ""
+  },
+  "templates/constitution-template.md": {
+    "mtime": 1783262234.7568023,
+    "ast_hash": "dcefb6b60e7cb3db2e966977b6f02f18",
+    "semantic_hash": ""
+  },
+  "templates/plan-template.md": {
+    "mtime": 1783262234.759802,
+    "ast_hash": "fea2e21a1d9cf3470186abc1dfb6e9fb",
+    "semantic_hash": ""
+  },
+  "templates/spec-template.md": {
+    "mtime": 1783262234.7678027,
+    "ast_hash": "45ac8538bc1220324c9f0d610145b53f",
+    "semantic_hash": ""
+  },
+  "templates/tasks-template.md": {
+    "mtime": 1783262234.7698028,
+    "ast_hash": "f8b4f62d384defa0a559bdbbaacb0540",
+    "semantic_hash": ""
+  },
+  "workflows/speckit/workflow.yml": {
+    "mtime": 1783262202.380488,
+    "ast_hash": "eba6943b2a2f6407162ae12e0218bdac",
     "semantic_hash": ""
   }
 }

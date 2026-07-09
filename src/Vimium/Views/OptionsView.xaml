@@ -180,6 +180,20 @@
                                              Style="{StaticResource HexInputStyle}"
                                              Width="120" />
                                 </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                    <Label Content="Line Navigation:" Style="{StaticResource SettingLabelStyle}"
+                                           Width="100" />
+                                    <TextBox Text="{Binding LineNavigationModifier, UpdateSourceTrigger=LostFocus}"
+                                             Style="{StaticResource HexInputStyle}"
+                                             Width="120" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                    <Label Content="Copy Modifier:" Style="{StaticResource SettingLabelStyle}"
+                                           Width="100" />
+                                    <TextBox Text="{Binding CopyModifier, UpdateSourceTrigger=LostFocus}"
+                                             Style="{StaticResource HexInputStyle}"
+                                             Width="120" />
+                                </StackPanel>
                             </StackPanel>
                         </Border>
 

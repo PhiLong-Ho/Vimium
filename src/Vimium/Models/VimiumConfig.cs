@@ -41,6 +41,14 @@ public class VimiumConfig
     /// <summary>Modifier key(s) for taskbar overlay activation.</summary>
     public string TaskbarModifier { get; set; } = "Ctrl+'";
 
+    // ── Line Navigation ──────────────────────────────────────
+
+    /// <summary>Hotkey for line-navigation activation (e.g. "Ctrl+.").</summary>
+    public string LineNavigationModifier { get; set; } = "Ctrl+.";
+
+    /// <summary>Modifier key held while typing hint label for copy action (e.g. "Ctrl").</summary>
+    public string CopyModifier { get; set; } = "Ctrl";
+
     // ── Factory ──────────────────────────────────────────────
 
     public static VimiumConfig Default => new();

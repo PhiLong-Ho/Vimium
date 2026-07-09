@@ -2,6 +2,19 @@
 
 This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 
+## v1.4 — Line Navigation Mode
+
+### Added
+
+- **Line navigation mode** (`Ctrl+.` by default) — discover and label every visible text line in the foreground window via UI Automation TextPattern, independent of the existing element navigation mode.
+- **Jump to line** — Type a hint label (without modifier) to move the cursor to the center of that text line.
+- **Sub-line selection & copy** — Hold the copy modifier (`Ctrl` by default) while typing a hint label to enter **selection mode**: incremental search across all visible lines, Tab/Shift+Tab to cycle search matches, standard Windows navigation keys (arrows, Ctrl+arrow, Shift+arrow for selection), Home/End, Enter to copy (whole line or selection), Escape to cancel.
+- **Clipboard integration** — Copied text goes to the system clipboard with retry handling for clipboard contention.
+- **Configurable hotkeys** — Line navigation activation hotkey and copy modifier are configurable in Options → Keyboard. Changes take effect immediately (auto-save). Duplicate hotkey prevention with element overlay.
+- **Mode isolation** — Element mode (`Ctrl+;`) and line mode (`Ctrl+.`) operate independently. Only one overlay can be active at a time. Each has its own keyboard hook and state.
+- **Copy confirmation** — Brief "Copied!" toast animation in selection mode on Enter.
+- **Zero-text handling** — Windows with no text (e.g., Paint) show "No text lines found" and auto-dismiss after 1.5s.
+
 ## v1.3 — Modern options window, themes, live settings
 
 ### Added

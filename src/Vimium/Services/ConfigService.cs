@@ -138,6 +138,18 @@ public class ConfigService : INotifyPropertyChanged
         set { if (SetProperty(_current.TaskbarModifier, value, v => _current.TaskbarModifier = v)) OnPropertyChanged(nameof(IsDirty)); }
     }
 
+    public string LineNavigationModifier
+    {
+        get => _current.LineNavigationModifier;
+        set { if (SetProperty(_current.LineNavigationModifier, value, v => _current.LineNavigationModifier = v)) OnPropertyChanged(nameof(IsDirty)); }
+    }
+
+    public string CopyModifier
+    {
+        get => _current.CopyModifier;
+        set { if (SetProperty(_current.CopyModifier, value, v => _current.CopyModifier = v)) OnPropertyChanged(nameof(IsDirty)); }
+    }
+
     // ── Load / Save / Reset ──────────────────────────────────
 
     private VimiumConfig Load()

@@ -19,6 +19,8 @@ public class VimiumConfigTest
         Assert.True(cfg.HintAnimationEnabled);
         Assert.Equal("Ctrl+;", cfg.OverlayModifier);
         Assert.Equal("Ctrl+'", cfg.TaskbarModifier);
+        Assert.Equal("Ctrl+.", cfg.LineNavigationModifier);
+        Assert.Equal("Ctrl", cfg.CopyModifier);
     }
 
     [Fact]
@@ -75,5 +77,60 @@ public class VimiumConfigTest
 
         Assert.Equal("18", cfg.FontSize);
         Assert.Equal("Light", cfg.Theme);
+    }
+
+    [Fact]
+    public void LineNavigationModifier_DefaultValue()
+    {
+        var cfg = VimiumConfig.Default;
+        Assert.Equal("Ctrl+.", cfg.LineNavigationModifier);
+    }
+
+    [Fact]
+    public void CopyModifier_DefaultValue()
+    {
+        var cfg = VimiumConfig.Default;
+        Assert.Equal("Ctrl", cfg.CopyModifier);
+    }
+
+    [Fact]
+    public void LineNavigationFields_Roundtrip()
+    {
+        var original = new VimiumConfig
+        {
+            LineNavigationModifier = "Ctrl+/",
+            CopyModifier = "Alt"
+        };
+
+        var json = original.ToJson();
+        var restored = VimiumConfig.FromJson(json);
+
+        Assert.Equal("Ctrl+/", restored.LineNavigationModifier);
+        Assert.Equal("Alt", restored.CopyModifier);
+    }
+
+    [Fact]
+    public void LineNavigationFields_AbsentKeys_UseDefaults()
+    {
+        var json = """{"fontSize": "16"}""";
+        var cfg = VimiumConfig.FromJson(json);
+
+        // New fields should fall back to defaults when absent from JSON
+        Assert.Equal("Ctrl+.", cfg.LineNavigationModifier);
+        Assert.Equal("Ctrl", cfg.CopyModifier);
+    }
+
+    [Fact]
+    public void LineNavigationFields_SerializeAsCamelCase()
+    {
+        var cfg = new VimiumConfig
+        {
+            LineNavigationModifier = "Alt+.",
+            CopyModifier = "Shift"
+        };
+        var json = cfg.ToJson();
+
+        Assert.Contains("\"lineNavigationModifier\"", json);
+        Assert.Contains("\"copyModifier\"", json);
     }
 }

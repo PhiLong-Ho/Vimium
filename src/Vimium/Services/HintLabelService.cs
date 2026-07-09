@@ -1,8 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Vimium.Extensions;
 using Vimium.Services.Interfaces;
 
 namespace Vimium.Services
@@ -10,45 +9,87 @@ namespace Vimium.Services
     internal class HintLabelService : IHintLabelService
     {
         /// <summary>
-        /// Gets available hint strings
+        /// The character set used to compose hint labels.
+        /// 14 characters, ordered so that 'S' (index 0) is the most comfortable home-row key.
         /// </summary>
         /// <remarks>Adapted from vimium to give a consistent experience, see https://github.com/philc/vimium/blob/master/content_scripts/link_hints.js </remarks>
-        /// <param name="hintCount">The number of hints</param>
-        /// <returns>A list of hint strings</returns>
+        private static readonly char[] HintCharacters =
+            { 'S', 'A', 'D', 'F', 'J', 'K', 'L', 'E', 'W', 'C', 'M', 'P', 'G', 'H' };
+
+        /// <summary>
+        /// Pre-computed pools of hint strings keyed by length.
+        /// Pool L contains all possible hint strings of exactly L characters (charsetSize^L entries).
+        /// Lazy-initialized with double-checked locking for thread safety.
+        /// </summary>
+        private static readonly Dictionary<int, IReadOnlyList<string>> HintPools = new();
+        private static readonly object PoolLock = new();
+
+        /// <summary>
+        /// Gets available hint strings. All returned hints have the same length,
+        /// guaranteeing that no hint is a prefix of another — every hint is
+        /// independently targetable.
+        /// </summary>
+        /// <param name="hintCount">The number of hints needed</param>
+        /// <returns>A list of hint strings, all of uniform length</returns>
         public IList<string> GetHintStrings(int hintCount)
         {
-            var hintStrings = new List<string>();
             if (hintCount <= 0)
             {
-                return hintStrings;
+                return Array.Empty<string>();
             }
 
-            var hintCharacters = new[] { 'S', 'A', 'D', 'F', 'J', 'K', 'L', 'E', 'W', 'C', 'M', 'P', 'G', 'H' };
-            var digitsNeeded = (int)Math.Ceiling(Math.Log(hintCount) / Math.Log(hintCharacters.Length));
-
-            var wholeHintCount = (int)Math.Pow(hintCharacters.Length, digitsNeeded);
-            var shortHintCount = (wholeHintCount - hintCount) / hintCharacters.Length;
-            var longHintCount = hintCount - shortHintCount;
-
-            var longHintPrefixCount = wholeHintCount / hintCharacters.Length - shortHintCount;
-            for (int i = 0, j = 0; i < longHintCount; ++i, ++j)
+            // Determine the minimum length L where charsetSize^L >= hintCount.
+            // Using uniform-length hints guarantees no prefix relationship.
+            var length = 1;
+            var capacity = HintCharacters.Length;
+            while (capacity < hintCount)
             {
-                hintStrings.Add(new string(NumberToHintString(j, hintCharacters, digitsNeeded).Reverse().ToArray()));
-                if (longHintPrefixCount > 0 && (i + 1) % longHintPrefixCount == 0)
-                {
-                    j += shortHintCount;
-                }
+                length++;
+                capacity *= HintCharacters.Length;
             }
 
-            if (digitsNeeded > 1)
+            var pool = GetOrCreatePool(length);
+            return pool.Take(hintCount).ToList();
+        }
+
+        /// <summary>
+        /// Returns the pre-computed pool for the given hint length,
+        /// creating it on first access (thread-safe).
+        /// </summary>
+        private static IReadOnlyList<string> GetOrCreatePool(int length)
+        {
+            if (HintPools.TryGetValue(length, out var pool))
             {
-                for (var i = 0; i < shortHintCount; ++i)
-                {
-                    hintStrings.Add(new string(NumberToHintString(i + longHintPrefixCount, hintCharacters, digitsNeeded - 1).Reverse().ToArray()));
-                }
+                return pool;
             }
 
-            return hintStrings.ToList();
+            lock (PoolLock)
+            {
+                if (HintPools.TryGetValue(length, out pool))
+                {
+                    return pool;
+                }
+
+                pool = GeneratePool(length);
+                HintPools[length] = pool;
+                return pool;
+            }
+        }
+
+        /// <summary>
+        /// Generates all possible hint strings of exactly <paramref name="length"/> characters
+        /// in lexicographic (base-N counting) order.
+        /// </summary>
+        private static IReadOnlyList<string> GeneratePool(int length)
+        {
+            var count = (int)Math.Pow(HintCharacters.Length, length);
+            var pool = new string[count];
+            for (var i = 0; i < count; i++)
+            {
+                pool[i] = NumberToHintString(i, HintCharacters, length);
+            }
+
+            return pool;
         }
 
         /// <summary>
@@ -60,7 +101,7 @@ namespace Vimium.Services
         /// <param name="characterSet">The set of characters</param>
         /// <param name="noHintDigits">The number of hint digits</param>
         /// <returns>A hint string</returns>
-        private string NumberToHintString(int number, char[] characterSet, int noHintDigits = 0)
+        private static string NumberToHintString(int number, char[] characterSet, int noHintDigits = 0)
         {
             var divisor = characterSet.Length;
             var hintString = new StringBuilder();

@@ -27,6 +27,27 @@ public class KeyboardSettingsViewModel : NotifyPropertyChanged
         set => _config.TaskbarModifier = value;
     }
 
+    public string LineNavigationModifier
+    {
+        get => _config.LineNavigationModifier;
+        set
+        {
+            // Prevent duplicate hotkey with element overlay
+            if (value == _config.OverlayModifier)
+            {
+                // Invalid: duplicate — could show error in UI, for now silently ignore
+                return;
+            }
+            _config.LineNavigationModifier = value;
+        }
+    }
+
+    public string CopyModifier
+    {
+        get => _config.CopyModifier;
+        set => _config.CopyModifier = value;
+    }
+
     private void OnConfigChanged(object sender, PropertyChangedEventArgs e)
     {
         var name = e.PropertyName;
@@ -34,5 +55,9 @@ public class KeyboardSettingsViewModel : NotifyPropertyChanged
             NotifyOfPropertyChange(nameof(OverlayModifier));
         if (name is null or "" or "TaskbarModifier")
             NotifyOfPropertyChange(nameof(TaskbarModifier));
+        if (name is null or "" or "LineNavigationModifier")
+            NotifyOfPropertyChange(nameof(LineNavigationModifier));
+        if (name is null or "" or "CopyModifier")
+            NotifyOfPropertyChange(nameof(CopyModifier));
     }
 }
