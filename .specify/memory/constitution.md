@@ -1,33 +1,22 @@
 <!--
   Sync Impact Report
   ==================
-  Version change: 1.0.0 → 1.1.0
-  Bump rationale: MINOR — expanded Principle IV (User Experience Consistency) to
-  embrace text navigation/copy as a first-class interaction modality alongside
-  element interaction; updated overlay interaction contract to encompass both
-  element and line-navigation flows; added TextPattern interop to Technical
-  Standards. No principles removed or redefined — purely additive.
+  Version change: 1.1.0 → 1.2.0
+  Bump rationale: MINOR — added "Documentation after feature" requirement to
+  Development Workflow: README.md MUST be updated after every user-facing feature
+  completion. No principles modified or removed — purely additive.
 
-  Modified principles:
-    IV. User Experience Consistency — overlay interaction contract expanded from
-      single "element mode" flow to dual "element mode + line/text mode" flows;
-      new accessibility and copy feedback requirements.
+  Modified sections:
+    Development Workflow — added documentation-update gate.
 
-  Added sections: none (project tagline prepended for clarity)
+  Added sections: none
 
   Removed sections: none
 
   Templates requiring updates:
     ✅ .specify/memory/constitution.md — filled (this file)
     ✅ memory/constitution.md — mirrored (same content)
-    ⚠ templates/plan-template.md — Constitution Check gate uses generic text "Gates
-      determined based on constitution file." Plan authors should enumerate Principle
-      IV's dual interaction contracts when planning new modes.
-    ⚠ templates/spec-template.md — no changes needed; user-scenario and requirements
-      sections already compatible with expanded interaction model.
-    ⚠ templates/tasks-template.md — test tasks marked OPTIONAL; Principle III mandates
-      tests for core logic. Task generation for line-navigation should include test
-      tasks for the new ILineHintProviderService and selection mode logic.
+    ⚠ templates/plan-template.md — no changes needed.
 
   Follow-up TODOs: none — all placeholders resolved.
 -->
@@ -216,6 +205,12 @@ the v1.2 headline feature for this reason — it must never regress.
   (`spec.md`) → implementation plan (`plan.md`) → task breakdown
   (`tasks.md`) → implementation → verification. Use `/speckit-*` skills for
   each phase.
+- **Documentation after feature**: After completing any user-facing feature,
+  the README.md MUST be updated to reflect the new capabilities, interaction
+  modes, and configuration options. User-facing changes include: new hotkeys,
+  new interaction modes, new settings pages, new overlay behaviors, and
+  performance improvements visible to the user. Spec documents in `specs/`
+  serve as the canonical design record; README.md is the user-facing summary.
 - **Constitution compliance**: Every PR MUST pass a constitution check against
   all five principles. Violations require explicit justification in the
   Complexity Tracking table of the implementation plan.
@@ -254,4 +249,4 @@ responsible for enforcing compliance at review time. Use the complexity tracking
 mechanism in `plan-template.md` to document and justify any intentional
 violations.
 
-**Version**: 1.1.0 | **Ratified**: 2026-07-05 | **Last Amended**: 2026-07-05
+**Version**: 1.2.0 | **Ratified**: 2026-07-05 | **Last Amended**: 2026-07-10

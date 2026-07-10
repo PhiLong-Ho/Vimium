@@ -18,7 +18,7 @@ internal class OptionsViewModel : NotifyPropertyChanged
         {
             new GeneralSettingsViewModel(),
             new OverlaySettingsViewModel(),
-            new KeyboardSettingsViewModel(),
+            new ActionSettingsViewModel(),
         };
 
         SelectedPage = Pages.First();

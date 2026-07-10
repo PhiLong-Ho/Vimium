@@ -126,6 +126,18 @@ public class ConfigService : INotifyPropertyChanged
         set { if (SetProperty(_current.HintAnimationEnabled, value, v => _current.HintAnimationEnabled = v)) OnPropertyChanged(nameof(IsDirty)); }
     }
 
+    public ActionSlot[] ActionSlots
+    {
+        get => _current.ActionSlots;
+        set { if (SetProperty(_current.ActionSlots, value, v => _current.ActionSlots = v)) OnPropertyChanged(nameof(IsDirty)); }
+    }
+
+    public bool BenchmarkLogEnabled
+    {
+        get => _current.BenchmarkLogEnabled;
+        set { if (SetProperty(_current.BenchmarkLogEnabled, value, v => _current.BenchmarkLogEnabled = v)) OnPropertyChanged(nameof(IsDirty)); }
+    }
+
     public string OverlayModifier
     {
         get => _current.OverlayModifier;

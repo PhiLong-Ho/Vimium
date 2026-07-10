@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Vimium.Models;
 
@@ -20,6 +21,12 @@ namespace Vimium.Services.Interfaces
         /// <summary>
         /// Enumerates hints on a background thread so the UI stays responsive.
         /// </summary>
-        Task<HintSession> EnumHintsAsync(IntPtr hWnd);
+        Task<HintSession> EnumHintsAsync(IntPtr hWnd, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Clears the cached enumeration result, forcing the next call
+        /// to <see cref="EnumHintsAsync"/> to perform a full UIA tree walk.
+        /// </summary>
+        void InvalidateCache();
     }
 }

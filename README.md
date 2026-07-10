@@ -9,10 +9,16 @@ A lightweight keyboard-driven UI overlay for Windows. Press a hotkey, type a hin
 | Feature | Description |
 | --- | --- |
 | **Instant overlay** | Overlay appears immediately; hints populate asynchronously in the background. |
-| **Multiple interaction modes** | Invoke (default), Left Click (Shift), Right Click (Shift) — hold modifier while typing. |
+| **Hint Overlay Improvements** | Pattern-availability pre-filtering at the UIA provider level, result caching by window handle, tree trimming, and cancellation support — cold-start enumeration ≤750ms for 200+ element apps. |
+| **Multiple interaction modes** | Invoke (default), Left Click, Right Click, Move Mouse, Hover — all configurable per modifier slot via key-capture UI in Options → Actions. |
+| **Customizable hint actions** | Three action slots: Slot 0 (default, no modifier), Slots 1–2 (configurable modifier + action). Assign any combination of Ctrl/Shift/Alt/Win plus an action type (Invoke, Left Click, Right Click, Move Mouse, Hover). |
+| **Non-overlapping hint labels** | Spiral-offsetting algorithm prevents overlapping labels on dense UIs (Discord, Slack). Labels try positions in priority order (default → above → below → right → left → stacked). |
+| **Multi-line wrapped link centering** | For wrapped text links (e.g., Wikipedia paragraphs), hint labels are vertically centered within the element to avoid appearing on the wrong line. |
+| **Benchmark logging** | Structured JSONL benchmark logs at `%APPDATA%\Vimium\logs\benchmark.jsonl` with cold-start latency metrics. Parse with `scripts/parse-benchmark-log.ps1`. |
+| **Input buffering** | Keystrokes typed during hint enumeration are buffered and applied once hints appear — no lost input. |
 | **Find & navigate mode** | `Ctrl+.` opens a Chrome-style find bar. Type ≥5 characters, matches highlight live (yellow = all, orange = active), `Tab`/`Shift+Tab` cycle, `Enter` scrolls to and focuses the match. |
 | **Themes** | Light, Dark, and Skadi themes with runtime switching via the options window. |
-| **Modern options window** | Sidebar-navigated settings: font size, hint colors, shortcuts — all auto-save. |
+| **Modern options window** | Sidebar-navigated settings: font size, hint colors, actions, shortcuts — all auto-save. |
 | **Configurable hotkeys** | Change overlay/taskbar/find activation shortcuts in Options → Keyboard. |
 | **Elevated by default** | Runs as administrator so it can interact with elevated apps. |
 | **Popup-friendly** | Overlay never steals focus — menus, dropdowns, and popups stay open. |
@@ -29,15 +35,20 @@ A lightweight keyboard-driven UI overlay for Windows. Press a hotkey, type a hin
 
 ### Interaction modes
 
-Hold one of these modifiers while typing the hint:
+Hold one of these modifiers while typing the hint (defaults shown — all three slots are
+configurable in **Options → Actions** with key-capture controls):
 
-| Modifier | Action |
-| --- | --- |
-| _(none)_ | **UI Automation invoke** — the element's primary action (press a button, follow a link). |
-| **Left Shift** | Move the mouse and perform a real **left click**. |
-| **Right Shift** | Move the mouse and perform a real **right click** (e.g. open a context menu). |
+| Slot | Modifier (default) | Action | Description |
+| --- | --- | --- | --- |
+| **0** | _(none)_ | **Invoke** | UI Automation invoke — the element's primary action. |
+| **1** | **Shift** | **Left Click** | Real left mouse click at the element's center. |
+| **2** | _(unassigned)_ | **Invoke** | Falls back to Invoke by default; assign your own modifier+action. |
 
-Why the click modes? Some apps (notably Electron / web-based apps like Microsoft Teams) expose hints through UI Automation but don't implement the `InvokePattern`. A synthesized mouse click goes through the normal OS input path and works on those controls.
+**Available actions**: Invoke (UIA), Left Click, Right Click, Move Mouse Only (no click), Hover (persist cursor — triggers CSS `:hover`).
+
+**Supported modifiers**: `Shift`, `Ctrl`, `Alt`, `Win`, and two-key combos like `Ctrl+Shift`.
+
+Why the click modes? Some apps (notably Electron / web-based apps like Microsoft Teams) expose hints through UI Automation but don't implement the `InvokePattern`. A synthesized mouse click goes through the normal OS input path and works on those controls. Move Mouse and Hover modes are useful for revealing hidden UI (tooltips, hover cards, drop-down menus) before re-activating hints.
 
 ### Find & navigate mode
 
@@ -144,7 +155,8 @@ Right-click the Vimium tray icon, select **Options** to open the settings window
 
 - **General** — font size (with live preview), theme (Light / Dark / Skadi)
 - **Overlay** — hint background colors (hex input + preset swatches), animation toggle
-- **Keyboard** — customizable overlay/taskbar activation shortcuts
+- **Actions** — configurable modifier→action slots with key-capture controls; assign any modifier combo to Invoke, Left Click, Right Click, Move Mouse, or Hover
+- **Keyboard** — customizable overlay/taskbar/find activation shortcuts
 
 All settings auto-save. Press `↑`/`↓` to navigate sidebar, `Alt+C` to close.
 

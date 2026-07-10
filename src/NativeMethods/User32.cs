@@ -99,6 +99,8 @@ namespace Vimium.NativeMethods
         public const int VK_RCONTROL = 0xA3;
         public const int VK_LMENU = 0xA4;
         public const int VK_RMENU = 0xA5;
+        public const int VK_LWIN = 0x5B;
+        public const int VK_RWIN = 0x5C;
 
         public delegate IntPtr LowLevelKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam);
 

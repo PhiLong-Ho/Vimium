@@ -69,8 +69,8 @@
 
             <ItemsControl.ItemContainerStyle>
                 <Style>
-                    <Setter Property="Canvas.Top" Value="{Binding Hint.BoundingRectangle.Top}" />
-                    <Setter Property="Canvas.Left" Value="{Binding Hint.BoundingRectangle.Left}" />
+                    <Setter Property="Canvas.Top" Value="{Binding AdjustedTop}" />
+                    <Setter Property="Canvas.Left" Value="{Binding AdjustedLeft}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
 

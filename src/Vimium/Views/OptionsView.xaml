@@ -150,52 +150,126 @@
                 </ScrollViewer>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type vm:KeyboardSettingsViewModel}">
+            <DataTemplate DataType="{x:Type vm:ActionSettingsViewModel}">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Margin="24,20">
-                        <TextBlock Text="Keyboard"
+                        <TextBlock Text="Keyboard &amp; Actions"
                                    FontSize="20" FontWeight="Bold"
                                    Foreground="{DynamicResource TextPrimaryBrush}"
                                    Margin="0,0,0,16" />
 
-                        <!-- Overlay activation -->
+                        <!-- ── Activation Shortcuts ── -->
                         <Border Style="{StaticResource SettingsCardStyle}">
                             <StackPanel>
                                 <TextBlock Text="Activation Shortcuts" Style="{StaticResource SectionTitleStyle}" />
                                 <TextBlock Text="Configure which key combinations trigger the overlay."
                                            Style="{StaticResource DescriptionStyle}" />
-                                <TextBlock Text="Format: Ctrl+;  —  supported modifiers: Ctrl, Alt, Shift, Win  —  key: letter, digit, or symbol (; , . / etc.)"
+                                <TextBlock Text="Format: Ctrl+; — modifiers: Ctrl, Alt, Shift, Win — key: letter, digit, or symbol."
                                            Style="{StaticResource DescriptionStyle}" />
                                 <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
-                                    <Label Content="Overlay:" Style="{StaticResource SettingLabelStyle}"
-                                           Width="100" />
+                                    <Label Content="Overlay:" Style="{StaticResource SettingLabelStyle}" Width="80" />
                                     <TextBox Text="{Binding OverlayModifier, UpdateSourceTrigger=LostFocus}"
-                                             Style="{StaticResource HexInputStyle}"
-                                             Width="120" />
+                                             Style="{StaticResource HexInputStyle}" Width="120" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <Label Content="Taskbar:" Style="{StaticResource SettingLabelStyle}"
-                                           Width="100" />
+                                    <Label Content="Taskbar:" Style="{StaticResource SettingLabelStyle}" Width="80" />
                                     <TextBox Text="{Binding TaskbarModifier, UpdateSourceTrigger=LostFocus}"
-                                             Style="{StaticResource HexInputStyle}"
-                                             Width="120" />
+                                             Style="{StaticResource HexInputStyle}" Width="120" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
-                                    <Label Content="Find Text:" Style="{StaticResource SettingLabelStyle}"
-                                           Width="100" />
+                                    <Label Content="Find Text:" Style="{StaticResource SettingLabelStyle}" Width="80" />
                                     <TextBox Text="{Binding LineNavigationModifier, UpdateSourceTrigger=LostFocus}"
-                                             Style="{StaticResource HexInputStyle}"
-                                             Width="120" />
+                                             Style="{StaticResource HexInputStyle}" Width="120" />
                                 </StackPanel>
                             </StackPanel>
                         </Border>
 
-                        <!-- Future: shortcut binding list -->
-                        <Border Style="{StaticResource SettingsCardStyle}">
+                        <!-- ── Hint Actions ── -->
+                        <Border Style="{StaticResource SettingsCardStyle}" Margin="0,12,0,0">
                             <StackPanel>
-                                <TextBlock Text="Custom Shortcuts" Style="{StaticResource SectionTitleStyle}" />
-                                <TextBlock Text="Custom shortcut bindings will be available in a future update."
-                                           Style="{StaticResource DescriptionStyle}" />
+                                <TextBlock Text="Hint Actions" Style="{StaticResource SectionTitleStyle}" />
+                                <TextBlock Text="Configure what happens when you select a hint. Slot 0 is the default (no modifier). Slots 1–2 use a modifier key (e.g. Shift, Ctrl+Alt). Mode: Hold = keep modifier held while typing hint. Type = press modifier, release, then type hint."
+                                           Style="{StaticResource DescriptionStyle}"
+                                           TextWrapping="Wrap" />
+
+                                <!-- Slot 0 -->
+                                <Border Style="{StaticResource SettingsCardStyle}" Margin="0,8,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Slot 0 — Default (no modifier)" Style="{StaticResource SectionTitleStyle}" />
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <Label Content="Action:" Style="{StaticResource SettingLabelStyle}" Width="70" />
+                                            <ComboBox ItemsSource="{x:Static vm:ActionSettingsViewModel.AvailableActions}"
+                                                      SelectedValue="{Binding Slot0Action, Mode=TwoWay}"
+                                                      Style="{StaticResource SettingComboBoxStyle}" Width="170" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Slot 1 -->
+                                <Border Style="{StaticResource SettingsCardStyle}" Margin="0,6,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Slot 1" Style="{StaticResource SectionTitleStyle}" />
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <Label Content="Modifier:" Style="{StaticResource SettingLabelStyle}" Width="70" />
+                                            <TextBox Text="{Binding Slot1Modifier, UpdateSourceTrigger=LostFocus}"
+                                                     Style="{StaticResource HexInputStyle}" Width="110" />
+                                            <Label Content="Mode:" Style="{StaticResource SettingLabelStyle}" Width="50" Margin="10,0,0,0" />
+                                            <ComboBox ItemsSource="{x:Static vm:ActionSettingsViewModel.AvailableModes}"
+                                                      SelectedValue="{Binding Slot1Mode, Mode=TwoWay}"
+                                                      Style="{StaticResource SettingComboBoxStyle}" Width="80" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <Label Content="Action:" Style="{StaticResource SettingLabelStyle}" Width="70" />
+                                            <ComboBox ItemsSource="{x:Static vm:ActionSettingsViewModel.AvailableActions}"
+                                                      SelectedValue="{Binding Slot1Action, Mode=TwoWay}"
+                                                      Style="{StaticResource SettingComboBoxStyle}" Width="170" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Slot 2 -->
+                                <Border Style="{StaticResource SettingsCardStyle}" Margin="0,6,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Slot 2" Style="{StaticResource SectionTitleStyle}" />
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <Label Content="Modifier:" Style="{StaticResource SettingLabelStyle}" Width="70" />
+                                            <TextBox Text="{Binding Slot2Modifier, UpdateSourceTrigger=LostFocus}"
+                                                     Style="{StaticResource HexInputStyle}" Width="110" />
+                                            <Label Content="Mode:" Style="{StaticResource SettingLabelStyle}" Width="50" Margin="10,0,0,0" />
+                                            <ComboBox ItemsSource="{x:Static vm:ActionSettingsViewModel.AvailableModes}"
+                                                      SelectedValue="{Binding Slot2Mode, Mode=TwoWay}"
+                                                      Style="{StaticResource SettingComboBoxStyle}" Width="80" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <Label Content="Action:" Style="{StaticResource SettingLabelStyle}" Width="70" />
+                                            <ComboBox ItemsSource="{x:Static vm:ActionSettingsViewModel.AvailableActions}"
+                                                      SelectedValue="{Binding Slot2Action, Mode=TwoWay}"
+                                                      Style="{StaticResource SettingComboBoxStyle}" Width="170" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Slot 3 -->
+                                <Border Style="{StaticResource SettingsCardStyle}" Margin="0,6,0,0">
+                                    <StackPanel>
+                                        <TextBlock Text="Slot 3" Style="{StaticResource SectionTitleStyle}" />
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <Label Content="Modifier:" Style="{StaticResource SettingLabelStyle}" Width="70" />
+                                            <TextBox Text="{Binding Slot3Modifier, UpdateSourceTrigger=LostFocus}"
+                                                     Style="{StaticResource HexInputStyle}" Width="110" />
+                                            <Label Content="Mode:" Style="{StaticResource SettingLabelStyle}" Width="50" Margin="10,0,0,0" />
+                                            <ComboBox ItemsSource="{x:Static vm:ActionSettingsViewModel.AvailableModes}"
+                                                      SelectedValue="{Binding Slot3Mode, Mode=TwoWay}"
+                                                      Style="{StaticResource SettingComboBoxStyle}" Width="80" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                            <Label Content="Action:" Style="{StaticResource SettingLabelStyle}" Width="70" />
+                                            <ComboBox ItemsSource="{x:Static vm:ActionSettingsViewModel.AvailableActions}"
+                                                      SelectedValue="{Binding Slot3Action, Mode=TwoWay}"
+                                                      Style="{StaticResource SettingComboBoxStyle}" Width="170" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
                             </StackPanel>
                         </Border>
                     </StackPanel>
@@ -247,6 +321,7 @@
                              ItemContainerStyle="{StaticResource SidebarItemStyle}"
                              BorderThickness="0"
                              Background="Transparent"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              x:Name="SidebarList"
                              KeyDown="SidebarList_KeyDown">
                         <ListBox.ItemTemplate>

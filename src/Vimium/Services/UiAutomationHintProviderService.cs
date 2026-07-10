@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Interop.UIAutomationClient;
@@ -15,6 +16,26 @@ namespace Vimium.Services
     internal class UiAutomationHintProviderService : IHintProviderService, IDebugHintProviderService
     {
         private readonly IUIAutomation _automation;
+
+        // ── Caching ──────────────────────────────────────────
+
+        private HintSession? _cachedSession;
+        private IntPtr _cachedHwnd;
+        private string? _cachedFilterMode;
+
+        // ── Benchmark integration ────────────────────────────
+
+        /// <summary>
+        /// Optional benchmark service for logging enumeration metrics.
+        /// Set by ShellViewModel before first use.
+        /// </summary>
+        public IBenchmarkService? BenchmarkService { get; set; }
+
+        /// <summary>
+        /// Current filter mode ("InvokeFiltered" or "AllElements").
+        /// Set before enumeration begins.
+        /// </summary>
+        public string FilterMode { get; set; } = "InvokeFiltered";
 
         public UiAutomationHintProviderService()
         {
@@ -44,11 +65,79 @@ namespace Vimium.Services
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
+
+            // Check cache before enumerating
+            bool cacheHit = false;
+            if (_cachedSession != null && _cachedHwnd == hWnd)
+            {
+                cacheHit = true;
+                sw.Stop();
+
+                // Log benchmark for cache hit
+                LogBenchmark(hWnd, _cachedSession.Hints.Count, sw.ElapsedMilliseconds, cacheHit);
+
+                Debug.WriteLine("Enumeration of hints (cached) took {0} ms", sw.ElapsedMilliseconds);
+                return _cachedSession;
+            }
+
             var session = EnumWindowHints(hWnd, CreateHint);
             sw.Stop();
 
+            // Update cache
+            _cachedSession = session;
+            _cachedHwnd = hWnd;
+            _cachedFilterMode = FilterMode;
+
+            // Log benchmark for cache miss (cold start)
+            LogBenchmark(hWnd, session?.Hints?.Count ?? 0, sw.ElapsedMilliseconds, cacheHit);
+
             Debug.WriteLine("Enumeration of hints took {0} ms", sw.ElapsedMilliseconds);
             return session;
+        }
+
+        /// <summary>
+        /// Writes a benchmark log entry if the benchmark service is configured and enabled.
+        /// </summary>
+        private void LogBenchmark(IntPtr hWnd, int elementCount, long elapsedMs, bool cacheHit)
+        {
+            try
+            {
+                if (BenchmarkService == null || !BenchmarkService.IsEnabled)
+                    return;
+
+                var windowTitle = GetWindowTitle(hWnd);
+                BenchmarkService.LogSession(new BenchmarkLogEntry
+                {
+                    Timestamp = DateTime.UtcNow,
+                    WindowTitle = windowTitle,
+                    ElementCount = elementCount,
+                    ElapsedMs = (int)elapsedMs,
+                    CacheHit = cacheHit,
+                    FilterMode = FilterMode,
+                });
+            }
+            catch
+            {
+                // Benchmark logging must never break the feature
+            }
+        }
+
+        /// <summary>
+        /// Gets the window title for the given handle, or empty string on failure.
+        /// </summary>
+        private static string GetWindowTitle(IntPtr hWnd)
+        {
+            try
+            {
+                const int nChars = 256;
+                var sb = new System.Text.StringBuilder(nChars);
+                if (User32.GetWindowText(hWnd, sb, nChars) > 0)
+                    return sb.ToString();
+            }
+            catch
+            {
+            }
+            return "";
         }
 
         /// <summary>
@@ -56,15 +145,36 @@ namespace Vimium.Services
         /// Creates a fresh CUIAutomation instance on the worker thread to avoid
         /// COM apartment marshaling issues.
         /// </summary>
-        public Task<HintSession> EnumHintsAsync(IntPtr hWnd)
+        public Task<HintSession> EnumHintsAsync(IntPtr hWnd, CancellationToken cancellationToken = default)
         {
             return Task.Run(() =>
             {
+                // Check cancellation before any COM work
+                if (cancellationToken.IsCancellationRequested)
+                    return null;
+
                 // Create a fresh automation object on this background thread
                 // so COM stays in the right apartment.
-                var service = new UiAutomationHintProviderService(new CUIAutomation());
+                var service = new UiAutomationHintProviderService(new CUIAutomation())
+                {
+                    BenchmarkService = this.BenchmarkService,
+                    FilterMode = this.FilterMode,
+                    _cachedSession = this._cachedSession,
+                    _cachedHwnd = this._cachedHwnd,
+                    _cachedFilterMode = this._cachedFilterMode,
+                };
                 return service.EnumHints(hWnd);
-            });
+            }, cancellationToken);
+        }
+
+        /// <summary>
+        /// Clears the cached enumeration result.
+        /// </summary>
+        public void InvalidateCache()
+        {
+            _cachedSession = null;
+            _cachedHwnd = IntPtr.Zero;
+            _cachedFilterMode = null;
         }
 
         public HintSession EnumDebugHints()
@@ -112,6 +222,13 @@ namespace Vimium.Services
                         var hint = hintFactory(hWnd, windowCoords, element);
                         if (hint != null)
                         {
+                            // Deduplication: skip hints whose bounding rectangle substantially
+                            // overlaps an already-added hint (UIA trees can produce duplicate
+                            // elements for the same visual control — e.g. parent + child both
+                            // matching pattern-availability conditions).
+                            if (IsDuplicate(result, windowCoords))
+                                continue;
+
                             result.Add(hint);
                         }
                     }
@@ -136,12 +253,51 @@ namespace Vimium.Services
             var result = new List<IUIAutomationElement>();
             var automationElement = _automation.ElementFromHandle(hWnd);
 
+            // Build condition tree: ControlView + Enabled + OnScreen
             var conditionControlView = _automation.ControlViewCondition;
             var conditionEnabled = _automation.CreatePropertyCondition(UIA_PropertyIds.UIA_IsEnabledPropertyId, true);
             var enabledControlCondition = _automation.CreateAndCondition(conditionControlView, conditionEnabled);
 
             var conditionOnScreen = _automation.CreatePropertyCondition(UIA_PropertyIds.UIA_IsOffscreenPropertyId, false);
-            var condition = _automation.CreateAndCondition(enabledControlCondition, conditionOnScreen);
+
+            // T035/T036: Build the condition tree based on the current filter mode.
+            // FilterMode is fixed at overlay-open time — it does not change when
+            // alternate modifier keys are held during hint matching.
+            IUIAutomationCondition condition;
+            if (FilterMode == "AllElements")
+            {
+                // AllElements mode: no pattern-availability filtering.
+                // Show all visible, enabled control elements (including static text).
+                condition = _automation.CreateAndCondition(enabledControlCondition, conditionOnScreen);
+            }
+            else
+            {
+                // InvokeFiltered mode (default): only elements that support at least
+                // one interactive UIA pattern.
+                var invokeAvailable = _automation.CreatePropertyCondition(
+                    UIA_PropertyIds.UIA_IsInvokePatternAvailablePropertyId, true);
+                var toggleAvailable = _automation.CreatePropertyCondition(
+                    UIA_PropertyIds.UIA_IsTogglePatternAvailablePropertyId, true);
+                var selectionItemAvailable = _automation.CreatePropertyCondition(
+                    UIA_PropertyIds.UIA_IsSelectionItemPatternAvailablePropertyId, true);
+                var expandCollapseAvailable = _automation.CreatePropertyCondition(
+                    UIA_PropertyIds.UIA_IsExpandCollapsePatternAvailablePropertyId, true);
+                var valueAvailable = _automation.CreatePropertyCondition(
+                    UIA_PropertyIds.UIA_IsValuePatternAvailablePropertyId, true);
+                var rangeValueAvailable = _automation.CreatePropertyCondition(
+                    UIA_PropertyIds.UIA_IsRangeValuePatternAvailablePropertyId, true);
+
+                // Nest: OR(OR(OR(OR(OR(invoke, toggle), selectionItem), expandCollapse), value), rangeValue)
+                var interactivePatternCondition = _automation.CreateOrCondition(invokeAvailable, toggleAvailable);
+                interactivePatternCondition = _automation.CreateOrCondition(interactivePatternCondition, selectionItemAvailable);
+                interactivePatternCondition = _automation.CreateOrCondition(interactivePatternCondition, expandCollapseAvailable);
+                interactivePatternCondition = _automation.CreateOrCondition(interactivePatternCondition, valueAvailable);
+                interactivePatternCondition = _automation.CreateOrCondition(interactivePatternCondition, rangeValueAvailable);
+
+                // AND: (ControlView AND Enabled) AND (OnScreen AND has-interactive-pattern)
+                var baseCondition = _automation.CreateAndCondition(enabledControlCondition, conditionOnScreen);
+                condition = _automation.CreateAndCondition(baseCondition, interactivePatternCondition);
+            }
 
             // Batch all the data we need into a single cross-process call. Without this,
             // each element's bounding rectangle and every pattern lookup is a separate
@@ -150,6 +306,11 @@ namespace Vimium.Services
             cacheRequest.AddProperty(UIA_PropertyIds.UIA_BoundingRectanglePropertyId);
             cacheRequest.AddProperty(UIA_PropertyIds.UIA_ValueIsReadOnlyPropertyId);
             cacheRequest.AddProperty(UIA_PropertyIds.UIA_RangeValueIsReadOnlyPropertyId);
+            // T008: Cache ControlType and IsControlElement for tree trimming
+            cacheRequest.AddProperty(UIA_PropertyIds.UIA_ControlTypePropertyId);
+            cacheRequest.AddProperty(UIA_PropertyIds.UIA_IsControlElementPropertyId);
+            cacheRequest.AddProperty(UIA_PropertyIds.UIA_IsEnabledPropertyId);
+            cacheRequest.AddProperty(UIA_PropertyIds.UIA_IsOffscreenPropertyId);
             cacheRequest.AddPattern(UIA_PatternIds.UIA_InvokePatternId);
             cacheRequest.AddPattern(UIA_PatternIds.UIA_TogglePatternId);
             cacheRequest.AddPattern(UIA_PatternIds.UIA_SelectionItemPatternId);
@@ -162,11 +323,50 @@ namespace Vimium.Services
             {
                 for (var i = 0; i < elementArray.Length; ++i)
                 {
-                    result.Add(elementArray.GetElement(i));
+                    var element = elementArray.GetElement(i);
+
+                    // T008: Tree trimming — conservatively skip elements that are
+                    // definitively non-interactive based on cached properties.
+                    if (!IsElementPotentiallyInteractive(element))
+                        continue;
+
+                    result.Add(element);
                 }
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// T008: Conservative check — returns false only when an element is
+        /// definitively non-interactive (not a control element, not enabled,
+        /// or off-screen). We err on the side of keeping elements rather than
+        /// dropping something the user might need.
+        /// </summary>
+        private static bool IsElementPotentiallyInteractive(IUIAutomationElement element)
+        {
+            try
+            {
+                // If it's not a control element and not enabled, skip
+                var isControl = element.GetCachedPropertyValue(UIA_PropertyIds.UIA_IsControlElementPropertyId);
+                if (isControl is bool isControlBool && !isControlBool)
+                    return false;
+
+                var isEnabled = element.GetCachedPropertyValue(UIA_PropertyIds.UIA_IsEnabledPropertyId);
+                if (isEnabled is bool isEnabledBool && !isEnabledBool)
+                    return false;
+
+                var isOffscreen = element.GetCachedPropertyValue(UIA_PropertyIds.UIA_IsOffscreenPropertyId);
+                if (isOffscreen is bool isOffscreenBool && isOffscreenBool)
+                    return false;
+
+                return true;
+            }
+            catch
+            {
+                // If we can't read properties, keep the element (safety first)
+                return true;
+            }
         }
 
         /// <summary>
@@ -225,6 +425,37 @@ namespace Vimium.Services
                 // May have gone
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Returns true if <paramref name="candidate"/>'s bounding rect overlaps more than
+        /// 80% with any already-added hint — i.e. it's likely a duplicate UIA element
+        /// for the same visual control (common in complex UIA trees like YouTube Music).
+        /// </summary>
+        /// <summary>
+        /// Returns true if <paramref name="candidate"/> and an existing hint have
+        /// nearly-identical bounding rectangles (within a 4px tolerance on all four
+        /// edges). This catches genuine UIA duplicates (parent + child element both
+        /// matching) without filtering distinct adjacent links whose rects may
+        /// overlap due to multi-line text wrapping.
+        /// </summary>
+        private static bool IsDuplicate(List<Hint> existing, Rect candidate)
+        {
+            const double tolerance = 4.0;
+
+            for (int i = 0; i < existing.Count; i++)
+            {
+                var r = existing[i].BoundingRectangle;
+
+                if (Math.Abs(candidate.Left - r.Left) < tolerance
+                    && Math.Abs(candidate.Top - r.Top) < tolerance
+                    && Math.Abs(candidate.Right - r.Right) < tolerance
+                    && Math.Abs(candidate.Bottom - r.Bottom) < tolerance)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>

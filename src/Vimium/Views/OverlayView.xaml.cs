@@ -90,11 +90,20 @@ namespace Vimium.Views
                 return;
             }
 
-            // While hints are still being generated, ignore all other keys
+            // T013: While hints are still being generated, buffer typed characters
+            // so they aren't lost. Buffered input is applied when PopulateHints completes.
             var vm = DataContext as OverlayViewModel;
             if (vm != null && vm.IsLoading)
             {
                 e.Handled = true;
+                if (vk >= 'A' && vk <= 'Z')
+                {
+                    vm.PendingInput += (char)vk;
+                }
+                else if (vk == User32.VK_BACK && vm.PendingInput.Length > 0)
+                {
+                    vm.PendingInput = vm.PendingInput.Substring(0, vm.PendingInput.Length - 1);
+                }
                 return;
             }
 
@@ -109,6 +118,27 @@ namespace Vimium.Views
                 return;
             }
 
+            // Type-mode: detect standalone modifier key presses (when no hint
+            // has been typed yet). If a slot is configured with this modifier
+            // in "Type" mode, arm it so the next hint match uses that action.
+            if (_input.Length == 0 && vm != null && IsModifierKey(vk))
+            {
+                var modifierName = VkToModifierName(vk);
+                if (!string.IsNullOrEmpty(modifierName))
+                {
+                    foreach (var slot in vm.ActionSlots)
+                    {
+                        if (slot.Mode == "Type"
+                            && string.Equals(slot.Modifier, modifierName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            vm.ArmedModifier = modifierName;
+                            e.Handled = true;
+                            return;
+                        }
+                    }
+                }
+            }
+
             // Hint labels are letters (A-Z)
             if (vk >= 'A' && vk <= 'Z')
             {
@@ -119,6 +149,32 @@ namespace Vimium.Views
             }
 
             // Anything else (shift, arrows, etc.) is left untouched and passes through.
+        }
+
+        /// <summary>Returns true if the virtual key code is a modifier key.</summary>
+        private static bool IsModifierKey(int vk)
+        {
+            return vk == User32.VK_LSHIFT || vk == User32.VK_RSHIFT
+                || vk == User32.VK_LCONTROL || vk == User32.VK_RCONTROL
+                || vk == User32.VK_LMENU || vk == User32.VK_RMENU
+                || vk == User32.VK_LWIN || vk == User32.VK_RWIN;
+        }
+
+        /// <summary>Maps a virtual key code to its modifier name string.</summary>
+        private static string? VkToModifierName(int vk)
+        {
+            return vk switch
+            {
+                User32.VK_LSHIFT => "Shift",
+                User32.VK_RSHIFT => "Shift",
+                User32.VK_LCONTROL => "Ctrl",
+                User32.VK_RCONTROL => "Ctrl",
+                User32.VK_LMENU => "Alt",
+                User32.VK_RMENU => "Alt",
+                User32.VK_LWIN => "Win",
+                User32.VK_RWIN => "Win",
+                _ => null,
+            };
         }
 
         private void UpdateInput()

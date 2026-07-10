@@ -41,6 +41,15 @@ public class VimiumConfig
     /// <summary>Modifier key(s) for taskbar overlay activation.</summary>
     public string TaskbarModifier { get; set; } = "Ctrl+'";
 
+    // ── Actions ───────────────────────────────────────────────
+
+    /// <summary>
+    /// Three configured modifier→action mappings for hint selection.
+    /// Slot 0 is the default (no modifier). Slot 1 and 2 are alternate actions
+    /// triggered by holding the configured modifier key(s).
+    /// </summary>
+    public ActionSlot[] ActionSlots { get; set; } = ActionSlot.CreateDefaults();
+
     // ── Line Navigation ──────────────────────────────────────
 
     /// <summary>Hotkey for line-navigation activation (e.g. "Ctrl+.").</summary>
@@ -48,6 +57,14 @@ public class VimiumConfig
 
     /// <summary>Modifier key held while typing hint label for copy action (e.g. "Ctrl").</summary>
     public string CopyModifier { get; set; } = "Ctrl";
+
+    // ── Benchmark ─────────────────────────────────────────────
+
+    /// <summary>
+    /// Whether enumeration sessions are logged to the benchmark JSONL file.
+    /// Local-only — no telemetry. Default: true.
+    /// </summary>
+    public bool BenchmarkLogEnabled { get; set; } = true;
 
     // ── Factory ──────────────────────────────────────────────
 

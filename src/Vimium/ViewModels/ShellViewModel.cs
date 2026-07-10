@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -23,6 +24,8 @@ namespace Vimium.ViewModels
         private readonly IHintProviderService _hintProviderService;
         private readonly IDebugHintProviderService _debugHintProviderService;
         private readonly IFindTextProviderService _findTextProviderService;
+        private readonly IBenchmarkService _benchmarkService;
+        private CancellationTokenSource? _cts;
 
         public ShellViewModel(
             Action<OverlayViewModel> showOverlay,
@@ -33,7 +36,8 @@ namespace Vimium.ViewModels
             IHintProviderService hintProviderService,
             IDebugHintProviderService debugHintProviderService,
             IFindTextProviderService findTextProviderService,
-            IKeyListenerService keyListener)
+            IKeyListenerService keyListener,
+            IBenchmarkService? benchmarkService = null)
         {
             _showOverlay = showOverlay;
             _showSelectionModeOverlay = showSelectionModeOverlay;
@@ -44,6 +48,13 @@ namespace Vimium.ViewModels
             _hintProviderService = hintProviderService;
             _debugHintProviderService = debugHintProviderService;
             _findTextProviderService = findTextProviderService;
+            _benchmarkService = benchmarkService ?? new BenchmarkService();
+
+            // Wire benchmark service to the hint provider for logging
+            if (_hintProviderService is UiAutomationHintProviderService uiAutomationService)
+            {
+                uiAutomationService.BenchmarkService = _benchmarkService;
+            }
 
             // Read hotkeys from config (with fallback to defaults)
             ApplyHotkeys(keyListener1);
@@ -108,6 +119,25 @@ namespace Vimium.ViewModels
                 return;
             }
 
+            // Create cancellation token source for this enumeration session.
+            // Cancel on overlay close to stop enumeration early.
+            _cts = new CancellationTokenSource();
+            var ct = _cts.Token;
+
+            // T035: Set filter mode based on the default action slot.
+            // InvokeFiltered for click-based actions, AllElements for move/hover.
+            var defaultAction = ConfigService.Instance.ActionSlots.Length > 0
+                ? ConfigService.Instance.ActionSlots[0].Action
+                : Models.HintAction.Invoke;
+            if (_hintProviderService is UiAutomationHintProviderService uiAutomation)
+            {
+                uiAutomation.FilterMode = defaultAction switch
+                {
+                    Models.HintAction.MoveMouse => "AllElements",
+                                        _ => "InvokeFiltered",
+                };
+            }
+
             // Get window bounds (fast, no COM) and show the overlay immediately
             // with a loading indicator while hints are enumerated.
             var rawBounds = new RECT();
@@ -115,11 +145,17 @@ namespace Vimium.ViewModels
             Rect windowBounds = rawBounds;
 
             var vm = new OverlayViewModel(windowBounds);
+            vm.ActionSlots = ConfigService.Instance.ActionSlots;
             vm.Closed = () => _overlayActive = false;
+            vm.CloseOverlay = () =>
+            {
+                // Cancel enumeration if it's still running
+                try { _cts?.Cancel(); } catch { }
+            };
             _showOverlay(vm);
 
             // Enumerate hints on a background thread to keep the UI responsive
-            var session = await _hintProviderService.EnumHintsAsync(hWnd);
+            var session = await _hintProviderService.EnumHintsAsync(hWnd, ct);
             if (session != null)
             {
                 // Update the already-visible overlay on the UI thread
@@ -130,7 +166,7 @@ namespace Vimium.ViewModels
             }
             else
             {
-                // Window may have disappeared — close the overlay
+                // Window may have disappeared or enumeration was cancelled
                 await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
                     vm.CloseOverlay?.Invoke();
@@ -150,17 +186,39 @@ namespace Vimium.ViewModels
                 return;
             }
 
+            // Create cancellation token source for this enumeration session
+            _cts = new CancellationTokenSource();
+            var ct = _cts.Token;
+
+            // T035: Set filter mode based on the default action slot.
+            var defaultAction = ConfigService.Instance.ActionSlots.Length > 0
+                ? ConfigService.Instance.ActionSlots[0].Action
+                : Models.HintAction.Invoke;
+            if (_hintProviderService is UiAutomationHintProviderService uiAutomation2)
+            {
+                uiAutomation2.FilterMode = defaultAction switch
+                {
+                    Models.HintAction.MoveMouse => "AllElements",
+                                        _ => "InvokeFiltered",
+                };
+            }
+
             // Get window bounds (fast) and show overlay with loading indicator
             var rawBounds = new RECT();
             User32.GetWindowRect(taskbarHWnd, ref rawBounds);
             Rect windowBounds = rawBounds;
 
             var vm = new OverlayViewModel(windowBounds);
+            vm.ActionSlots = ConfigService.Instance.ActionSlots;
             vm.Closed = () => _overlayActive = false;
+            vm.CloseOverlay = () =>
+            {
+                try { _cts?.Cancel(); } catch { }
+            };
             _showOverlay(vm);
 
             // Enumerate hints on background thread
-            var session = await _hintProviderService.EnumHintsAsync(taskbarHWnd);
+            var session = await _hintProviderService.EnumHintsAsync(taskbarHWnd, ct);
             if (session != null)
             {
                 await Application.Current.Dispatcher.InvokeAsync(() =>

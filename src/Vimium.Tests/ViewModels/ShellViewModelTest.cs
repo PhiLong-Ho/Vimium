@@ -43,8 +43,16 @@ public class ShellViewModelTest
     {
         public HintSession EnumHints() => null!;
         public HintSession EnumHints(IntPtr handle) => null!;
-        public Task<HintSession> EnumHintsAsync(IntPtr hWnd) =>
+        public Task<HintSession> EnumHintsAsync(IntPtr hWnd, CancellationToken cancellationToken = default) =>
             Task.FromResult<HintSession>(null!);
+        public void InvalidateCache() { }
+    }
+
+    private sealed class FakeBenchmarkService : IBenchmarkService
+    {
+        public bool IsEnabled => true;
+        public void LogSession(BenchmarkLogEntry entry) { }
+        public void InvalidateCache() { }
     }
 
     private sealed class FakeDebugHintProviderService : IDebugHintProviderService
