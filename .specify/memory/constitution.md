@@ -1,13 +1,13 @@
 <!--
   Sync Impact Report
   ==================
-  Version change: 1.1.0 → 1.2.0
-  Bump rationale: MINOR — added "Documentation after feature" requirement to
-  Development Workflow: README.md MUST be updated after every user-facing feature
+  Version change: 1.2.0 → 1.3.0
+  Bump rationale: MINOR — added "Changelog after feature" requirement to
+  Development Workflow: CHANGELOG.md MUST be updated after every user-facing feature
   completion. No principles modified or removed — purely additive.
 
   Modified sections:
-    Development Workflow — added documentation-update gate.
+    Development Workflow — added changelog-update gate.
 
   Added sections: none
 
@@ -211,6 +211,12 @@ the v1.2 headline feature for this reason — it must never regress.
   new interaction modes, new settings pages, new overlay behaviors, and
   performance improvements visible to the user. Spec documents in `specs/`
   serve as the canonical design record; README.md is the user-facing summary.
+- **Changelog after feature**: After completing any user-facing feature,
+  CHANGELOG.md MUST be updated with the changes under the appropriate version
+  heading. Use the [Keep a Changelog](https://keepachangelog.com/) format:
+  `Added`, `Changed`, `Fixed`, `Removed`, `Dev` sections. Reference the spec
+  directory (e.g., `specs/###-feature-name/`) for full details. The changelog
+  version MUST match the release version in the project.
 - **Constitution compliance**: Every PR MUST pass a constitution check against
   all five principles. Violations require explicit justification in the
   Complexity Tracking table of the implementation plan.
@@ -249,4 +255,4 @@ responsible for enforcing compliance at review time. Use the complexity tracking
 mechanism in `plan-template.md` to document and justify any intentional
 violations.
 
-**Version**: 1.2.0 | **Ratified**: 2026-07-05 | **Last Amended**: 2026-07-10
+**Version**: 1.3.0 | **Ratified**: 2026-07-05 | **Last Amended**: 2026-07-10

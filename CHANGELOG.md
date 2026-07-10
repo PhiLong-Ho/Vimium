@@ -2,7 +2,7 @@
 
 This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 
-## v1.4 — Line Navigation Mode
+## v1.4 — Line Navigation Mode & Hint Overlay Improvements
 
 ### Added
 
@@ -14,6 +14,13 @@ This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 - **Mode isolation** — Element mode (`Ctrl+;`) and line mode (`Ctrl+.`) operate independently. Only one overlay can be active at a time. Each has its own keyboard hook and state.
 - **Copy confirmation** — Brief "Copied!" toast animation in selection mode on Enter.
 - **Zero-text handling** — Windows with no text (e.g., Paint) show "No text lines found" and auto-dismiss after 1.5s.
+- **Blazing-fast hint enumeration** — Cold-start hints appear within 750ms for 200+ element apps (was 1–3s). Achieved via pattern-availability pre-filtering at the UIA provider level (40–60% fewer cross-process elements), conservative tree trimming, and result caching by window handle.
+- **4-slot configurable hint actions** — Replace hardcoded Shift→Click behavior with four configurable modifier-action slots: Slot 0 (default, no modifier), Slots 1–3 with text-based modifier input and action dropdowns. Actions: Invoke, Left Click, Right Click, Hover.
+- **Hover action** — Move cursor to element center without clicking. Triggers CSS `:hover` effects; cursor persists so hover-revealed UI stays visible for the next hint activation. Useful for tooltips, hover cards, and drop-down menus.
+- **Non-overlapping hint labels** — Spiral-offsetting algorithm prevents label overlap on dense UIs (Discord, Slack). Labels try positions in priority order (default → above → below → right → left), stacking vertically as a last resort.
+- **Per-action hint filtering** — When the default action is a click (Invoke/LeftClick/RightClick), only interactive elements receive hints, reducing visual noise. When default is Hover, all visible elements get hints.
+- **Input buffering** — Keystrokes typed during hint enumeration are buffered and applied once hints appear — no lost input.
+- **Benchmark logging** — Structured JSONL log at `%APPDATA%\Vimium\logs\benchmark.jsonl` with cold-start latency metrics. Analyzable with `scripts/parse-benchmark-log.ps1` (mean, median, P95).
 
 ## v1.3 — Modern options window, themes, live settings
 
