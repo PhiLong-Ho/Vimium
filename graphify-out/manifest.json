@@ -5,8 +5,8 @@
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {
-    "mtime": 1783084420.0773785,
-    "ast_hash": "c3587649fa17a9d76d8ca61b806acb6c",
+    "mtime": 1783579927.2604644,
+    "ast_hash": "b60e98013de189df07a6b243c34f1279",
     "semantic_hash": ""
   },
   "src/NativeMethods/Constants.cs": {
@@ -50,8 +50,8 @@
     "semantic_hash": ""
   },
   "src/NativeMethods/User32.cs": {
-    "mtime": 1783086813.49796,
-    "ast_hash": "91976cbe04d273e3d3084c9b36a788bf",
+    "mtime": 1783269253.4401586,
+    "ast_hash": "08717c6b7aba54d7e7a944bddbc5c1dd",
     "semantic_hash": ""
   },
   "src/SolutionInfo.cs": {
@@ -65,18 +65,18 @@
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
-    "mtime": 1783258224.6935985,
-    "ast_hash": "97ef64c8dcf28cfbd596db23e5f241ef",
+    "mtime": 1783267766.3724484,
+    "ast_hash": "0bbef4dcc32527771bc80bfb34ea5092",
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1783259119.1168718,
-    "ast_hash": "a88860c2e37d77633351f15e344eba13",
+    "mtime": 1783263058.4333136,
+    "ast_hash": "b5dc9bf3f5a41c13d97ab49795a1554d",
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1783258251.3155653,
-    "ast_hash": "a3928443a8bef3eb3b685a50e3642144",
+    "mtime": 1783267786.9887402,
+    "ast_hash": "7382a43f03932305e124a4528037ea34",
     "semantic_hash": ""
   },
   "screenshots/explorer.png": {
@@ -125,8 +125,8 @@
     "semantic_hash": ""
   },
   "src/Vimium.Tests/Services/HintLabelServiceTest.cs": {
-    "mtime": 1783086813.4339995,
-    "ast_hash": "9fe44168f17c17f29cea5ec4d347b2b1",
+    "mtime": 1783581544.8861158,
+    "ast_hash": "4ebac07f16d98598f1d2ced01cd2b857",
     "semantic_hash": ""
   },
   "src/Vimium.Tests/Vimium.Tests.csproj": {
@@ -140,8 +140,8 @@
     "semantic_hash": ""
   },
   "src/Vimium/App.xaml.cs": {
-    "mtime": 1783091820.6192994,
-    "ast_hash": "234cc2e1013299a8f9896cbc5cd099a1",
+    "mtime": 1783577385.0121434,
+    "ast_hash": "de1eb5899654a6cfd47fb5b99e2d4954",
     "semantic_hash": ""
   },
   "src/Vimium/Extensions/IEnumerableTExtensions.cs": {
@@ -205,8 +205,8 @@
     "semantic_hash": ""
   },
   "src/Vimium/Services/HintLabelService.cs": {
-    "mtime": 1783086813.1800797,
-    "ast_hash": "4b25b31dfd973d7c160ba686b6fab4ee",
+    "mtime": 1783581474.8408132,
+    "ast_hash": "515e1e1ec9b7dce6b25ccbb70da1c6d0",
     "semantic_hash": ""
   },
   "src/Vimium/Services/Interfaces/IDebugHintProviderService.cs": {
@@ -225,13 +225,13 @@
     "semantic_hash": ""
   },
   "src/Vimium/Services/Interfaces/IKeyListenerService.cs": {
-    "mtime": 1783095076.2730572,
-    "ast_hash": "d262415ea33cfc2b6fdfe94b2ed93513",
+    "mtime": 1783266943.314865,
+    "ast_hash": "3b5e15cd6ab0310a551910d24f4cb29b",
     "semantic_hash": ""
   },
   "src/Vimium/Services/KeyListenerService.cs": {
-    "mtime": 1783086813.226205,
-    "ast_hash": "eb2ef488c08c87c6a294e02c30c7da4f",
+    "mtime": 1783268549.3235548,
+    "ast_hash": "d367cc8e7869c67e449df153281e889d",
     "semantic_hash": ""
   },
   "src/Vimium/Services/KeyboardHookService.cs": {
@@ -290,8 +290,8 @@
     "semantic_hash": ""
   },
   "src/Vimium/ViewModels/ShellViewModel.cs": {
-    "mtime": 1783097381.5044725,
-    "ast_hash": "abf440782204981dfddb564d9f1f51bf",
+    "mtime": 1783268499.1751635,
+    "ast_hash": "a9766263e2fa22ce64b0f31eaeba9d3b",
     "semantic_hash": ""
   },
   "src/Vimium/Views/DebugOverlayView.xaml.cs": {
@@ -325,13 +325,13 @@
     "semantic_hash": ""
   },
   "src/Vimium/Models/VimiumConfig.cs": {
-    "mtime": 1783245621.4053526,
-    "ast_hash": "f3a60e27c88a42065e5ea1ce7f7ca234",
+    "mtime": 1783266932.996725,
+    "ast_hash": "7dec111434ed2503e5dab05aaca245a9",
     "semantic_hash": ""
   },
   "src/Vimium/Services/ConfigService.cs": {
-    "mtime": 1783098563.8812358,
-    "ast_hash": "bdf10e5a24ca1394a3ffcf44a8d7d3eb",
+    "mtime": 1783266938.1844866,
+    "ast_hash": "b92d08360cbbb2ebf2f2b89fa7dc3e7e",
     "semantic_hash": ""
   },
   "src/Vimium/Converters/HexToColorConverter.cs": {
@@ -345,18 +345,13 @@
     "semantic_hash": ""
   },
   "src/Vimium/ViewModels/KeyboardSettingsViewModel.cs": {
-    "mtime": 1783099108.8733113,
-    "ast_hash": "e16dee5fdf3b716dfdf3f8fab20d8f49",
+    "mtime": 1783267646.488678,
+    "ast_hash": "8f5b8c43a7f7c68365b743d6b48b5e86",
     "semantic_hash": ""
   },
   "src/Vimium/ViewModels/OverlaySettingsViewModel.cs": {
     "mtime": 1783099108.0043187,
     "ast_hash": "14f5afd530fabb6eee3185242cfafcb6",
-    "semantic_hash": ""
-  },
-  ".claude/skills/spec-driven-dev/skill.md": {
-    "mtime": 1783259118.597669,
-    "ast_hash": "858586e74bc4d599de97033b08d57fc7",
     "semantic_hash": ""
   },
   "src/Vimium.Tests/Converters/HexToColorConverterTest.cs": {
@@ -365,8 +360,8 @@
     "semantic_hash": ""
   },
   "src/Vimium.Tests/Models/VimiumConfigTest.cs": {
-    "mtime": 1783245542.457561,
-    "ast_hash": "078bbc66201a1dd7a616174ee3fa9ad0",
+    "mtime": 1783267007.353569,
+    "ast_hash": "30e8c9a9bc63ad4c9ae6a1d073181853",
     "semantic_hash": ""
   },
   "src/Vimium.Tests/Services/HotKeyTest.cs": {
@@ -384,59 +379,19 @@
     "ast_hash": "e55be73f072c9a662f3742365426f6bb",
     "semantic_hash": ""
   },
-  "docs/features/v1.3/options-window-modernization.md": {
-    "mtime": 1783258706.5287237,
-    "ast_hash": "021966442e169d9792f21f194728a50a",
-    "semantic_hash": ""
-  },
   "docs/SDD_Article_Final.md.pdf": {
     "mtime": 1783259080.3978536,
     "ast_hash": "7d296dc314a4f79444dff544c2f1ca5e",
     "semantic_hash": ""
   },
   ".specify/integrations/claude.manifest.json": {
-    "mtime": 1783262234.695295,
-    "ast_hash": "04f47e462a4172f2b0a842c77898c3f8",
+    "mtime": 1783580757.5664892,
+    "ast_hash": "39e736e456899923034f3298da511968",
     "semantic_hash": ""
   },
   ".specify/integrations/speckit.manifest.json": {
-    "mtime": 1783262234.777802,
+    "mtime": 1783580757.5921588,
     "ast_hash": "b4184d54e1dd3714f658de8f887f3d71",
-    "semantic_hash": ""
-  },
-  "init-options.json": {
-    "mtime": 1783262234.804309,
-    "ast_hash": "33e396ad77033dc1d51d643282f1c5ba",
-    "semantic_hash": ""
-  },
-  "integration.json": {
-    "mtime": 1783262234.697296,
-    "ast_hash": "3cbf0f5f424249b2ca334a6329bb107a",
-    "semantic_hash": ""
-  },
-  "scripts/powershell/check-prerequisites.ps1": {
-    "mtime": 1783262234.7088022,
-    "ast_hash": "889ef9d5f647faf6c3f9974a4b924caa",
-    "semantic_hash": ""
-  },
-  "scripts/powershell/common.ps1": {
-    "mtime": 1783262234.7198024,
-    "ast_hash": "b3244b25559c2e950f52d9f11046bf2d",
-    "semantic_hash": ""
-  },
-  "scripts/powershell/create-new-feature.ps1": {
-    "mtime": 1783262234.7298026,
-    "ast_hash": "8b953a13e73eb06f3811cb1738a4f0f5",
-    "semantic_hash": ""
-  },
-  "scripts/powershell/setup-plan.ps1": {
-    "mtime": 1783262234.7398024,
-    "ast_hash": "cc96e75d185b2fcd79c7e969762e277e",
-    "semantic_hash": ""
-  },
-  "scripts/powershell/setup-tasks.ps1": {
-    "mtime": 1783262234.7428024,
-    "ast_hash": "1f5a59359bc55ba2501150435f4d6fbd",
     "semantic_hash": ""
   },
   "workflows/workflow-registry.json": {
@@ -445,88 +400,288 @@
     "semantic_hash": ""
   },
   ".claude/skills/speckit-analyze/SKILL.md": {
-    "mtime": 1783262234.609424,
+    "mtime": 1783580757.441171,
     "ast_hash": "75a31304705598dd45a8ee8b709d90c1",
     "semantic_hash": ""
   },
   ".claude/skills/speckit-checklist/SKILL.md": {
-    "mtime": 1783262234.6642919,
+    "mtime": 1783580757.5210507,
     "ast_hash": "d1f923d8963ece0f653656604e26d3d8",
     "semantic_hash": ""
   },
   ".claude/skills/speckit-clarify/SKILL.md": {
-    "mtime": 1783262234.6194303,
+    "mtime": 1783580757.45656,
     "ast_hash": "2f12f51867b3abdfce644f949980b9d6",
     "semantic_hash": ""
   },
   ".claude/skills/speckit-constitution/SKILL.md": {
-    "mtime": 1783262234.6284237,
+    "mtime": 1783580757.4709575,
     "ast_hash": "42dd031d706a6b1a1501f86e55e8cda4",
     "semantic_hash": ""
   },
   ".claude/skills/speckit-converge/SKILL.md": {
-    "mtime": 1783262234.6474254,
+    "mtime": 1783580757.4980345,
     "ast_hash": "99bc4bae169d3b4539f87577ba353c3b",
     "semantic_hash": ""
   },
   ".claude/skills/speckit-implement/SKILL.md": {
-    "mtime": 1783262234.6384232,
+    "mtime": 1783580757.4849663,
     "ast_hash": "0b48be70f6cda70adb7f016aa18a1337",
     "semantic_hash": ""
   },
   ".claude/skills/speckit-plan/SKILL.md": {
-    "mtime": 1783262234.6552887,
+    "mtime": 1783580757.5115418,
     "ast_hash": "2831c1250ea7d51acc1b8c30d6e976a9",
     "semantic_hash": ""
   },
   ".claude/skills/speckit-specify/SKILL.md": {
-    "mtime": 1783262234.673292,
+    "mtime": 1783580757.533388,
     "ast_hash": "40453e4e33564de6cb059ea16c9c2700",
     "semantic_hash": ""
   },
   ".claude/skills/speckit-tasks/SKILL.md": {
-    "mtime": 1783262234.6812918,
+    "mtime": 1783580757.5476189,
     "ast_hash": "cd2b88616547deab4657b96d2547acb5",
     "semantic_hash": ""
   },
   ".claude/skills/speckit-taskstoissues/SKILL.md": {
-    "mtime": 1783262234.689292,
+    "mtime": 1783580757.5589826,
     "ast_hash": "bf98c61fd602132535732f3b3eef6ac0",
     "semantic_hash": ""
   },
   "memory/constitution.md": {
-    "mtime": 1783262234.7568023,
-    "ast_hash": "dcefb6b60e7cb3db2e966977b6f02f18",
-    "semantic_hash": ""
-  },
-  "templates/checklist-template.md": {
-    "mtime": 1783262234.7518027,
-    "ast_hash": "af4274efb13cbb2263029402deb14f6b",
-    "semantic_hash": ""
-  },
-  "templates/constitution-template.md": {
-    "mtime": 1783262234.7568023,
-    "ast_hash": "dcefb6b60e7cb3db2e966977b6f02f18",
-    "semantic_hash": ""
-  },
-  "templates/plan-template.md": {
-    "mtime": 1783262234.759802,
-    "ast_hash": "fea2e21a1d9cf3470186abc1dfb6e9fb",
-    "semantic_hash": ""
-  },
-  "templates/spec-template.md": {
-    "mtime": 1783262234.7678027,
-    "ast_hash": "45ac8538bc1220324c9f0d610145b53f",
-    "semantic_hash": ""
-  },
-  "templates/tasks-template.md": {
-    "mtime": 1783262234.7698028,
-    "ast_hash": "f8b4f62d384defa0a559bdbbaacb0540",
+    "mtime": 1783265648.616757,
+    "ast_hash": "55ce6abdcc425e364c34ff188632f5d7",
     "semantic_hash": ""
   },
   "workflows/speckit/workflow.yml": {
     "mtime": 1783262202.380488,
     "ast_hash": "eba6943b2a2f6407162ae12e0218bdac",
+    "semantic_hash": ""
+  },
+  ".specify/feature.json": {
+    "mtime": 1783264076.1641335,
+    "ast_hash": "00bf7dab64b44dcb51865c5daf348d92",
+    "semantic_hash": ""
+  },
+  ".specify/init-options.json": {
+    "mtime": 1783580757.606902,
+    "ast_hash": "ceb174832e36a26a78b45987cafdc94c",
+    "semantic_hash": ""
+  },
+  ".specify/integration.json": {
+    "mtime": 1783580757.5684876,
+    "ast_hash": "3cbf0f5f424249b2ca334a6329bb107a",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/powershell/check-prerequisites.ps1": {
+    "mtime": 1783262234.7088022,
+    "ast_hash": "889ef9d5f647faf6c3f9974a4b924caa",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/powershell/common.ps1": {
+    "mtime": 1783262234.7198024,
+    "ast_hash": "b3244b25559c2e950f52d9f11046bf2d",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/powershell/create-new-feature.ps1": {
+    "mtime": 1783262234.7298026,
+    "ast_hash": "8b953a13e73eb06f3811cb1738a4f0f5",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/powershell/setup-plan.ps1": {
+    "mtime": 1783262234.7398024,
+    "ast_hash": "cc96e75d185b2fcd79c7e969762e277e",
+    "semantic_hash": ""
+  },
+  ".specify/scripts/powershell/setup-tasks.ps1": {
+    "mtime": 1783262234.7428024,
+    "ast_hash": "1f5a59359bc55ba2501150435f4d6fbd",
+    "semantic_hash": ""
+  },
+  ".specify/workflows/workflow-registry.json": {
+    "mtime": 1783580757.6059022,
+    "ast_hash": "e73a50b419011aa76fdf64eeb0033a77",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Models/LineNavigationSessionTest.cs": {
+    "mtime": 1783267113.16507,
+    "ast_hash": "4ec43f432f539249e6c10e31c4336992",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Models/SelectionStateTest.cs": {
+    "mtime": 1783267430.1513014,
+    "ast_hash": "a48676359414c138290dc013e1d9da84",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Models/TextLineHintTest.cs": {
+    "mtime": 1783266987.0557225,
+    "ast_hash": "0d4139f0f3a4d9df2c1a87a4b753c6a9",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Services/ClipboardServiceTest.cs": {
+    "mtime": 1783267593.3100967,
+    "ast_hash": "cf162512b8b1304f2d00a3b53dbc2f29",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/Services/UiAutomationLineHintProviderServiceTest.cs": {
+    "mtime": 1783267150.1210332,
+    "ast_hash": "c29868039cb8416eb9ce688ca6c63480",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/ViewModels/LineNavigationOverlayViewModelTest.cs": {
+    "mtime": 1783267344.5727687,
+    "ast_hash": "433d786c4c075ae6be94fe68faf13deb",
+    "semantic_hash": ""
+  },
+  "src/Vimium.Tests/ViewModels/SelectionModeViewModelTest.cs": {
+    "mtime": 1783267575.8356164,
+    "ast_hash": "374d9e8e0a2f482900d8600614c1cc52",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/LineNavigationSession.cs": {
+    "mtime": 1783267020.0128045,
+    "ast_hash": "e03406fc06d75af5b80ad1161b8fe309",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/SearchMatch.cs": {
+    "mtime": 1783267445.3719628,
+    "ast_hash": "5865bb50ba853c4dab9fddf45357f378",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/SelectionState.cs": {
+    "mtime": 1783267466.524051,
+    "ast_hash": "e0decee45ba0086778d52219798abfc7",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Models/TextLineHint.cs": {
+    "mtime": 1783267015.5546377,
+    "ast_hash": "9334d5acca21d2dc78af017c88d605f9",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/ClipboardService.cs": {
+    "mtime": 1783267623.8264954,
+    "ast_hash": "d3cd55063aa693e16c6b8ada9c60644a",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/Interfaces/ILineHintProviderService.cs": {
+    "mtime": 1783267024.9014256,
+    "ast_hash": "b707a265cd6d83cb7d04a4114f25ec6d",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/LogService.cs": {
+    "mtime": 1783268473.8375013,
+    "ast_hash": "9e24c8689434621646f01e35be228462",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Services/UiAutomationLineHintProviderService.cs": {
+    "mtime": 1783578214.260493,
+    "ast_hash": "9d3a3380e5cc4c2ee0fb49791ce9c031",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/LineNavigationOverlayViewModel.cs": {
+    "mtime": 1783267713.2806666,
+    "ast_hash": "1b00916dbcfe06cdb0844d591c671aa5",
+    "semantic_hash": ""
+  },
+  "src/Vimium/ViewModels/SelectionModeViewModel.cs": {
+    "mtime": 1783267566.0304847,
+    "ast_hash": "07ae89585b7866a2fd203b83d2bcf952",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Views/LineNavigationOverlayView.xaml.cs": {
+    "mtime": 1783578384.2589884,
+    "ast_hash": "c1f24695e18924ea6893324c04ed28e3",
+    "semantic_hash": ""
+  },
+  "src/Vimium/Views/SelectionModeOverlayView.xaml.cs": {
+    "mtime": 1783578379.5375004,
+    "ast_hash": "c4e2104a8dc7ad255166d19ca5605b98",
+    "semantic_hash": ""
+  },
+  ".specify/memory/constitution.md": {
+    "mtime": 1783265644.8890755,
+    "ast_hash": "55ce6abdcc425e364c34ff188632f5d7",
+    "semantic_hash": ""
+  },
+  ".specify/templates/checklist-template.md": {
+    "mtime": 1783262234.7518027,
+    "ast_hash": "af4274efb13cbb2263029402deb14f6b",
+    "semantic_hash": ""
+  },
+  ".specify/templates/constitution-template.md": {
+    "mtime": 1783262234.7568023,
+    "ast_hash": "dcefb6b60e7cb3db2e966977b6f02f18",
+    "semantic_hash": ""
+  },
+  ".specify/templates/plan-template.md": {
+    "mtime": 1783262234.759802,
+    "ast_hash": "fea2e21a1d9cf3470186abc1dfb6e9fb",
+    "semantic_hash": ""
+  },
+  ".specify/templates/spec-template.md": {
+    "mtime": 1783262234.7678027,
+    "ast_hash": "45ac8538bc1220324c9f0d610145b53f",
+    "semantic_hash": ""
+  },
+  ".specify/templates/tasks-template.md": {
+    "mtime": 1783262234.7698028,
+    "ast_hash": "f8b4f62d384defa0a559bdbbaacb0540",
+    "semantic_hash": ""
+  },
+  ".specify/workflows/speckit/workflow.yml": {
+    "mtime": 1783262202.380488,
+    "ast_hash": "eba6943b2a2f6407162ae12e0218bdac",
+    "semantic_hash": ""
+  },
+  "docs/SDD_HandsOn_Guide_REVIEW.md": {
+    "mtime": 1783262861.30267,
+    "ast_hash": "ca7618ca91bcd5b93a90ac2fb67395d0",
+    "semantic_hash": ""
+  },
+  "specs/001-line-navigation-mode/checklists/requirements.md": {
+    "mtime": 1783264082.4986422,
+    "ast_hash": "b0db66daa79e538dbb3127729a92bce4",
+    "semantic_hash": ""
+  },
+  "specs/001-line-navigation-mode/contracts/interface-contracts.md": {
+    "mtime": 1783579620.9380333,
+    "ast_hash": "01a66c9874dc44072eb440dcddfc70f9",
+    "semantic_hash": ""
+  },
+  "specs/001-line-navigation-mode/data-model.md": {
+    "mtime": 1783579592.9987514,
+    "ast_hash": "aeec00943b9569cb89259585bb644a23",
+    "semantic_hash": ""
+  },
+  "specs/001-line-navigation-mode/plan.md": {
+    "mtime": 1783579530.172712,
+    "ast_hash": "fd62e41606de4087b9f790be2d602a56",
+    "semantic_hash": ""
+  },
+  "specs/001-line-navigation-mode/quickstart.md": {
+    "mtime": 1783579599.755466,
+    "ast_hash": "d0efcbd444f8422bd297887e716eb11f",
+    "semantic_hash": ""
+  },
+  "specs/001-line-navigation-mode/research.md": {
+    "mtime": 1783579565.646434,
+    "ast_hash": "571a22b726c834a0e5a41b30496d8659",
+    "semantic_hash": ""
+  },
+  "specs/001-line-navigation-mode/spec.md": {
+    "mtime": 1783579502.2663727,
+    "ast_hash": "5882c32e4c2f0f5eadc0f95a8b2b7381",
+    "semantic_hash": ""
+  },
+  "specs/001-line-navigation-mode/tasks.md": {
+    "mtime": 1783267797.8083582,
+    "ast_hash": "fb4183d2c7969587c2a4e741901e9805",
+    "semantic_hash": ""
+  },
+  "specs/options-window-modernization.md": {
+    "mtime": 1783258706.5287237,
+    "ast_hash": "021966442e169d9792f21f194728a50a",
     "semantic_hash": ""
   }
 }

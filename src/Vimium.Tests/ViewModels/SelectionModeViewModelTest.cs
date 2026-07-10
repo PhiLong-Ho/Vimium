@@ -1,131 +1,244 @@
-using Vimium.Models;
-using Vimium.Services;
-using Vimium.ViewModels;
-using Xunit;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
+using Vimium.Models;
+using Vimium.Services.Interfaces;
+using Vimium.ViewModels;
+using Xunit;
 
 namespace Vimium.Tests.ViewModels;
 
 public class SelectionModeViewModelTest
 {
-    private static TextLineHint CreateHint(int index)
+    /// <summary>Records calls and returns a configurable result after an optional delay.</summary>
+    private sealed class FakeFindService : IFindTextProviderService
     {
-        return new TextLineHint(
-            new IntPtr(1),
-            new Rect(10, index * 20, 300, 18),
-            $"Line {index} content text here");
+        public int CallCount;
+        public string LastQuery = "";
+        public int MatchCount = 3;
+        public int DelayMs = 0;
+        public bool ReturnEmpty = false;
+
+        public async Task<FindResult> SearchAsync(IntPtr hWnd, string query, CancellationToken ct)
+        {
+            Interlocked.Increment(ref CallCount);
+            LastQuery = query;
+            if (DelayMs > 0) await Task.Delay(DelayMs, ct);
+            ct.ThrowIfCancellationRequested();
+
+            if (ReturnEmpty)
+                return FindResult.Empty();
+
+            var matches = new List<SearchResult>();
+            for (int i = 0; i < MatchCount; i++)
+                matches.Add(new SearchResult
+                {
+                    Text = query,
+                    BoundingRect = new Rect(0, i * 20, 60, 18),
+                    Source = SearchResultSource.TextPattern
+                });
+            return new FindResult { Matches = matches, Source = SearchResultSource.TextPattern };
+        }
     }
 
-    private static IReadOnlyList<TextLineHint> CreateLines(int count)
+    private static SelectionModeViewModel CreateVm(FakeFindService svc) =>
+        new SelectionModeViewModel(svc, new Rect(0, 0, 800, 600), new IntPtr(1));
+
+    private static void Type(SelectionModeViewModel vm, string s)
     {
-        var lines = new List<TextLineHint>();
-        for (int i = 0; i < count; i++)
-            lines.Add(CreateHint(i));
-        return lines;
+        foreach (var c in s) vm.HandleCharacter(c);
     }
 
     [Fact]
-    public void Constructor_InitializesProperties()
+    public async Task HandleCharacter_Below5Chars_NoSearchTriggered()
     {
-        var lines = CreateLines(3);
-        var clipboard = new ClipboardService();
-        var vm = new SelectionModeViewModel(lines[0], lines, new Rect(0, 0, 800, 600), clipboard);
+        var svc = new FakeFindService();
+        var vm = CreateVm(svc);
 
-        Assert.NotNull(vm.VisibleText);
-        Assert.Equal(0, vm.CursorPosition);
-        Assert.Null(vm.SelectionStart);
-        Assert.Null(vm.SelectionEnd);
-        Assert.Equal("", vm.SearchQuery);
+        Type(vm, "abcd"); // 4 chars
+        await Task.Delay(250);
+
+        Assert.Equal(0, svc.CallCount);
         Assert.Empty(vm.Matches);
     }
 
     [Fact]
-    public void HandleCharacter_AppendsToSearch()
+    public async Task HandleCharacter_At5Chars_SearchTriggeredAfterDebounce()
     {
-        var lines = CreateLines(3);
-        var clipboard = new ClipboardService();
-        var vm = new SelectionModeViewModel(lines[0], lines, new Rect(0, 0, 800, 600), clipboard);
+        var svc = new FakeFindService { MatchCount = 2 };
+        var vm = CreateVm(svc);
 
-        vm.HandleCharacter('L');
-        vm.HandleCharacter('i');
+        Type(vm, "abcde"); // 5 chars
+        await Task.Delay(400);
 
-        Assert.Equal("Li", vm.SearchQuery);
+        Assert.Equal(1, svc.CallCount);
+        Assert.Equal("abcde", svc.LastQuery);
+        Assert.Equal(2, vm.Matches.Count);
     }
 
     [Fact]
-    public void HandleBackspace_RemovesLastChar()
+    public async Task HandleCharacter_RapidTyping_TriggersSingleSearch()
     {
-        var lines = CreateLines(3);
-        var clipboard = new ClipboardService();
-        var vm = new SelectionModeViewModel(lines[0], lines, new Rect(0, 0, 800, 600), clipboard);
+        var svc = new FakeFindService();
+        var vm = CreateVm(svc);
 
-        vm.HandleCharacter('A');
-        vm.HandleCharacter('B');
-        vm.HandleBackspace();
+        // Type quickly (well under the 150ms debounce between keystrokes)
+        Type(vm, "singapore");
+        await Task.Delay(400);
 
-        Assert.Equal("A", vm.SearchQuery);
+        Assert.Equal(1, svc.CallCount); // debounced to a single call
+        Assert.Equal("singapore", svc.LastQuery);
     }
 
     [Fact]
-    public void HandleEscape_ClosesWithoutCopy()
+    public async Task HandleTab_CyclesForwardWithWrap()
     {
-        var lines = CreateLines(3);
-        var clipboard = new ClipboardService();
+        var svc = new FakeFindService { MatchCount = 3 };
+        var vm = CreateVm(svc);
+        Type(vm, "abcde");
+        await Task.Delay(400);
+
+        Assert.Equal(0, vm.ActiveMatchIndex);
+        vm.HandleTab(false); Assert.Equal(1, vm.ActiveMatchIndex);
+        vm.HandleTab(false); Assert.Equal(2, vm.ActiveMatchIndex);
+        vm.HandleTab(false); Assert.Equal(0, vm.ActiveMatchIndex); // wrap
+    }
+
+    [Fact]
+    public async Task HandleTab_Shift_CyclesBackwardWithWrap()
+    {
+        var svc = new FakeFindService { MatchCount = 3 };
+        var vm = CreateVm(svc);
+        Type(vm, "abcde");
+        await Task.Delay(400);
+
+        vm.HandleTab(true); // 0 → last
+        Assert.Equal(2, vm.ActiveMatchIndex);
+    }
+
+    [Fact]
+    public void HandleTab_NoMatches_NoOp()
+    {
+        var svc = new FakeFindService();
+        var vm = CreateVm(svc);
+        vm.HandleTab(false); // no exception, no state change
+        Assert.Equal(0, vm.ActiveMatchIndex);
+        Assert.Empty(vm.Matches);
+    }
+
+    [Fact]
+    public async Task HandleEnter_WithActiveMatch_Closes()
+    {
+        var svc = new FakeFindService { MatchCount = 2 };
+        var vm = CreateVm(svc);
         bool closed = false;
-        var vm = new SelectionModeViewModel(lines[0], lines, new Rect(0, 0, 800, 600), clipboard);
         vm.CloseOverlay = () => closed = true;
 
-        vm.HandleEscape();
+        Type(vm, "abcde");
+        await Task.Delay(400);
+        vm.HandleEnter();
 
         Assert.True(closed);
     }
 
     [Fact]
-    public void HandleArrow_Right_MovesCursor()
+    public void HandleEnter_NoMatches_NoOp()
     {
-        var lines = CreateLines(3);
-        var clipboard = new ClipboardService();
-        var vm = new SelectionModeViewModel(lines[0], lines, new Rect(0, 0, 800, 600), clipboard);
+        var svc = new FakeFindService();
+        var vm = CreateVm(svc);
+        bool closed = false;
+        vm.CloseOverlay = () => closed = true;
 
-        vm.HandleArrow(Key.Right);
-
-        Assert.Equal(1, vm.CursorPosition);
+        vm.HandleEnter(); // no active match → no navigation, no close
+        Assert.False(closed);
     }
 
     [Fact]
-    public void HandleHome_MovesToLineStart()
+    public void HandleEscape_DismissesWithoutNavigation()
     {
-        var lines = CreateLines(3);
-        var clipboard = new ClipboardService();
-        var vm = new SelectionModeViewModel(lines[0], lines, new Rect(0, 0, 800, 600), clipboard);
+        var svc = new FakeFindService();
+        var vm = CreateVm(svc);
+        bool closed = false;
+        vm.CloseOverlay = () => closed = true;
 
-        vm.HandleArrow(Key.Right);
-        vm.HandleArrow(Key.Right);
-        vm.HandleHome();
-
-        Assert.Equal(0, vm.CursorPosition);
+        vm.HandleEscape();
+        Assert.True(closed);
     }
 
     [Fact]
-    public void HandleTab_CyclesMatches()
+    public async Task HandleBackspace_Below5Chars_ClearsMatches()
     {
-        var lines = CreateLines(3);
-        var clipboard = new ClipboardService();
-        var vm = new SelectionModeViewModel(lines[0], lines, new Rect(0, 0, 800, 600), clipboard);
+        var svc = new FakeFindService { MatchCount = 3 };
+        var vm = CreateVm(svc);
 
-        // Type search that should find "Line" in all lines
-        vm.HandleCharacter('L');
-        vm.HandleCharacter('i');
+        Type(vm, "abcde");
+        await Task.Delay(400);
+        Assert.NotEmpty(vm.Matches);
 
-        var matchCount = vm.Matches.Count;
-        if (matchCount > 1)
-        {
-            Assert.Equal(0, vm.ActiveMatchIndex);
-            vm.HandleTab(false); // forward
-            Assert.Equal(1, vm.ActiveMatchIndex);
-        }
+        vm.HandleBackspace(); // "abcd" → below 5
+        Assert.Empty(vm.Matches);
+        Assert.Equal("abcd", vm.SearchQuery);
+    }
+
+    [Fact]
+    public void HandleBackspace_EmptyQuery_NoOp()
+    {
+        var svc = new FakeFindService();
+        var vm = CreateVm(svc);
+        vm.HandleBackspace();
+        Assert.Equal("", vm.SearchQuery);
+    }
+
+    [Fact]
+    public void HandleFocusLost_DismissesImmediately()
+    {
+        var svc = new FakeFindService();
+        var vm = CreateVm(svc);
+        bool closed = false;
+        vm.CloseOverlay = () => closed = true;
+
+        vm.HandleFocusLost();
+        Assert.True(closed);
+    }
+
+    [Fact]
+    public async Task MatchCountText_UpdatesWithSearchResults()
+    {
+        var svc = new FakeFindService { MatchCount = 4 };
+        var vm = CreateVm(svc);
+        Type(vm, "abcde");
+        await Task.Delay(400);
+
+        Assert.Equal("1 of 4", vm.MatchCountText);
+    }
+
+    [Fact]
+    public async Task Search_NoMatches_SetsZeroMatchesText()
+    {
+        var svc = new FakeFindService { ReturnEmpty = true };
+        var vm = CreateVm(svc);
+        Type(vm, "abcde");
+        await Task.Delay(400);
+
+        Assert.Empty(vm.Matches);
+        Assert.Equal("0 matches", vm.MatchCountText);
+    }
+
+    [Fact]
+    public async Task Backspace_StillAbove5Chars_ReSearches()
+    {
+        var svc = new FakeFindService { MatchCount = 1 };
+        var vm = CreateVm(svc);
+        Type(vm, "abcdef"); // 6 chars
+        await Task.Delay(400);
+        int firstCalls = svc.CallCount;
+
+        vm.HandleBackspace(); // "abcde" — still ≥5, should re-search
+        await Task.Delay(400);
+
+        Assert.True(svc.CallCount > firstCalls);
+        Assert.Equal("abcde", svc.LastQuery);
     }
 }

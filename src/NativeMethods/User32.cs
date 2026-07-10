@@ -86,10 +86,13 @@ namespace Vimium.NativeMethods
         public const int VK_TAB = 0x09;
         public const int VK_RETURN = 0x0D;
         public const int VK_ESCAPE = 0x1B;
-        public const int VK_LEFT = 0x25;
-        public const int VK_RIGHT = 0x27;
-        public const int VK_HOME = 0x24;
+        public const int VK_SPACE = 0x20;
         public const int VK_END = 0x23;
+        public const int VK_HOME = 0x24;
+        public const int VK_LEFT = 0x25;
+        public const int VK_UP = 0x26;
+        public const int VK_RIGHT = 0x27;
+        public const int VK_DOWN = 0x28;
         public const int VK_LSHIFT = 0xA0;
         public const int VK_RSHIFT = 0xA1;
         public const int VK_LCONTROL = 0xA2;

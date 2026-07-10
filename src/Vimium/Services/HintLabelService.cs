@@ -19,7 +19,7 @@ namespace Vimium.Services
         /// <summary>
         /// Pre-computed pools of hint strings keyed by length.
         /// Pool L contains all possible hint strings of exactly L characters (charsetSize^L entries).
-        /// Lazy-initialized with double-checked locking for thread safety.
+        /// Lazy-initialized with double-checked locking for thread safety.;;
         /// </summary>
         private static readonly Dictionary<int, IReadOnlyList<string>> HintPools = new();
         private static readonly object PoolLock = new();

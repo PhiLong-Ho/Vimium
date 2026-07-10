@@ -200,3 +200,9 @@ src/Dist
 # Added by code-review-graph
 .code-review-graph/
 /graphify-out/cache/*
+
+# Test coverage output
+coverage-report/
+coverage.xml
+*.cobertura.xml
+TestResults/

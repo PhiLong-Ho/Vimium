@@ -1,7 +1,7 @@
-# Specification Quality Checklist: Line Navigation Mode
+# Specification Quality Checklist: Find-and-Navigate Text Mode
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
-**Created**: 2026-07-05
+**Created**: 2026-07-09 | **Updated**: 2026-07-09 (post-clarification)
 **Feature**: [spec.md](../spec.md)
 
 ## Content Quality
@@ -31,5 +31,12 @@
 
 ## Notes
 
-- All items pass validation. The spec is ready for `/speckit-clarify` or `/speckit-plan`.
-- One design consideration worth noting: FR-012 references UI Automation text patterns. While this names a specific Windows technology, it is included as a constraint derived from the existing codebase architecture (the app already uses UI Automation for element discovery). It is not a new implementation choice but rather a recognition of the existing platform capability. This is noted for transparency and could be moved to Assumptions if preferred.
+- All 16 items pass. The spec is ready for `/speckit-plan`.
+- Post-clarification additions (2026-07-09 session):
+  - **FR-013**: Debounce (150ms) + minimum 5 characters + cancel in-flight search
+  - **FR-014**: 3-second search timeout + element-name fallback
+  - **FR-015**: Scroll-into-view + cursor positioning on Enter
+  - **Clarifications**: 4 new Q&A entries covering debounce, visible viewport scoping, timeout/fallback, and UIA API method choices
+- UIA-specific API method names (`GetVisibleRanges`, `FindText`, `ScrollIntoView`, `Select`, `FindAllBuildCache`) are confined to the **Assumptions** section only. Requirements use technology-agnostic language.
+- Spec is simplified: removed text selection (Shift+Arrow), copy-to-clipboard, and arrow-only cursor navigation. Enter now navigates cursor to match.
+- Constitution (Principle IV) still describes the old "text selection & copy" contract — needs update during planning.

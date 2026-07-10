@@ -125,19 +125,25 @@ navigation/copy.**
   hotkey (e.g., `Ctrl+;`) → hints appear on interactive elements → type hint
   string → element is invoked/clicked/toggled. This flow MUST NOT change; it is
   the backbone Vimium interaction.
-- **Text navigation & copy contract** (new modality): Press a line-navigation
-  hotkey (e.g., `Ctrl+.`) → hints appear on visible text lines → type hint string:
-  - _No copy modifier_: cursor moves to the line (navigate only).
-  - _Copy modifier held_ (default: `Ctrl`): enters **selection mode** — line
-    hints collapse, a text cursor appears, and the user can search (incremental,
-    `Tab`/`Shift+Tab` to cycle matches across all visible text), navigate with
-    standard Windows keys (`←`/`→`, `Ctrl+←/→`, `Shift+Arrow` for selection),
-    and press `Enter` to copy (whole line fast path, or selected portion).
-    `Esc` cancels without copying.
-- **Interaction mode isolation**: Element mode and line/text mode MUST use
-  distinct, user-configurable hotkeys. Switching between modes MUST NOT require
-  opening the settings window. Each mode's overlay MUST be visually distinct
-  (hints on elements vs. hints on text lines).
+- **Text selection & copy contract** (search-first modality, redesigned 2026-07-09):
+  Press a text-selection hotkey (e.g., `Ctrl+.`) → overlay appears with a search bar
+  over the foreground window → type a visible phrase to find and highlight matches
+  (yellow for all, orange for active) → `Tab`/`Shift+Tab` to cycle matches circularly
+  → arrow keys (`←`/`→`/`↑`/`↓`), `Ctrl+←/→` (word jumps), `Home`/`End` for cursor
+  navigation → `Shift+Arrow`/`Ctrl+Shift+Arrow` for text selection → `Enter` to copy
+  (selected text or current line fallback) with "Copied!" toast → `Esc` or
+  foreground-window change cancels without copy. Search is optional — cursor starts
+  at offset 0 and navigation/copy work immediately without typing a search phrase.
+  Character-to-screen mapping uses proportional-width estimation
+  (average-char-width with CJK 2× Latin width multiplier); RTL bidirectional text
+  is deferred (documented limitation). Auto-dismiss on window change (poll
+  `GetForegroundWindow()` on each keyboard event) and UIA content change.
+- **Interaction mode isolation**: Element mode (`Ctrl+;`) and text selection mode
+  (`Ctrl+.`) MUST use distinct, user-configurable hotkeys. Switching between modes
+  MUST NOT require opening the settings window. Only one overlay at a time —
+  activating one mode while the other is visible is a no-op. Each mode's overlay
+  MUST be visually distinct (element hints vs. transparent text selection overlay
+  with search bar).
 - **Feedback SLA**: Overlay MUST appear within 100ms of hotkey activation
   (loading indicator counts as "appeared"). Settings changes in options MUST
   apply immediately (auto-save, no explicit Save button). Every user action MUST

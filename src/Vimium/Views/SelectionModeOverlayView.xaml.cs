@@ -1,7 +1,6 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
@@ -13,309 +12,212 @@ using Vimium.ViewModels;
 namespace Vimium.Views;
 
 /// <summary>
-/// Interaction logic for SelectionModeOverlayView.xaml
+/// Overlay for find-and-navigate mode. Renders per-match highlights from UIA
+/// bounding rectangles (yellow=all, orange=active) and a bottom search bar.
+/// Keyboard input is captured via a global low-level hook so the overlay never
+/// steals focus from the underlying window.
 /// </summary>
 public partial class SelectionModeOverlayView
 {
     private readonly KeyboardHookService _keyboardHook = new KeyboardHookService();
-    private System.Windows.Threading.DispatcherTimer _safetyTimer;
+    private readonly ContentChangeWatcher _contentWatcher = new ContentChangeWatcher();
     private bool _isClosed;
+    private bool _contentChanged;
+    private bool _watcherStarted;
+    private IntPtr _sourceWindow;
+    private double _scaleX = 1.0;
+    private double _scaleY = 1.0;
 
     public SelectionModeOverlayView()
     {
         InitializeComponent();
     }
 
-    /// <summary>
-    /// The overlay never steals focus.
-    /// </summary>
     protected override bool StealFocus => false;
+
+    private SelectionModeViewModel Vm => DataContext as SelectionModeViewModel;
 
     private void SelectionModeOverlayView_OnLoaded(object sender, RoutedEventArgs e)
     {
         var m = PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice;
-        var scaleX = m.M11;
-        var scaleY = m.M22;
+        _scaleX = m.M11;
+        _scaleY = m.M22;
 
-        layoutCanvas.LayoutTransform = new ScaleTransform(1 / scaleX, 1 / scaleY);
+        layoutCanvas.LayoutTransform = new ScaleTransform(1 / _scaleX, 1 / _scaleY);
 
-        var vm = DataContext as SelectionModeViewModel;
+        var vm = Vm;
         if (vm != null)
         {
-            Left = vm.WindowBounds.Left / scaleX;
-            Top = vm.WindowBounds.Top / scaleY;
-            Width = vm.WindowBounds.Width / scaleX;
-            Height = vm.WindowBounds.Height / scaleY;
+            _sourceWindow = vm.SourceWindow;
 
-            // Wire copy feedback
-            vm.OnCopied = (text) =>
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    CopiedToast.Visibility = Visibility.Visible;
-                    var sb = (System.Windows.Media.Animation.Storyboard)CopiedToast.FindResource("FadeOutStoryboard");
-                    sb.Completed += (s, args) => Dispatcher.Invoke(() => CopiedToast.Visibility = Visibility.Collapsed);
-                    sb.Begin();
-                });
-            };
+            Left = vm.WindowBounds.Left / _scaleX;
+            Top = vm.WindowBounds.Top / _scaleY;
+            Width = vm.WindowBounds.Width / _scaleX;
+            Height = vm.WindowBounds.Height / _scaleY;
+
+            vm.PropertyChanged += (s, args) => Dispatcher.Invoke(RenderOverlay);
         }
+
+        _contentWatcher.ContentChanged += () => _contentChanged = true;
+
+        var cursorBlink = new DoubleAnimation
+        {
+            From = 1.0, To = 0.0, Duration = TimeSpan.FromSeconds(0.5),
+            AutoReverse = true, RepeatBehavior = RepeatBehavior.Forever,
+        };
+        SearchCursor.BeginAnimation(UIElement.OpacityProperty, cursorBlink);
 
         _keyboardHook.KeyDown += KeyboardHook_KeyDown;
         _keyboardHook.Install();
-
-        // Safety net
-        _safetyTimer = new System.Windows.Threading.DispatcherTimer { Interval = TimeSpan.FromSeconds(30) };
-        _safetyTimer.Tick += (s, args) => Close();
-        _safetyTimer.Start();
-
         RenderOverlay();
     }
 
     private void SelectionModeOverlayView_OnClosed(object sender, EventArgs e)
     {
         _isClosed = true;
-        _safetyTimer?.Stop();
-        _safetyTimer = null;
         _keyboardHook.KeyDown -= KeyboardHook_KeyDown;
         _keyboardHook.Dispose();
+        _contentWatcher.Dispose();
+        Vm?.Dispose();
     }
+
+    // ── Keyboard dispatch ─────────────────────────────────────
 
     private void KeyboardHook_KeyDown(object sender, KeyboardHookService.KeyDownEventArgs e)
     {
         if (_isClosed) return;
-        var vk = e.VirtualKeyCode;
-        var vm = DataContext as SelectionModeViewModel;
+
+        var vm = Vm;
         if (vm == null) return;
 
-        // Check if Ctrl is held
-        bool ctrlHeld = (User32.GetAsyncKeyState(User32.VK_LCONTROL) & 0x8000) != 0
-                        || (User32.GetAsyncKeyState(User32.VK_RCONTROL) & 0x8000) != 0;
+        // Deferred content-change dismiss: if the underlying document mutated since the
+        // last interaction, dismiss now rather than acting on stale matches.
+        if (_contentChanged)
+        {
+            e.Handled = false;
+            Dispatcher.BeginInvoke(new Action(() => vm.HandleFocusLost()));
+            return;
+        }
 
-        // Check if Shift is held
+        // Auto-dismiss when the foreground window changes (Alt+Tab, click-through, etc.)
+        var currentForeground = User32.GetForegroundWindow();
+        if (_sourceWindow != IntPtr.Zero && currentForeground != _sourceWindow)
+        {
+            e.Handled = false; // let the key reach the newly-focused window
+            Dispatcher.BeginInvoke(new Action(() => vm.HandleFocusLost()));
+            return;
+        }
+
+        var vk = e.VirtualKeyCode;
+
         bool shiftHeld = (User32.GetAsyncKeyState(User32.VK_LSHIFT) & 0x8000) != 0
                          || (User32.GetAsyncKeyState(User32.VK_RSHIFT) & 0x8000) != 0;
+        bool ctrlHeld = (User32.GetAsyncKeyState(User32.VK_LCONTROL) & 0x8000) != 0
+                        || (User32.GetAsyncKeyState(User32.VK_RCONTROL) & 0x8000) != 0;
+        bool altHeld = (User32.GetAsyncKeyState(User32.VK_LMENU) & 0x8000) != 0
+                       || (User32.GetAsyncKeyState(User32.VK_RMENU) & 0x8000) != 0;
 
-        // Handle all selection mode keys
+        // Control keys handled by the overlay
         switch (vk)
         {
             case User32.VK_ESCAPE:
                 e.Handled = true;
                 Dispatcher.BeginInvoke(new Action(() => vm.HandleEscape()));
                 return;
-
             case User32.VK_RETURN:
                 e.Handled = true;
                 Dispatcher.BeginInvoke(new Action(() => vm.HandleEnter()));
                 return;
-
             case User32.VK_BACK:
                 e.Handled = true;
-                Dispatcher.BeginInvoke(new Action(() => { vm.HandleBackspace(); RenderOverlay(); }));
+                Dispatcher.BeginInvoke(new Action(() => vm.HandleBackspace()));
                 return;
-
             case User32.VK_TAB:
                 e.Handled = true;
-                Dispatcher.BeginInvoke(new Action(() => { vm.HandleTab(shiftHeld); RenderOverlay(); }));
-                return;
-
-            case User32.VK_HOME:
-                e.Handled = true;
-                Dispatcher.BeginInvoke(new Action(() => { vm.HandleHome(); RenderOverlay(); }));
-                return;
-
-            case User32.VK_END:
-                e.Handled = true;
-                Dispatcher.BeginInvoke(new Action(() => { vm.HandleEnd(); RenderOverlay(); }));
-                return;
-
-            case User32.VK_LEFT:
-                e.Handled = true;
-                Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    if (ctrlHeld && shiftHeld) vm.HandleCtrlShiftArrow(Key.Left);
-                    else if (ctrlHeld) vm.HandleCtrlArrow(Key.Left);
-                    else if (shiftHeld) vm.HandleShiftArrow(Key.Left);
-                    else vm.HandleArrow(Key.Left);
-                    RenderOverlay();
-                }));
-                return;
-
-            case User32.VK_RIGHT:
-                e.Handled = true;
-                Dispatcher.BeginInvoke(new Action(() =>
-                {
-                    if (ctrlHeld && shiftHeld) vm.HandleCtrlShiftArrow(Key.Right);
-                    else if (ctrlHeld) vm.HandleCtrlArrow(Key.Right);
-                    else if (shiftHeld) vm.HandleShiftArrow(Key.Right);
-                    else vm.HandleArrow(Key.Right);
-                    RenderOverlay();
-                }));
+                Dispatcher.BeginInvoke(new Action(() => vm.HandleTab(shiftHeld)));
                 return;
         }
 
-        // Character input for search (letters A-Z)
-        if (vk >= 'A' && vk <= 'Z')
-        {
-            e.Handled = true;
-            Dispatcher.BeginInvoke(new Action(() =>
-            {
-                vm.HandleCharacter((char)vk);
-                RenderOverlay();
-            }));
+        // Deliberately NOT captured: arrows, Home/End, Ctrl/Alt combos — pass through.
+        if (ctrlHeld || altHeld) return;
+        if (vk == User32.VK_LEFT || vk == User32.VK_RIGHT || vk == User32.VK_UP || vk == User32.VK_DOWN
+            || vk == User32.VK_HOME || vk == User32.VK_END)
             return;
-        }
 
-        // Digits for search
-        if (vk >= '0' && vk <= '9')
+        // Printable characters → append to query
+        char? typed = KeyCharMapper.MapPrintable(vk, shiftHeld);
+        if (typed.HasValue)
         {
             e.Handled = true;
-            Dispatcher.BeginInvoke(new Action(() =>
-            {
-                vm.HandleCharacter((char)vk);
-                RenderOverlay();
-            }));
-            return;
+            char c = typed.Value;
+            Dispatcher.BeginInvoke(new Action(() => vm.HandleCharacter(c)));
         }
     }
+
+    // ── Rendering ─────────────────────────────────────────────
 
     private void RenderOverlay()
     {
         layoutCanvas.Children.Clear();
-        var vm = DataContext as SelectionModeViewModel;
-        if (vm == null || vm.AllLines == null || vm.AllLines.Count == 0) return;
 
-        // ── 1. Search match highlights ────────────────────────
-        if (vm.Matches != null)
+        var vm = Vm;
+        if (vm == null) return;
+
+        SearchQueryText.Text = vm.SearchQuery ?? "";
+        MatchCountLabel.Text = vm.MatchCountText ?? "";
+        LoadingSpinner.Visibility = vm.IsSearching ? Visibility.Visible : Visibility.Collapsed;
+
+        // Show a tip when the search timed out (e.g. on massive pages like Wikipedia).
+        if (vm.SearchTimedOut)
         {
-            foreach (var match in vm.Matches)
-            {
-                RenderMatchHighlight(vm, match, match.IsActive);
-            }
+            StatusTipLabel.Text = "Search timed out. Try the app's built-in Ctrl+F for better results.";
+            StatusTipLabel.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            StatusTipLabel.Visibility = Visibility.Collapsed;
         }
 
-        // ── 2. Selection range highlight ──────────────────────
-        if (vm.SelectionStart.HasValue && vm.SelectionEnd.HasValue
-            && vm.SelectionStart.Value != vm.SelectionEnd.Value)
+        if (vm.Matches == null) return;
+
+        // Register the content-change watcher once, after the first successful search.
+        if (!_watcherStarted && vm.Matches.Count > 0)
         {
-            int selStart = Math.Min(vm.SelectionStart.Value, vm.SelectionEnd.Value);
-            int selEnd = Math.Max(vm.SelectionStart.Value, vm.SelectionEnd.Value);
-            RenderRangeHighlight(vm, selStart, selEnd, false);
+            _watcherStarted = true;
+            _contentWatcher.Start(_sourceWindow);
         }
 
-        // ── 3. Cursor indicator ───────────────────────────────
-        RenderCursor(vm, vm.CursorPosition);
+        var normalBrush = TryFindBrush("FindMatchHighlightBrush", Color.FromArgb(70, 255, 235, 59));
+        var activeBrush = TryFindBrush("FindMatchActiveHighlightBrush", Color.FromArgb(120, 255, 140, 0));
+        var borderBrush = TryFindBrush("FindMatchBorderBrush", Color.FromArgb(150, 255, 179, 0));
+
+        foreach (var match in vm.Matches)
+            RenderMatchHighlight(match, match.IsActive ? activeBrush : normalBrush, borderBrush);
     }
 
-    /// <summary>Renders a highlighted rectangle for a single search match.</summary>
-    private void RenderMatchHighlight(
-        SelectionModeViewModel vm, SearchMatch match, bool isActive)
+    private void RenderMatchHighlight(SearchMatch match, Brush fill, Brush border)
     {
-        var rect = GetCharRect(vm, match.StartIndex, match.EndIndex - match.StartIndex);
-        if (rect.Width <= 0 || rect.Height <= 0) return;
+        var r = match.BoundingRect;
+        if (r.Width <= 0 || r.Height <= 0) return;
 
-        var highlight = new System.Windows.Shapes.Rectangle
+        var highlight = new Rectangle
         {
-            Fill = isActive
-                ? new SolidColorBrush(Color.FromArgb(120, 255, 140, 0))   // Orange — active match
-                : new SolidColorBrush(Color.FromArgb(70, 255, 255, 0)),    // Yellow — other matches
-            RadiusX = 2,
-            RadiusY = 2,
-            Width = rect.Width,
-            Height = rect.Height,
+            Fill = fill,
+            Stroke = border,
+            StrokeThickness = match.IsActive ? 1.5 : 0.5,
+            RadiusX = 2, RadiusY = 2,
+            Width = r.Width,
+            Height = r.Height,
             IsHitTestVisible = false,
         };
-        Canvas.SetLeft(highlight, rect.Left);
-        Canvas.SetTop(highlight, rect.Top);
+        Canvas.SetLeft(highlight, r.Left);
+        Canvas.SetTop(highlight, r.Top);
         layoutCanvas.Children.Add(highlight);
     }
 
-    /// <summary>Renders a selection-range highlight between two character offsets.</summary>
-    private void RenderRangeHighlight(
-        SelectionModeViewModel vm, int fromOffset, int toOffset, bool isActive)
+    private Brush TryFindBrush(string key, Color fallback)
     {
-        int length = toOffset - fromOffset;
-        if (length <= 0) return;
-
-        var rect = GetCharRect(vm, fromOffset, length);
-        if (rect.Width <= 0 || rect.Height <= 0) return;
-
-        var highlight = new System.Windows.Shapes.Rectangle
-        {
-            Fill = new SolidColorBrush(Color.FromArgb(80, 51, 153, 255)), // Blue selection
-            Width = rect.Width,
-            Height = rect.Height,
-            IsHitTestVisible = false,
-        };
-        Canvas.SetLeft(highlight, rect.Left);
-        Canvas.SetTop(highlight, rect.Top);
-        layoutCanvas.Children.Add(highlight);
-    }
-
-    /// <summary>Renders a blinking cursor at the given character offset.</summary>
-    private void RenderCursor(SelectionModeViewModel vm, int charOffset)
-    {
-        var rect = GetCharRect(vm, charOffset, 1);
-        if (rect.Height <= 0) return;
-
-        // Thin vertical line for the cursor
-        var cursor = new System.Windows.Shapes.Line
-        {
-            X1 = rect.Left,
-            Y1 = rect.Top + 2,
-            X2 = rect.Left,
-            Y2 = rect.Top + rect.Height - 2,
-            Stroke = Brushes.White,
-            StrokeThickness = 2,
-            IsHitTestVisible = false,
-        };
-        layoutCanvas.Children.Add(cursor);
-
-        // Blinking animation
-        var blink = new System.Windows.Media.Animation.DoubleAnimation
-        {
-            From = 1.0,
-            To = 0.0,
-            Duration = TimeSpan.FromSeconds(0.5),
-            AutoReverse = true,
-            RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever,
-        };
-        cursor.BeginAnimation(UIElement.OpacityProperty, blink);
-    }
-
-    /// <summary>
-    /// Estimates the bounding rectangle for a character range within the visible text.
-    /// Uses line-level bounding rectangles from UIA and estimates horizontal position
-    /// based on character index and average character width.
-    /// </summary>
-    private static Rect GetCharRect(SelectionModeViewModel vm, int charOffset, int charLength)
-    {
-        // Map the global character offset to a specific line + position within that line
-        int remaining = charOffset;
-        for (int i = 0; i < vm.AllLines.Count; i++)
-        {
-            var line = vm.AllLines[i];
-            int lineLen = line.TextContent.Length;
-
-            if (remaining <= lineLen)
-            {
-                // The character is on this line
-                var lineRect = line.BoundingRectangle;
-
-                // Estimate character width from the line's text and rect width
-                double charWidth = lineLen > 0
-                    ? lineRect.Width / lineLen
-                    : 8.0;
-                charWidth = Math.Max(charWidth, 5.0); // minimum sensible width
-
-                double x = lineRect.Left + (remaining * charWidth);
-                double w = Math.Max(charLength * charWidth, 2.0);
-
-                return new Rect(x, lineRect.Top, w, lineRect.Height);
-            }
-
-            remaining -= (lineLen + 1); // +1 for the newline separator between lines
-        }
-
-        return Rect.Empty;
+        var res = TryFindResource(key) as Brush;
+        return res ?? new SolidColorBrush(fallback);
     }
 }

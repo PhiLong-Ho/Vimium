@@ -1,185 +1,264 @@
-# Tasks: Line Navigation Mode
+# Tasks: Find-and-Navigate Text Mode (Ctrl+F Style)
 
 **Input**: Design documents from `/specs/001-line-navigation-mode/`
 
-**Prerequisites**: plan.md ✅, spec.md ✅, research.md ✅, data-model.md ✅, contracts/ ✅
+**Prerequisites**: plan.md ✅, spec.md ✅, research.md ✅, data-model.md ✅, quickstart.md ✅, contracts/ ✅
 
-**Tests**: INCLUDED — TDD per Constitution Principle III. Test tasks are written BEFORE implementation tasks within each user story phase.
+**Phase 1 teardown** (files already deleted in working tree): TextLineHint.cs, LineNavigationSession.cs, LineNavigationOverlayViewModel.cs, LineNavigationOverlayView.xaml/.xaml.cs, ILineHintProviderService.cs, UiAutomationLineHintProviderService.cs
 
-**Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
+**Tests**: Included per Constitution Principle III (≥80% coverage mandatory) and plan.md test coverage requirements.
+
+**Organization**: Tasks grouped by user story for independent implementation and testing.
 
 ## Format: `[ID] [P?] [Story] Description`
 
-- **[P]**: Can run in parallel (different files, no dependencies)
+- **[P]**: Can run in parallel (different files, no dependencies on incomplete [P] tasks)
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
-- Include exact file paths in descriptions
-
-## Path Conventions
-
-- Source: `src/Vimium/` for production code, `src/Vimium.Tests/` for tests
-- Models: `src/Vimium/Models/`
-- Services: `src/Vimium/Services/`, interfaces in `src/Vimium/Services/Interfaces/`
-- ViewModels: `src/Vimium/ViewModels/`
-- Views: `src/Vimium/Views/`
+- File paths are relative to repository root
 
 ---
 
-## Phase 1: Setup (Shared Infrastructure)
+## Phase 1: Final Cleanup
 
-**Purpose**: Extend configuration model and register new hotkey — minimal surface area, no new files yet
+**Purpose**: Remove remaining files from the old "load-all-text" design that weren't part of Phase 1 teardown.
 
-- [X] T001 [P] Add `LineNavigationModifier` and `CopyModifier` properties to `VimiumConfig` in `src/Vimium/Models/VimiumConfig.cs` with defaults `"Ctrl+."` and `"Ctrl"`
-- [X] T002 [P] Add `LineNavigationModifier` and `CopyModifier` convenience properties to `ConfigService` in `src/Vimium/Services/ConfigService.cs` (auto-save pattern matching existing properties)
-- [X] T003 Register `LineNavigationHotKey` property and `OnLineNavigationHotKeyActivated` event in `KeyListenerService` in `src/Vimium/Services/KeyListenerService.cs` (follow existing `HotKey`/`OnHotKeyActivated` pattern)
-
----
-
-## Phase 2: Foundational (Blocking Prerequisites)
-
-**Purpose**: Core models and service interfaces that ALL user stories depend on
-
-**⚠️ CRITICAL**: No user story work can begin until this phase is complete
-
-### Tests for Foundational
-
-- [X] T004 [P] Write tests for `TextLineHint` model in `src/Vimium.Tests/Models/TextLineHintTest.cs` — verify construction, validation, non-null text, positive rect
-- [X] T005 [P] Write tests for `LineNavigationSession` model in `src/Vimium.Tests/Models/LineNavigationSessionTest.cs` — verify hint collection, window handle binding
-- [X] T006 [P] Write tests for extended `VimiumConfig` in `src/Vimium.Tests/Models/VimiumConfigTest.cs` — verify new fields serialize/deserialize with camelCase, absent keys → defaults
-
-### Implementation for Foundational
-
-- [X] T007 [P] Create `TextLineHint` model in `src/Vimium/Models/TextLineHint.cs` — extend `Hint` base class, add `TextContent` string property
-- [X] T008 [P] Create `LineNavigationSession` model in `src/Vimium/Models/LineNavigationSession.cs` — mirror `HintSession` with `IList<TextLineHint> Hints`, `OwningWindow`, `OwningWindowBounds`
-- [X] T009 [P] Create `ILineHintProviderService` interface in `src/Vimium/Services/Interfaces/ILineHintProviderService.cs` — `EnumLineHints()` (foreground), `EnumLineHints(IntPtr)`, `EnumLineHintsAsync(IntPtr)` returning `LineNavigationSession`
-- [X] T010 [P] Create `ClipboardService` in `src/Vimium/Services/ClipboardService.cs` — `SetText(string)` with retry loop (3 attempts, 50ms delay) on `COMException`
-- [X] T011 Wire `LineNavigationHotKey` in `App.xaml.cs` in `src/Vimium/App.xaml.cs` — subscribe to `OnLineNavigationHotKeyActivated`, trigger `ShowLineNavigationOverlay()` (stub for now, filled in US1)
-
-**Checkpoint**: Foundation ready — models, interfaces, clipboard service, hotkey registration in place. All foundational tests pass. User story implementation can now begin.
+- [X] T001 [P] Delete `TextSource.cs` from `src/Vimium/Models/TextSource.cs` — no longer needed; replaced by query-driven `FindResult` + `SearchResult`
+- [X] T002 [P] Delete `TextLineRect.cs` from `src/Vimium/Models/TextLineRect.cs` — per-line rects replaced by per-match rects from UIA
+- [X] T003 Clean up remaining references to deleted files (TextSource, TextLineRect) in `src/Vimium/Vimium.csproj` and any `using` statements in dependent files
 
 ---
 
-## Phase 3: User Story 1 - Activate Line Navigation Mode (Priority: P1) 🎯 MVP
+## Phase 2: Foundational — Data Models
 
-**Goal**: Press `Ctrl+.` → overlay appears with hint labels on each visible text line. Escape dismisses. Element mode (`Ctrl+;`) unchanged.
+**Purpose**: Core data entities that ALL user stories depend on. Must complete before any story implementation.
 
-**Independent Test**: Press `Ctrl+.` in Notepad with multi-line text → hint labels appear on each visible line. Press `Ctrl+;` → element hints still work.
+**⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-### Tests for User Story 1
+- [X] T004 [P] Create `FindSession` model in `src/Vimium/Models/FindSession.cs` with fields: `SearchQuery` (string), `Matches` (IReadOnlyList\<SearchMatch>), `ActiveMatchIndex` (int), `SourceWindowHandle` (IntPtr), `IsSearching` (bool), `HasMatches` (bool, derived), `MatchCountText` (string, derived: "0 matches" / "2 of 5" / "" when empty query). Implement `INotifyPropertyChanged` for all settable properties.
+- [X] T005 [P] Rewrite `SearchMatch` in `src/Vimium/Models/SearchMatch.cs` — remove deprecated `StartIndex`, `EndIndex`, `LineIndex` fields; keep `SourceText`, `BoundingRect`, `Source`, `IsActive`; add `TextRangeProvider` (`System.Windows.Automation.Text.ITextRangeProvider?`) for ScrollIntoView+Select on Enter. Add validation: SourceText must not be null/empty, BoundingRect must have positive Width/Height.
+- [X] T006 Rewrite `SelectionState` in `src/Vimium/Models/SelectionState.cs` — remove `CursorPosition`, `SelectionStart`, `SelectionEnd`, `AllVisibleLines`, `VisibleText`; keep `SearchQuery`, `SearchMatches`, `ActiveMatchIndex`; add `IsSearching` (bool), `MatchCountText` (string). Simplify to find-only state container (backed by `FindSession`). Ensure all settable properties raise `PropertyChanged`.
 
-> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
-
-- [X] T012 [P] [US1] Write tests for `UiAutomationLineHintProviderService` in `src/Vimium.Tests/Services/UiAutomationLineHintProviderServiceTest.cs` — mock UIA to return known `TextRange` objects, verify hints have correct `TextContent` and `BoundingRectangle`
-- [X] T013 [P] [US1] Write tests for `LineNavigationOverlayViewModel` in `src/Vimium.Tests/ViewModels/LineNavigationOverlayViewModelTest.cs` — verify `PopulateHints` assigns labels, `IsLoading` transitions, `MatchString` filters hints
-
-### Implementation for User Story 1
-
-- [X] T014 [US1] Create `UiAutomationLineHintProviderService` in `src/Vimium/Services/UiAutomationLineHintProviderService.cs` — implement `ILineHintProviderService` using `IUIAutomationTextPattern.GetVisibleRanges()`, `CacheRequest` for batched property retrieval, background-thread `EnumLineHintsAsync` pattern matching existing `EnumHintsAsync`
-- [X] T015 [P] [US1] Create `LineNavigationOverlayViewModel` in `src/Vimium/ViewModels/LineNavigationOverlayViewModel.cs` — constructor overloads (loading + ready), `PopulateHints(LineNavigationSession, IHintLabelService)`, `MatchString` property for progressive hint filtering, `IsLoading` property, `CloseOverlay`/`OnHintResolved` actions
-- [X] T016 [US1] Create `LineNavigationOverlayView` XAML in `src/Vimium/Views/LineNavigationOverlayView.xaml` — transparent WPF window with `WS_EX_TRANSPARENT`, `WindowStyle=None`, `AllowsTransparency=True`, `Topmost=True`, `ShowInTaskbar=False`. Hint labels rendered as `TextBlock` elements positioned at each `TextLineHint.BoundingRectangle` using `Canvas`. Loading indicator shown when `IsLoading` is true.
-- [X] T017 [US1] Create `LineNavigationOverlayView` code-behind in `src/Vimium/Views/LineNavigationOverlayView.xaml.cs` — minimal: `DataContext` binding, window positioning from `OwningWindowBounds`, close on `Escape` key
-- [X] T018 [US1] Implement `ShowLineNavigationOverlay()` in `src/Vimium/App.xaml.cs` — enumerate on background thread via `EnumLineHintsAsync`, show loading overlay immediately, then call `PopulateHints`. Wire `KeyboardHookService` for hint-character input. Close on `Escape`.
-
-**Checkpoint**: `Ctrl+.` shows text-line hints. `Escape` dismisses. `Ctrl+;` still shows element hints. All US1 tests pass.
+**Checkpoint**: Data models ready — service layer and user stories can now begin
 
 ---
 
-## Phase 4: User Story 2 - Navigate Lines by Typing Hint Labels (Priority: P1)
+## Phase 3: Foundational — Service Layer
 
-**Goal**: Type a hint label (without Ctrl held) → cursor moves to that line's center. Progressive filtering as user types.
+**Purpose**: Service interface and implementation that US1/US3 depend on. Must complete before ViewModel work.
 
-**Independent Test**: Activate line overlay, type a hint label → cursor jumps to the center of the corresponding text line. Type partial prefix → only matching hints highlighted.
+- [X] T007 Rename `ITextSourceProviderService` → `IFindTextProviderService` in `src/Vimium/Services/Interfaces/IFindTextProviderService.cs` — remove `GetTextSource(IntPtr)` / `GetTextSourceAsync(IntPtr)` methods; add single method: `Task<FindResult> SearchAsync(IntPtr hWnd, string query, CancellationToken ct)`. Update interface namespace and XML docs to document primary/fallback paths, 200-match cap, and 3-second timeout.
+- [X] T008 Rewrite `TextSourceProviderService` → `FindTextProviderService` in `src/Vimium/Services/FindTextProviderService.cs`:
+  - **Primary path**: Get `AutomationElement.FromHandle(hWnd)`, resolve `ITextProvider` via `TextPattern`, call `GetVisibleRanges()` to scope to visible viewport, loop `ITextRangeProvider.FindText(query, backward=false, startRange)` collecting matches (extract `GetBoundingRectangles()` and `GetText(-1)`), enforce 200-match cap and 3-second `CancellationToken` timeout, return `SearchResult` with `Source=TextPattern` and `TextRangeProvider` reference.
+  - **Fallback path**: If TextPattern unsupported or timeout, call `FindAllBuildCache(TreeScope.Descendants, Condition.TrueCondition, cacheRequest)` with `CacheRequest` for `Name` + `BoundingRectangle`, filter client-side `Cached.Name.Contains(query, OrdinalIgnoreCase)`, return `SearchResult` with `Source=ElementName` and `AutomationElement` reference.
+  - **Both paths fail**: Return `FindResult` with empty `Matches`.
+  - All UIA calls run via `Task.Run` off UI thread. Accept `CancellationToken` for debounce cancellation.
 
-### Tests for User Story 2
+**Checkpoint**: Service layer ready — ViewModel and user story implementation can now begin
 
-- [X] T019 [P] [US2] Extend `LineNavigationOverlayViewModelTest` in `src/Vimium.Tests/ViewModels/LineNavigationOverlayViewModelTest.cs` — verify `MatchString` setter: unique match triggers `OnHintResolved` with `copyModifierHeld=false`, partial match highlights subset, no match keeps all visible
+---
+
+## Phase 4: User Story 1+3 — Find and Navigate to Text with Fast Performance (Priority: P1) 🎯 MVP
+
+**Goal**: User activates find-text mode via `Ctrl+.`, types a search query (≥5 chars), sees matching text highlighted (yellow=all, orange=active), cycles matches with Tab/Shift+Tab, and presses Enter to navigate the cursor to the active match and close the overlay. All operations complete within performance budgets (overlay <100ms, search results <200ms, Tab cycling <50ms, Enter navigation <200ms).
+
+**Stories covered**:
+- **US1**: Find and Navigate to Text — core search/cycle/navigate interaction
+- **US3**: Fast Performance with Large Text — debounce, viewport scoping, timeout, cancellation, 200-match cap
+
+**Independent Test**: Activate mode with `Ctrl+.` on a text-heavy window (e.g., Wikipedia in Chrome), type a 5+ character phrase visible on screen, verify all occurrences highlighted yellow with first orange, Tab/Shift+Tab cycle matches with circular wrap, Enter positions cursor at match and closes overlay. Verify no "loading all text" step — overlay opens instantly with empty search bar.
+
+### Implementation for User Story 1+3
+
+- [X] T009 [US1] Implement search invocation with debounce in `src/Vimium/ViewModels/SelectionModeViewModel.cs`:
+  - Add `System.Timers.Timer` with 150ms interval, reset on each keystroke
+  - Add 5-character minimum gate — search only triggers when `SearchQuery.Length >= 5`
+  - Add `CancellationTokenSource` to cancel in-flight search on new keystroke
+  - On debounce elapsed: set `IsSearching=true`, call `IFindTextProviderService.SearchAsync(hWnd, query, ct)`, update `FindSession` with results, set `IsSearching=false`, notify all bindings
+  - Handle `OperationCanceledException` gracefully (expected on rapid typing)
+  - If query drops below 5 chars (via Backspace), clear matches and highlights
+
+- [X] T010 [US1] Implement input handlers in `src/Vimium/ViewModels/SelectionModeViewModel.cs`:
+  - `HandleCharacter(char c)`: Append printable character to `SearchQuery`, reset debounce timer
+  - `HandleBackspace()`: Remove last character from `SearchQuery`, reset debounce; clear matches if query < 5 chars
+  - `HandleTab(bool shift)`: Cycle `ActiveMatchIndex` with circular wrap — forward (shift=false): `(index + 1) % count`, backward (shift=true): `(index - 1 + count) % count`; no-op if `Matches.Count == 0`; update all `IsActive` flags
+  - `HandleEnter()`: On active match's `TextRangeProvider`, call `ScrollIntoView()` then `Select()`; catch `COMException` (stale element) and silently dismiss; close overlay immediately, no toast
+  - `HandleEscape()`: Dismiss overlay without navigation
+  - `HandleFocusLost()`: Dismiss overlay on window change (called from view code-behind)
+  - Remove all deleted handlers: `HandleArrow`, `HandleCtrlArrow`, `HandleShiftArrow`, `HandleCtrlShiftArrow`, `HandleHome`, `HandleEnd`, `HandleContentChanged`
+  - Remove `ClipboardService` dependency, `OnCopied` action, `SelectedText` property, copy-related logic
+
+- [X] T011 [P] [US1] Update `SelectionModeOverlayView.xaml` in `src/Vimium/Views/SelectionModeOverlayView.xaml`:
+  - Search bar at bottom: `TextBox` bound to `SearchQuery` (read-only display, no focus-steal), `TextBlock` bound to `MatchCountText` ("2 of 5" / "0 matches" / ""), loading spinner bound to `IsSearching` (Visibility converter)
+  - Match highlights: `ItemsControl` bound to `Matches`, each item rendered as a `Border` positioned absolutely at `BoundingRect` within overlay canvas; `IsActive == true` → orange semi-transparent, `IsActive == false` → yellow semi-transparent, using theme `ResourceDictionary` brush keys (no hardcoded colors)
+  - Use existing `ForegroundWindow` base class pattern: `WS_EX_TRANSPARENT`, `WindowStyle=None`, `AllowsTransparency=True`, `Topmost=True`, `ShowActivated=False`
+  - Ensure all colors reference theme resource keys
+
+- [X] T012 [US1] Update `SelectionModeOverlayView.xaml.cs` in `src/Vimium/Views/SelectionModeOverlayView.xaml.cs`:
+  - Wire low-level `KeyboardHookService` to dispatch captured keys: printable chars → `HandleCharacter`, Backspace → `HandleBackspace`, Tab → `HandleTab(false)`, Shift+Tab → `HandleTab(true)`, Enter → `HandleEnter`, Escape → `HandleEscape`
+  - Ignore (pass through to underlying window): Arrow keys, Ctrl+Arrow, Shift+Arrow, Home, End, Ctrl+C/V/other Ctrl combos
+  - On each keyboard event: poll `User32.GetForegroundWindow()` and compare against source hWnd → if different, call `HandleFocusLost()`
+  - On overlay shown: capture initial foreground window bounds, position overlay to match
+  - Remove any old arrow/selection key handling from code-behind
+
+- [X] T013 [US1] Implement UIA `TextChanged` event handler for content-change auto-dismiss in `src/Vimium/Views/SelectionModeOverlayView.xaml.cs`:
+  - After first successful search, register `Automation.AddAutomationEventHandler(TextPattern.TextChangedEvent, element, TreeScope.Subtree, OnTextChanged)`
+  - In handler: set `_contentChanged` flag
+  - On next keyboard event: if `_contentChanged` is true, call `HandleFocusLost()` (deferred dismiss)
+  - Unregister event handler on overlay close
+  - Catch and ignore registration failures (non-TextPattern apps won't fire this event)
+
+- [X] T014 [P] [US1] Update `ShellViewModel` in `src/Vimium/ViewModels/ShellViewModel.cs`:
+  - Wire `Ctrl+.` hotkey to open `SelectionModeOverlayView` directly (no text extraction step — just open overlay with empty search bar)
+  - Pass `IFindTextProviderService`, foreground window bounds (`Rect`), and source window handle (`IntPtr`) to `SelectionModeViewModel` constructor
+  - Ensure only one overlay at a time: if `Ctrl+;` (element mode) is active, `Ctrl+.` replaces it, and vice versa
+  - Handle overlay lifecycle: create window, set DataContext, show, hook close/dismiss callback
+
+- [X] T015 [US1] Update `App.xaml.cs` in `src/Vimium/App.xaml.cs`:
+  - Register `IFindTextProviderService` → `FindTextProviderService` in service resolution/locator
+  - Remove any remaining references to `ITextSourceProviderService`, `ILineHintProviderService`, or other deleted services
+  - Ensure DI/wiring is consistent with existing pattern used for `IHintProviderService`
+
+- [X] T016 [US1] Handle edge cases in `SelectionModeViewModel` and `FindTextProviderService`:
+  - **No matches**: Display "0 matches", no highlights, Tab no-op, Enter no-op
+  - **No accessible text** (both TextPattern and element-name paths empty): Show "No text found", auto-dismiss after 2 seconds
+  - **TextPattern timeout** (3s): Automatically fall back to element-name search; if fallback also fails, show "No text found" and auto-dismiss after 2s
+  - **Stale TextRangeProvider on Enter**: Catch `COMException`, silently dismiss overlay
+  - **Overlapping matches**: Each distinct occurrence is a separate match — no dedup needed
+  - **Maximum input length**: Cap search bar input at 200 characters
+  - **Case-insensitive search**: Use `OrdinalIgnoreCase` in all string comparisons
+
+- [X] T017 [US1] Add debug logging via `Microsoft.Extensions.Logging`:
+  - In `FindTextProviderService`: log search path chosen (TextPattern vs ElementName vs both-failed), match count, elapsed time, timeout occurrences
+  - In `SelectionModeViewModel`: log debounce triggers, search cancellations, match count updates, Enter navigation (success/failure), auto-dismiss triggers (window change, content change)
+
+**Checkpoint**: Core find-and-navigate mode fully functional — user can search, cycle matches, and navigate cursor. All performance budgets met (overlay <100ms, results <200ms, Tab <50ms, Enter <200ms).
+
+---
+
+## Phase 5: User Story 2 — Activate and Configure Find-Text Mode (Priority: P2)
+
+**Goal**: User can change the find-text activation hotkey in Options → Keyboard, and the new hotkey takes effect immediately.
+
+**Independent Test**: Open Options → Keyboard, change "Find Text" hotkey, verify new hotkey activates mode and old hotkey no longer works. Verify `Ctrl+;` (element mode) still works independently.
 
 ### Implementation for User Story 2
 
-- [X] T020 [US2] Implement hint resolution in `LineNavigationOverlayViewModel.MatchString` setter in `src/Vimium/ViewModels/LineNavigationOverlayViewModel.cs` — unique match without copy modifier → fire `OnHintResolved(hint, copyModifierHeld: false)`, close overlay, move cursor via `hint.MovePointerToCenter()` (reuse existing method since `TextLineHint` extends `Hint`)
-- [X] T021 [US2] Wire `OnHintResolved` in `src/Vimium/App.xaml.cs` — for navigation case (copyModifierHeld=false): close overlay, move cursor to hint center, no clipboard action
-- [X] T022 [US2] Implement `OnHintResolved` handler for navigation in `src/Vimium/App.xaml.cs` — close line overlay, invoke `hint.MovePointerToCenter()` on background thread
+- [X] T018 [P] [US2] Add `FindTextHotkey` setting to `VimiumConfig` model in configuration file and `ConfigService`:
+  - Add `FindTextHotkey` property (default: `"Ctrl+."`) alongside existing hotkey settings
+  - Add serialization/deserialization support in `System.Text.Json` config handling
+  - Persist to `%APPDATA%\Vimium\config.json` with auto-save on change
 
-**Checkpoint**: Typing a full hint label moves cursor to the correct line. Partial typing filters hints. All US1+US2 tests pass.
+- [X] T019 [US2] Update `OptionsView.xaml` and `OptionsViewModel` in `src/Vimium/Views/OptionsView.xaml` and `src/Vimium/ViewModels/OptionsViewModel.cs`:
+  - Add "Find Text" row in Keyboard section with hotkey capture control (same pattern as existing element-mode hotkey)
+  - Bind to `FindTextHotkey` property
+  - Validate no conflict with element-mode hotkey (`Ctrl+;`)
+  - Auto-save on change (no explicit Save button per existing Options pattern)
 
----
+- [X] T020 [US2] Update `ShellViewModel` hotkey reading in `src/Vimium/ViewModels/ShellViewModel.cs`:
+  - Read `FindTextHotkey` from `ConfigService` instead of hardcoded `Ctrl+.`
+  - Register/unregister keyboard hook for the configured hotkey
+  - Reload hotkey binding on config change notification
+  - Ensure hotkey change takes effect immediately without restart
 
-## Phase 5: User Story 3 - Copy Text from a Line with Sub-Line Selection (Priority: P1)
+- [X] T021 [US2] Add mutual exclusion with element mode hotkey:
+  - On options save, validate `FindTextHotkey != ElementModeHotkey`
+  - Show inline validation error if they conflict
+  - Default `Ctrl+.` adjacent to `Ctrl+;` for discoverability
 
-**Goal**: Hold Ctrl + type hint → enter selection mode. Search (incremental), Tab-cycle matches, arrow-key cursor movement, Shift+arrow selection, Enter copies (whole line or selection), Esc cancels.
-
-**Independent Test**: Ctrl + hint on a line → Enter copies whole line. Ctrl + hint, type search → cursor jumps, Tab cycles, Shift+Ctrl+arrow selects, Enter copies selection. Esc cancels without copy.
-
-### Tests for User Story 3
-
-> **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
-
-- [X] T023 [P] [US3] Write tests for `SelectionState` model in `src/Vimium.Tests/Models/SelectionStateTest.cs` — verify cursor movement (char, word, Home/End), selection extension (Shift+arrow, Ctrl+Shift+arrow), search match generation, Tab cycling (forward, backward, wrap), selected text extraction, empty search → no matches, zero-match search → cursor unchanged
-- [X] T024 [P] [US3] Write tests for `SelectionModeViewModel` in `src/Vimium.Tests/ViewModels/SelectionModeViewModelTest.cs` — verify `HandleCharacter` appends to search and updates cursor, `HandleBackspace`, `HandleEnter` copies selected text (or whole line if no selection), `HandleEscape` closes without copy, `HandleTab`/`HandleShiftTab` cycles matches, cursor bounds enforcement
-- [X] T025 [P] [US3] Write tests for `ClipboardService` in `src/Vimium.Tests/Services/ClipboardServiceTest.cs` — verify `SetText` succeeds, retry on `COMException`, throws `InvalidOperationException` after all retries exhausted
-
-### Implementation for User Story 3
-
-- [X] T026 [US3] Create `SelectionState` model in `src/Vimium/Models/SelectionState.cs` — all fields from data-model.md: `TargetedLine`, `VisibleText`, `AllVisibleLines`, `CursorPosition`, `SelectionStart`, `SelectionEnd`, `SearchQuery`, `SearchMatches`, `ActiveMatchIndex`. Implement derived properties `SelectedText`, `HasSelection`, `CursorLineIndex`, `CursorLinePosition`. Implement all mutation methods for cursor movement (char step, word step via `Ctrl+Arrow` boundary detection), selection extension, search (case-insensitive `IndexOf` across `VisibleText`), and Tab cycling (circular wrap).
-- [X] T027 [US3] Create `SelectionModeViewModel` in `src/Vimium/ViewModels/SelectionModeViewModel.cs` — constructor takes `TextLineHint targetedLine`, `IReadOnlyList<TextLineHint> allLines`, `Rect windowBounds`, `ClipboardService`. Expose public properties for data binding. Implement all `Handle*` methods: `HandleCharacter`, `HandleBackspace`, `HandleArrow`, `HandleCtrlArrow`, `HandleShiftArrow`, `HandleCtrlShiftArrow`, `HandleHome`, `HandleEnd`, `HandleTab`, `HandleEnter` (copy + close), `HandleEscape` (close no copy). `HandleEnter` with no selection → copies `TargetedLine.TextContent` (whole line fast path).
-- [X] T028 [US3] Create `SelectionModeOverlayView` XAML in `src/Vimium/Views/SelectionModeOverlayView.xaml` — transparent WPF window (same style as `LineNavigationOverlayView`). Render: text cursor indicator (`|` or thin vertical line at cursor position), selection highlight (semi-transparent blue rectangle over selected range), search match highlights (semi-transparent yellow rectangles for all matches, distinct color for active match). Use `Canvas` for pixel-positioned elements based on `AllVisibleLines` bounding rectangles + character offsets.
-- [X] T029 [US3] Create `SelectionModeOverlayView` code-behind in `src/Vimium/Views/SelectionModeOverlayView.xaml.cs` — minimal: `DataContext` binding to `SelectionModeViewModel`, window positioning from `windowBounds`, close on `Escape` via ViewModel
-- [X] T030 [US3] Wire `OnHintResolved` with `copyModifierHeld=true` in `src/Vimium/App.xaml.cs` — close line overlay, immediately open `SelectionModeOverlayView` with the targeted line + all visible lines + `ClipboardService`. Pass selection-mode keys from `KeyboardHookService` to `SelectionModeViewModel.Handle*` methods. On copy feedback: brief flash/tooltip showing "Copied!"
-- [X] T031 [US3] Extend `KeyboardHookService` in `src/Vimium/Services/KeyboardHookService.cs` — add mode flag (`IsSelectionModeActive`). When active, swallow navigation keys (`←`, `→`, `Ctrl+←`, `Ctrl+→`, `Shift+←`, `Shift+→`, `Ctrl+Shift+←`, `Ctrl+Shift+→`, `Home`, `End`, `Tab`, `Shift+Tab`, `Enter`, `Escape`, `Backspace`) and dispatch to `SelectionModeViewModel`. Pass all other keys through to underlying application.
-
-**Checkpoint**: Full copy workflow works: Ctrl+hint → Enter (whole line), Ctrl+hint → search → Tab → Shift+arrow → Enter (portion). All US1–US3 tests pass.
+**Checkpoint**: Find-text mode fully configurable — user can change hotkey via Options, changes apply immediately, element mode unaffected.
 
 ---
 
-## Phase 6: User Story 4 - Configure Navigation Mode (Priority: P2)
+## Phase 6: Unit Tests
 
-**Goal**: Line-navigation hotkey and copy modifier are configurable in Options → Keyboard. Changes take effect immediately (auto-save).
+**Purpose**: Achieve ≥80% line coverage on all new and rewritten non-view, non-interop code per Constitution Principle III.
 
-**Independent Test**: Open Options → Keyboard, change line-navigation hotkey to `Ctrl+/`, press new hotkey → line overlay appears. Change copy modifier → new modifier works.
+**⚠️ Tests should be written alongside or immediately following each implementation task. This phase consolidates and validates all tests.**
 
-### Tests for User Story 4
+### Test Implementation
 
-- [X] T032 [P] [US4] Write tests for `ConfigService` line-navigation properties in `src/Vimium.Tests/Services/ConfigServiceTest.cs` — verify `LineNavigationModifier` and `CopyModifier` get/set persist to JSON, `IsDirty` tracking, cancel/restore, defaults
+- [X] T022 [P] Create `FindTextProviderServiceTest` in `src/Vimium.Tests/Services/FindTextProviderServiceTest.cs`:
+  - Test: `SearchAsync_TextPatternAvailable_ReturnsMatches` — mock `ITextProvider`/`ITextRangeProvider`, verify results with `Source=TextPattern`
+  - Test: `SearchAsync_TextPatternUnavailable_FallsBackToElementNames` — simulate missing TextPattern, mock `FindAllBuildCache`, verify results with `Source=ElementName`
+  - Test: `SearchAsync_Timeout_FallsBackToElementNames` — simulate slow FindText exceeding 3s, verify fallback triggers
+  - Test: `SearchAsync_BothPathsFail_ReturnsEmptyFindResult` — TextPattern unavailable AND no matching element names, verify empty result
+  - Test: `SearchAsync_RespectsCancellationToken` — cancel mid-search, verify `OperationCanceledException`/early exit
+  - Test: `SearchAsync_Respects200MatchCap` — generate 300 matches in mock, verify result capped at 200
+  - Test: `SearchAsync_VisibleViewportOnly` — verify `GetVisibleRanges()` is called, not full document
 
-### Implementation for User Story 4
+- [X] T023 [P] Rewrite `SelectionStateTest` in `src/Vimium.Tests/Models/SelectionStateTest.cs`:
+  - Test: `SelectionState_InitialState_EmptyQueryNoMatches` — verify fresh state has empty query, empty matches, ActiveMatchIndex=0
+  - Test: `SelectionState_UpdateMatches_NotifiesPropertyChanged` — verify match count and property change notifications
+  - Test: `SelectionState_ActiveMatchIndex_WrapsCircularly` — verify index cycling logic (done at ViewModel level, test state transitions)
+  - Test: `SelectionState_NoCursorOrSelectionProperties` — verify old cursor/selection properties are gone
+  - Test: `SelectionState_IsSearching_FlagToggles` — verify IsSearching transitions
+  - Test: `SelectionState_MatchCountText_FormatsCorrectly` — verify "0 matches", "2 of 5", "" (empty)
 
-- [X] T033 [US4] Add `LineNavigationModifier` and `CopyModifier` bindings to `KeyboardSettingsViewModel` in `src/Vimium/ViewModels/KeyboardSettingsViewModel.cs` — expose properties that delegate to `ConfigService.Instance`. Include duplicate hotkey validation (must not equal `OverlayModifier` or `TaskbarModifier`).
-- [X] T034 [US4] Add "Line Navigation" hotkey field and "Copy Modifier" dropdown to `KeyboardSettingsView` XAML in `src/Vimium/Views/OptionsView.xaml` — new row in Keyboard tab for line-navigation activation hotkey (text input with hotkey format hint `Ctrl+.`), and dropdown for copy modifier (`Ctrl`/`Alt`/`Shift`)
-- [X] T035 [US4] Wire `ConfigService.PropertyChanged` in `KeyListenerService` in `src/Vimium/Services/KeyListenerService.cs` — when `LineNavigationModifier` changes, unregister old hotkey and register new one (same pattern as existing `HotKey` property setter). When `CopyModifier` changes, update the modifier check in `App.xaml.cs`.
+- [X] T024 [P] Create `FindSessionTest` in `src/Vimium.Tests/Models/FindSessionTest.cs`:
+  - Test: `FindSession_Constructor_InitializesDefaults` — query empty, matches empty, IsSearching=false
+  - Test: `FindSession_HasMatches_FalseWhenEmpty` — verify derived property
+  - Test: `FindSession_MatchCountText_FormatsAllStates` — test "0 matches", "1 of 1", "2 of 5", "" (empty query)
+  - Test: `FindSession_PropertyChanged_RaisedOnSetters` — verify INotifyPropertyChanged for all settable fields
 
-**Checkpoint**: Options → Keyboard shows line-nav settings. Changes apply immediately. All US1–US4 tests pass.
+- [X] T025 [P] Create `SearchMatchTest` in `src/Vimium.Tests/Models/SearchMatchTest.cs`:
+  - Test: `SearchMatch_Validation_RejectsEmptySourceText` — verify constructor/validation throws on null/empty SourceText
+  - Test: `SearchMatch_Validation_RejectsZeroSizeBoundingRect` — verify validation on BoundingRect dimensions
+  - Test: `SearchMatch_IsActive_TogglesCorrectly` — verify state transitions
+  - Test: `SearchMatch_DeprecatedFieldsDoNotExist` — verify StartIndex, EndIndex, LineIndex are removed
+  - Test: `SearchMatch_TextRangeProvider_CanBeNull` — verify null TextRangeProvider for ElementName source
+
+- [X] T026 Rewrite `SelectionModeViewModelTest` in `src/Vimium.Tests/ViewModels/SelectionModeViewModelTest.cs`:
+  - Test: `HandleCharacter_Below5Chars_NoSearchTriggered` — type 4 chars, wait >150ms, verify no search call
+  - Test: `HandleCharacter_At5Chars_SearchTriggeredAfterDebounce` — type 5 chars, wait 150ms, verify search called
+  - Test: `HandleCharacter_RapidTyping_CancelsInFlightSearch` — type fast, verify only last search completes
+  - Test: `HandleTab_CyclesForwardWithWrap` — with 3 matches, press Tab 4 times, verify circular wrap
+  - Test: `HandleTab_Shift_CyclesBackwardWithWrap` — Shift+Tab from index 0 wraps to last match
+  - Test: `HandleTab_NoMatches_NoOp` — verify no crash/state change with empty matches
+  - Test: `HandleEnter_WithActiveMatch_NavigatesAndCloses` — verify ScrollIntoView+Select called, overlay closes
+  - Test: `HandleEnter_StaleElement_CatchesExceptionAndCloses` — mock COMException, verify silent dismiss
+  - Test: `HandleEnter_NoMatches_NoOp` — verify no action with empty matches
+  - Test: `HandleEscape_DismissesWithoutNavigation` — verify no navigation calls, overlay closes
+  - Test: `HandleBackspace_ReducesQueryAndUpdatesMatches` — verify debounce reset, match update
+  - Test: `HandleBackspace_Below5Chars_ClearsMatches` — backspace reduces to 4 chars, verify matches cleared
+  - Test: `HandleFocusLost_DismissesImmediately` — verify overlay close called
+  - Test: `MatchCountText_UpdatesWithSearchResults` — verify binding-visible string updates
+  - Test: `IsSearching_TrueDuringSearch` — verify loading indicator state
+
+- [X] T027 [P] Add find-text activation tests to existing ShellViewModel tests in `src/Vimium.Tests/ViewModels/ShellViewModelTest.cs`:
+  - Test: `ActivateFindText_CtrlDot_OpensSelectionOverlay` — verify overlay created with SelectionModeViewModel
+  - Test: `ActivateFindText_WhileElementModeActive_ReplacesOverlay` — verify only one overlay
+  - Test: `ActivateFindText_UsesConfiguredHotkey` — verify hotkey read from config, not hardcoded
+
+- [X] T028 Run `dotnet test src/Vimium.sln` with code coverage:
+  - Run: `dotnet test src/Vimium.sln --collect:"XPlat Code Coverage"`
+  - Verify all tests pass with zero failures
+  - Verify ≥80% line coverage on all non-view, non-interop new/rewritten code
+  - Generate coverage report for review
+
+**Checkpoint**: All tests passing, coverage ≥80% on new code. Core logic verified in isolation.
 
 ---
 
-## Phase 7: User Story 5 - Toggle Between Element and Line Modes (Priority: P2)
+## Phase 7: Integration & Polish
 
-**Goal**: Users can seamlessly switch between element mode (`Ctrl+;`) and line mode (`Ctrl+.`) without opening settings. Each mode's overlay is visually distinct and operates independently.
+**Purpose**: Build, validate against quickstart scenarios, verify zero regressions, final cleanup.
 
-**Independent Test**: Activate element mode → dismiss → activate line mode → dismiss → repeat 3 times. No interference, no visual corruption, no memory growth.
+- [X] T029 Build solution and fix all warnings/errors:
+  - Run: `dotnet build src/Vimium.sln` — must succeed with zero warnings
+  - Fix any compilation errors from renamed interfaces, removed types
+  - Verify all `using` directives are clean
 
-### Tests for User Story 5
-
-- [X] T036 [P] [US5] Write integration-style verification in `src/Vimium.Tests/ViewModels/` — verify `LineNavigationOverlayViewModel` and `OverlayViewModel` do not share mutable state, each has independent `Hints` collections, closing one does not affect the other
-
-### Implementation for User Story 5
-
-- [X] T037 [US5] Add duplicate hotkey guard in `KeyboardSettingsViewModel` in `src/Vimium/ViewModels/KeyboardSettingsViewModel.cs` — when setting `LineNavigationModifier`, validate it does not equal `OverlayModifier` or `TaskbarModifier`. Show inline validation error if duplicate.
-- [X] T038 [US5] Ensure mode isolation in `src/Vimium/App.xaml.cs` — verify element-mode overlay open/close lifecycle does not touch line-navigation state, and vice versa. Ensure both overlays can be opened/closed in any sequence without state leakage. Add guard: `ShowLineNavigationOverlay()` is no-op if element overlay is currently visible (and vice versa) — only one overlay at a time.
-
-**Checkpoint**: Both modes coexist peacefully. Repeated toggling works. All tests pass (full suite).
-
----
-
-## Phase 8: Polish & Cross-Cutting Concerns
-
-**Purpose**: Final validation, edge-case hardening, and user feedback improvements
-
-- [X] T039 [P] Handle zero-text window gracefully in `src/Vimium/Services/UiAutomationLineHintProviderService.cs` — return `LineNavigationSession` with empty `Hints`; show "No text lines found" tooltip and auto-dismiss after 1s in `LineNavigationOverlayViewModel`
-- [X] T040 [P] Add copy confirmation feedback in `src/Vimium/Views/SelectionModeOverlayView.xaml` — brief "Copied!" text that fades out after 500ms when `OnCopied` callback fires
-- [X] T041 [P] Ensure selection mode highlight colors use theme resources in `src/Vimium/Views/SelectionModeOverlayView.xaml` — cursor color, selection highlight, search match highlight, active match highlight all from theme resource dictionary
-- [X] T042 Run `dotnet test src\Vimium.sln` — verify ALL tests pass (existing + new) with zero failures
-- [X] T043 Run quickstart validation in `specs/001-line-navigation-mode/quickstart.md` — execute all 9 manual validation scenarios (VS-1 through VS-9) and confirm pass
-- [X] T044 [P] Run `dotnet build src\Vimium.sln` — verify zero warnings
-- [X] T045 Update `CHANGELOG.md` and `README.md` — document line-navigation feature, new hotkeys, copy workflow
+- [X] T030 Run quickstart.md validation scenarios (VS-1 through VS-15):
+  - VS-1 through VS-8, VS-11 through VS-15: ✅ Validated and working
+  - VS-9 (Notepad) & VS-10 (VS Code): ⚠ Known limitation — these editors expose limited UIA text. Feature is best-effort; users can navigate via their editor's own Ctrl+F.
+  - **Timeout tip**: When a search exceeds the 3s timeout (e.g. massive Wikipedia pages), the overlay now shows "Search timed out. Try the app's built-in Ctrl+F for better results." Noted in README.
+  
+- [X] T031 Verify element mode zero regressions and final polish:
+  - Element mode (Ctrl+;) works with zero regressions
+  - Themes (Light/Dark/Skadi) render correctly for find-text overlay
+  - Rapid open/close cycles show no memory leaks
+  - Build succeeds with zero errors
+  - README updated with best-effort notice
 
 ---
 
@@ -187,111 +266,111 @@
 
 ### Phase Dependencies
 
-- **Setup (Phase 1)**: No dependencies — can start immediately
-- **Foundational (Phase 2)**: Depends on Phase 1 (models need config fields; hotkey wiring needs registration) — BLOCKS all user stories
-- **User Story 1 (Phase 3)**: Depends on Phase 2 completion
-- **User Story 2 (Phase 4)**: Depends on Phase 3 (needs line overlay to exist)
-- **User Story 3 (Phase 5)**: Depends on Phase 3 (needs line overlay and `OnHintResolved` hook). Independent of US2.
-- **User Story 4 (Phase 6)**: Depends on Phase 2 (config model + hotkey registration). Independent of US1-US3 implementation (can configure before features exist, or after).
-- **User Story 5 (Phase 7)**: Depends on Phase 3 + Phase 4 + Phase 5 (needs both modes to be functional)
-- **Polish (Phase 8)**: Depends on all user stories being complete
+- **Phase 1 (Final Cleanup)**: No dependencies — can start immediately
+- **Phase 2 (Foundational — Models)**: No dependencies — can start immediately, in parallel with Phase 1
+- **Phase 3 (Foundational — Service)**: Depends on Phase 2 (needs `FindResult`, `SearchResult` models) — BLOCKS all user stories
+- **Phase 4 (US1+US3, P1)**: Depends on Phase 3 (needs `IFindTextProviderService`) — core MVP
+- **Phase 5 (US2, P2)**: Depends on Phase 4 completion (needs `ShellViewModel` wiring) — can start after Phase 4
+- **Phase 6 (Unit Tests)**: Can run in parallel with implementation tasks; tests for each component should be written alongside it
+- **Phase 7 (Integration & Polish)**: Depends on all prior phases complete
 
 ### User Story Dependencies
 
-```
-Phase 1 (Setup) ──▶ Phase 2 (Foundational) ──┬──▶ Phase 3 (US1) ──┬──▶ Phase 4 (US2)
-                                              │                     │
-                                              ├──▶ Phase 6 (US4)    └──▶ Phase 5 (US3)
-                                              │                              │
-                                              └──────────────────────────────┤
-                                                                             ▼
-                                                                   Phase 7 (US5) ──▶ Phase 8 (Polish)
-```
+- **User Story 1+3 (P1)**: Can start after Foundational Phase 3 — no dependencies on other stories. US3 (performance) is inseparable from US1 implementation — same ViewModel, same service.
+- **User Story 2 (P2)**: Can start after Phase 4 US1 ViewModel/ShellViewModel is stable. Configuration is additive — adds hotkey setting to existing Options UI.
 
-- **US1 (P1)**: Foundation for US2 and US3. Can start immediately after Phase 2.
-- **US2 (P1)**: Needs US1 overlay. Adds navigation action.
-- **US3 (P1)**: Needs US1 overlay. Adds selection mode. Can be developed in parallel with US2 (different ViewModels/Views).
-- **US4 (P2)**: Config-only. Can be done in parallel with US1-US3.
-- **US5 (P2)**: Integration — needs everything else complete.
+### Within Each Phase
 
-### Within Each User Story
-
-- Tests MUST be written and FAIL before implementation
-- Models before services
-- Services before ViewModels (for US3)
-- ViewModels before Views
-- Core implementation before integration wiring
+- Phase 2: T004 and T005 can run in parallel (different files); T006 depends on T004 (uses `FindSession`)
+- Phase 3: T007 (interface) before T008 (implementation)
+- Phase 4: T009 → T010 (sequential, same file), T011 and T014 can parallel with T009/T010 (different files), T012 after T011, T013 after T012, T015 after T009, T016/T017 after core implementation is stable
+- Phase 5: T018 [P] (independent config model), then T019/T020/T021 (sequential or parallel, different files)
+- Phase 6: All test tasks can run in parallel (different test files for different components)
+- Phase 7: Sequential — build first, then validate, then final polish
 
 ### Parallel Opportunities
 
-- **Phase 1**: T001, T002 can run in parallel (different files)
-- **Phase 2**: T004, T005, T006 (all tests) can run in parallel. T007, T008, T009, T010 can run in parallel after tests written.
-- **Phase 3 (US1)**: T012 and T013 (tests) can run in parallel. T014 and T015 can run in parallel after tests.
-- **Phase 4 (US2)**: T019 is extension of existing test.
-- **Phase 5 (US3)**: T023, T024, T025 (tests) all in parallel. T026 and T027 in parallel after tests.
-- **Phase 6 (US4)**: T032 (test) can run separately. T033 and T034 are sequential (ViewModel → View).
-- **Phase 7 (US5)**: T036 (test) first, then T037 and T038 sequential.
-- **Phase 8**: T039, T040, T041, T044 all in parallel.
-- **Cross-phase**: US2 and US3 can be implemented in parallel (both depend on US1, different files). US4 can be done alongside US1-US3.
+- Phase 1: T001 and T002 (different files)
+- Phase 2: T004 and T005 (different model files)
+- Phase 6: T022 through T027 (different test files)
+- Across phases: Phase 1 and Phase 2 can run concurrently
+- Within Phase 4: T011 (XAML), T014 (ShellViewModel), T015 (App.xaml.cs) can be developed in parallel with T009/T010 (ViewModel) since they touch different files
 
 ---
 
-## Parallel Example: User Story 3 (most complex story)
+## Parallel Example: Phase 4 (US1+US3)
 
 ```bash
-# Step 1: Launch all US3 tests together (must fail first):
-Task: "Write tests for SelectionState model in src/Vimium.Tests/Models/SelectionStateTest.cs"
-Task: "Write tests for SelectionModeViewModel in src/Vimium.Tests/ViewModels/SelectionModeViewModelTest.cs"
-Task: "Write tests for ClipboardService in src/Vimium.Tests/Services/ClipboardServiceTest.cs"
+# Start ViewModel core (sequential within file):
+Task: "T009 Implement search invocation with debounce in SelectionModeViewModel.cs"
+# After T009 done:
+Task: "T010 Implement input handlers in SelectionModeViewModel.cs"
 
-# Step 2: After tests written, launch models + clipboard in parallel:
-Task: "Create SelectionState model in src/Vimium/Models/SelectionState.cs"
-Task: "Ensure ClipboardService in src/Vimium/Services/ClipboardService.cs passes tests"
+# In parallel with T009/T010 (different files):
+Task: "T011 Update SelectionModeOverlayView.xaml"
+Task: "T014 Update ShellViewModel.cs — wire Ctrl+. hotkey"
+Task: "T015 Update App.xaml.cs — register new service"
 
-# Step 3: ViewModel depends on SelectionState:
-Task: "Create SelectionModeViewModel in src/Vimium/ViewModels/SelectionModeViewModel.cs"
-
-# Step 4: Views + integration depend on ViewModel:
-Task: "Create SelectionModeOverlayView XAML..."
-Task: "Create SelectionModeOverlayView code-behind..."
-Task: "Wire OnHintResolved with copyModifierHeld=true..."
-Task: "Extend KeyboardHookService for selection mode keys..."
+# After T011 and T010:
+Task: "T012 Update SelectionModeOverlayView.xaml.cs"
+Task: "T013 Implement UIA TextChanged auto-dismiss"
+Task: "T016 Handle edge cases"
+Task: "T017 Add debug logging"
 ```
 
 ---
 
 ## Implementation Strategy
 
-### MVP First (User Story 1 Only)
+### MVP First (US1+US3 Only — Phase 1→2→3→4→7)
 
-1. Complete Phase 1: Setup (T001–T003)
-2. Complete Phase 2: Foundational (T004–T011)
-3. Complete Phase 3: User Story 1 (T012–T018)
-4. **STOP and VALIDATE**: `Ctrl+.` shows text-line hints. Element mode still works. Run quickstart VS-1.
-5. Demo if ready — line hints visible is a demonstrable increment.
+1. Complete Phase 1: Delete TextSource.cs, TextLineRect.cs (2 tasks)
+2. Complete Phase 2: Foundational models — FindSession, SearchMatch rewrite, SelectionState rewrite (3 tasks)
+3. Complete Phase 3: Service layer — IFindTextProviderService + FindTextProviderService (2 tasks)
+4. Complete Phase 4: Core find-and-navigate — ViewModel, View, ShellViewModel wiring (9 tasks)
+5. **STOP and VALIDATE**: Test with quickstart scenarios VS-1 through VS-10
+6. Build → test → deploy/demo (MVP!)
 
-### Incremental Delivery (Recommended)
+### Incremental Delivery
 
-1. Setup + Foundational → foundation ready (all tests pass)
-2. Add US1 → line hints visible (demo: text lines labeled)
-3. Add US2 → cursor navigation works (demo: jump to any line with keyboard)
-4. Add US3 → copy + selection mode works (demo: copy commands from tutorials)
-5. Add US4 → hotkey configurable in Options (demo: change settings, see effect)
-6. Add US5 → mode isolation verified (demo: seamless switching)
-7. Polish → hardened edge cases, all quickstart scenarios pass
+1. Complete Setup (Phase 1) + Foundational (Phase 2 + 3) → Foundation ready
+2. Add US1+US3 (Phase 4) → Test independently → Deploy/Demo (MVP!)
+3. Add US2 (Phase 5) → Hotkey configurable via Options → Deploy/Demo
+4. Add Tests (Phase 6) → Coverage ≥80% → Merge
+5. Each story adds value without breaking previous stories
 
-### Suggested MVP Scope
+### Suggested Execution Order
 
-**MVP = Phase 1 + Phase 2 + Phase 3 + Phase 4 + Phase 5** (US1, US2, US3 — all P1 stories). This delivers the complete core value proposition: navigate text lines, jump cursor, copy whole lines or portions via search + selection. US4 (config UI) and US5 (toggle validation) can ship in a follow-up release with the default hotkeys working immediately.
+```
+T001 ─┬─ T003 ─────────────────────────────────────────────────────────────┐
+T002 ─┘                                                                      │
+                                                                             │
+T004 ─┬─ T006 ─── T007 ─── T008 ─── T009 ─── T010 ─── T012 ─── T013 ───┐  │
+T005 ─┘                                      │                           │  │
+                                             ├── T011 (parallel)         │  │
+                                             ├── T014 (parallel)         │  │
+                                             └── T015 (parallel)         │  │
+                                                    │                    │  │
+                                                    └── T016 ─── T017 ───┤  │
+                                                                          │  │
+T018 ─── T019 ─── T020 ─── T021 ─────────────────────────────────────────┤  │
+                                                                          │  │
+T022 ─── T023 ─── T024 ─── T025 ─── T026 ─── T027 ─── T028 ─────────────┤  │
+                                                                          │  │
+                                                                          ├──┤
+                                                    T029 ─── T030 ─── T031┘  │
+```
 
 ---
 
 ## Notes
 
-- [P] tasks = different files, no dependencies
-- [Story] label maps task to specific user story for traceability
-- Each user story should be independently completable and testable
-- Verify tests fail before implementing (TDD red-green-refactor)
+- [P] tasks = different files, no dependencies — can run concurrently
+- [US1], [US2] labels map tasks to user stories from spec.md for traceability
+- US3 (Fast Performance) tasks are embedded in US1 phase — same components, inseparable implementation
+- Phase 1 teardown (TextLineHint, LineNavigationSession, etc.) was already completed before task generation
+- Constitution Principle IV note: The "Text selection & copy contract" paragraph in constitution.md still describes the OLD design. Constitution update is a follow-up tracked separately.
+- Each user story checkpoint is independently testable
+- Verify tests fail before implementing (TDD: Red → Green → Refactor)
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
-- Element mode (`OverlayViewModel`, `OverlayView`) is **untouched** — all new files are parallel

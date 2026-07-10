@@ -27,6 +27,15 @@
     <SolidColorBrush x:Key="OverlayLoadingForegroundBrush" Color="#7BC8F0" />
     <SolidColorBrush x:Key="OverlayMatchStringForegroundBrush" Color="#E0F0FF" />
 
+    <!-- ── Find-mode overlay brushes ─────────────────────── -->
+
+    <SolidColorBrush x:Key="FindSearchBarBackgroundBrush" Color="#E50F2030" />
+    <SolidColorBrush x:Key="FindSearchBarForegroundBrush" Color="#E8F4FF" />
+    <SolidColorBrush x:Key="FindSearchBarCountBrush" Color="#90B8D8" />
+    <SolidColorBrush x:Key="FindMatchHighlightBrush" Color="#4F4FC3F7" />
+    <SolidColorBrush x:Key="FindMatchActiveHighlightBrush" Color="#7B7BC8F0" />
+    <SolidColorBrush x:Key="FindMatchBorderBrush" Color="#964FC3F7" />
+
     <!-- ── Skadi loading icon ────────────────────────────── -->
 
     <BitmapImage x:Key="SkadiLoadingIcon" UriSource="/Resources/skadi.ico" />

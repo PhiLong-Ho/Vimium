@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net10.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <AssemblyName>Vimium</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -26,6 +26,11 @@
     <ApplicationIcon>Resources/skadi.ico</ApplicationIcon>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- Bundle WPF native DLLs (PresentationNative, wpfgfx, etc.) inside the
+      single-file exe and extract them at runtime. Without this they are left
+      loose beside the exe, and copying only Vimium.exe elsewhere crashes with
+      DllNotFoundException in WPF's HwndSubclass.HookWindowProc. -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\SolutionInfo.cs">

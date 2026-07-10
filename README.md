@@ -10,11 +10,10 @@ A lightweight keyboard-driven UI overlay for Windows. Press a hotkey, type a hin
 | --- | --- |
 | **Instant overlay** | Overlay appears immediately; hints populate asynchronously in the background. |
 | **Multiple interaction modes** | Invoke (default), Left Click (Shift), Right Click (Shift) — hold modifier while typing. |
-| **Line navigation mode** | `Ctrl+.` to label every visible text line in the active window. Jump, search, select, and copy text with keyboard alone. |
-| **Sub-line selection & copy** | Hold `Ctrl` + hint label → search → Tab/arrows → Enter to copy exact text portions to clipboard. |
+| **Find & navigate mode** | `Ctrl+.` opens a Chrome-style find bar. Type ≥5 characters, matches highlight live (yellow = all, orange = active), `Tab`/`Shift+Tab` cycle, `Enter` scrolls to and focuses the match. |
 | **Themes** | Light, Dark, and Skadi themes with runtime switching via the options window. |
 | **Modern options window** | Sidebar-navigated settings: font size, hint colors, shortcuts — all auto-save. |
-| **Configurable hotkeys** | Change overlay/taskbar/line-nav activation shortcuts in Options → Keyboard. |
+| **Configurable hotkeys** | Change overlay/taskbar/find activation shortcuts in Options → Keyboard. |
 | **Elevated by default** | Runs as administrator so it can interact with elevated apps. |
 | **Popup-friendly** | Overlay never steals focus — menus, dropdowns, and popups stay open. |
 | **Auto-start** | Optional scheduled-task script for login launch without a UAC prompt. |
@@ -40,18 +39,67 @@ Hold one of these modifiers while typing the hint:
 
 Why the click modes? Some apps (notably Electron / web-based apps like Microsoft Teams) expose hints through UI Automation but don't implement the `InvokePattern`. A synthesized mouse click goes through the normal OS input path and works on those controls.
 
-### Line navigation mode
+### Find & navigate mode
 
-Press **`Ctrl + .`** (configurable) to enter line navigation mode. The overlay shows hint labels on every visible text line in the active window.
+> **⚠ Best effort — your mileage may vary.**  
+> Find mode depends on the target application exposing text through the Windows
+> UI Automation accessibility layer.
+>
+> **What works best:** Classic Win32 text controls, the Windows console host
+> (**cmd**, **PowerShell** in `conhost`), File Explorer file/folder names, and
+> system dialogs. These are fast, reliable, and where the feature shines.
+>
+> **For browsers (Chrome, Firefox, Edge):** Modern web pages — especially
+> massive ones like Wikipedia articles — may exceed the 3-second search timeout
+> because UIA must marshal the DOM tree across processes. The overlay will show
+> partial results (or "0 matches") plus a tip: *"Search timed out. Try the
+> app's built-in Ctrl+F for better results."*  Press `Ctrl+F` in the browser
+> instead — it searches the DOM directly and is always faster and more accurate.
+>
+> **What doesn't work:** GPU-canvas editors (VS Code Monaco editor, Windows
+> Terminal, GPU-accelerated terminals) that render text to a raw surface with no
+> accessibility layer. Use the editor's own `Ctrl+F`.
+
+Press **`Ctrl + .`** (configurable) to open a Chrome `Ctrl+F`–style find bar over the
+active window. Unlike element mode, this searches the window's **visible text** rather than
+interactive controls.
 
 | Action | How |
 | --- | --- |
-| **Jump to line** | Type the hint label (without modifier) — cursor moves to the line center. |
-| **Copy whole line** | Hold `Ctrl` (or configured copy modifier) + type hint label, then press `Enter`. |
-| **Copy text portion** | Hold copy modifier + hint label → type search text → `Tab`/`Shift+Tab` to cycle matches → arrow keys to refine → `Shift+Arrow` to select → `Enter` to copy. |
-| **Dismiss** | Press `Escape` at any time. |
+| **Search** | Start typing. The search fires once the query reaches **5 characters** (debounced 150 ms) so large pages aren't re-scanned on every keystroke. |
+| **Highlights** | Every visible occurrence is boxed in **yellow**; the active match is **orange**. |
+| **Cycle matches** | `Tab` → next match, `Shift+Tab` → previous (wraps around). The match count ("2 of 5") updates live. |
+| **Navigate** | `Enter` scrolls the active match into view and focuses/selects it, then closes the overlay. No clipboard copy. |
+| **Edit query** | `Backspace` to correct; symbols and `Shift`-ed characters (`@`, `!`, `:` …) are supported. |
+| **Dismiss** | `Escape`, or switch away from the window (`Alt+Tab`) — the overlay auto-closes. |
 
-Line mode is independent of element mode (`Ctrl+;`). Both modes have hotkeys and operate on the active foreground window. Hotkeys and the copy modifier can be changed in **Options → Keyboard**.
+Find mode is independent of element mode (`Ctrl+;`); only one overlay is active at a time.
+The activation hotkey can be changed in **Options → Keyboard**.
+
+#### How it finds text (and where it can't)
+
+Vimium reads text through Windows **UI Automation** (the same accessibility layer screen
+readers use). It searches, in order:
+
+1. **TextPattern** — the rich, range-based text interface (browsers, most document/editor
+   controls). Gives per-match rectangles and precise scroll-into-view.
+2. **ValuePattern** — whole-text edit controls that don't expose TextPattern (e.g. the
+   Windows 11 **Notepad** editor). Matches share the control's bounding box.
+3. **Element names** — as a last resort, the accessible names of controls (file names in
+   Explorer, link labels, etc.).
+
+Search is scoped to the **visible viewport**, capped at 200 matches, and bounded by a
+3-second timeout.
+
+**Known limitations** — some surfaces render text to a raw canvas and expose **no** UI
+Automation text, so find mode can't see them:
+
+- **VS Code** — the Monaco editor pane and the integrated terminal (both canvas-rendered).
+  VS Code's menus, sidebar, and tabs still work.
+- Other Electron/GPU-canvas editors and terminals with no accessibility text layer.
+
+The classic Windows console host (**cmd** and **PowerShell** in `conhost`) *does* expose
+text and works normally.
 
 ### Command-line
 

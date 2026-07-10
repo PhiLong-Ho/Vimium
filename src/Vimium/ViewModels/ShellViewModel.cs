@@ -16,30 +16,26 @@ namespace Vimium.ViewModels
     internal class ShellViewModel
     {
         private readonly Action<OverlayViewModel> _showOverlay;
-        private readonly Action<LineNavigationOverlayViewModel> _showLineNavigationOverlay;
         private readonly Action<SelectionModeViewModel> _showSelectionModeOverlay;
         private readonly Action<DebugOverlayViewModel> _showDebugOverlay;
         private readonly Action<OptionsViewModel> _showOptions;
         private readonly IHintLabelService _hintLabelService;
         private readonly IHintProviderService _hintProviderService;
         private readonly IDebugHintProviderService _debugHintProviderService;
-        private readonly ILineHintProviderService _lineHintProviderService;
-        private readonly ClipboardService _clipboardService = new ClipboardService();
+        private readonly IFindTextProviderService _findTextProviderService;
 
         public ShellViewModel(
             Action<OverlayViewModel> showOverlay,
-            Action<LineNavigationOverlayViewModel> showLineNavigationOverlay,
             Action<SelectionModeViewModel> showSelectionModeOverlay,
             Action<DebugOverlayViewModel> showDebugOverlay,
             Action<OptionsViewModel> showOptions,
             IHintLabelService hintLabelService,
             IHintProviderService hintProviderService,
             IDebugHintProviderService debugHintProviderService,
-            ILineHintProviderService lineHintProviderService,
+            IFindTextProviderService findTextProviderService,
             IKeyListenerService keyListener)
         {
             _showOverlay = showOverlay;
-            _showLineNavigationOverlay = showLineNavigationOverlay;
             _showSelectionModeOverlay = showSelectionModeOverlay;
             _showDebugOverlay = showDebugOverlay;
             _showOptions = showOptions;
@@ -47,7 +43,7 @@ namespace Vimium.ViewModels
             var keyListener1 = keyListener;
             _hintProviderService = hintProviderService;
             _debugHintProviderService = debugHintProviderService;
-            _lineHintProviderService = lineHintProviderService;
+            _findTextProviderService = findTextProviderService;
 
             // Read hotkeys from config (with fallback to defaults)
             ApplyHotkeys(keyListener1);
@@ -56,7 +52,7 @@ namespace Vimium.ViewModels
             ConfigService.Instance.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName is null or "" or "OverlayModifier" or "TaskbarModifier"
-                    or "LineNavigationModifier")
+                    or "LineNavigationModifier" or "TextSelectionModifier")
                     ApplyHotkeys(keyListener1);
             };
 
@@ -96,13 +92,13 @@ namespace Vimium.ViewModels
         private bool _overlayActive;
 
         /// <summary>
-        /// True while the line-navigation overlay is active.
+        /// True while the text selection overlay is active.
         /// </summary>
-        private bool _lineOverlayActive;
+        private bool _selectionOverlayActive;
 
         private async void _keyListener_OnHotKeyActivated(object sender, EventArgs e)
         {
-            if (_overlayActive || _lineOverlayActive) return;
+            if (_overlayActive || _selectionOverlayActive) return;
             _overlayActive = true;
 
             var hWnd = User32.GetForegroundWindow();
@@ -144,7 +140,7 @@ namespace Vimium.ViewModels
 
         private async void _keyListener_OnTaskbarHotKeyActivated(object sender, EventArgs e)
         {
-            if (_overlayActive || _lineOverlayActive) return;
+            if (_overlayActive || _selectionOverlayActive) return;
             _overlayActive = true;
 
             var taskbarHWnd = User32.FindWindow("Shell_traywnd", "");
@@ -183,107 +179,42 @@ namespace Vimium.ViewModels
 
         private async void _keyListener_OnLineNavigationHotKeyActivated(object sender, EventArgs e)
         {
-            LogService.Info("LineNav hotkey FIRED");
-
-            if (_overlayActive || _lineOverlayActive)
+            if (_overlayActive || _selectionOverlayActive)
             {
-                LogService.Warn($"LineNav blocked: overlayActive={_overlayActive}, lineOverlayActive={_lineOverlayActive}");
+                LogService.Warn($"FindText blocked: overlayActive={_overlayActive}, selectionOverlayActive={_selectionOverlayActive}");
                 return;
             }
-            _lineOverlayActive = true;
-
-            LineNavigationOverlayViewModel vm = null;
+            _selectionOverlayActive = true;
 
             try
             {
-                var hWnd = NativeMethods.User32.GetForegroundWindow();
-                LogService.Info($"LineNav: foreground hWnd=0x{hWnd:X}");
+                var hWnd = User32.GetForegroundWindow();
+                LogService.Info($"FindText: foreground hWnd=0x{hWnd:X}");
                 if (hWnd == IntPtr.Zero)
                 {
-                    LogService.Warn("LineNav: no foreground window");
-                    _lineOverlayActive = false;
+                    LogService.Warn("FindText: no foreground window");
+                    _selectionOverlayActive = false;
                     return;
                 }
 
-                var rawBounds = new NativeMethods.RECT();
-                NativeMethods.User32.GetWindowRect(hWnd, ref rawBounds);
+                var rawBounds = new RECT();
+                User32.GetWindowRect(hWnd, ref rawBounds);
                 Rect windowBounds = rawBounds;
-                LogService.Info($"LineNav: window bounds={windowBounds}");
 
-                vm = new LineNavigationOverlayViewModel(windowBounds);
-                vm.CloseOverlay = () => _lineOverlayActive = false;
-                vm.OnHintResolved = HandleLineHintResolved;
-                _showLineNavigationOverlay(vm);
-                LogService.Info("LineNav: overlay shown (loading state)");
-
-                var session = await _lineHintProviderService.EnumLineHintsAsync(hWnd);
-                if (session != null)
+                // Open the overlay immediately with an empty search bar — no text
+                // extraction step. Search runs on demand once the user types ≥5 chars.
+                var vm = new SelectionModeViewModel(_findTextProviderService, windowBounds, hWnd);
+                vm.CloseOverlay = () => _selectionOverlayActive = false;
+                await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
-                    int hintCount = session.Hints?.Count ?? 0;
-                    LogService.Info($"LineNav: enumeration complete, {hintCount} hints found");
-
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        vm.PopulateHints(session, _hintLabelService);
-                        LogService.Info($"LineNav: PopulateHints done, IsLoading={vm.IsLoading}, IsEmpty={vm.IsEmpty}");
-                    });
-                }
-                else
-                {
-                    LogService.Warn("LineNav: session was null, closing overlay");
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        vm.CloseOverlay?.Invoke();
-                    });
-                }
+                    _showSelectionModeOverlay(vm);
+                });
+                LogService.Info("FindText: overlay shown (empty search bar)");
             }
             catch (Exception ex)
             {
-                LogService.Error("LineNav: exception in handler", ex);
-                if (vm != null)
-                {
-                    await Application.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        vm.CloseOverlay?.Invoke();
-                    });
-                }
-            }
-        }
-
-        /// <summary>
-        /// Handles hint resolution from the line navigation overlay.
-        /// For navigation (copyModifierHeld=false): closes overlay, moves cursor to hint center.
-        /// For copy (copyModifierHeld=true): opens selection mode overlay (US3).
-        /// </summary>
-        private void HandleLineHintResolved(TextLineHint hint, bool copyModifierHeld)
-        {
-            _lineOverlayActive = false;
-
-            if (!copyModifierHeld)
-            {
-                // Navigation only — move cursor to the center of the text line
-                System.Threading.Tasks.Task.Run(() => hint.MovePointerToCenter());
-            }
-            else
-            {
-                // Copy mode: open selection mode overlay
-                // Enumerate lines on background thread to avoid blocking UI
-                _ = Task.Run(async () =>
-                {
-                    var session = await _lineHintProviderService.EnumLineHintsAsync(hint.OwningWindow);
-                    if (session != null && session.Hints.Count > 0)
-                    {
-                        var allLines = (IReadOnlyList<TextLineHint>)session.Hints;
-                        var windowBounds = session.OwningWindowBounds;
-
-                        await Application.Current.Dispatcher.InvokeAsync(() =>
-                        {
-                            var selectionVm = new SelectionModeViewModel(
-                                hint, allLines, windowBounds, _clipboardService);
-                            _showSelectionModeOverlay(selectionVm);
-                        });
-                    }
-                });
+                LogService.Error("FindText: exception in handler", ex);
+                _selectionOverlayActive = false;
             }
         }
 

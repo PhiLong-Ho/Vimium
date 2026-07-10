@@ -27,6 +27,15 @@
     <SolidColorBrush x:Key="OverlayLoadingForegroundBrush" Color="#FFFFFF" />
     <SolidColorBrush x:Key="OverlayMatchStringForegroundBrush" Color="#FFFFFF" />
 
+    <!-- ── Find-mode overlay brushes ─────────────────────── -->
+
+    <SolidColorBrush x:Key="FindSearchBarBackgroundBrush" Color="#E5222222" />
+    <SolidColorBrush x:Key="FindSearchBarForegroundBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="FindSearchBarCountBrush" Color="#CCCCCC" />
+    <SolidColorBrush x:Key="FindMatchHighlightBrush" Color="#59FFEB3B" />
+    <SolidColorBrush x:Key="FindMatchActiveHighlightBrush" Color="#78FF9800" />
+    <SolidColorBrush x:Key="FindMatchBorderBrush" Color="#96FF9800" />
+
     <!-- ── Implicit text defaults ─────────────────────────── -->
 
     <Style TargetType="TextBlock">

@@ -18,7 +18,13 @@ public class KeyboardSettingsViewModel : NotifyPropertyChanged
     public string OverlayModifier
     {
         get => _config.OverlayModifier;
-        set => _config.OverlayModifier = value;
+        set
+        {
+            // Prevent duplicate hotkey with find-text mode
+            if (value == _config.LineNavigationModifier)
+                return;
+            _config.OverlayModifier = value;
+        }
     }
 
     public string TaskbarModifier
@@ -27,6 +33,11 @@ public class KeyboardSettingsViewModel : NotifyPropertyChanged
         set => _config.TaskbarModifier = value;
     }
 
+    /// <summary>
+    /// Activation hotkey for find-and-navigate (Ctrl+F style) mode. Bound to the
+    /// "Find Text" row in Options. Stored under the legacy LineNavigationModifier
+    /// config key for backward compatibility.
+    /// </summary>
     public string LineNavigationModifier
     {
         get => _config.LineNavigationModifier;

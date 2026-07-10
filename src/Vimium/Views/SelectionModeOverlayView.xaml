@@ -15,30 +15,60 @@
         <SolidColorBrush Color="Transparent" />
     </local:ForegroundWindow.Background>
     <Grid>
-        <Canvas x:Name="layoutCanvas" Background="Transparent">
-            <!-- Text rendering and overlays managed in code-behind -->
-        </Canvas>
-        <!-- Copy confirmation toast -->
-        <Border x:Name="CopiedToast"
+        <!-- Canvas for match highlights, positioned absolutely from code-behind -->
+        <Canvas x:Name="layoutCanvas" Background="Transparent" />
+
+        <!-- Search bar at bottom of overlay (always visible while active) -->
+        <Border x:Name="SearchBar"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
-                Background="#333333"
-                CornerRadius="4"
-                Padding="16,8"
-                Margin="0,0,0,40"
-                Visibility="Collapsed">
-            <Border.Resources>
-                <Storyboard x:Key="FadeOutStoryboard">
-                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                     From="1.0" To="0.0" Duration="0:0:0.5"
-                                     BeginTime="0:0:0.3" />
-                </Storyboard>
-            </Border.Resources>
-            <TextBlock Text="Copied!"
-                       Foreground="#FFFFFF"
-                       FontSize="14"
-                       FontWeight="Bold"
-                       FontFamily="Segoe UI, Helvetica, Arial" />
+                Background="{DynamicResource FindSearchBarBackgroundBrush}"
+                CornerRadius="6"
+                Padding="12,6"
+                Margin="0,0,0,60"
+                MinWidth="220">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <!-- Search query display (read-only; keyboard hook drives input) -->
+                    <TextBlock x:Name="SearchQueryText"
+                               Foreground="{DynamicResource FindSearchBarForegroundBrush}"
+                               FontSize="16"
+                               FontFamily="Segoe UI, Consolas, monospace"
+                               VerticalAlignment="Center"
+                               MinWidth="100" />
+                    <!-- Blinking cursor in search bar -->
+                    <Border x:Name="SearchCursor"
+                            Width="1.5"
+                            Height="18"
+                            Background="{DynamicResource FindSearchBarForegroundBrush}"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center" />
+                    <!-- Loading spinner (visible while IsSearching) -->
+                    <TextBlock x:Name="LoadingSpinner"
+                               Text="⏳"
+                               Foreground="{DynamicResource FindSearchBarCountBrush}"
+                               FontSize="12"
+                               VerticalAlignment="Center"
+                               Margin="0,0,6,0"
+                               Visibility="Collapsed" />
+                    <!-- Match count label -->
+                    <TextBlock x:Name="MatchCountLabel"
+                               Foreground="{DynamicResource FindSearchBarCountBrush}"
+                               FontSize="12"
+                               FontFamily="Segoe UI"
+                               VerticalAlignment="Center"
+                               Text="" />
+                </StackPanel>
+                <!-- Timeout / status tip (visible when SearchTimedOut is true) -->
+                <TextBlock x:Name="StatusTipLabel"
+                           Foreground="{DynamicResource FindSearchBarCountBrush}"
+                           FontSize="10"
+                           FontFamily="Segoe UI"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Center"
+                           Margin="0,4,0,0"
+                           Visibility="Collapsed" />
+            </StackPanel>
         </Border>
     </Grid>
 </local:ForegroundWindow>

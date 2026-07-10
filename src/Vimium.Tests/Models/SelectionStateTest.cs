@@ -1,207 +1,119 @@
-using Vimium.Models;
-using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Input;
+using Vimium.Models;
+using Xunit;
 
 namespace Vimium.Tests.Models;
 
 public class SelectionStateTest
 {
-    private static TextLineHint CreateHint(string text)
+    private static SearchResult Result(string text) => new SearchResult
     {
-        return new TextLineHint(new IntPtr(1), new Rect(0, 0, 200, 20), text);
-    }
+        Text = text,
+        BoundingRect = new Rect(0, 0, 60, 18),
+        Source = SearchResultSource.TextPattern
+    };
 
-    private static IReadOnlyList<TextLineHint> CreateLines()
+    private static IReadOnlyList<SearchResult> Results(int n)
     {
-        return new List<TextLineHint>
-        {
-            CreateHint("First line of text"),
-            CreateHint("Second line with hello world"),
-            CreateHint("Third line here"),
-        };
+        var list = new List<SearchResult>();
+        for (int i = 0; i < n; i++) list.Add(Result($"match{i}"));
+        return list;
     }
 
     [Fact]
-    public void Constructor_InitializesCorrectly()
+    public void InitialState_EmptyQueryNoMatches()
     {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
-
-        Assert.Equal(0, state.CursorPosition);
-        Assert.Null(state.SelectionStart);
-        Assert.Null(state.SelectionEnd);
+        var state = new SelectionState(new IntPtr(1));
         Assert.Equal("", state.SearchQuery);
         Assert.Empty(state.SearchMatches);
         Assert.Equal(0, state.ActiveMatchIndex);
+        Assert.False(state.HasMatches);
+        Assert.Null(state.ActiveMatch);
     }
 
     [Fact]
-    public void HandleArrow_Right_MovesCursorForward()
+    public void SetMatches_PopulatesAndActivatesFirst()
     {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
+        var state = new SelectionState(IntPtr.Zero);
+        state.SearchQuery = "match";
+        state.SetMatches(Results(3));
 
-        state.HandleArrow(Key.Right);
-        Assert.Equal(1, state.CursorPosition);
-    }
-
-    [Fact]
-    public void HandleArrow_Left_AtStart_StaysAtZero()
-    {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
-
-        state.HandleArrow(Key.Left);
-        Assert.Equal(0, state.CursorPosition);
-    }
-
-    [Fact]
-    public void HandleHome_MovesToLineStart()
-    {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
-
-        state.HandleArrow(Key.Right);
-        state.HandleArrow(Key.Right);
-        Assert.Equal(2, state.CursorPosition);
-
-        state.HandleHome();
-        Assert.Equal(0, state.CursorPosition);
-    }
-
-    [Fact]
-    public void HandleEnd_MovesToLineEnd()
-    {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
-
-        state.HandleEnd();
-        Assert.Equal("First line of text".Length, state.CursorPosition);
-    }
-
-    [Fact]
-    public void Search_FindsMatches()
-    {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
-
-        state.UpdateSearch("line");
-
-        Assert.Equal("line", state.SearchQuery);
-        Assert.NotEmpty(state.SearchMatches);
+        Assert.Equal(3, state.SearchMatches.Count);
         Assert.Equal(0, state.ActiveMatchIndex);
+        Assert.True(state.SearchMatches[0].IsActive);
+        Assert.False(state.SearchMatches[1].IsActive);
+        Assert.Equal("match0", state.ActiveMatch!.SourceText);
     }
 
     [Fact]
-    public void Search_NoMatches_KeepsCursorUnchanged()
+    public void SetMatches_Empty_ClearsMatches()
     {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
-
-        var originalPosition = state.CursorPosition;
-        state.UpdateSearch("zzzznotfound");
-
+        var state = new SelectionState(IntPtr.Zero);
+        state.SetMatches(Results(2));
+        state.SetMatches(Array.Empty<SearchResult>());
         Assert.Empty(state.SearchMatches);
-        Assert.Equal(originalPosition, state.CursorPosition);
+        Assert.False(state.HasMatches);
     }
 
     [Fact]
-    public void HandleTab_CyclesMatches_Forward()
+    public void CycleActive_WrapsForward()
     {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[1], lines); // "Second line with hello world"
+        var state = new SelectionState(IntPtr.Zero);
+        state.SetMatches(Results(3));
 
-        state.UpdateSearch("line");
-
-        var matchCount = state.SearchMatches.Count;
-        if (matchCount > 1)
-        {
-            Assert.Equal(0, state.ActiveMatchIndex);
-            state.HandleTab(false); // forward
-            Assert.Equal(1, state.ActiveMatchIndex);
-            state.HandleTab(false); // forward
-            Assert.Equal(2 % matchCount, state.ActiveMatchIndex);
-        }
+        Assert.Equal(0, state.ActiveMatchIndex);
+        state.CycleActive(false); Assert.Equal(1, state.ActiveMatchIndex);
+        state.CycleActive(false); Assert.Equal(2, state.ActiveMatchIndex);
+        state.CycleActive(false); Assert.Equal(0, state.ActiveMatchIndex); // wrap
+        Assert.True(state.SearchMatches[0].IsActive);
+        Assert.False(state.SearchMatches[2].IsActive);
     }
 
     [Fact]
-    public void HandleTab_WrapsAround()
+    public void CycleActive_Shift_WrapsBackward()
     {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
+        var state = new SelectionState(IntPtr.Zero);
+        state.SetMatches(Results(3));
 
-        state.UpdateSearch("line");
-
-        var matchCount = state.SearchMatches.Count;
-        if (matchCount > 0)
-        {
-            // Go past the end — should wrap
-            for (int i = 0; i < matchCount; i++)
-                state.HandleTab(false);
-
-            Assert.Equal(0, state.ActiveMatchIndex);
-        }
+        state.CycleActive(true); // from 0 backward → last
+        Assert.Equal(2, state.ActiveMatchIndex);
+        Assert.True(state.SearchMatches[2].IsActive);
     }
 
     [Fact]
-    public void ShiftArrow_ExtendsSelection()
+    public void CycleActive_NoMatches_NoOp()
     {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
-
-        state.HandleShiftArrow(Key.Right);
-        Assert.Equal(1, state.CursorPosition);
-        Assert.NotNull(state.SelectionStart);
-        Assert.Equal(0, state.SelectionStart);
-        Assert.Equal(1, state.SelectionEnd);
-
-        state.HandleShiftArrow(Key.Right);
-        Assert.Equal(2, state.CursorPosition);
-        Assert.Equal(2, state.SelectionEnd);
+        var state = new SelectionState(IntPtr.Zero);
+        state.CycleActive(false);
+        state.CycleActive(true);
+        Assert.Equal(0, state.ActiveMatchIndex);
+        Assert.Empty(state.SearchMatches);
     }
 
     [Fact]
-    public void SelectedText_ReturnsCorrectSubstring()
+    public void IsSearching_FlagToggles()
     {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines); // "First line of text"
-
-        // Select "First"
-        state.HandleShiftArrow(Key.Right);
-        state.HandleShiftArrow(Key.Right);
-        state.HandleShiftArrow(Key.Right);
-        state.HandleShiftArrow(Key.Right);
-        state.HandleShiftArrow(Key.Right);
-
-        Assert.Equal("First", state.SelectedText);
+        var state = new SelectionState(IntPtr.Zero);
+        Assert.False(state.IsSearching);
+        state.IsSearching = true;
+        Assert.True(state.IsSearching);
     }
 
     [Fact]
-    public void HasSelection_TrueWhenSelectionActive()
+    public void MatchCountText_FormatsCorrectly()
     {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
+        var state = new SelectionState(IntPtr.Zero);
+        Assert.Equal("", state.MatchCountText);
 
-        Assert.False(state.HasSelection);
+        state.SearchQuery = "hello";
+        Assert.Equal("0 matches", state.MatchCountText);
 
-        state.HandleShiftArrow(Key.Right);
-        Assert.True(state.HasSelection);
-    }
+        state.SetMatches(Results(5));
+        Assert.Equal("1 of 5", state.MatchCountText);
 
-    [Fact]
-    public void HandleBackspace_RemovesLastSearchChar()
-    {
-        var lines = CreateLines();
-        var state = new SelectionState(lines[0], lines);
-
-        state.UpdateSearch("li");
-
-        // Simulate backspace by updating search with one fewer char
-        state.UpdateSearch("l");
-
-        Assert.Equal("l", state.SearchQuery);
+        state.CycleActive(false);
+        Assert.Equal("2 of 5", state.MatchCountText);
     }
 }

@@ -1,16 +1,16 @@
-# Graph Report - Vimium  (2026-07-05)
+# Graph Report - Vimium  (2026-07-09)
 
 ## Corpus Check
-- 101 files · ~53,378 words
+- 131 files · ~76,782 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 875 nodes · 992 edges · 84 communities (74 shown, 10 thin omitted)
+- 1278 nodes · 1568 edges · 119 communities (100 shown, 19 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `93cb9719`
+- Built from commit: `9ed3e25d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -90,47 +90,82 @@
 - [[_COMMUNITY_Community 78|Community 78]]
 - [[_COMMUNITY_Community 79|Community 79]]
 - [[_COMMUNITY_Community 80|Community 80]]
+- [[_COMMUNITY_Community 84|Community 84]]
+- [[_COMMUNITY_Community 85|Community 85]]
+- [[_COMMUNITY_Community 86|Community 86]]
+- [[_COMMUNITY_Community 87|Community 87]]
+- [[_COMMUNITY_Community 88|Community 88]]
+- [[_COMMUNITY_Community 89|Community 89]]
+- [[_COMMUNITY_Community 90|Community 90]]
+- [[_COMMUNITY_Community 91|Community 91]]
+- [[_COMMUNITY_Community 92|Community 92]]
+- [[_COMMUNITY_Community 93|Community 93]]
+- [[_COMMUNITY_Community 94|Community 94]]
+- [[_COMMUNITY_Community 95|Community 95]]
+- [[_COMMUNITY_Community 96|Community 96]]
+- [[_COMMUNITY_Community 97|Community 97]]
+- [[_COMMUNITY_Community 98|Community 98]]
+- [[_COMMUNITY_Community 99|Community 99]]
+- [[_COMMUNITY_Community 100|Community 100]]
+- [[_COMMUNITY_Community 101|Community 101]]
+- [[_COMMUNITY_Community 102|Community 102]]
+- [[_COMMUNITY_Community 103|Community 103]]
+- [[_COMMUNITY_Community 104|Community 104]]
+- [[_COMMUNITY_Community 105|Community 105]]
+- [[_COMMUNITY_Community 106|Community 106]]
+- [[_COMMUNITY_Community 107|Community 107]]
+- [[_COMMUNITY_Community 108|Community 108]]
+- [[_COMMUNITY_Community 109|Community 109]]
+- [[_COMMUNITY_Community 110|Community 110]]
+- [[_COMMUNITY_Community 111|Community 111]]
+- [[_COMMUNITY_Community 112|Community 112]]
+- [[_COMMUNITY_Community 113|Community 113]]
+- [[_COMMUNITY_Community 114|Community 114]]
+- [[_COMMUNITY_Community 115|Community 115]]
+- [[_COMMUNITY_Community 116|Community 116]]
+- [[_COMMUNITY_Community 117|Community 117]]
+- [[_COMMUNITY_Community 118|Community 118]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `User32` - 25 edges
-2. `DllImport` - 21 edges
-3. `IntPtr` - 18 edges
-4. `Hands-On Guide: Spec-Driven Development with GitHub Spec Kit and Claude Code` - 17 edges
-5. `ShellViewModel` - 16 edges
-6. `ConfigService` - 15 edges
-7. `Tasks: [FEATURE NAME]` - 13 edges
-8. `UiAutomationHintProviderService` - 13 edges
-9. `HotKeyTest` - 12 edges
-10. `OverlayViewModel` - 12 edges
+1. `User32` - 27 edges
+2. `DllImport` - 23 edges
+3. `IntPtr` - 20 edges
+4. `ShellViewModel` - 20 edges
+5. `UiAutomationLineHintProviderService` - 19 edges
+6. `HintLabelServiceTest` - 17 edges
+7. `SelectionModeViewModel` - 17 edges
+8. `Hands-On Guide: Spec-Driven Development with GitHub Spec Kit and Claude Code` - 17 edges
+9. `Review: Hands-On Guide — Spec-Driven Development with GitHub Spec Kit and Claude Code` - 16 edges
+10. `SelectionStateTest` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `OverlayViewModel` --references--> `ConfigService`  [EXTRACTED]
-  src/Vimium/ViewModels/OverlayViewModel.cs → src/Vimium/ViewModels/OptionsViewModel.cs
+- `OverlayViewModel` --references--> `ObservableCollection`  [EXTRACTED]
+  src/Vimium/ViewModels/OverlayViewModel.cs → src/Vimium/ViewModels/LineNavigationOverlayViewModel.cs
 - `UiAutomationHintProviderService` --implements--> `IHintProviderService`  [EXTRACTED]
   src/Vimium/Services/UiAutomationHintProviderService.cs → src/Vimium/ViewModels/ShellViewModel.cs
 - `UiAutomationHintProviderService` --implements--> `IDebugHintProviderService`  [EXTRACTED]
   src/Vimium/Services/UiAutomationHintProviderService.cs → src/Vimium/ViewModels/ShellViewModel.cs
+- `OverlayViewModel` --references--> `ConfigService`  [EXTRACTED]
+  src/Vimium/ViewModels/OverlayViewModel.cs → src/Vimium/ViewModels/OptionsViewModel.cs
 - `UiAutomationHintProviderService` --implements--> `IDebugHintProviderService`  [EXTRACTED]
   src/Vimium/Services/UiAutomationHintProviderService.cs → src/HuntAndPeck/ViewModels/ShellViewModel.cs
-- `OptionsViewModel` --references--> `string`  [EXTRACTED]
-  src/Vimium/ViewModels/OptionsViewModel.cs → src/HuntAndPeck/ViewModels/OptionsViewModel.cs
 
 ## Import Cycles
 - None detected.
 
-## Communities (84 total, 10 thin omitted)
+## Communities (119 total, 19 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.14
-Nodes (11): MarshalAs, User32, Vimium.NativeMethods, POINT, DllImport, int, IntPtr, LowLevelKeyboardProc (+3 more)
+Cohesion: 0.13
+Nodes (12): DllImport, LowLevelKeyboardProc, MarshalAs, User32, Vimium.NativeMethods, POINT, int, IntPtr (+4 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.05
-Nodes (44): DebugHint, Func, Hint, IUIAutomation, IUIAutomationExpandCollapsePattern, IUIAutomationInvokePattern, IUIAutomationSelectionItemPattern, IUIAutomationTogglePattern (+36 more)
+Cohesion: 0.34
+Nodes (9): Func, IUIAutomation, UiAutomationHintProviderService, HintSession, IntPtr, Task, HintSession, IntPtr (+1 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.15
-Nodes (10): Brush, ObservableCollection, PropertyChangedEventArgs, Rect, bool, Rect, bool, HuntAndPeck.ViewModels (+2 more)
+Nodes (9): Brush, PropertyChangedEventArgs, Rect, bool, Rect, bool, HuntAndPeck.ViewModels, OverlayViewModel (+1 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.09
@@ -149,32 +184,32 @@ Cohesion: 0.08
 Nodes (25): 1. Initialize Analysis Context, 2. Load Artifacts (Progressive Disclosure), 3. Build Semantic Models, 4. Detection Passes (Token-Efficient Analysis), 5. Severity Assignment, 6. Produce Compact Analysis Report, 7. Provide Next Actions, 8. Offer Remediation (+17 more)
 
 ### Community 7 - "Community 7"
-Cohesion: 0.12
-Nodes (14): Action, EventArgs, IDebugHintProviderService, IHintProviderService, bool, EventArgs, IDebugHintProviderService, IHintLabelService (+6 more)
+Cohesion: 0.06
+Nodes (34): Dependencies & Execution Order, Format: `[ID] [P?] [Story] Description`, Implementation for Foundational, Implementation for User Story 1, Implementation for User Story 2, Implementation for User Story 3, Implementation for User Story 4, Implementation for User Story 5 (+26 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.12
-Nodes (13): Application, DebugOverlayViewModel, HintLabelService, App, HuntAndPeck, KeyListenerService, OptionsViewModel, OverlayViewModel (+5 more)
+Cohesion: 0.09
+Nodes (16): Application, DebugOverlayViewModel, App, HuntAndPeck, KeyListenerService, LineNavigationOverlayViewModel, OptionsViewModel, OverlayViewModel (+8 more)
 
 ### Community 9 - "Community 9"
-Cohesion: 0.11
-Nodes (13): Form, HotKey, IKeyListenerService, int, HotKey, HuntAndPeck.Services.Interfaces, IKeyListenerService, Vimium.Services.Interfaces (+5 more)
+Cohesion: 0.05
+Nodes (31): Form, HotKey, IDebugHintProviderService, IHintProviderService, IKeyListenerService, int, HotKey, HuntAndPeck.Services.Interfaces (+23 more)
 
 ### Community 10 - "Community 10"
-Cohesion: 0.05
-Nodes (27): CancelEventArgs, DispatcherTimer, DrawingContext, KeyboardHookService, KeyDownEventArgs, KeyEventArgs, MouseButtonEventArgs, RoutedEventArgs (+19 more)
+Cohesion: 0.15
+Nodes (9): CancelEventArgs, DrawingContext, bool, EventArgs, bool, EventArgs, ForegroundWindow, HuntAndPeck.Views (+1 more)
 
 ### Community 11 - "Community 11"
 Cohesion: 0.18
 Nodes (7): ICommand, Predicate, Action, Action, DelegateCommand, HuntAndPeck.ViewModels, Vimium.ViewModels
 
 ### Community 12 - "Community 12"
-Cohesion: 0.16
-Nodes (16): Added, Added, Added, Added, Changed, Changed, Changed, Changelog (+8 more)
+Cohesion: 0.14
+Nodes (18): Added, Added, Added, Added, Added, Changed, Changed, Changed (+10 more)
 
 ### Community 13 - "Community 13"
-Cohesion: 0.19
-Nodes (12): Building, Command-line, Download, Features, How to configure, How to use, Install (auto-start + Start menu shortcut), Interaction modes (+4 more)
+Cohesion: 0.18
+Nodes (12): Building, Command-line, Features, How to configure, How to use, Install (auto-start + Start menu shortcut), Interaction modes, License & Credits (+4 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.24
@@ -193,8 +228,8 @@ Cohesion: 0.33
 Nodes (4): Kernel32, Vimium.NativeMethods, DllImport, IntPtr
 
 ### Community 18 - "Community 18"
-Cohesion: 0.18
-Nodes (8): HuntAndPeck.Extensions, IEnumerableTExtensions, Vimium.Extensions, IEnumerable, Lazy, ConfigService, T, VimiumConfig
+Cohesion: 0.15
+Nodes (10): HuntAndPeck.Extensions, IEnumerableTExtensions, Vimium.Extensions, IEnumerable, Lazy, ConfigService, Action, string (+2 more)
 
 ### Community 19 - "Community 19"
 Cohesion: 0.22
@@ -209,8 +244,8 @@ Cohesion: 0.38
 Nodes (4): HexToColorConverter, CultureInfo, IValueConverter, Type
 
 ### Community 22 - "Community 22"
-Cohesion: 0.33
-Nodes (4): Fact, HintLabelServiceTest, HuntAndPeck.Tests.Services, Vimium.Tests.Services
+Cohesion: 0.17
+Nodes (4): HintLabelServiceTest, HuntAndPeck.Tests.Services, Fact, HintLabelService
 
 ### Community 23 - "Community 23"
 Cohesion: 0.29
@@ -225,8 +260,8 @@ Cohesion: 0.50
 Nodes (4): ApplicationSettingsBase, HuntAndPeck.Properties, Settings, Vimium.Properties
 
 ### Community 26 - "Community 26"
-Cohesion: 0.40
-Nodes (4): Dictionary, HuntAndPeck.Services, UiAutomationPatternIds, Vimium.Services
+Cohesion: 0.22
+Nodes (12): ILineHintProviderService, IUIAutomationCondition, IUIAutomationElement, IUIAutomationTextPattern, IUIAutomationTextRangeArray, List, UiAutomationLineHintProviderService, IntPtr (+4 more)
 
 ### Community 27 - "Community 27"
 Cohesion: 0.50
@@ -245,8 +280,8 @@ Cohesion: 0.50
 Nodes (3): DebugHintViewModel, HuntAndPeck.ViewModels, Vimium.ViewModels
 
 ### Community 32 - "Community 32"
-Cohesion: 0.33
-Nodes (5): Development Workflow: Spec-Driven, Key Tools, MCP Tools: code-review-graph, When to use graph tools FIRST, Workflow
+Cohesion: 0.40
+Nodes (4): Key Tools, MCP Tools: code-review-graph, When to use graph tools FIRST, Workflow
 
 ### Community 41 - "Community 41"
 Cohesion: 0.07
@@ -269,8 +304,8 @@ Cohesion: 0.40
 Nodes (4): Debug Issue, Steps, Tips, Token Efficiency Rules
 
 ### Community 51 - "Community 51"
-Cohesion: 0.22
-Nodes (8): 1. SPEC — Create or update the spec document, 2. PLAN — Review the spec with the user, 3. BUILD — Implement phase by phase, 4. CHECK — Verify against the spec, New Requirements Mid-Cycle, Spec-Driven Development, The Cycle, Token Efficiency
+Cohesion: 0.08
+Nodes (24): 1. Keyboard Navigation, 2. Font Size & Localization, 3. Modernized Layout, 4. Theme System, 5. JSON Configuration, 6. Immediate Apply (Live Settings), 7. Hotkey Configuration, 8. Project Rename: HuntAndPeck → Vimium (+16 more)
 
 ### Community 52 - "Community 52"
 Cohesion: 0.40
@@ -289,28 +324,28 @@ Cohesion: 0.29
 Nodes (6): bool, string, string, HintViewModel, HuntAndPeck.ViewModels, Vimium.ViewModels
 
 ### Community 57 - "Community 57"
-Cohesion: 0.29
-Nodes (5): HintLabelService, HuntAndPeck.Services, Vimium.Services, IList, IList
+Cohesion: 0.09
+Nodes (18): char, Dictionary, IHintLabelService, HintLabelService, HuntAndPeck.Services, Vimium.Services, HuntAndPeck.Services, UiAutomationPatternIds (+10 more)
 
 ### Community 58 - "Community 58"
-Cohesion: 0.33
-Nodes (4): INotifyPropertyChanged, HuntAndPeck.ViewModels, NotifyPropertyChanged, Vimium.ViewModels
+Cohesion: 0.17
+Nodes (9): INotifyPropertyChanged, Rect, Rect, DebugOverlayViewModel, HuntAndPeck.ViewModels, Vimium.ViewModels, HuntAndPeck.ViewModels, NotifyPropertyChanged (+1 more)
 
 ### Community 59 - "Community 59"
-Cohesion: 0.40
-Nodes (3): ConfigService, PropertyChangedEventArgs, GeneralSettingsViewModel
+Cohesion: 0.24
+Nodes (4): SelectionStateTest, Fact, IReadOnlyList, TextLineHint
 
 ### Community 60 - "Community 60"
-Cohesion: 0.33
-Nodes (5): Rect, Rect, DebugOverlayViewModel, HuntAndPeck.ViewModels, Vimium.ViewModels
+Cohesion: 0.17
+Nodes (10): SearchMatch, bool, DispatcherTimer, EventArgs, KeyboardHookService, KeyDownEventArgs, Rect, RoutedEventArgs (+2 more)
 
 ### Community 61 - "Community 61"
 Cohesion: 0.40
 Nodes (4): HintSession, HintSession, IHintLabelService, IHintLabelService
 
 ### Community 62 - "Community 62"
-Cohesion: 0.33
-Nodes (4): NotifyPropertyChanged, ConfigService, PropertyChangedEventArgs, KeyboardSettingsViewModel
+Cohesion: 0.18
+Nodes (7): NotifyPropertyChanged, ConfigService, PropertyChangedEventArgs, ConfigService, PropertyChangedEventArgs, GeneralSettingsViewModel, KeyboardSettingsViewModel
 
 ### Community 63 - "Community 63"
 Cohesion: 0.08
@@ -333,8 +368,8 @@ Cohesion: 0.15
 Nodes (12): Assumptions, Edge Cases, Feature Specification: [FEATURE NAME], Functional Requirements, Key Entities *(include if feature involves data)*, Measurable Outcomes, Requirements *(mandatory)*, Success Criteria *(mandatory)* (+4 more)
 
 ### Community 68 - "Community 68"
-Cohesion: 0.18
-Nodes (10): Core Principles, Governance, [PRINCIPLE_1_NAME], [PRINCIPLE_2_NAME], [PRINCIPLE_3_NAME], [PRINCIPLE_4_NAME], [PRINCIPLE_5_NAME], [PROJECT_NAME] Constitution (+2 more)
+Cohesion: 0.11
+Nodes (17): Architecture Changes, Constitution Check, Enhanced View: SelectionModeOverlayView, Implementation Phases, Implementation Plan: Text Selection Mode (Redesigned), Phase 1: Teardown, Phase 2: Core, Phase 3: UI (+9 more)
 
 ### Community 69 - "Community 69"
 Cohesion: 0.18
@@ -380,25 +415,129 @@ Nodes (4): Outline, Post-Execution Checks, Pre-Execution Checks, User Input
 Cohesion: 0.40
 Nodes (4): [Category 1], [Category 2], [CHECKLIST TYPE] Checklist: [FEATURE NAME], Notes
 
+### Community 84 - "Community 84"
+Cohesion: 0.19
+Nodes (5): SelectionState, ClipboardService, Key, Rect, SelectionModeViewModel
+
+### Community 85 - "Community 85"
+Cohesion: 0.12
+Nodes (16): 10. Scope, Maturity, and Next Steps, 1. Completeness, 2. Clarity & Actionability, 3. Technical Accuracy, 4. Methodology Fidelity, 5. Real-World Practicality, 6. Team & Collaboration, 7. Verification & Quality (+8 more)
+
+### Community 86 - "Community 86"
+Cohesion: 0.13
+Nodes (14): Assumptions, Edge Cases, Feature Specification: Text Selection Mode, Functional Requirements, Key Entities, Redesign Rationale (2026-07-09), Requirements, Success Criteria (+6 more)
+
+### Community 87 - "Community 87"
+Cohesion: 0.25
+Nodes (3): SelectionState, Key, StringBuilder
+
+### Community 88 - "Community 88"
+Cohesion: 0.31
+Nodes (4): Fact, IReadOnlyList, TextLineHint, SelectionModeViewModelTest
+
+### Community 89 - "Community 89"
+Cohesion: 0.15
+Nodes (12): Prerequisites, Quickstart Validation Guide: Text Selection Mode (Redesigned), Validation Scenarios, VS-1: Activate text selection mode, VS-2: Search finds and highlights text, VS-3: Tab cycles through matches, VS-4: Arrow keys move cursor, VS-5: Shift+Arrow selects text (+4 more)
+
+### Community 90 - "Community 90"
+Cohesion: 0.17
+Nodes (9): DispatcherTimer, KeyboardHookService, KeyDownEventArgs, EventArgs, string, EventArgs, HuntAndPeck.Views, OverlayView (+1 more)
+
+### Community 91 - "Community 91"
+Cohesion: 0.17
+Nodes (8): bool, DispatcherTimer, EventArgs, KeyboardHookService, KeyDownEventArgs, RoutedEventArgs, string, LineNavigationOverlayView
+
+### Community 92 - "Community 92"
+Cohesion: 0.17
+Nodes (8): ObservableCollection, bool, ConfigService, IHintLabelService, LineNavigationSession, PropertyChangedEventArgs, Rect, LineNavigationOverlayViewModel
+
+### Community 93 - "Community 93"
+Cohesion: 0.25
+Nodes (5): Exception, long, LogService, object, string
+
+### Community 94 - "Community 94"
+Cohesion: 0.18
+Nodes (10): Core Principles, Development Workflow, Governance, I. MVVM Separation & Code Quality, II. Interface-Driven Services, III. Testing Standards, IV. User Experience Consistency, Technical Standards (+2 more)
+
+### Community 95 - "Community 95"
+Cohesion: 0.18
+Nodes (10): Core Principles, Development Workflow, Governance, I. MVVM Separation & Code Quality, II. Interface-Driven Services, III. Testing Standards, IV. User Experience Consistency, Technical Standards (+2 more)
+
+### Community 96 - "Community 96"
+Cohesion: 0.36
+Nodes (6): DebugHint, IUIAutomationElement, Rect, Hint, IUIAutomationElement, Rect
+
+### Community 97 - "Community 97"
+Cohesion: 0.22
+Nodes (5): Hint, DebugHint, HuntAndPeck.Models, Vimium.Models, TextLineHint
+
+### Community 98 - "Community 98"
+Cohesion: 0.25
+Nodes (7): Data Model: Text Selection Mode (Redesigned), Entities, Removed Entities, SearchMatch (unchanged), SelectionState (unchanged from original), TextLineRect (replaces TextLineHint), TextSource
+
+### Community 99 - "Community 99"
+Cohesion: 0.29
+Nodes (6): R1: How to reliably extract visible text from the foreground window?, R2: How to map character offsets to screen positions?, R3: How should the search bar overlay interact with the underlying window?, R4: Should we keep or remove the line hint overlay?, R5: What text content should be searchable?, Research: Text Selection Mode (Redesigned)
+
+### Community 100 - "Community 100"
+Cohesion: 0.38
+Nodes (4): ILineHintProviderService, IntPtr, LineNavigationSession, Task
+
+### Community 101 - "Community 101"
+Cohesion: 0.29
+Nodes (5): IUIAutomationInvokePattern, HuntAndPeck.Models, UiAutomationInvokeHint, Vimium.Models, Hint
+
+### Community 103 - "Community 103"
+Cohesion: 0.29
+Nodes (5): HuntAndPeck.Models, UiAutomationFocusHint, Vimium.Models, IUIAutomationElement, IUIAutomationElement
+
+### Community 104 - "Community 104"
+Cohesion: 0.33
+Nodes (3): RoutedEventArgs, HuntAndPeck.Views, ShellView
+
+### Community 105 - "Community 105"
+Cohesion: 0.33
+Nodes (5): Content Quality, Feature Readiness, Notes, Requirement Completeness, Specification Quality Checklist: Line Navigation Mode
+
+### Community 106 - "Community 106"
+Cohesion: 0.33
+Nodes (5): Interface Contracts: Text Selection Mode (Redesigned), Interfaces, ITextSourceProviderService (renamed from ILineHintProviderService), Removed Interfaces, SelectionModeViewModel (existing, enhanced)
+
+### Community 107 - "Community 107"
+Cohesion: 0.33
+Nodes (4): IUIAutomationExpandCollapsePattern, HuntAndPeck.Models, UiAutomationExpandCollapseHint, Vimium.Models
+
+### Community 108 - "Community 108"
+Cohesion: 0.33
+Nodes (4): IUIAutomationSelectionItemPattern, HuntAndPeck.Models, UiAutomationSelectHint, Vimium.Models
+
+### Community 109 - "Community 109"
+Cohesion: 0.33
+Nodes (4): IUIAutomationTogglePattern, HuntAndPeck.Models, UiAutomationToggleHint, Vimium.Models
+
+### Community 110 - "Community 110"
+Cohesion: 0.33
+Nodes (4): KeyEventArgs, HuntAndPeck.Views, OptionsView, Window
+
 ## Knowledge Gaps
-- **432 isolated node(s):** `User Input`, `Pre-Execution Checks`, `Goal`, `Operating Constraints`, `1. Initialize Analysis Context` (+427 more)
+- **589 isolated node(s):** `I. MVVM Separation & Code Quality`, `II. Interface-Driven Services`, `III. Testing Standards`, `IV. User Experience Consistency`, `V. Performance & Non-Blocking UI` (+584 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `ShellViewModel` connect `Community 7` to `Community 9`?**
-  _High betweenness centrality (0.071) - this node is a cross-community bridge._
-- **Why does `ConfigService` connect `Community 18` to `Community 58`, `Community 10`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
-- **Why does `Action` connect `Community 7` to `Community 18`?**
-  _High betweenness centrality (0.051) - this node is a cross-community bridge._
-- **What connects `User Input`, `Pre-Execution Checks`, `Goal` to the rest of the system?**
-  _432 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `UiAutomationHintProviderService` connect `Community 1` to `Community 96`, `Community 9`, `Community 116`?**
+  _High betweenness centrality (0.018) - this node is a cross-community bridge._
+- **Why does `KeyListenerService` connect `Community 9` to `Community 3`?**
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+- **What connects `I. MVVM Separation & Code Quality`, `II. Interface-Driven Services`, `III. Testing Standards` to the rest of the system?**
+  _589 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.14015151515151514 - nodes in this community are weakly interconnected._
-- **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.05048076923076923 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.13015873015873017 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
   _Cohesion score 0.09420289855072464 - nodes in this community are weakly interconnected._
+- **Should `Community 4` be split into smaller, more focused modules?**
+  _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._
+- **Should `Community 5` be split into smaller, more focused modules?**
+  _Cohesion score 0.10461538461538461 - nodes in this community are weakly interconnected._

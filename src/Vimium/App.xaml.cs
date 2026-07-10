@@ -21,7 +21,7 @@ namespace Vimium
     {
         private readonly SingleLaunchMutex _singleLaunchMutex = new SingleLaunchMutex();
         private readonly UiAutomationHintProviderService _hintProviderService = new UiAutomationHintProviderService();
-        private readonly UiAutomationLineHintProviderService _lineHintProviderService = new UiAutomationLineHintProviderService();
+        private readonly FindTextProviderService _findTextProviderService = new FindTextProviderService();
 
         private readonly HintLabelService _hintLabelService = new HintLabelService();
         private KeyListenerService _keyListenerService;
@@ -67,29 +67,20 @@ namespace Vimium
             view.Show();
         }
 
-        private void ShowLineNavigationOverlay(LineNavigationOverlayViewModel vm)
-        {
-            var view = new LineNavigationOverlayView
-            {
-                DataContext = vm
-            };
-            // Preserve any existing close action and chain view close
-            var existingClose = vm.CloseOverlay;
-            vm.CloseOverlay = () =>
-            {
-                existingClose?.Invoke();
-                view.Close();
-            };
-            view.Show();
-        }
-
         private void ShowSelectionModeOverlay(SelectionModeViewModel vm)
         {
             var view = new SelectionModeOverlayView
             {
                 DataContext = vm
             };
-            vm.CloseOverlay = () => view.Close();
+            // Chain the existing close action (e.g., resetting _selectionOverlayActive)
+            // with view close — don't overwrite it.
+            var existingClose = vm.CloseOverlay;
+            vm.CloseOverlay = () =>
+            {
+                existingClose?.Invoke();
+                view.Close();
+            };
             view.Show();
         }
 
@@ -123,51 +114,31 @@ namespace Vimium
 
             if (e.Args.Contains("/line-nav"))
             {
-                // Diagnostic mode: test line-navigation against the foreground window.
-                // Writes detailed results to debug.log and shows what was found.
+                // Diagnostic mode: open the find overlay against the foreground window.
                 var hWnd = User32.GetForegroundWindow();
                 Services.LogService.Info($"DIAG: /line-nav mode — testing hWnd=0x{hWnd:X}");
 
-                // Get window title
                 var title = new System.Text.StringBuilder(256);
                 NativeMethods.User32.GetWindowText(hWnd, title, title.Capacity);
                 Services.LogService.Info($"DIAG: Window title = \"{title}\"");
 
-                // Get window class
                 var className = new System.Text.StringBuilder(256);
                 NativeMethods.User32.GetClassName(hWnd, className, className.Capacity);
                 Services.LogService.Info($"DIAG: Window class = \"{className}\"");
 
-                var session = await _lineHintProviderService.EnumLineHintsAsync(hWnd);
-                if (session != null)
-                {
-                    int count = session.Hints?.Count ?? 0;
-                    Services.LogService.Info($"DIAG: Enumeration returned {count} hints");
-                    for (int i = 0; i < Math.Min(count, 5); i++)
-                    {
-                        var h = session.Hints[i];
-                        Services.LogService.Info($"DIAG:   Hint[{i}]: \"{h.TextContent.Substring(0, Math.Min(h.TextContent.Length, 80))}\" at {h.BoundingRectangle}");
-                    }
-                }
-                else
-                {
-                    Services.LogService.Warn("DIAG: Enumeration returned null session");
-                }
-
-                // Show the result briefly then exit
                 var rawBounds = new RECT();
                 User32.GetWindowRect(hWnd, ref rawBounds);
-                var vm = new ViewModels.LineNavigationOverlayViewModel((Rect)rawBounds);
-                vm.PopulateHints(session ?? new Models.LineNavigationSession { Hints = new List<Models.TextLineHint>(), OwningWindow = hWnd, OwningWindowBounds = (Rect)rawBounds }, _hintLabelService);
+                var vm = new ViewModels.SelectionModeViewModel(
+                    _findTextProviderService,
+                    (Rect)rawBounds,
+                    hWnd);
+                var view = new Views.SelectionModeOverlayView { DataContext = vm };
+                vm.CloseOverlay = () => view.Close();
+                view.Show();
 
-                var lineView = new Views.LineNavigationOverlayView { DataContext = vm };
-                vm.CloseOverlay = () => lineView.Close();
-                lineView.Show();
-
-                // Auto-close after 3 seconds
-                _ = Task.Delay(3000).ContinueWith(_ =>
+                _ = Task.Delay(5000).ContinueWith(_ =>
                 {
-                    Dispatcher.Invoke(() => lineView.Close());
+                    Dispatcher.Invoke(() => view.Close());
                     Dispatcher.Invoke(() => Current.Shutdown());
                 });
                 return;
@@ -243,14 +214,13 @@ namespace Vimium
 
                 var shellViewModel = new ShellViewModel(
                     ShowOverlay,
-                    ShowLineNavigationOverlay,
                     ShowSelectionModeOverlay,
                     ShowDebugOverlay,
                     ShowOptions,
                     _hintLabelService,
                     _hintProviderService,
                     _hintProviderService,
-                    _lineHintProviderService,
+                    _findTextProviderService,
                     _keyListenerService);
 
                 var shellView = new ShellView
