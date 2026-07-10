@@ -66,6 +66,26 @@ public class VimiumConfig
     /// </summary>
     public bool BenchmarkLogEnabled { get; set; } = true;
 
+    // ── Elevation ─────────────────────────────────────────────
+
+    /// <summary>
+    /// Whether the application should launch with administrator privileges.
+    /// When true (default), the app self-elevates on startup via the "runas"
+    /// verb. When false, it runs in the user's current privilege context.
+    /// Missing key on load defaults to true (preserves legacy always-elevated
+    /// behavior for upgrading users).
+    /// </summary>
+    /// <remarks>
+    /// Forced to always serialize (<see cref="JsonIgnoreCondition.Never"/>).
+    /// The class-wide <c>WhenWritingDefault</c> policy keys off the CLR type
+    /// default (<c>false</c> for bool), which would omit an explicit
+    /// <c>false</c> and silently re-default it to <c>true</c> on reload —
+    /// breaking the "disable admin mode" preference. Always writing the key
+    /// guarantees a chosen <c>false</c> round-trips correctly.
+    /// </remarks>
+    [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+    public bool RunAsAdministrator { get; set; } = true;
+
     // ── Factory ──────────────────────────────────────────────
 
     public static VimiumConfig Default => new();
@@ -89,7 +109,16 @@ public class VimiumConfig
         try
         {
             var config = JsonSerializer.Deserialize<VimiumConfig>(json, JsonOptions);
-            return config ?? Default;
+
+            if (config == null)
+                return Default;
+
+            // FR-008: Reset only the Theme field if it holds an unrecognized value
+            // (including the legacy "Skadi"). All other fields are preserved.
+            if (config.Theme is not ("Light" or "Dark" or "Arknights"))
+                config.Theme = "Light";
+
+            return config;
         }
         catch
         {

@@ -50,7 +50,7 @@ namespace Vimium
             var path = theme switch
             {
                 "Dark" => "Themes/DarkTheme.xaml",
-                "Skadi" => "Themes/SkadiTheme.xaml",
+                "Arknights" => "Themes/ArknightsTheme.xaml",
                 _ => "Themes/LightTheme.xaml",
             };
             dicts.Insert(0, new ResourceDictionary { Source = new Uri(path, UriKind.Relative) });
@@ -183,6 +183,16 @@ namespace Vimium
             }
             else
             {
+                // Runtime elevation (feature 005): the manifest now requests
+                // asInvoker, so elevation is decided here. When the user keeps
+                // admin mode enabled (default) and we are not already elevated,
+                // relaunch elevated via the "runas" verb and exit this instance.
+                if (ConfigService.Instance.RunAsAdministrator && !IsUserAdmin())
+                {
+                    RelaunchElevated();
+                    return;
+                }
+
                 // Prevent multiple startup in non-headless mode
                 if (_singleLaunchMutex.AlreadyRunning)
                 {
@@ -230,6 +240,55 @@ namespace Vimium
                 shellView.Show();
             }
             base.OnStartup(e);
+        }
+
+        /// <summary>
+        /// True when the current process is running with administrator rights
+        /// (member of the built-in Administrators role at a high integrity level).
+        /// </summary>
+        private static bool IsUserAdmin()
+        {
+            using var identity = System.Security.Principal.WindowsIdentity.GetCurrent();
+            var principal = new System.Security.Principal.WindowsPrincipal(identity);
+            return principal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
+        }
+
+        /// <summary>
+        /// Relaunches Vimium elevated using the "runas" verb, then shuts the
+        /// current (non-elevated) instance down. The single-instance mutex is
+        /// released first so the elevated instance can acquire it. If the user
+        /// declines the UAC prompt, <see cref="Process.Start(ProcessStartInfo)"/>
+        /// throws; we log and still shut down (the elevated instance never
+        /// started, so nothing is left running).
+        /// </summary>
+        private void RelaunchElevated()
+        {
+            try
+            {
+                var exePath = Process.GetCurrentProcess().MainModule?.FileName;
+
+                // Release our single-instance mutex so the elevated instance
+                // isn't blocked by this one during the brief shutdown overlap.
+                _singleLaunchMutex.Dispose();
+
+                if (!string.IsNullOrEmpty(exePath))
+                {
+                    var psi = new ProcessStartInfo
+                    {
+                        FileName = exePath,
+                        UseShellExecute = true,
+                        Verb = "runas",
+                    };
+                    Process.Start(psi);
+                }
+            }
+            catch (Exception ex)
+            {
+                // UAC declined or elevation failed — nothing to relaunch.
+                Debug.WriteLine("Elevation relaunch failed: " + ex);
+            }
+
+            Current.Shutdown();
         }
     }
 }

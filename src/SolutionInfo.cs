@@ -2,13 +2,13 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyVersionAttribute("1.3.0.0")]
-[assembly: AssemblyFileVersionAttribute("1.3.0.0")]
+[assembly: AssemblyVersionAttribute("1.4.0.0")]
+[assembly: AssemblyFileVersionAttribute("1.4.0.0")]
 [assembly: AssemblyProductAttribute("Vimium")]
 [assembly: AssemblyCopyrightAttribute("Copyright Zachary Sims")]
 [assembly: InternalsVisibleTo("Vimium.Tests")]
 namespace System {
     internal static class AssemblyVersionInformation {
-        internal const string Version = "1.3.0.0";
+        internal const string Version = "1.4.0.0";
     }
 }

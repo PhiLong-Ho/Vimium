@@ -8,8 +8,9 @@
                 <ResourceDictionary Source="Views/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Define the icon once globally -->
-            <BitmapImage x:Key="AppIcon" UriSource="/Resources/skadi.ico" />
+            <!-- Application icons: the active theme determines which is shown -->
+            <BitmapImage x:Key="AppIcon" UriSource="/Resources/keyboard.ico" />
+            <BitmapImage x:Key="FallbackIcon" UriSource="/Resources/keyboard.ico" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

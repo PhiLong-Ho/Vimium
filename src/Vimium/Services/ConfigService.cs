@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Vimium.Properties;
 using Vimium.Models;
 
@@ -58,7 +60,47 @@ public class ConfigService : INotifyPropertyChanged
             if (!SetProperty(_current.Theme, value, v => _current.Theme = v)) return;
             ApplyThemeHintDefaults(value);
             OnPropertyChanged(nameof(IsDirty));
+            OnPropertyChanged(nameof(AppIcon));
         }
+    }
+
+    /// <summary>
+    /// Application icon that changes with the active theme.
+    /// Returns the keyboard icon for Light/Dark and the Arknights icon for
+    /// the Arknights theme. Falls back to the keyboard icon on load failure.
+    /// </summary>
+    public ImageSource AppIcon => ResolveAppIcon();
+
+    // Lazy — defer BitmapImage creation until first WPF access (avoids
+    // crashing in test runs that lack a Dispatcher).
+    private static readonly Lazy<BitmapImage> KeyboardIcon = new(() =>
+        CreatePackIcon("pack://application:,,,/Resources/keyboard.ico"));
+
+    private static readonly Lazy<BitmapImage> SkadiIcon = new(() =>
+        CreatePackIcon("pack://application:,,,/Resources/skadi.ico"));
+
+    private static BitmapImage CreatePackIcon(string packUri)
+    {
+        var icon = new BitmapImage();
+        icon.BeginInit();
+        icon.UriSource = new Uri(packUri, UriKind.Absolute);
+        icon.CacheOption = BitmapCacheOption.OnLoad;
+        icon.EndInit();
+        icon.Freeze();
+        return icon;
+    }
+
+    private ImageSource ResolveAppIcon()
+    {
+        if (_current.Theme == "Arknights")
+        {
+            try { return SkadiIcon.Value; }
+            catch
+            {
+                LogService.Warn("Failed to load Arknights app icon, falling back to keyboard icon.");
+            }
+        }
+        return KeyboardIcon.Value;
     }
 
     /// <summary>Apply hint color defaults matching the theme's exact UI colors.</summary>
@@ -71,7 +113,7 @@ public class ConfigService : INotifyPropertyChanged
                 _current.HintInactiveBackground = "#1A1A1A"; // window background
                 _current.HintTextColor = "#F0F0F0";           // text primary
                 break;
-            case "Skadi":
+            case "Arknights":
                 _current.HintActiveBackground = "#152535";   // card background
                 _current.HintInactiveBackground = "#0D1B2A"; // window background
                 _current.HintTextColor = "#E8F4FF";           // text primary
@@ -136,6 +178,12 @@ public class ConfigService : INotifyPropertyChanged
     {
         get => _current.BenchmarkLogEnabled;
         set { if (SetProperty(_current.BenchmarkLogEnabled, value, v => _current.BenchmarkLogEnabled = v)) OnPropertyChanged(nameof(IsDirty)); }
+    }
+
+    public bool RunAsAdministrator
+    {
+        get => _current.RunAsAdministrator;
+        set { if (SetProperty(_current.RunAsAdministrator, value, v => _current.RunAsAdministrator = v)) OnPropertyChanged(nameof(IsDirty)); }
     }
 
     public string OverlayModifier

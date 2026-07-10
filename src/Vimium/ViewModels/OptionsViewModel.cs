@@ -29,6 +29,12 @@ internal class OptionsViewModel : NotifyPropertyChanged
 
     public string DisplayName { get; set; }
 
+    /// <summary>
+    /// Application version read from assembly metadata (compile-time const).
+    /// Displayed in the settings window footer. Format: "M.m.p.r" (e.g. "1.4.0.0").
+    /// </summary>
+    public string AppVersion => System.AssemblyVersionInformation.Version;
+
     // ── Sidebar ────────────────────────────────────────────
 
     public ObservableCollection<NotifyPropertyChanged> Pages { get; }

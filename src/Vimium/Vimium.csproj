@@ -17,13 +17,13 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.4.0.0</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Resources/skadi.ico</ApplicationIcon>
+    <ApplicationIcon>Resources/keyboard.ico</ApplicationIcon>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <!-- Bundle WPF native DLLs (PresentationNative, wpfgfx, etc.) inside the
@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\skadi.ico" />
+    <Resource Include="Resources\keyboard.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NativeMethods\NativeMethods.csproj" />

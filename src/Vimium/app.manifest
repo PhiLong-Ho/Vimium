@@ -5,18 +5,14 @@
     <security>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
         <!--
-          requireAdministrator makes hap.exe always run elevated. This lets it
-          enumerate and interact with other elevated ("Run as administrator")
-          applications, because both run at the same (high) integrity level.
-
-          Trade-offs vs uiAccess="true":
-            + No code signing or secure install location required.
-            + Works against elevated apps out of the box.
-            - A UAC prompt appears each launch (unless auto-start is configured
-              to bypass it, e.g. via a Task Scheduler task with highest privileges).
-            - User-scoped settings are stored under the elevated user profile.
+          asInvoker runs Vimium at the caller's integrity level (no UAC prompt at
+          launch). Elevation is now decided at runtime: when the RunAsAdministrator
+          config setting is true (the default), App.OnStartup self-elevates by
+          relaunching with the "runas" verb. When false, Vimium stays non-elevated.
+          This keeps the enterprise opt-out working while preserving the historical
+          always-elevated default for existing users.
         -->
-        <requestedExecutionLevel level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
       </requestedPrivileges>
     </security>
   </trustInfo>

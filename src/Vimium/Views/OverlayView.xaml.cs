@@ -31,8 +31,8 @@ namespace Vimium.Views
 
         private void OverlayView_OnLoaded(object sender, RoutedEventArgs e)
         {
-            // Show Skadi loading icon only for Skadi theme
-            if (ConfigService.Instance.Theme == "Skadi")
+            // Show Arknights loading icon only for Arknights theme
+            if (ConfigService.Instance.Theme == "Arknights")
             {
                 try
                 {

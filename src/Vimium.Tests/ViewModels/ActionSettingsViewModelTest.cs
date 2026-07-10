@@ -8,6 +8,7 @@ namespace Vimium.Tests.ViewModels;
 /// <summary>
 /// Tests for the combined Keyboard & Actions settings ViewModel.
 /// </summary>
+[Collection(ConfigSingletonCollection.Name)]
 public class ActionSettingsViewModelTest
 {
     public ActionSettingsViewModelTest()

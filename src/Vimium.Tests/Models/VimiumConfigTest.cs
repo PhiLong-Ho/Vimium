@@ -133,4 +133,65 @@ public class VimiumConfigTest
         Assert.Contains("\"lineNavigationModifier\"", json);
         Assert.Contains("\"copyModifier\"", json);
     }
+
+    // ── RunAsAdministrator (feature 005) ─────────────────────
+
+    [Fact]
+    public void RunAsAdministrator_DefaultsToTrue()
+    {
+        var cfg = VimiumConfig.Default;
+        Assert.True(cfg.RunAsAdministrator);
+    }
+
+    [Fact]
+    public void RunAsAdministrator_Roundtrips_WhenFalse()
+    {
+        var original = new VimiumConfig { RunAsAdministrator = false };
+
+        var json = original.ToJson();
+        var restored = VimiumConfig.FromJson(json);
+
+        Assert.False(restored.RunAsAdministrator);
+    }
+
+    [Fact]
+    public void RunAsAdministrator_AbsentKey_DefaultsToTrue()
+    {
+        // Simulates an upgrading user whose config predates the key.
+        var json = """{"fontSize": "16", "theme": "Dark"}""";
+        var cfg = VimiumConfig.FromJson(json);
+
+        Assert.True(cfg.RunAsAdministrator);
+    }
+
+    [Fact]
+    public void RunAsAdministrator_ExplicitFalse_IsPreserved()
+    {
+        var json = """{"runAsAdministrator": false}""";
+        var cfg = VimiumConfig.FromJson(json);
+
+        Assert.False(cfg.RunAsAdministrator);
+    }
+
+    [Fact]
+    public void RunAsAdministrator_Default_WrittenAsTrue()
+    {
+        // Forced to always serialize (JsonIgnoreCondition.Never) so an explicit
+        // false round-trips; the default true is therefore also written.
+        var cfg = VimiumConfig.Default;
+        var json = cfg.ToJson();
+
+        Assert.Contains("\"runAsAdministrator\"", json);
+        Assert.Contains("true", json);
+    }
+
+    [Fact]
+    public void RunAsAdministrator_False_WrittenAsCamelCase()
+    {
+        var cfg = new VimiumConfig { RunAsAdministrator = false };
+        var json = cfg.ToJson();
+
+        Assert.Contains("\"runAsAdministrator\"", json);
+        Assert.Contains("false", json);
+    }
 }

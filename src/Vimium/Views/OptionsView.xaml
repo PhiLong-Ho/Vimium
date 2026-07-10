@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:Vimium.ViewModels"
         xmlns:c="clr-namespace:Vimium.Converters"
+        xmlns:services="clr-namespace:Vimium.Services"
         Title="Vimium Settings" Height="600" Width="800"
         MinHeight="500" MinWidth="600"
         WindowStartupLocation="CenterOwner"
@@ -15,6 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <c:HexToColorConverter x:Key="HexToColorConverter" />
+            <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
 
             <!-- Page content templates — auto-selected by DataType -->
 
@@ -67,6 +69,26 @@
                                                Style="{StaticResource DescriptionStyle}"
                                                Margin="12,6,0,0" />
                                 </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Administrator Mode -->
+                        <Border Style="{StaticResource SettingsCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Administrator Mode" Style="{StaticResource SectionTitleStyle}" />
+                                <CheckBox Content="_Run as Administrator"
+                                          IsChecked="{Binding RunAsAdministrator}"
+                                          Foreground="{DynamicResource TextPrimaryBrush}"
+                                          FontSize="13" Margin="0,4,0,0" />
+                                <TextBlock Text="Vimium will launch with elevated privileges. Requires a UAC prompt."
+                                           Style="{StaticResource DescriptionStyle}"
+                                           Margin="0,4,0,0" />
+                                <TextBlock Text="⚠ A restart is required for this change to take effect."
+                                           Foreground="{DynamicResource WarningBrush}"
+                                           FontSize="12"
+                                           TextWrapping="Wrap"
+                                           Margin="0,8,0,0"
+                                           Visibility="{Binding ShowRestartMessage, Converter={StaticResource BoolToVisibility}}" />
                             </StackPanel>
                         </Border>
                     </StackPanel>
@@ -305,7 +327,7 @@
                     <!-- App header in sidebar -->
                     <Border Padding="16,16">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Resources/skadi.ico"
+                            <Image Source="{Binding AppIcon, Source={x:Static services:ConfigService.Instance}}"
                                    Width="20" Height="20"
                                    Margin="0,0,8,0" />
                             <TextBlock Text="Vimium"
@@ -349,16 +371,24 @@
                 BorderBrush="{DynamicResource BorderBrush}"
                 BorderThickness="0,1,0,0"
                 Padding="16,10">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Content="_Reset to defaults"
-                        Command="{Binding ResetCommand}"
-                        Style="{StaticResource SecondaryButtonStyle}"
-                        Margin="0,0,8,0" />
-                <Button Content="_Close"
-                        Command="{Binding CloseCommand}"
-                        Style="{StaticResource PrimaryButtonStyle}"
-                        IsDefault="True" />
-            </StackPanel>
+            <Grid>
+                <!-- Version label (informational, not focusable) -->
+                <TextBlock Text="{Binding AppVersion, StringFormat=v{0}}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontSize="12"
+                           Foreground="{DynamicResource TextSecondaryBrush}" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="_Reset to defaults"
+                            Command="{Binding ResetCommand}"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            Margin="0,0,8,0" />
+                    <Button Content="_Close"
+                            Command="{Binding CloseCommand}"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            IsDefault="True" />
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </Window>

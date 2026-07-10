@@ -2,10 +2,14 @@
 
 This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 
-## v1.4 — Line Navigation Mode & Hint Overlay Improvements
+## v1.4 — Line Navigation Mode, App Icon Theming & Theme Rename
 
 ### Added
 
+- **App icon theming** — the default application icon is now a keyboard for Light and Dark themes. Selecting the Arknights theme switches all app icons (system tray, settings window) to the Arknights-themed icon. Icon switching is immediate (≤500ms) with no restart required. See `specs/004-app-icon-and-theme-rename/`.
+- **Theme rename: Skadi → Arknights** — the theme previously named "Skadi" has been renamed to "Arknights" across all user-facing UI (settings dropdown, labels). A legacy `"theme": "Skadi"` (or any unrecognized value) in an existing config resets **only** the `Theme` field to the default (Light) on load — all other settings are preserved and the value is NOT migrated to "Arknights". Users can re-select "Arknights" from the dropdown. See `specs/004-app-icon-and-theme-rename/`.
+- **Version display** — the current application version (e.g. `v1.4.0.0`) is shown in the settings window footer, read from assembly metadata at build time. See `specs/005-version-and-admin-mode/`.
+- **Administrator mode toggle** — a "Run as Administrator" checkbox in General settings lets users (e.g. in enterprise environments) opt out of elevation. The manifest now requests `asInvoker`; when the toggle is enabled (the default), Vimium self-elevates at startup via the Windows `runas` verb. The preference persists in `config.json` and a restart-required notice appears after a change. See `specs/005-version-and-admin-mode/`.
 - **Line navigation mode** (`Ctrl+.` by default) — discover and label every visible text line in the foreground window via UI Automation TextPattern, independent of the existing element navigation mode.
 - **Jump to line** — Type a hint label (without modifier) to move the cursor to the center of that text line.
 - **Sub-line selection & copy** — Hold the copy modifier (`Ctrl` by default) while typing a hint label to enter **selection mode**: incremental search across all visible lines, Tab/Shift+Tab to cycle search matches, standard Windows navigation keys (arrows, Ctrl+arrow, Shift+arrow for selection), Home/End, Enter to copy (whole line or selection), Escape to cancel.

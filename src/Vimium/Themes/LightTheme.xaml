@@ -21,6 +21,7 @@
     <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" />
     <SolidColorBrush x:Key="InputBackgroundBrush" Color="#FFFFFF" />
     <SolidColorBrush x:Key="PresetSwatchBorderBrush" Color="#CCCCCC" />
+    <SolidColorBrush x:Key="WarningBrush" Color="#B36B00" />
 
     <!-- ── Overlay-specific brushes ──────────────────────── -->
 

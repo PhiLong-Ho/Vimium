@@ -21,6 +21,7 @@
     <SolidColorBrush x:Key="AccentBrush" Color="#4FC3F7" />
     <SolidColorBrush x:Key="InputBackgroundBrush" Color="#0F2030" />
     <SolidColorBrush x:Key="PresetSwatchBorderBrush" Color="#355070" />
+    <SolidColorBrush x:Key="WarningBrush" Color="#FFC168" />
 
     <!-- ── Overlay-specific brushes ──────────────────────── -->
 
@@ -36,9 +37,9 @@
     <SolidColorBrush x:Key="FindMatchActiveHighlightBrush" Color="#7B7BC8F0" />
     <SolidColorBrush x:Key="FindMatchBorderBrush" Color="#964FC3F7" />
 
-    <!-- ── Skadi loading icon ────────────────────────────── -->
+    <!-- ── Arknights loading icon ────────────────────────── -->
 
-    <BitmapImage x:Key="SkadiLoadingIcon" UriSource="/Resources/skadi.ico" />
+    <BitmapImage x:Key="ArknightsLoadingIcon" UriSource="/Resources/skadi.ico" />
 
     <!-- ── Implicit defaults ──────────────────────────────── -->
 

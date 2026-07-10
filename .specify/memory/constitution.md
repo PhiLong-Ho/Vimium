@@ -1,22 +1,21 @@
 <!--
   Sync Impact Report
   ==================
-  Version change: 1.2.0 → 1.3.0
-  Bump rationale: MINOR — added "Changelog after feature" requirement to
-  Development Workflow: CHANGELOG.md MUST be updated after every user-facing feature
-  completion. No principles modified or removed — purely additive.
+  Version change: 1.3.0 → 1.3.1
+  Bump rationale: PATCH — terminology update only. Renamed the "Skadi" theme to
+  "Arknights" in Principle IV (User Experience Consistency) to match feature 004
+  (App Icon Theming & Theme Rename). No normative requirement changed — wording only.
 
   Modified sections:
-    Development Workflow — added changelog-update gate.
+    Principle IV — theme list "(Light / Dark / Skadi)" → "(Light / Dark / Arknights)".
 
   Added sections: none
 
   Removed sections: none
 
   Templates requiring updates:
-    ✅ .specify/memory/constitution.md — filled (this file)
-    ✅ memory/constitution.md — mirrored (same content)
-    ⚠ templates/plan-template.md — no changes needed.
+    ✅ .specify/memory/constitution.md — updated (this file)
+    ⚠ No repo mirror at memory/constitution.md — none to sync.
 
   Follow-up TODOs: none — all placeholders resolved.
 -->
@@ -107,7 +106,7 @@ navigation/copy.**
   access keys (Alt+letter) on labeled controls. Focus indicators MUST be visible
   at all times (never hidden).
 - **Theme consistency**: Every visual element MUST derive colors from the active
-  theme's `ResourceDictionary` (Light / Dark / Skadi). No hardcoded color values
+  theme's `ResourceDictionary` (Light / Dark / Arknights). No hardcoded color values
   in XAML or C#. New themes added in the future MUST define the same set of
   resource keys.
 - **Element interaction contract** (existing, immutable): Press an element-mode
@@ -255,4 +254,4 @@ responsible for enforcing compliance at review time. Use the complexity tracking
 mechanism in `plan-template.md` to document and justify any intentional
 violations.
 
-**Version**: 1.3.0 | **Ratified**: 2026-07-05 | **Last Amended**: 2026-07-10
+**Version**: 1.3.1 | **Ratified**: 2026-07-05 | **Last Amended**: 2026-07-11

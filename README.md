@@ -17,7 +17,7 @@ A lightweight keyboard-driven UI overlay for Windows. Press a hotkey, type a hin
 | **Benchmark logging** | Structured JSONL benchmark logs at `%APPDATA%\Vimium\logs\benchmark.jsonl` with cold-start latency metrics. Parse with `scripts/parse-benchmark-log.ps1`. |
 | **Input buffering** | Keystrokes typed during hint enumeration are buffered and applied once hints appear — no lost input. |
 | **Find & navigate mode** | `Ctrl+.` opens a Chrome-style find bar. Type ≥5 characters, matches highlight live (yellow = all, orange = active), `Tab`/`Shift+Tab` cycle, `Enter` scrolls to and focuses the match. |
-| **Themes** | Light, Dark, and Skadi themes with runtime switching via the options window. |
+| **Themes** | Light, Dark, and Arknights themes with runtime switching via the options window. |
 | **Modern options window** | Sidebar-navigated settings: font size, hint colors, actions, shortcuts — all auto-save. |
 | **Configurable hotkeys** | Change overlay/taskbar/find activation shortcuts in Options → Keyboard. |
 | **Elevated by default** | Runs as administrator so it can interact with elevated apps. |
@@ -154,17 +154,24 @@ Vimium shows hints for UI Automation elements that support any of these patterns
 
 Right-click the Vimium tray icon, select **Options** to open the settings window:
 
-- **General** — font size (with live preview), theme (Light / Dark / Skadi)
+- **General** — font size (with live preview), theme (Light / Dark / Arknights)
 - **Overlay** — hint background colors (hex input + preset swatches), animation toggle
 - **Actions** — configurable modifier→action slots; assign any modifier combo to Invoke, Left Click, Right Click, or Hover
 - **Keyboard** — customizable overlay/taskbar/find activation shortcuts
 
 All settings auto-save. Press `↑`/`↓` to navigate sidebar, `Alt+C` to close.
 
-## Screenshots
+### App Icon Theming
 
-![ScreenShot](screenshots/explorer.png)
-![ScreenShot](screenshots/visual-studio.png)
+The application icon changes with the active theme:
+- **Light / Dark** — default **keyboard** icon (system tray and windows)
+- **Arknights** — Arknights-themed icon
+
+Icon switching is immediate when changing themes (no restart required).
+
+### Theme Rename (Skadi → Arknights)
+
+The theme previously named "Skadi" has been renamed to **Arknights**. If your existing config contains `"theme": "Skadi"` (or any other unrecognized value), **only** the `Theme` field is reset to the default (Light) on upgrade — all other settings (keybindings, font size, hint colors, etc.) are preserved. The old value is **not** migrated to "Arknights"; simply re-select it from the dropdown.
 
 ## Building
 
@@ -173,8 +180,3 @@ Requirements: [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) a
 ```bash
 dotnet build src\Vimium.sln
 ```
-
-## License & Credits
-
-This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck), significantly reworked.
-Original copyright © Zachary Sims. Licensed under the original project's license.
