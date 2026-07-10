@@ -36,7 +36,7 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete.
 
-- [X] T001 [P] Create `HintAction` enum (Invoke, LeftClick, RightClick, MoveMouse, Hover) and `ActionSlot` model (SlotIndex, Modifier, Action) with JSON serialization attributes in `src/Vimium/Models/HintAction.cs`
+- [X] T001 [P] Create `HintAction` enum (Invoke, LeftClick, RightClick, Hover) and `ActionSlot` model (SlotIndex, Modifier, Action, Mode) with JSON serialization attributes in `src/Vimium/Models/HintAction.cs`
 - [X] T002 [P] Add `ActionSlots` (ActionSlot[], default: 3 slots with Invoke/LeftClick/Invoke) and `BenchmarkLogEnabled` (bool, default: true) properties to `VimiumConfig` in `src/Vimium/Models/VimiumConfig.cs`
 
 **Checkpoint**: Foundation ready — user story implementation can now begin in parallel.
@@ -83,13 +83,13 @@
 
 ## Phase 4: User Story 2 - Configurable Hint Actions (Priority: P2)
 
-**Goal**: Replace hardcoded Shift→Click/RightClick behavior with 3 configurable modifier-action slots. Add MoveMouse and Hover actions. Provide key-capture controls in the options window (PowerToys-inspired) instead of manual key-name typing.
+**Goal**: Replace hardcoded Shift→Click/RightClick behavior with configurable modifier-action slots. Add Hover action (move cursor to element center, triggers CSS :hover). Provide modifier input controls in the options window.
 
-**Independent Test**: Open Options → Actions tab, use key-capture to assign Ctrl+Shift to "Move mouse only". Activate hints, hold Ctrl+Shift, type a hint label — cursor moves to element without clicking. Verify default behavior (no modifier → Invoke) is unchanged.
+**Independent Test**: Open Options → Keyboard & Actions page, assign Ctrl+Shift to "Hover". Activate hints, hold Ctrl+Shift, type a hint label — cursor moves to element without clicking. Verify default behavior (no modifier → Invoke) is unchanged.
 
 ### Implementation for User Story 2
 
-- [X] T019 [US2] Implement multi-slot action resolution in `OverlayViewModel.MatchString` setter — replace hardcoded `GetAsyncKeyState(VK_RSHIFT)`/`GetAsyncKeyState(VK_LSHIFT)` checks with a loop over `ActionSlots[]` from config; resolve first matching slot's modifier combination (check both left and right variants symmetrically) and dispatch the assigned action; preserve reentrancy guard (`_resolving`); actions: Invoke→`hint.Invoke()`, LeftClick→`hint.Click()`, RightClick→`hint.RightClick()`, MoveMouse→`hint.MovePointerToCenter()`, Hover→`hint.MovePointerToCenter()` in `src/Vimium/ViewModels/OverlayViewModel.cs`
+- [X] T019 [US2] Implement multi-slot action resolution in `OverlayViewModel.MatchString` setter — replace hardcoded `GetAsyncKeyState(VK_RSHIFT)`/`GetAsyncKeyState(VK_LSHIFT)` checks with a loop over `ActionSlots[]` from config; resolve first matching slot's modifier combination (check both left and right variants symmetrically) and dispatch the assigned action; preserve reentrancy guard (`_resolving`); actions: Invoke→`hint.Invoke()`, LeftClick→`hint.Click()`, RightClick→`hint.RightClick()`, Hover→`hint.MovePointerToCenter()` in `src/Vimium/ViewModels/OverlayViewModel.cs`
 - [X] T020 [US2] Create `ActionSettingsViewModel` — expose the three `ActionSlot` entries, provide key-capture state management (Idle/Capturing), expose a `StartCapture(slotIndex)` command that enters capture mode with visual feedback, handle captured modifier string via `PreviewKeyDown`-fed data, validate at least one modifier key is held, and persist changes immediately via `ConfigService` (auto-save) in `src/Vimium/ViewModels/ActionSettingsViewModel.cs`
 - [X] T021 [US2] Add Actions page with key-capture controls to Options window — create a new `DataTemplate` for `ActionSettingsViewModel` with three action-slot rows, each containing: a key-capture button (displays captured modifier or "Click to capture"), a `ComboBox` for action type selection (5 options), and a visual indicator showing whether the slot is currently capturing. Wire `PreviewKeyDown` events from the capture button to feed held modifier keys to the ViewModel in `src/Vimium/Views/OptionsView.xaml`
 - [X] T022 [US2] Add key-capture event forwarding in code-behind — handle `PreviewKeyDown` on the capture control to detect currently-held modifier keys, build the modifier string (e.g., "Ctrl+Shift"), and pass to `ActionSettingsViewModel`; mark event as handled to prevent bubbling in `src/Vimium/Views/OptionsView.xaml.cs`
@@ -102,7 +102,7 @@
 - [X] T026 [P] [US2] Create unit tests for `ActionSettingsViewModel` key-capture logic — verify capture mode transitions, modifier string construction from held keys, validation (reject empty modifier for alternate slots), and auto-save behavior in `src/Vimium.Tests/ViewModels/ActionSettingsViewModelTest.cs`
 - [X] T027 [P] [US2] Create `HintAction` serialization tests — verify all five enum values roundtrip through JSON serialize/deserialize, and `ActionSlot` with modifier+action roundtrips correctly in `src/Vimium.Tests/Models/HintActionTest.cs`
 
-**Checkpoint**: Users can configure all three modifier-action slots via key-capture UI. MoveMouse and Hover actions work. Default behavior preserved.
+**Checkpoint**: Users can configure all modifier-action slots via the options UI. Hover action works. Default behavior preserved.
 
 ---
 
@@ -131,19 +131,19 @@
 
 ## Phase 6: User Story 4 - Per-Action Hint Filtering (Priority: P3)
 
-**Goal**: Filter hints at overlay-open time based on the default action slot's configured action type. When default is a click-based action (Invoke, LeftClick, RightClick), only show elements supporting interactive patterns. When default is MoveMouse or Hover, show all visible elements.
+**Goal**: Filter hints at overlay-open time based on the default action slot's configured action type. When default is a click-based action (Invoke, LeftClick, RightClick), only show elements supporting interactive patterns. When default is Hover, show all visible elements.
 
-**Independent Test**: Configure default action to Invoke, activate hints — only clickable elements have labels. Change default to MoveMouse, activate hints — all visible elements (including static text) have labels.
+**Independent Test**: Configure default action to Invoke, activate hints — only clickable elements have labels. Change default to Hover, activate hints — all visible elements (including static text) have labels.
 
 ### Implementation for User Story 4
 
-- [X] T035 [US4] Implement filter mode selection in `UiAutomationHintProviderService` — read default action slot from `ConfigService`; when default action is Invoke/LeftClick/RightClick, use `InvokeFiltered` mode (pattern-availability condition filtering as implemented in T007); when default is MoveMouse/Hover, use `AllElements` mode (skip pattern-availability conditions, use only ControlView+Enabled+OnScreen) in `src/Vimium/Services/UiAutomationHintProviderService.cs`
+- [X] T035 [US4] Implement filter mode selection in `UiAutomationHintProviderService` — read default action slot from `ConfigService`; when default action is Invoke/LeftClick/RightClick, use `InvokeFiltered` mode (pattern-availability condition filtering as implemented in T007); when default is Hover, use `AllElements` mode (skip pattern-availability conditions, use only ControlView+Enabled+OnScreen) in `src/Vimium/Services/UiAutomationHintProviderService.cs`
 - [X] T036 [US4] Ensure filter mode is fixed at overlay-open time — store the filter mode used during enumeration and do not re-evaluate when alternate modifiers are held during hint matching in `src/Vimium/Services/UiAutomationHintProviderService.cs`
 - [X] T037 [US4] Pass `FilterMode` to `BenchmarkLogEntry` so each benchmark entry records whether `InvokeFiltered` or `AllElements` mode was active in `src/Vimium/Services/UiAutomationHintProviderService.cs`
 
 ### Tests for User Story 4
 
-- [X] T038 [P] [US4] Extend `UiAutomationHintProviderServiceTest` with per-action filtering tests — verify Invoke default produces pattern-availability condition tree, verify MoveMouse default produces all-elements condition tree, verify filter mode is fixed at overlay-open (changing modifiers during hint matching doesn't re-filter) in `src/Vimium.Tests/Services/UiAutomationHintProviderServiceTest.cs`
+- [X] T038 [P] [US4] Extend `UiAutomationHintProviderServiceTest` with per-action filtering tests — verify Invoke default produces pattern-availability condition tree, verify Hover default produces all-elements condition tree, verify filter mode is fixed at overlay-open (changing modifiers during hint matching doesn't re-filter) in `src/Vimium.Tests/Services/UiAutomationHintProviderServiceTest.cs`
 
 **Checkpoint**: Hints are filtered based on the intended default action. Non-clickable elements are hidden when the user intends to click, reducing visual noise.
 
@@ -271,5 +271,5 @@ With multiple developers:
 - Pattern-availability properties for element-mode patterns (Invoke, Toggle, SelectionItem, ExpandCollapse, Value, RangeValue) are confirmed reliable — the TextPattern quirk documented in `FindTextProviderService` does not apply
 - UIA COM is STA-threaded — no parallel enumeration. Performance gains come from provider-side filtering and result caching
 - Benchmark log is local-only (constitution: no telemetry)
-- The existing `Hint.MovePointerToCenter()` method is used unchanged for both MoveMouse and Hover actions
+- The existing `Hint.MovePointerToCenter()` method is used unchanged for the Hover action
 - Wrap `Hint.Invoke()`, `Click()`, `RightClick()`, `MovePointerToCenter()` calls in `Task.Run` to avoid blocking the keyboard hook thread (existing pattern in `OverlayViewModel.MatchString`)

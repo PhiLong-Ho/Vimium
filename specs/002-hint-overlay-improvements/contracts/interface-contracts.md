@@ -102,7 +102,7 @@ void InvalidateCache();
 
 ## Hint.MovePointerToCenter() (existing)
 
-Existing method on the `Hint` base class. Used by both the MoveMouse and Hover actions. No contract changes.
+Existing method on the `Hint` base class. Used by the Hover action. No contract changes.
 
 ```csharp
 /// <summary>
@@ -129,8 +129,7 @@ The existing `MatchString` setter in `OverlayViewModel` gains multi-slot action 
    - `Invoke` → `hint.Invoke()`
    - `LeftClick` → `hint.Click()`
    - `RightClick` → `hint.RightClick()`
-   - `MoveMouse` → `hint.MovePointerToCenter()` (no click)
-   - `Hover` → `hint.MovePointerToCenter()` (cursor persists per FR-007)
+   - `Hover` → `hint.MovePointerToCenter()` (no click, cursor persists)
 5. Default fallback: if no slot matches, use Slot 0's action (always present)
 
 ### Modifier Checking Contract

@@ -17,8 +17,8 @@ public class HintActionTest
             HintAction.Invoke,
             HintAction.LeftClick,
             HintAction.RightClick,
-            HintAction.MoveMouse,
-            HintAction.MoveMouse,
+            HintAction.Hover,
+            HintAction.Hover,
         };
 
         var options = new JsonSerializerOptions
@@ -53,7 +53,7 @@ public class HintActionTest
         {
             SlotIndex = 1,
             Modifier = "Ctrl+Shift",
-            Action = HintAction.MoveMouse,
+            Action = HintAction.Hover,
         };
 
         var options = new JsonSerializerOptions
@@ -125,7 +125,7 @@ public class HintActionTest
     [Fact]
     public void ActionSlot_ModifierProperty_IsCamelCaseInJson()
     {
-        var slot = new ActionSlot { SlotIndex = 1, Modifier = "Alt", Action = HintAction.MoveMouse };
+        var slot = new ActionSlot { SlotIndex = 1, Modifier = "Alt", Action = HintAction.Hover };
 
         var options = new JsonSerializerOptions
         {

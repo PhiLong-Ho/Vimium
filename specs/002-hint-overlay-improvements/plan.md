@@ -6,7 +6,7 @@
 
 ## Summary
 
-Improve the Vimium hint overlay across four axes: **performance** (750ms enumeration via provider-side pattern-availability condition filtering + result caching), **customization** (3-slot configurable modifier→action mapping with key-capture UI), **overlap avoidance** (spiral offsetting for hint labels), and **observability** (structured JSON benchmark logging). The primary performance strategy shifted from parallel subtree retrieval (infeasible — UIA COM is STA-threaded) to provider-side filtering at the `FindAllBuildCache` condition level, which is reliable for element-mode patterns (TextPattern's known issues with availability properties do not apply to Invoke, Toggle, SelectionItem, ExpandCollapse, Value, or RangeValue patterns).
+Improve the Vimium hint overlay across four axes: **performance** (750ms enumeration via provider-side pattern-availability condition filtering + result caching), **customization** (configurable modifier→action mapping with text-based modifier input), **overlap avoidance** (spiral offsetting for hint labels), and **observability** (structured JSON benchmark logging). The primary performance strategy shifted from parallel subtree retrieval (infeasible — UIA COM is STA-threaded) to provider-side filtering at the `FindAllBuildCache` condition level, which is reliable for element-mode patterns (TextPattern's known issues with availability properties do not apply to Invoke, Toggle, SelectionItem, ExpandCollapse, Value, or RangeValue patterns).
 
 ## Technical Context
 

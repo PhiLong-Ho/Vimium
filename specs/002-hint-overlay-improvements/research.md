@@ -90,8 +90,7 @@ The resolution order during `MatchString` setter when a single hint matches:
 | FR-003 | 750ms target via FR-001 + FR-002 + FR-017 | ✅ Feasible | Medium — depends on target app's UIA provider quality |
 | FR-004 | 400ms target for simple apps | ✅ Feasible | Low — simple apps have shallow trees |
 | FR-005 | Accuracy priority — fallback to full enumeration if filtered | ✅ Feasible | Low — existing pattern kept as fallback |
-| FR-006 | MoveMouse action via existing Hint.MovePointerToCenter() | ✅ Feasible | None — already implemented |
-| FR-007 | Hover action via cursor move + persistence | ✅ Feasible | Low — cursor position triggers CSS :hover in most frameworks |
+| FR-006 | Hover action via existing Hint.MovePointerToCenter() | ✅ Feasible | None — already implemented |
 | FR-008 | 3-slot modifier→action config | ✅ Feasible | Low — extends existing ConfigService pattern |
 | FR-009 | Key-capture control (PowerToys-inspired) | ✅ Feasible | Low — standard WPF PreviewKeyDown pattern |
 | FR-010 | Spiral offsetting overlap resolution | ✅ Feasible | Low — O(n²) acceptable for <500 labels |

@@ -384,7 +384,7 @@ namespace Vimium.ViewModels
 
         /// <summary>
         /// T019: Executes the resolved hint action on a background thread.
-        /// Supports Invoke, LeftClick, RightClick, MoveMouse, and Hover.
+        /// Supports Invoke, LeftClick, RightClick, and Hover.
         /// </summary>
         private void ExecuteHintAction(Models.Hint selectedHint, HintAction action)
         {
@@ -402,7 +402,7 @@ namespace Vimium.ViewModels
                 case HintAction.RightClick:
                     System.Threading.Tasks.Task.Run(() => h.RightClick());
                     break;
-                case HintAction.MoveMouse:
+                case HintAction.Hover:
                     // Move cursor to element center, no click. Triggers CSS :hover.
                     System.Threading.Tasks.Task.Run(() => h.MovePointerToCenter());
                     break;

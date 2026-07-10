@@ -49,17 +49,17 @@ public class OverlayViewModelTest
             ActionSlots = new[]
             {
                 new ActionSlot { SlotIndex = 0, Modifier = "", Action = HintAction.Invoke },
-                new ActionSlot { SlotIndex = 1, Modifier = "Ctrl+Shift", Action = HintAction.MoveMouse },
-                new ActionSlot { SlotIndex = 2, Modifier = "Alt", Action = HintAction.MoveMouse },
+                new ActionSlot { SlotIndex = 1, Modifier = "Ctrl+Shift", Action = HintAction.Hover },
+                new ActionSlot { SlotIndex = 2, Modifier = "Alt", Action = HintAction.Hover },
                 new ActionSlot { SlotIndex = 3, Modifier = "Win", Action = HintAction.LeftClick },
             }
         };
 
         Assert.Equal(4, vm.ActionSlots.Length);
         Assert.Equal("Ctrl+Shift", vm.ActionSlots[1].Modifier);
-        Assert.Equal(HintAction.MoveMouse, vm.ActionSlots[1].Action);
+        Assert.Equal(HintAction.Hover, vm.ActionSlots[1].Action);
         Assert.Equal("Alt", vm.ActionSlots[2].Modifier);
-        Assert.Equal(HintAction.MoveMouse, vm.ActionSlots[2].Action);
+        Assert.Equal(HintAction.Hover, vm.ActionSlots[2].Action);
         Assert.Equal("Win", vm.ActionSlots[3].Modifier);
         Assert.Equal(HintAction.LeftClick, vm.ActionSlots[3].Action);
     }

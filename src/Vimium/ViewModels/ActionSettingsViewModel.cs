@@ -29,7 +29,7 @@ public class ActionSettingsViewModel : NotifyPropertyChanged
         HintAction.Invoke,
         HintAction.LeftClick,
         HintAction.RightClick,
-        HintAction.MoveMouse,
+        HintAction.Hover,
     };
 
     // ── Slot 0 (default — modifier is always empty) ─────────

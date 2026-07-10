@@ -13,8 +13,7 @@ Represents the type of action taken when a hint is selected.
 | `Invoke` | UI Automation InvokePattern (default) |
 | `LeftClick` | Real left mouse click via `mouse_event` |
 | `RightClick` | Real right mouse click via `mouse_event` |
-| `MoveMouse` | Move cursor to element center only, no click |
-| `Hover` | Move cursor and persist (triggers CSS :hover) |
+| `Hover` | Move cursor to element center (no click), triggers CSS :hover |
 
 Serialized as string in JSON config (e.g., `"Invoke"`, `"LeftClick"`).
 

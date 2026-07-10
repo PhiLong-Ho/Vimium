@@ -27,15 +27,14 @@
 
 **Objective**: Confirm modifier→action mapping works via key-capture UI.
 
-1. Right-click Vimium tray icon → Options → navigate to "Actions" tab (new)
-2. Click the key-capture control for Slot 1 (currently "Shift")
-3. Press `Ctrl` — the control displays "Ctrl"
-4. Select "Move mouse only" from the action dropdown for Slot 1
-5. Close options (auto-saves)
-6. Activate hints on any window (`Ctrl+;`)
-7. Type a hint label while holding `Ctrl`
-8. **Expected**: The cursor moves to the element's center but no click occurs. Verify by checking that the target button/link is NOT activated.
-9. Repeat for Slot 2 (assign "Hover" to a modifier, verify cursor persists on target)
+1. Right-click Vimium tray icon → Options → navigate to "Keyboard & Actions" page
+2. Type a modifier (e.g., `Ctrl`) into the Modifier text field for Slot 1
+3. Select "Hover" from the action dropdown for Slot 1
+4. Close options (auto-saves)
+5. Activate hints on any window (`Ctrl+;`)
+6. Type a hint label while holding `Ctrl`
+7. **Expected**: The cursor moves to the element's center but no click occurs. Verify by checking that the target button/link is NOT activated.
+8. Repeat for Slot 2 or Slot 3 with a different modifier
 
 ### VS-003: Verify Non-Overlapping Hints (P2)
 

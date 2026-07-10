@@ -17,8 +17,8 @@ public enum HintAction
     /// <summary>Real right mouse click via <c>mouse_event</c>.</summary>
     RightClick,
 
-    /// <summary>Move cursor to element center (no click). Triggers CSS :hover effects.</summary>
-    MoveMouse,
+    /// <summary>Move cursor to element center (no click) and trigger hover. Triggers CSS :hover effects.</summary>
+    Hover,
 }
 
 /// <summary>
@@ -51,6 +51,6 @@ public class ActionSlot
         new ActionSlot { SlotIndex = 0, Modifier = "", Action = HintAction.Invoke, Mode = "Hold" },
         new ActionSlot { SlotIndex = 1, Modifier = "Shift", Action = HintAction.LeftClick, Mode = "Hold" },
         new ActionSlot { SlotIndex = 2, Modifier = "Ctrl", Action = HintAction.RightClick, Mode = "Hold" },
-        new ActionSlot { SlotIndex = 3, Modifier = "Alt", Action = HintAction.MoveMouse, Mode = "Hold" },
+        new ActionSlot { SlotIndex = 3, Modifier = "Alt", Action = HintAction.Hover, Mode = "Hold" },
     };
 }

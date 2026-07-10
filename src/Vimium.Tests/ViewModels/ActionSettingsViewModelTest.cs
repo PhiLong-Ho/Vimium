@@ -27,8 +27,8 @@ public class ActionSettingsViewModelTest
     public void Slot0Action_Change_PersistsToConfig()
     {
         var vm = new ActionSettingsViewModel();
-        vm.Slot0Action = HintAction.MoveMouse;
-        Assert.Equal(HintAction.MoveMouse, ConfigService.Instance.ActionSlots[0].Action);
+        vm.Slot0Action = HintAction.Hover;
+        Assert.Equal(HintAction.Hover, ConfigService.Instance.ActionSlots[0].Action);
 
         ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
     }
@@ -47,8 +47,8 @@ public class ActionSettingsViewModelTest
     public void Slot1Action_Change_PersistsToConfig()
     {
         var vm = new ActionSettingsViewModel();
-        vm.Slot1Action = HintAction.MoveMouse;
-        Assert.Equal(HintAction.MoveMouse, ConfigService.Instance.ActionSlots[1].Action);
+        vm.Slot1Action = HintAction.Hover;
+        Assert.Equal(HintAction.Hover, ConfigService.Instance.ActionSlots[1].Action);
 
         ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
     }
@@ -105,7 +105,7 @@ public class ActionSettingsViewModelTest
         Assert.Contains(HintAction.Invoke, actions);
         Assert.Contains(HintAction.LeftClick, actions);
         Assert.Contains(HintAction.RightClick, actions);
-        Assert.Contains(HintAction.MoveMouse, actions);
+        Assert.Contains(HintAction.Hover, actions);
     }
 
     [Fact]

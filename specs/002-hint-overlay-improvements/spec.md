@@ -46,8 +46,7 @@ Users press the element-mode hotkey (e.g., `Ctrl+;`) and expect to see usable hi
 
 Users want to customize what happens when they select a hint with different modifier keys. Currently, holding Left Shift performs a real left click (via `mouse_event`), holding Right Shift performs a real right click, and no modifier triggers UI Automation `Invoke()`. Users want to:
 - Choose which modifier+key combination triggers which action
-- Add a "move mouse only" action (move cursor to element without clicking)
-- Add a "hover" action (move mouse and trigger hover, useful for elements that only appear on hover like tooltips, menus, or reveal-on-hover UI)
+- Add a "Hover" action (move cursor to element center without clicking — triggers CSS `:hover` effects and leaves the cursor in place, useful for elements that only appear on hover like tooltips, menus, or reveal-on-hover UI)
 
 **Why this priority**: Customization is the core differentiator between Vimium (Windows) and browser-based Vimium. Different applications require different interaction strategies. However, it's less critical than performance — users will tolerate limited actions if hints appear quickly, but not the reverse.
 
@@ -56,7 +55,7 @@ Users want to customize what happens when they select a hint with different modi
 **Acceptance Scenarios**:
 
 1. **Given** the options window has an action-configuration section with key-capture controls, **When** the user clicks the capture control for the first alternate slot and presses `Shift`, **Then** the control displays "Shift" visually and selecting a hint while holding `Shift` triggers the action assigned to that slot.
-2. **Given** the user has assigned "Move mouse only" to the `Shift` slot, **When** they select a hint while holding `Shift`, **Then** the cursor moves to the element's center without clicking.
+2. **Given** the user has assigned "Hover" to the `Shift` slot, **When** they select a hint while holding `Shift`, **Then** the cursor moves to the element's center without clicking, triggering CSS :hover effects.
 3. **Given** the user has assigned "Hover" to the `Ctrl` slot via key capture, **When** they select a hint while holding `Ctrl`, **Then** the cursor moves to the element and triggers a hover event, causing hover-revealed UI to appear.
 4. **Given** an element that only appears when another element is hovered, **When** the user first hovers the parent element (via the "Hover" action), then re-activates hints, **Then** the newly revealed child element is now visible in the hint overlay.
 5. **Given** default settings, **When** the user selects a hint with no modifier held, **Then** the element is invoked via UI Automation (preserving the existing default behavior).
@@ -83,7 +82,7 @@ On densely-packed UIs like Discord, hint labels overlap each other because they 
 
 ### User Story 4 - Per-Action Hint Filtering (Priority: P3)
 
-Not all interactive elements support all actions. For example, a static text label has no `InvokePattern` but could be useful for "move mouse" or "hover." Conversely, when the user intends to click, non-clickable elements clutter the hint overlay. The overlay should optionally filter hints based on the intended action.
+Not all interactive elements support all actions. For example, a static text label has no `InvokePattern` but could be useful for "Hover." Conversely, when the user intends to click, non-clickable elements clutter the hint overlay. The overlay should optionally filter hints based on the intended action.
 
 **Why this priority**: This is a refinement that improves usability once the core performance and overlap issues are resolved. It reduces visual noise and speeds up hint selection.
 
@@ -92,8 +91,8 @@ Not all interactive elements support all actions. For example, a static text lab
 **Acceptance Scenarios**:
 
 1. **Given** the default action slot is configured as Invoke, **When** the overlay opens, **Then** only elements that support invocation (invoke, toggle, select, expand/collapse, or editable value patterns) receive hint labels.
-2. **Given** the default action slot is configured as MoveMouse or Hover, **When** the overlay opens, **Then** all visible on-screen elements (including non-interactive ones) receive hint labels.
-3. **Given** the overlay is open with Invoke-filtered hints, **When** the user holds an alternate modifier configured as MoveMouse, **Then** the visible hint set does not change — filtering is fixed at overlay-open time.
+2. **Given** the default action slot is configured as Hover, **When** the overlay opens, **Then** all visible on-screen elements (including non-interactive ones) receive hint labels.
+3. **Given** the overlay is open with Invoke-filtered hints, **When** the user holds an alternate modifier configured as Hover, **Then** the visible hint set does not change — filtering is fixed at overlay-open time.
 
 ---
 
@@ -116,8 +115,7 @@ Not all interactive elements support all actions. For example, a static text lab
 - **FR-003**: System MUST render all hint labels within 750ms of hotkey activation for typical complex applications (200+ elements), without dropping or skipping any interactive element (full accuracy preserved).
 - **FR-004**: System MUST render all hint labels within 400ms of hotkey activation for simple applications (fewer than 50 elements).
 - **FR-005**: Accuracy MUST take priority over speed — if a particular application's accessibility tree cannot be fully enumerated within 750ms, the system MUST complete enumeration with full accuracy rather than returning a partial result set.
-- **FR-006**: System MUST support a "Move mouse only" action that repositions the cursor to the hint element's center without performing any click or invoke.
-- **FR-007**: System MUST support a "Hover" action that moves the cursor to the hint element's center, triggers a hover event (causing hover-revealed UI elements to appear), and leaves the cursor at the target position so revealed elements remain visible for subsequent hint activation.
+- **FR-006**: System MUST support a "Hover" action that moves the cursor to the hint element's center without performing any click or invoke. The cursor position triggers CSS `:hover` and native hover events in most UI frameworks, causing hover-revealed UI elements to appear. The cursor persists at the target position so revealed elements remain visible for subsequent hint activation.
 - **FR-008**: System MUST support three configurable modifier-action slots: a default action (no modifier held) and two alternate actions, each mappable to a single modifier key or a two-key modifier combination (e.g., `Shift`, `Ctrl`, `Ctrl+Shift`).
 - **FR-009**: System MUST provide a key-capture control in the options window that lets users set a modifier combination by physically pressing the keys, with immediate visual feedback showing the captured combination — no manual key-name typing required.
 - **FR-010**: System MUST detect and resolve overlapping hint labels using spiral offsetting — each label tries positions in priority order (top-left default, above, below, right, left), using the first position that does not overlap any other label.
@@ -125,7 +123,7 @@ Not all interactive elements support all actions. For example, a static text lab
 - **FR-012**: System MUST buffer keyboard input during hint enumeration and apply the match string when hints appear.
 - **FR-013**: System MUST support cancelling an in-progress hint enumeration when the user dismisses the overlay (Escape or window change).
 - **FR-014**: System MUST preserve backward compatibility: the default behavior (no modifier → UI Automation invoke) remains unchanged.
-- **FR-015**: System MUST filter hints at overlay-open time based on the default action slot's configured action type — when the default is a click-based action (Invoke, LeftClick, RightClick), only elements supporting invocation patterns are shown; when the default is MoveMouse or Hover, all visible elements are shown. Holding alternate modifiers does not change the visible hint set.
+- **FR-015**: System MUST filter hints at overlay-open time based on the default action slot's configured action type — when the default is a click-based action (Invoke, LeftClick, RightClick), only elements supporting invocation patterns are shown; when the default is Hover, all visible elements are shown. Holding alternate modifiers does not change the visible hint set.
 - **FR-016**: System MUST limit the time spent on element-discovery operations so that no single batch of accessibility-tree traversal blocks the background thread for more than 200ms.
 - **FR-017**: System MUST cache and reuse enumeration results when the foreground window has not changed since the last hint activation, enabling near-instant re-display of hints on repeated activations.
 - **FR-018**: System MUST log each enumeration session as a structured JSON entry to a rolling log file in the local app data directory. Each entry MUST include: timestamp, foreground window title, total element count, enumeration elapsed milliseconds, whether the result was a cache hit, and which filter mode was used (Invoke-filtered or all-elements). Logs MUST rotate at 10MB total (oldest entries evicted) and MUST NOT be transmitted off-machine.
@@ -134,7 +132,7 @@ Not all interactive elements support all actions. For example, a static text lab
 
 ### Key Entities
 
-- **Hint Action**: Represents the action taken when a hint is selected — comprises an action type (Invoke, LeftClick, RightClick, MoveMouse, Hover) and a set of modifier key flags that trigger it. Stored in the user configuration.
+- **Hint Action**: Represents the action taken when a hint is selected — comprises an action type (Invoke, LeftClick, RightClick, Hover) and a set of modifier key flags that trigger it. Stored in the user configuration.
 - **Action Configuration**: Three fixed slots mapping modifier key combinations to hint action types — Slot 0 (default, no modifier), Slot 1 (first alternate), Slot 2 (second alternate). Each alternate slot stores a modifier combination (single key or two-key combo) and an assigned action type. Persisted in `config.json`. Defaults: Slot 0 = Invoke, Slot 1 = Shift → LeftClick, Slot 2 = unassigned.
 - **Hint Label Position**: The on-screen placement of a hint label, derived from the element's bounding rectangle and adjusted for overlap avoidance. May differ from the element's top-left corner.
 - **Enumeration Session**: A single background-thread UIA tree walk using provider-side pattern-availability conditions and conservative tree trimming. Results are delivered to the UI in one batch once the filtered `FindAll` call completes. The session result may be cached and reused when the foreground window has not changed since the previous activation.
@@ -147,7 +145,7 @@ Not all interactive elements support all actions. For example, a static text lab
 - **SC-001**: End-to-end time from hotkey press to all actionable hint labels is under 750ms for applications with 200+ elements, measured on a standard Windows 11 machine, with zero elements missing (full accuracy).
 - **SC-002**: 95% of hint enumeration sessions complete within 750ms for applications with up to 500 elements.
 - **SC-003**: Zero overlapping hint labels on Discord's message view (50+ action buttons visible simultaneously).
-- **SC-004**: Users can configure all three modifier-action slots and assign any of the five action types (invoke, left click, right click, move mouse, hover) via key-capture controls in the options window, without editing configuration files manually.
+- **SC-004**: Users can configure all modifier-action slots and assign any of the four action types (Invoke, Left Click, Right Click, Hover) via the options window, without editing configuration files manually.
 - **SC-005**: The "Hover" action successfully reveals hover-dependent UI elements on at least 3 major applications (e.g., Discord server sidebar hover menu, Slack message hover actions, Windows taskbar thumbnail previews).
 - **SC-006**: Hint overlay dismissal (Escape or window change) cancels enumeration within 200ms, freeing resources and preventing stale hint display.
 - **SC-007**: No regression in existing behavior: all existing tests pass, and the default hint interaction flow (no modifier → Invoke) is identical to the current release.
@@ -166,6 +164,6 @@ Not all interactive elements support all actions. For example, a static text lab
 - Each benchmark repetition clears the enumeration result cache so every measurement is a cold-start enumeration. This ensures the benchmark measures the actual enumeration optimization, not cache performance.
 - A PowerShell script (`scripts/parse-benchmark-log.ps1`) accompanies the benchmark procedure to read the JSON log file and compute summary statistics (mean, median, 95th percentile, min, max) from the most recent N entries matching the benchmark window title, filtering to cache-hit=false entries only.
 - Overlap avoidance uses spiral offsetting (priority: top-left → above → below → right → left). Labels that cannot find a non-overlapping position within 20px stack vertically. Global force-directed layout is out of scope.
-- The existing `Hint.MovePointerToCenter()` method provides the foundation for both the "move mouse" and "hover" actions and requires no modification.
+- The existing `Hint.MovePointerToCenter()` method provides the foundation for the Hover action and requires no modification.
 - Configuration persistence uses the existing `ConfigService` and `config.json` infrastructure established in the options window modernization.
 - The existing `CacheRequest` mechanism in `UiAutomationHintProviderService.EnumElements` is already optimal for batch property retrieval. Performance gains come from parallel subtree retrieval and reduced blocking time, not from changing the cache strategy.

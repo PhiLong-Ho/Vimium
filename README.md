@@ -10,8 +10,8 @@ A lightweight keyboard-driven UI overlay for Windows. Press a hotkey, type a hin
 | --- | --- |
 | **Instant overlay** | Overlay appears immediately; hints populate asynchronously in the background. |
 | **Hint Overlay Improvements** | Pattern-availability pre-filtering at the UIA provider level, result caching by window handle, tree trimming, and cancellation support — cold-start enumeration ≤750ms for 200+ element apps. |
-| **Multiple interaction modes** | Invoke (default), Left Click, Right Click, Move Mouse, Hover — all configurable per modifier slot via key-capture UI in Options → Actions. |
-| **Customizable hint actions** | Three action slots: Slot 0 (default, no modifier), Slots 1–2 (configurable modifier + action). Assign any combination of Ctrl/Shift/Alt/Win plus an action type (Invoke, Left Click, Right Click, Move Mouse, Hover). |
+| **Multiple interaction modes** | Invoke (default), Left Click, Right Click, Hover — all configurable per modifier slot in Options → Keyboard & Actions. |
+| **Customizable hint actions** | Action slots: Slot 0 (default, no modifier), Slots 1–3 (configurable modifier + action). Assign any combination of Ctrl/Shift/Alt/Win plus an action type (Invoke, Left Click, Right Click, Hover). |
 | **Non-overlapping hint labels** | Spiral-offsetting algorithm prevents overlapping labels on dense UIs (Discord, Slack). Labels try positions in priority order (default → above → below → right → left → stacked). |
 | **Multi-line wrapped link centering** | For wrapped text links (e.g., Wikipedia paragraphs), hint labels are vertically centered within the element to avoid appearing on the wrong line. |
 | **Benchmark logging** | Structured JSONL benchmark logs at `%APPDATA%\Vimium\logs\benchmark.jsonl` with cold-start latency metrics. Parse with `scripts/parse-benchmark-log.ps1`. |
@@ -42,13 +42,14 @@ configurable in **Options → Actions** with key-capture controls):
 | --- | --- | --- | --- |
 | **0** | _(none)_ | **Invoke** | UI Automation invoke — the element's primary action. |
 | **1** | **Shift** | **Left Click** | Real left mouse click at the element's center. |
-| **2** | _(unassigned)_ | **Invoke** | Falls back to Invoke by default; assign your own modifier+action. |
+| **2** | **Ctrl** | **Right Click** | Real right mouse click at the element's center. |
+| **3** | **Alt** | **Hover** | Move cursor to element center — triggers CSS `:hover`. |
 
-**Available actions**: Invoke (UIA), Left Click, Right Click, Move Mouse Only (no click), Hover (persist cursor — triggers CSS `:hover`).
+**Available actions**: Invoke (UIA), Left Click, Right Click, Hover (no click, persist cursor — triggers CSS `:hover`).
 
 **Supported modifiers**: `Shift`, `Ctrl`, `Alt`, `Win`, and two-key combos like `Ctrl+Shift`.
 
-Why the click modes? Some apps (notably Electron / web-based apps like Microsoft Teams) expose hints through UI Automation but don't implement the `InvokePattern`. A synthesized mouse click goes through the normal OS input path and works on those controls. Move Mouse and Hover modes are useful for revealing hidden UI (tooltips, hover cards, drop-down menus) before re-activating hints.
+Why the click modes? Some apps (notably Electron / web-based apps like Microsoft Teams) expose hints through UI Automation but don't implement the `InvokePattern`. A synthesized mouse click goes through the normal OS input path and works on those controls. Hover mode is useful for revealing hidden UI (tooltips, hover cards, drop-down menus) before re-activating hints.
 
 ### Find & navigate mode
 
@@ -155,7 +156,7 @@ Right-click the Vimium tray icon, select **Options** to open the settings window
 
 - **General** — font size (with live preview), theme (Light / Dark / Skadi)
 - **Overlay** — hint background colors (hex input + preset swatches), animation toggle
-- **Actions** — configurable modifier→action slots with key-capture controls; assign any modifier combo to Invoke, Left Click, Right Click, Move Mouse, or Hover
+- **Actions** — configurable modifier→action slots; assign any modifier combo to Invoke, Left Click, Right Click, or Hover
 - **Keyboard** — customizable overlay/taskbar/find activation shortcuts
 
 All settings auto-save. Press `↑`/`↓` to navigate sidebar, `Alt+C` to close.

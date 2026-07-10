@@ -133,7 +133,7 @@ namespace Vimium.ViewModels
             {
                 uiAutomation.FilterMode = defaultAction switch
                 {
-                    Models.HintAction.MoveMouse => "AllElements",
+                    Models.HintAction.Hover => "AllElements",
                                         _ => "InvokeFiltered",
                 };
             }
@@ -198,7 +198,7 @@ namespace Vimium.ViewModels
             {
                 uiAutomation2.FilterMode = defaultAction switch
                 {
-                    Models.HintAction.MoveMouse => "AllElements",
+                    Models.HintAction.Hover => "AllElements",
                                         _ => "InvokeFiltered",
                 };
             }
