@@ -2,17 +2,6 @@
 
 This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 
-## Unreleased
-
-### Changed
-
-- **Administrator mode now defaults to OFF (non-elevated).** A fresh install runs as `asInvoker` with no UAC prompt — the behavior enterprise-managed environments require. Elevation is strictly opt-in via **Options → General → "Run as Administrator"**. Users who explicitly enabled admin mode in a prior build keep their setting; users who never configured it adopt the non-elevated default. Supersedes the original v1.4 default of ON. See `specs/005-version-and-admin-mode/`.
-
-### Docs
-
-- **Code signing & publishing guide** (`docs/SIGNING.md`) — how to resolve the Microsoft Defender SmartScreen "unrecognized app" warning: Azure Trusted Signing (recommended), EV/OV certificates via `signtool`, and self-signed certs for internal enterprise deployment, plus timestamping, verification, and SmartScreen reputation notes.
-- **Signed-release CI** (`.github/workflows/release.yml`) — builds the portable single-file exe, signs it, and publishes a GitHub release on tag push.
-
 ## v1.4 — Find & Select Text, App Icon Theming & Theme Rename
 
 ### Added
@@ -20,7 +9,7 @@ This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 - **App icon theming** — the default application icon is now a keyboard for Light and Dark themes. Selecting the Arknights theme switches all app icons (system tray, settings window) to the Arknights-themed icon. Icon switching is immediate (≤500ms) with no restart required. See `specs/004-app-icon-and-theme-rename/`.
 - **Theme rename: Skadi → Arknights** — the theme previously named "Skadi" has been renamed to "Arknights" across all user-facing UI (settings dropdown, labels). A legacy `"theme": "Skadi"` (or any unrecognized value) in an existing config resets **only** the `Theme` field to the default (Light) on load — all other settings are preserved and the value is NOT migrated to "Arknights". Users can re-select "Arknights" from the dropdown. See `specs/004-app-icon-and-theme-rename/`.
 - **Version display** — the current application version (e.g. `v1.4.0.0`) is shown in the settings window footer, read from assembly metadata at build time. See `specs/005-version-and-admin-mode/`.
-- **Administrator mode toggle** — a "Run as Administrator" checkbox in General settings lets users (e.g. in enterprise environments) opt out of elevation. The manifest now requests `asInvoker`; when the toggle is enabled (the default), Vimium self-elevates at startup via the Windows `runas` verb. The preference persists in `config.json` and a restart-required notice appears after a change. See `specs/005-version-and-admin-mode/`.
+- **Administrator mode toggle** — a "Run as Administrator" checkbox in General settings controls elevation. The manifest requests `asInvoker` and the setting **defaults to OFF (non-elevated)** — a fresh install runs with no UAC prompt, the behavior enterprise-managed environments require. When enabled, Vimium self-elevates at startup via the Windows `runas` verb. The preference persists in `config.json` and a restart-required notice appears after a change. See `specs/005-version-and-admin-mode/`.
 - **Find & select text** (`Ctrl+.` by default) — open a Chrome `Ctrl+F`–style find bar over the foreground window and search its visible text via UI Automation (TextPattern → ValuePattern → element names), independent of element navigation mode.
 - **Live highlighting & cycling** — type ≥5 characters (debounced) to search; every visible match is boxed (yellow = all, orange = active), and `Tab` / `Shift+Tab` cycle matches with a live "2 of 5" count.
 - **Select to copy or edit** — `Enter` scrolls the active match into view and selects it in the source app, then closes the overlay, so you can `Ctrl+C` to copy or start editing (e.g. grabbing terminal output without the mouse). `Escape` (or switching windows) dismisses.
@@ -34,6 +23,11 @@ This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 - **Per-action hint filtering** — When the default action is a click (Invoke/LeftClick/RightClick), only interactive elements receive hints, reducing visual noise. When default is Hover, all visible elements get hints.
 - **Input buffering** — Keystrokes typed during hint enumeration are buffered and applied once hints appear — no lost input.
 - **Benchmark logging** — Structured JSONL log at `%APPDATA%\Vimium\logs\benchmark.jsonl` with cold-start latency metrics. Analyzable with `scripts/parse-benchmark-log.ps1` (mean, median, P95).
+
+### Docs
+
+- **Code signing & publishing guide** (`docs/SIGNING.md`) — how to resolve the Microsoft Defender SmartScreen "unrecognized app" warning: Microsoft Store (Microsoft signs it, free), Azure Trusted Signing, EV/OV certificates via `signtool`, and self-signed certs for internal enterprise deployment, plus timestamping, verification, and SmartScreen reputation notes.
+- **Signed-release CI** (`.github/workflows/release.yml`) — builds the portable single-file exe, optionally signs it, and publishes a GitHub release on tag push.
 
 ## v1.3 — Modern options window, themes, live settings
 
