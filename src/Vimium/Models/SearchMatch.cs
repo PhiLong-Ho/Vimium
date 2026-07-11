@@ -52,7 +52,7 @@ public class SearchMatch
     /// </summary>
     public static SearchMatch FromResult(SearchResult result, bool isActive)
     {
-        if (result == null) throw new ArgumentNullException(nameof(result));
+        ArgumentNullException.ThrowIfNull(result);
         return new SearchMatch
         {
             SourceText = result.Text,

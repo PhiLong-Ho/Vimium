@@ -27,7 +27,7 @@ namespace Vimium.Models
         /// Cached hint list for reuse when the foreground window handle
         /// hasn't changed. Null when no cache is available.
         /// </summary>
-        public IReadOnlyList<Hint>? CachedHints { get; set; }
+        public IReadOnlyList<Hint> CachedHints { get; set; }
 
         /// <summary>
         /// Window handle this cache is valid for.
@@ -38,6 +38,6 @@ namespace Vimium.Models
         /// Filter mode used when the cache was created
         /// ("InvokeFiltered" or "AllElements").
         /// </summary>
-        public string? CachedFilterMode { get; set; }
+        public string CachedFilterMode { get; set; }
     }
 }

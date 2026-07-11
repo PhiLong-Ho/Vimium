@@ -58,7 +58,7 @@ namespace Vimium.ViewModels
         public Brush HintInactiveBrush => HexToBrush(_config.HintInactiveBackground);
         public Brush HintTextBrush => HexToBrush(_config.HintTextColor);
 
-        private static Brush HexToBrush(string hex)
+        private static SolidColorBrush HexToBrush(string hex)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace Vimium.ViewModels
         /// </summary>
         public void PopulateHints(HintSession session, IHintLabelService hintLabelService)
         {
-            var labels = hintLabelService.GetHintStrings(session.Hints.Count());
+            var labels = hintLabelService.GetHintStrings(session.Hints.Count);
 
             // Parse font size once — used for label dimensions and multi-line detection
             double fontSize = 14;
@@ -267,7 +267,7 @@ namespace Vimium.ViewModels
                     x.Active = true;
                 }
 
-                if (matching.Count() == 1)
+                if (matching.Length == 1)
                 {
                     var selectedHint = matching.First().Hint;
 

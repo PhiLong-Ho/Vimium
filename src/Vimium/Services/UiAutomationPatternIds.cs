@@ -3,7 +3,7 @@ using Interop.UIAutomationClient;
 
 namespace Vimium.Services
 {
-    class UiAutomationPatternIds
+    static class UiAutomationPatternIds
     {
         /// <summary>
         /// All possible patterns (excluding custom patterns) -> debug description

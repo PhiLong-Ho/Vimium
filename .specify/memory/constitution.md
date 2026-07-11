@@ -1,20 +1,32 @@
 <!--
   Sync Impact Report
   ==================
-  Version change: 1.3.0 → 1.3.1
-  Bump rationale: PATCH — terminology update only. Renamed the "Skadi" theme to
-  "Arknights" in Principle IV (User Experience Consistency) to match feature 004
-  (App Icon Theming & Theme Rename). No normative requirement changed — wording only.
+  Version change: 1.3.1 → 1.4.0
+  Bump rationale: MINOR — new Static Code Analysis standard added under Technical
+  Standards and the Build gate in Development Workflow was strengthened from
+  aspirational ("where practical") to mandatory ("zero analyzer warnings").
+  No principles were removed or redefined.
 
   Modified sections:
-    Principle IV — theme list "(Light / Dark / Skadi)" → "(Light / Dark / Arknights)".
+    Development Workflow → Build gate tightened: "zero warnings" is now mandatory
+      instead of "treat warnings as errors where practical." Added explicit
+      reference to Roslynator (RCS*), SecurityCodeScan (SCS*), and NetAnalyzers
+      (CA*) warning codes with suppression requirements.
 
-  Added sections: none
+  Added sections:
+    Technical Standards → Static Code Analysis (new entry with mandatory analyzer
+      packages, zero-warning policy, and suppression documentation requirements).
 
   Removed sections: none
 
   Templates requiring updates:
     ✅ .specify/memory/constitution.md — updated (this file)
+    ✅ .specify/templates/plan-template.md — no changes needed (Constitution Check
+       is a generic placeholder filled per-feature by /speckit-plan)
+    ✅ .specify/templates/spec-template.md — no changes needed (no references to
+       static analysis)
+    ✅ .specify/templates/tasks-template.md — no changes needed (no references to
+       static analysis)
     ⚠ No repo mirror at memory/constitution.md — none to sync.
 
   Follow-up TODOs: none — all placeholders resolved.
@@ -195,6 +207,21 @@ the v1.2 headline feature for this reason — it must never regress.
   settings.
 - **Elevation**: Application runs as `requireAdministrator`. All changes MUST
   consider elevated-process security implications (UIPI, cross-privilege COM).
+- **Static Code Analysis**: Build MUST produce zero analyzer warnings. The project
+  uses these mandatory analyzer packages:
+  - **Roslynator.Analyzers** — code quality, refactoring, dead code, and
+    simplification rules (RCS* warnings).
+  - **SecurityCodeScan.VS2019** — security-focused rules covering OWASP Top 10,
+    SQL injection, XSS, weak cryptography, and hardcoded secrets (SCS* warnings).
+  - **Microsoft.CodeAnalysis.NetAnalyzers** — built-in .NET SDK quality,
+    performance, and design rules, enabled via `<EnableNETAnalyzers>true</EnableNETAnalyzers>`
+    with `<AnalysisMode>Recommended</AnalysisMode>` (CA* warnings).
+  - Any analyzer warning that cannot be resolved MUST be suppressed in source
+    code with a `#pragma warning disable [CODE]` directive accompanied by an
+    explanatory `// Justification:` comment on the same line or the line
+    immediately preceding. Blanket project-level suppressions (`.csproj`
+    `<NoWarn>` or `.globalconfig` severity downgrades) are prohibited without
+    documented rationale in the implementation plan's Complexity Tracking table.
 - **No telemetry**: Vimium collects zero data. No analytics, no phoning home, no
   crash reports without explicit user action.
 
@@ -224,8 +251,12 @@ the v1.2 headline feature for this reason — it must never regress.
   to identify risk areas.
 - **Test gate**: `dotnet test` must pass. Coverage report SHOULD be included for
   PRs that add or modify core logic.
-- **Build gate**: `dotnet build src\Vimium.sln` must succeed with zero warnings
-  (treat warnings as errors where practical).
+- **Build gate**: `dotnet build src\Vimium.sln` MUST succeed with zero errors and
+  zero analyzer warnings. All Roslynator (RCS*), SecurityCodeScan (SCS*), and
+  NetAnalyzers (CA*) warnings MUST be resolved before merge. Suppressed warnings
+  require a `#pragma warning disable` directive with a `// Justification:`
+  comment in source. No project-level warning suppressions are permitted without
+  documented rationale in the Complexity Tracking table.
 - **Commit convention**: Use conventional commits (`feat:`, `fix:`, `docs:`,
   `chore:`, `refactor:`, `test:`). Reference spec/issue numbers when applicable.
 
@@ -254,4 +285,4 @@ responsible for enforcing compliance at review time. Use the complexity tracking
 mechanism in `plan-template.md` to document and justify any intentional
 violations.
 
-**Version**: 1.3.1 | **Ratified**: 2026-07-05 | **Last Amended**: 2026-07-11
+**Version**: 1.4.0 | **Ratified**: 2026-07-05 | **Last Amended**: 2026-07-11

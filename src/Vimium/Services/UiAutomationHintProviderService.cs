@@ -19,9 +19,9 @@ namespace Vimium.Services
 
         // ── Caching ──────────────────────────────────────────
 
-        private HintSession? _cachedSession;
+        private HintSession _cachedSession;
         private IntPtr _cachedHwnd;
-        private string? _cachedFilterMode;
+        private string _cachedFilterMode;
 
         // ── Benchmark integration ────────────────────────────
 
@@ -29,7 +29,7 @@ namespace Vimium.Services
         /// Optional benchmark service for logging enumeration metrics.
         /// Set by ShellViewModel before first use.
         /// </summary>
-        public IBenchmarkService? BenchmarkService { get; set; }
+        public IBenchmarkService BenchmarkService { get; set; }
 
         /// <summary>
         /// Current filter mode ("InvokeFiltered" or "AllElements").
@@ -507,10 +507,12 @@ namespace Vimium.Services
                 }
                 catch (Exception)
                 {
+                    // Pattern not supported by this element — expected; skip it.
+                    continue;
                 }
             }
 
-            if (programmaticNames.Any())
+            if (programmaticNames.Count > 0)
             {
                 return new DebugHint(owningWindow, hintBounds, programmaticNames.ToList());
             }

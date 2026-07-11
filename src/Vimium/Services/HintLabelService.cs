@@ -80,7 +80,7 @@ namespace Vimium.Services
         /// Generates all possible hint strings of exactly <paramref name="length"/> characters
         /// in lexicographic (base-N counting) order.
         /// </summary>
-        private static IReadOnlyList<string> GeneratePool(int length)
+        private static string[] GeneratePool(int length)
         {
             var count = (int)Math.Pow(HintCharacters.Length, length);
             var pool = new string[count];

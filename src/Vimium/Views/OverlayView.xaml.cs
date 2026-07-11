@@ -12,11 +12,12 @@ namespace Vimium.Views
     /// <summary>
     /// Interaction logic for OverlayView.xaml
     /// </summary>
-    public partial class OverlayView
+    public partial class OverlayView : IDisposable
     {
         private readonly KeyboardHookService _keyboardHook = new KeyboardHookService();
         private DispatcherTimer _safetyTimer;
         private string _input = string.Empty;
+        private bool _disposed;
 
         public OverlayView()
         {
@@ -73,10 +74,27 @@ namespace Vimium.Views
 
         private void OverlayView_OnClosed(object sender, EventArgs e)
         {
+            Dispose();
+        }
+
+        /// <summary>
+        /// Releases the global keyboard hook and safety timer. Called when the
+        /// overlay window closes; also satisfies deterministic cleanup for the
+        /// disposable fields this view owns.
+        /// </summary>
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+            _disposed = true;
+
             _safetyTimer?.Stop();
             _safetyTimer = null;
             _keyboardHook.KeyDown -= KeyboardHook_KeyDown;
             _keyboardHook.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         private void KeyboardHook_KeyDown(object sender, KeyboardHookService.KeyDownEventArgs e)
@@ -161,7 +179,7 @@ namespace Vimium.Views
         }
 
         /// <summary>Maps a virtual key code to its modifier name string.</summary>
-        private static string? VkToModifierName(int vk)
+        private static string VkToModifierName(int vk)
         {
             return vk switch
             {

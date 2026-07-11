@@ -39,7 +39,7 @@ namespace Vimium.Views
                     // Stay topmost but never steal focus, so the underlying menu/popup keeps focus
                     var handle = new WindowInteropHelper(this).Handle;
                     var exStyle = User32.GetWindowLong(handle, User32.GWL_EXSTYLE);
-                    User32.SetWindowLong(handle, User32.GWL_EXSTYLE, exStyle | User32.WS_EX_NOACTIVATE | User32.WS_EX_TOOLWINDOW);
+                    _ = User32.SetWindowLong(handle, User32.GWL_EXSTYLE, exStyle | User32.WS_EX_NOACTIVATE | User32.WS_EX_TOOLWINDOW);
                     User32.SetWindowPos(
                         handle,
                         User32.HWND_TOPMOST,

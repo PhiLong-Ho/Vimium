@@ -17,7 +17,7 @@ namespace Vimium
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : Application, IDisposable
     {
         private readonly SingleLaunchMutex _singleLaunchMutex = new SingleLaunchMutex();
         private readonly UiAutomationHintProviderService _hintProviderService = new UiAutomationHintProviderService();
@@ -119,11 +119,11 @@ namespace Vimium
                 Services.LogService.Info($"DIAG: /line-nav mode — testing hWnd=0x{hWnd:X}");
 
                 var title = new System.Text.StringBuilder(256);
-                NativeMethods.User32.GetWindowText(hWnd, title, title.Capacity);
+                _ = NativeMethods.User32.GetWindowText(hWnd, title, title.Capacity);
                 Services.LogService.Info($"DIAG: Window title = \"{title}\"");
 
                 var className = new System.Text.StringBuilder(256);
-                NativeMethods.User32.GetClassName(hWnd, className, className.Capacity);
+                _ = NativeMethods.User32.GetClassName(hWnd, className, className.Capacity);
                 Services.LogService.Info($"DIAG: Window class = \"{className}\"");
 
                 var rawBounds = new RECT();
@@ -289,6 +289,23 @@ namespace Vimium
             }
 
             Current.Shutdown();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            Dispose();
+            base.OnExit(e);
+        }
+
+        /// <summary>
+        /// Disposes the disposable services this application owns
+        /// (the global key listener and the single-instance mutex).
+        /// </summary>
+        public void Dispose()
+        {
+            _keyListenerService?.Dispose();
+            _singleLaunchMutex?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

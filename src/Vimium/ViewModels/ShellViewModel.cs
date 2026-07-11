@@ -14,7 +14,7 @@ using Application = System.Windows.Application;
 
 namespace Vimium.ViewModels
 {
-    internal class ShellViewModel
+    internal class ShellViewModel : IDisposable
     {
         private readonly Action<OverlayViewModel> _showOverlay;
         private readonly Action<SelectionModeViewModel> _showSelectionModeOverlay;
@@ -25,7 +25,7 @@ namespace Vimium.ViewModels
         private readonly IDebugHintProviderService _debugHintProviderService;
         private readonly IFindTextProviderService _findTextProviderService;
         private readonly IBenchmarkService _benchmarkService;
-        private CancellationTokenSource? _cts;
+        private CancellationTokenSource _cts;
 
         public ShellViewModel(
             Action<OverlayViewModel> showOverlay,
@@ -37,7 +37,7 @@ namespace Vimium.ViewModels
             IDebugHintProviderService debugHintProviderService,
             IFindTextProviderService findTextProviderService,
             IKeyListenerService keyListener,
-            IBenchmarkService? benchmarkService = null)
+            IBenchmarkService benchmarkService = null)
         {
             _showOverlay = showOverlay;
             _showSelectionModeOverlay = showSelectionModeOverlay;
@@ -295,6 +295,18 @@ namespace Vimium.ViewModels
         {
             var vm = new OptionsViewModel();
             _showOptions(vm);
+        }
+
+        /// <summary>
+        /// Disposes the pending cancellation token source. The shell view-model
+        /// lives for the process lifetime; this provides deterministic cleanup of
+        /// the disposable field it owns.
+        /// </summary>
+        public void Dispose()
+        {
+            _cts?.Dispose();
+            _cts = null;
+            GC.SuppressFinalize(this);
         }
     }
 }

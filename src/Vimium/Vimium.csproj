@@ -23,6 +23,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisMode>Recommended</AnalysisMode>
     <ApplicationIcon>Resources/keyboard.ico</ApplicationIcon>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -37,6 +39,8 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="Roslynator.Analyzers" Version="4.13.1" />
+    <PackageReference Include="SecurityCodeScan.VS2019" Version="5.6.7" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>

@@ -37,7 +37,7 @@ public static class LogService
             {
                 Directory.CreateDirectory(LogDir);
                 RollIfNeeded();
-                var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+                var timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
                 File.AppendAllText(LogPath, $"{timestamp} [{level}] {message}{Environment.NewLine}");
             }
         }

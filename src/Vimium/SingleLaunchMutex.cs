@@ -38,6 +38,8 @@ namespace Vimium
                 _mutex.Dispose();
                 _mutex = null;
             }
+
+            GC.SuppressFinalize(this);
         }
     }
 }

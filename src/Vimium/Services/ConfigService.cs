@@ -90,7 +90,7 @@ public class ConfigService : INotifyPropertyChanged
         return icon;
     }
 
-    private ImageSource ResolveAppIcon()
+    private BitmapImage ResolveAppIcon()
     {
         if (_current.Theme == "Arknights")
         {
@@ -263,7 +263,7 @@ public class ConfigService : INotifyPropertyChanged
 
     // ── Migration ────────────────────────────────────────────
 
-    private VimiumConfig? MigrateFromLegacy()
+    private VimiumConfig MigrateFromLegacy()
     {
         try
         {
@@ -292,7 +292,7 @@ public class ConfigService : INotifyPropertyChanged
     private static VimiumConfig Clone(VimiumConfig source) =>
         VimiumConfig.FromJson(source.ToJson());
 
-    private bool SetProperty<T>(T currentValue, T newValue, Action<T> setter, [CallerMemberName] string? propertyName = null)
+    private bool SetProperty<T>(T currentValue, T newValue, Action<T> setter, [CallerMemberName] string propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(currentValue, newValue))
             return false;
@@ -305,9 +305,9 @@ public class ConfigService : INotifyPropertyChanged
 
     // ── INotifyPropertyChanged ───────────────────────────────
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
-    private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    private void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

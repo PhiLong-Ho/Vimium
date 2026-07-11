@@ -24,8 +24,7 @@ public class ClipboardService
     /// </exception>
     public void SetText(string text)
     {
-        if (text == null)
-            throw new ArgumentNullException(nameof(text));
+        ArgumentNullException.ThrowIfNull(text);
 
         Exception lastException = null;
         for (int attempt = 0; attempt < MaxRetries; attempt++)

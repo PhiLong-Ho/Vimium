@@ -17,13 +17,14 @@ namespace Vimium.Views;
 /// Keyboard input is captured via a global low-level hook so the overlay never
 /// steals focus from the underlying window.
 /// </summary>
-public partial class SelectionModeOverlayView
+public partial class SelectionModeOverlayView : IDisposable
 {
     private readonly KeyboardHookService _keyboardHook = new KeyboardHookService();
     private readonly ContentChangeWatcher _contentWatcher = new ContentChangeWatcher();
     private bool _isClosed;
     private bool _contentChanged;
     private bool _watcherStarted;
+    private bool _disposed;
     private IntPtr _sourceWindow;
     private double _scaleX = 1.0;
     private double _scaleY = 1.0;
@@ -74,11 +75,28 @@ public partial class SelectionModeOverlayView
 
     private void SelectionModeOverlayView_OnClosed(object sender, EventArgs e)
     {
+        Dispose();
+    }
+
+    /// <summary>
+    /// Releases the global keyboard hook, content-change watcher, and view-model.
+    /// Called when the overlay window closes; also provides deterministic cleanup
+    /// for the disposable fields this view owns.
+    /// </summary>
+    public void Dispose()
+    {
+        if (_disposed)
+        {
+            return;
+        }
+        _disposed = true;
+
         _isClosed = true;
         _keyboardHook.KeyDown -= KeyboardHook_KeyDown;
         _keyboardHook.Dispose();
         _contentWatcher.Dispose();
         Vm?.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     // ── Keyboard dispatch ─────────────────────────────────────

@@ -10,6 +10,12 @@ namespace Vimium.Models;
 /// </summary>
 public class BenchmarkLogEntry
 {
+    /// <summary>Shared serializer options — reused to avoid per-call allocation (CA1869).</summary>
+    private static readonly JsonSerializerOptions SerializerOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+    };
+
     /// <summary>When enumeration completed (ISO 8601).</summary>
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
@@ -31,21 +37,15 @@ public class BenchmarkLogEntry
     /// <summary>Serializes this entry to a single-line JSON string.</summary>
     public string ToJson()
     {
-        return JsonSerializer.Serialize(this, new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        });
+        return JsonSerializer.Serialize(this, SerializerOptions);
     }
 
     /// <summary>Deserializes a BenchmarkLogEntry from a JSON string.</summary>
-    public static BenchmarkLogEntry? FromJson(string json)
+    public static BenchmarkLogEntry FromJson(string json)
     {
         try
         {
-            return JsonSerializer.Deserialize<BenchmarkLogEntry>(json, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            });
+            return JsonSerializer.Deserialize<BenchmarkLogEntry>(json, SerializerOptions);
         }
         catch
         {

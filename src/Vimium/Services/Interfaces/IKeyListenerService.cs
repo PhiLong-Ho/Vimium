@@ -55,9 +55,9 @@ namespace Vimium.Services.Interfaces
                 "=" => Keys.Oemplus,
                 "`" => Keys.Oemtilde,
                 _ when keyChar.Length == 1 && char.IsDigit(keyChar[0]) =>
-                    (Keys)System.Enum.Parse(typeof(Keys), "D" + keyChar[0]),
+                    System.Enum.Parse<Keys>("D" + keyChar[0]),
                 _ when keyChar.Length == 1 && char.IsLetter(keyChar[0]) =>
-                    (Keys)System.Enum.Parse(typeof(Keys), char.ToUpperInvariant(keyChar[0]).ToString()),
+                    System.Enum.Parse<Keys>(char.ToUpperInvariant(keyChar[0]).ToString()),
                 _ when keyChar.Length == 1 => Keys.OemSemicolon, // fallback
                 _ => Enum.TryParse<Keys>(keyChar, true, out var k) ? k : Keys.OemSemicolon
             };

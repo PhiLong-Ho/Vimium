@@ -16,7 +16,7 @@ namespace Vimium.Services
         /// <summary>
         /// Global counter for assigning ids to identiy the hot key registration
         /// </summary>
-        private int _hotkeyIdCounter = 0;
+        private int _hotkeyIdCounter;
 
         private HotKey _hotKey;
         private HotKey _taskbarHotKey;

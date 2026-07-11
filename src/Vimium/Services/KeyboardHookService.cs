@@ -57,7 +57,7 @@ namespace Vimium.Services
                     var msg = wParam.ToInt32();
                     if (msg == User32.WM_KEYDOWN || msg == User32.WM_SYSKEYDOWN)
                     {
-                        var data = (User32.KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(User32.KBDLLHOOKSTRUCT));
+                        var data = Marshal.PtrToStructure<User32.KBDLLHOOKSTRUCT>(lParam);
                         var args = new KeyDownEventArgs { VirtualKeyCode = (int)data.vkCode };
                         KeyDown?.Invoke(this, args);
                         if (args.Handled)
