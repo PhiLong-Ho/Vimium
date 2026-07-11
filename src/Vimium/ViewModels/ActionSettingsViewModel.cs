@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using Vimium.Models;
 using Vimium.Services;
@@ -147,7 +148,10 @@ public class ActionSettingsViewModel : NotifyPropertyChanged
         if (index >= 0 && index < slots.Length)
         {
             slots[index].Modifier = value;
-            _config.ActionSlots = slots;
+            // Clone the array so ConfigService.SetProperty detects a new
+            // reference and triggers auto-save. Without this, the same array
+            // reference passes reference-equality check and save is skipped.
+            _config.ActionSlots = slots.ToArray();
         }
     }
 
@@ -157,7 +161,7 @@ public class ActionSettingsViewModel : NotifyPropertyChanged
         if (index >= 0 && index < slots.Length)
         {
             slots[index].Action = value;
-            _config.ActionSlots = slots;
+            _config.ActionSlots = slots.ToArray();
         }
     }
 
@@ -167,7 +171,7 @@ public class ActionSettingsViewModel : NotifyPropertyChanged
         if (index >= 0 && index < slots.Length)
         {
             slots[index].Mode = value;
-            _config.ActionSlots = slots;
+            _config.ActionSlots = slots.ToArray();
         }
     }
 

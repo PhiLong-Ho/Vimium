@@ -257,6 +257,8 @@ public class ConfigService : INotifyPropertyChanged
     public void ResetToDefaults()
     {
         _current = Clone(VimiumConfig.Default);
+        SaveInternal(_current);
+        _saved = Clone(_current);
         OnPropertyChanged(null);
         OnPropertyChanged(nameof(IsDirty));
     }

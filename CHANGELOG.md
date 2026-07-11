@@ -2,6 +2,17 @@
 
 This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 
+## v1.4.1
+
+### Fixed
+
+- **Action slot settings not saved to config.json** — changing a hint action slot's modifier, action, or mode in Options → Keyboard & Actions would update in memory but never write to disk (array reference-equality bug in `ConfigService.SetProperty`). The changes were lost on app restart.
+- **Reset to defaults not persisted** — clicking "Reset to defaults" in Options only reset in-memory state; the old values survived a restart because the reset was never written to `config.json`.
+
+### Docs
+
+- **Modifier key reference** added to README — documents accepted syntax for activation shortcuts and action-slot modifiers, including aliases (`Ctrl` / `Control`, `Alt` / `Menu`, `Win` / `Windows`), multi-key combos, and left/right symmetry. CapsLock is explicitly noted as unsupported.
+
 ## v1.4 — Find & Select Text, App Icon Theming & Theme Rename
 
 ### Added

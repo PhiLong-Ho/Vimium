@@ -1,3 +1,4 @@
+using System.IO;
 using Vimium.Models;
 using Vimium.Services;
 using Vimium.ViewModels;
@@ -11,6 +12,22 @@ namespace Vimium.Tests.ViewModels;
 [Collection(ConfigSingletonCollection.Name)]
 public class ActionSettingsViewModelTest
 {
+    private static string ConfigPath => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "Vimium", "config.json");
+
+    private static string ReadConfigFile()
+    {
+        try { return File.ReadAllText(ConfigPath); }
+        catch { return ""; }
+    }
+
+    private static void WriteConfigFile(string json)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(ConfigPath)!);
+        File.WriteAllText(ConfigPath, json);
+    }
+
     public ActionSettingsViewModelTest()
     {
         ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
@@ -152,5 +169,202 @@ public class ActionSettingsViewModelTest
         Assert.NotEqual("Ctrl+;", ConfigService.Instance.LineNavigationModifier);
 
         ConfigService.Instance.LineNavigationModifier = "Ctrl+.";
+    }
+
+    // ── Disk persistence (regression tests for Bug #1 — array reference equality) ──
+
+    [Fact]
+    public void Slot1Modifier_Change_PersistsToDisk()
+    {
+        var snapshot = ReadConfigFile();
+        try
+        {
+            var vm = new ActionSettingsViewModel();
+            vm.Slot1Modifier = "Ctrl+Shift";
+
+            // Verify the change was written to the config file on disk
+            var json = ReadConfigFile();
+            var cfg = VimiumConfig.FromJson(json);
+            Assert.NotNull(cfg.ActionSlots);
+            Assert.True(cfg.ActionSlots.Length >= 2);
+            Assert.Equal("Ctrl+Shift", cfg.ActionSlots[1].Modifier);
+        }
+        finally
+        {
+            ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
+            WriteConfigFile(snapshot);
+        }
+    }
+
+    [Fact]
+    public void Slot1Action_Change_PersistsToDisk()
+    {
+        var snapshot = ReadConfigFile();
+        try
+        {
+            var vm = new ActionSettingsViewModel();
+            vm.Slot1Action = HintAction.Hover;
+
+            var json = ReadConfigFile();
+            var cfg = VimiumConfig.FromJson(json);
+            Assert.NotNull(cfg.ActionSlots);
+            Assert.True(cfg.ActionSlots.Length >= 2);
+            Assert.Equal(HintAction.Hover, cfg.ActionSlots[1].Action);
+        }
+        finally
+        {
+            ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
+            WriteConfigFile(snapshot);
+        }
+    }
+
+    [Fact]
+    public void Slot1Mode_Change_PersistsToDisk()
+    {
+        var snapshot = ReadConfigFile();
+        try
+        {
+            var vm = new ActionSettingsViewModel();
+            vm.Slot1Mode = "Type";
+
+            var json = ReadConfigFile();
+            var cfg = VimiumConfig.FromJson(json);
+            Assert.NotNull(cfg.ActionSlots);
+            Assert.True(cfg.ActionSlots.Length >= 2);
+            Assert.Equal("Type", cfg.ActionSlots[1].Mode);
+        }
+        finally
+        {
+            ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
+            WriteConfigFile(snapshot);
+        }
+    }
+
+    [Fact]
+    public void Slot2Modifier_Change_PersistsToDisk()
+    {
+        var snapshot = ReadConfigFile();
+        try
+        {
+            var vm = new ActionSettingsViewModel();
+            vm.Slot2Modifier = "Win+Shift";
+
+            var json = ReadConfigFile();
+            var cfg = VimiumConfig.FromJson(json);
+            Assert.NotNull(cfg.ActionSlots);
+            Assert.True(cfg.ActionSlots.Length >= 3);
+            Assert.Equal("Win+Shift", cfg.ActionSlots[2].Modifier);
+        }
+        finally
+        {
+            ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
+            WriteConfigFile(snapshot);
+        }
+    }
+
+    [Fact]
+    public void Slot3Modifier_Change_PersistsToDisk()
+    {
+        var snapshot = ReadConfigFile();
+        try
+        {
+            var vm = new ActionSettingsViewModel();
+            vm.Slot3Modifier = "Alt+Ctrl";
+
+            var json = ReadConfigFile();
+            var cfg = VimiumConfig.FromJson(json);
+            Assert.NotNull(cfg.ActionSlots);
+            Assert.True(cfg.ActionSlots.Length >= 4);
+            Assert.Equal("Alt+Ctrl", cfg.ActionSlots[3].Modifier);
+        }
+        finally
+        {
+            ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
+            WriteConfigFile(snapshot);
+        }
+    }
+
+    [Fact]
+    public void Slot3Action_Change_PersistsToDisk()
+    {
+        var snapshot = ReadConfigFile();
+        try
+        {
+            var vm = new ActionSettingsViewModel();
+            vm.Slot3Action = HintAction.LeftClick;
+
+            var json = ReadConfigFile();
+            var cfg = VimiumConfig.FromJson(json);
+            Assert.NotNull(cfg.ActionSlots);
+            Assert.True(cfg.ActionSlots.Length >= 4);
+            Assert.Equal(HintAction.LeftClick, cfg.ActionSlots[3].Action);
+        }
+        finally
+        {
+            ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
+            WriteConfigFile(snapshot);
+        }
+    }
+
+    [Fact]
+    public void Slot0Action_Change_PersistsToDisk()
+    {
+        var snapshot = ReadConfigFile();
+        try
+        {
+            var vm = new ActionSettingsViewModel();
+            vm.Slot0Action = HintAction.Hover;
+
+            var json = ReadConfigFile();
+            var cfg = VimiumConfig.FromJson(json);
+            Assert.NotNull(cfg.ActionSlots);
+            Assert.True(cfg.ActionSlots.Length >= 1);
+            Assert.Equal(HintAction.Hover, cfg.ActionSlots[0].Action);
+        }
+        finally
+        {
+            ConfigService.Instance.ActionSlots = ActionSlot.CreateDefaults();
+            WriteConfigFile(snapshot);
+        }
+    }
+
+    [Fact]
+    public void OverlayModifier_Change_PersistsToDisk()
+    {
+        var snapshot = ReadConfigFile();
+        try
+        {
+            var vm = new ActionSettingsViewModel();
+            vm.OverlayModifier = "Ctrl+Alt+O";
+
+            var json = ReadConfigFile();
+            var cfg = VimiumConfig.FromJson(json);
+            Assert.Equal("Ctrl+Alt+O", cfg.OverlayModifier);
+        }
+        finally
+        {
+            ConfigService.Instance.OverlayModifier = "Ctrl+;";
+            WriteConfigFile(snapshot);
+        }
+    }
+
+    [Fact]
+    public void TaskbarModifier_Change_PersistsToDisk()
+    {
+        var snapshot = ReadConfigFile();
+        try
+        {
+            var vm = new ActionSettingsViewModel();
+            vm.TaskbarModifier = "Ctrl+Alt+T";
+
+            var json = ReadConfigFile();
+            var cfg = VimiumConfig.FromJson(json);
+            Assert.Equal("Ctrl+Alt+T", cfg.TaskbarModifier);
+        }
+        finally
+        {
+            ConfigService.Instance.TaskbarModifier = "Ctrl+'";
+            WriteConfigFile(snapshot);
+        }
     }
 }

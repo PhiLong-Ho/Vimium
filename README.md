@@ -37,6 +37,39 @@ configurable in **Options → Actions** with key-capture controls):
 **Available actions**: Invoke (UIA), Left Click, Right Click, Hover (no click, persist cursor — triggers CSS `:hover`).
 
 **Supported modifiers**: `Shift`, `Ctrl`, `Alt`, `Win`, and two-key combos like `Ctrl+Shift`.
+Left and right variants (e.g. Left Shift / Right Shift) are treated the same — just write `Shift`.
+
+> **CapsLock is not supported** as a modifier. The set of recognized modifier keys is
+> fixed at the Windows API level and does not include CapsLock, NumLock, or ScrollLock.
+
+### Modifier Key Reference
+
+#### Activation shortcuts (Overlay / Taskbar / Find Text)
+
+Format: `Modifier+Key` — the last segment after `+` is the key, everything before is modifiers.
+
+| Value | Effect |
+| --- | --- |
+| `Ctrl+;` | Hold **Ctrl** and press **;** |
+| `Ctrl+Shift+A` | Hold **Ctrl+Shift** and press **A** |
+| `Win+Space` | Hold **Win** and press **Space** |
+| `Alt+.` | Hold **Alt** and press **.** |
+
+Recognized modifiers: `Ctrl`, `Alt`, `Shift`, `Win`. The key can be any letter, digit, or symbol (`;`, `'`, `,`, `.`, `/`, `\`, `[`, `]`, `-`, `=`, `` ` ``).
+
+#### Action slot modifiers (Slot 1–3)
+
+Format: `Modifier` or `Modifier+Modifier` — hold this key combo while typing the hint label.
+
+| Value | Aliases | Effect |
+| --- | --- | --- |
+| `Shift` | — | Hold either Shift key |
+| `Ctrl` | `Control` | Hold either Ctrl key |
+| `Alt` | `Menu` | Hold either Alt key |
+| `Win` | `Windows` | Hold either Win key |
+| `Ctrl+Shift` | — | Hold both Ctrl and Shift |
+
+Left and right variants are handled symmetrically — `Shift` matches both `Left Shift` and `Right Shift`. Same for Ctrl, Alt, and Win.
 
 Why the click modes? Some apps (notably Electron / web-based apps like Microsoft Teams) expose hints through UI Automation but don't implement the `InvokePattern`. A synthesized mouse click goes through the normal OS input path and works on those controls. Hover mode is useful for revealing hidden UI (tooltips, hover cards, drop-down menus) before re-activating hints.
 
