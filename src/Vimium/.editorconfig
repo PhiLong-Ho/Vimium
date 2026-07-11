@@ -11,6 +11,6 @@ root = false
 #     that are data-bound in XAML via {Binding ...} — WPF resolves these against the
 #     DataContext instance, so they MUST remain instance members or the binding breaks
 #     silently at runtime. The analyzer cannot see XAML bindings.
-#   * Service methods (e.g. ClipboardService.SetText) that are invoked on instances
-#     (including from unit tests) and are intentionally instance members for DI/testability.
+#   * Service methods that are invoked on instances (including from unit tests)
+#     and are intentionally instance members for DI/testability.
 dotnet_diagnostic.CA1822.severity = none

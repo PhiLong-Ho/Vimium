@@ -13,7 +13,7 @@ This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 - **Code signing & publishing guide** (`docs/SIGNING.md`) — how to resolve the Microsoft Defender SmartScreen "unrecognized app" warning: Azure Trusted Signing (recommended), EV/OV certificates via `signtool`, and self-signed certs for internal enterprise deployment, plus timestamping, verification, and SmartScreen reputation notes.
 - **Signed-release CI** (`.github/workflows/release.yml`) — builds the portable single-file exe, signs it, and publishes a GitHub release on tag push.
 
-## v1.4 — Line Navigation Mode, App Icon Theming & Theme Rename
+## v1.4 — Find & Select Text, App Icon Theming & Theme Rename
 
 ### Added
 
@@ -21,14 +21,12 @@ This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 - **Theme rename: Skadi → Arknights** — the theme previously named "Skadi" has been renamed to "Arknights" across all user-facing UI (settings dropdown, labels). A legacy `"theme": "Skadi"` (or any unrecognized value) in an existing config resets **only** the `Theme` field to the default (Light) on load — all other settings are preserved and the value is NOT migrated to "Arknights". Users can re-select "Arknights" from the dropdown. See `specs/004-app-icon-and-theme-rename/`.
 - **Version display** — the current application version (e.g. `v1.4.0.0`) is shown in the settings window footer, read from assembly metadata at build time. See `specs/005-version-and-admin-mode/`.
 - **Administrator mode toggle** — a "Run as Administrator" checkbox in General settings lets users (e.g. in enterprise environments) opt out of elevation. The manifest now requests `asInvoker`; when the toggle is enabled (the default), Vimium self-elevates at startup via the Windows `runas` verb. The preference persists in `config.json` and a restart-required notice appears after a change. See `specs/005-version-and-admin-mode/`.
-- **Line navigation mode** (`Ctrl+.` by default) — discover and label every visible text line in the foreground window via UI Automation TextPattern, independent of the existing element navigation mode.
-- **Jump to line** — Type a hint label (without modifier) to move the cursor to the center of that text line.
-- **Sub-line selection & copy** — Hold the copy modifier (`Ctrl` by default) while typing a hint label to enter **selection mode**: incremental search across all visible lines, Tab/Shift+Tab to cycle search matches, standard Windows navigation keys (arrows, Ctrl+arrow, Shift+arrow for selection), Home/End, Enter to copy (whole line or selection), Escape to cancel.
-- **Clipboard integration** — Copied text goes to the system clipboard with retry handling for clipboard contention.
-- **Configurable hotkeys** — Line navigation activation hotkey and copy modifier are configurable in Options → Keyboard. Changes take effect immediately (auto-save). Duplicate hotkey prevention with element overlay.
-- **Mode isolation** — Element mode (`Ctrl+;`) and line mode (`Ctrl+.`) operate independently. Only one overlay can be active at a time. Each has its own keyboard hook and state.
-- **Copy confirmation** — Brief "Copied!" toast animation in selection mode on Enter.
-- **Zero-text handling** — Windows with no text (e.g., Paint) show "No text lines found" and auto-dismiss after 1.5s.
+- **Find & select text** (`Ctrl+.` by default) — open a Chrome `Ctrl+F`–style find bar over the foreground window and search its visible text via UI Automation (TextPattern → ValuePattern → element names), independent of element navigation mode.
+- **Live highlighting & cycling** — type ≥5 characters (debounced) to search; every visible match is boxed (yellow = all, orange = active), and `Tab` / `Shift+Tab` cycle matches with a live "2 of 5" count.
+- **Select to copy or edit** — `Enter` scrolls the active match into view and selects it in the source app, then closes the overlay, so you can `Ctrl+C` to copy or start editing (e.g. grabbing terminal output without the mouse). `Escape` (or switching windows) dismisses.
+- **Configurable activation hotkey** — the find/line-navigation hotkey is configurable in Options → Keyboard (auto-save), with duplicate-hotkey prevention against the element overlay.
+- **Mode isolation** — element mode (`Ctrl+;`) and find mode (`Ctrl+.`) operate independently; only one overlay is active at a time, each with its own keyboard hook and state.
+- **Search limits & zero-text handling** — search is scoped to the visible viewport, capped at 200 matches and a 3-second timeout; windows with no accessible text show "No text found" and auto-dismiss, and browsers/large pages that time out suggest the app's built-in Ctrl+F.
 - **Blazing-fast hint enumeration** — Cold-start hints appear within 750ms for 200+ element apps (was 1–3s). Achieved via pattern-availability pre-filtering at the UIA provider level (40–60% fewer cross-process elements), conservative tree trimming, and result caching by window handle.
 - **4-slot configurable hint actions** — Replace hardcoded Shift→Click behavior with four configurable modifier-action slots: Slot 0 (default, no modifier), Slots 1–3 with text-based modifier input and action dropdowns. Actions: Invoke, Left Click, Right Click, Hover.
 - **Hover action** — Move cursor to element center without clicking. Triggers CSS `:hover` effects; cursor persists so hover-revealed UI stays visible for the next hint activation. Useful for tooltips, hover cards, and drop-down menus.
