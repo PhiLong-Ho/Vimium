@@ -111,27 +111,25 @@ public class UiAutomationHintProviderServiceTest
     }
 
     [Fact]
-    public void EnumHintsAsync_PassesCancellationToken()
+    public async Task EnumHintsAsync_PassesCancellationToken()
     {
         var fake = new CachingFakeHintProviderService();
         using var cts = new System.Threading.CancellationTokenSource();
 
         // Should not throw — token is not cancelled
-        var task = fake.EnumHintsAsync((IntPtr)999, cts.Token);
-        task.Wait();
+        var result = await fake.EnumHintsAsync((IntPtr)999, cts.Token);
 
-        Assert.NotNull(task.Result);
+        Assert.NotNull(result);
     }
 
     [Fact]
-    public void EnumHintsAsync_SupportsDefaultCancellationToken()
+    public async Task EnumHintsAsync_SupportsDefaultCancellationToken()
     {
         var fake = new CachingFakeHintProviderService();
 
         // Call with default CancellationToken (no parameter)
-        var task = fake.EnumHintsAsync((IntPtr)888);
-        task.Wait();
+        var result = await fake.EnumHintsAsync((IntPtr)888);
 
-        Assert.NotNull(task.Result);
+        Assert.NotNull(result);
     }
 }

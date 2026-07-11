@@ -115,7 +115,7 @@ public class BenchmarkServiceTest : IDisposable
     }
 
     [Fact]
-    public void LogSession_ConcurrentWrites_ProduceValidOutput()
+    public async Task LogSession_ConcurrentWrites_ProduceValidOutput()
     {
         var entry = new BenchmarkLogEntry
         {
@@ -142,7 +142,7 @@ public class BenchmarkServiceTest : IDisposable
             });
         }
 
-        Task.WaitAll(tasks);
+        await Task.WhenAll(tasks);
 
         // All iterations completed without exceptions — JSON roundtrip
         // is consistent across concurrent access.
