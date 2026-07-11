@@ -35,9 +35,9 @@
 
 ---
 
-### Scenario 2: Default Administrator Mode
+### Scenario 2: Default Administrator Mode (Non-Elevated)
 
-**Objective**: Verify admin mode is enabled by default for new/fresh installs.
+**Objective**: Verify admin mode is DISABLED by default for new/fresh installs — no UAC prompt.
 
 **Steps**:
 
@@ -51,15 +51,17 @@
    dotnet run --project src\Vimium
    ```
 
-3. **Verify**: UAC prompt appears (admin mode is enabled by default).
+3. **Verify**: NO UAC prompt appears (admin mode is disabled by default).
 
 4. Open settings → General tab.
 
-5. **Verify**: "Run as Administrator" checkbox is checked.
+5. **Verify**: "Run as Administrator" checkbox is unchecked.
 
 6. **Verify**: No restart message is shown (default state, no change made).
 
-**Expected Outcome**: Fresh install defaults to admin mode enabled, UAC prompt on launch.
+7. **Verify**: Task Manager → Details → "Elevated" column shows `Vimium.exe` = "No".
+
+**Expected Outcome**: Fresh install defaults to non-elevated mode, no UAC prompt on launch.
 
 ---
 
@@ -121,7 +123,7 @@
 
 ### Scenario 5: Config Migration (Upgrade from Previous Version)
 
-**Objective**: Verify existing users upgrading from a version without the `runAsAdministrator` key retain the default elevated behavior.
+**Objective**: Verify existing users upgrading from a version without the `runAsAdministrator` key adopt the non-elevated default.
 
 **Steps**:
 
@@ -139,22 +141,22 @@
 
 2. Launch Vimium.
 
-3. **Verify**: UAC prompt appears (admin mode defaults to `true`).
+3. **Verify**: NO UAC prompt appears (missing key resolves to the default `false`).
 
 4. Open settings → General tab.
 
-5. **Verify**: "Run as Administrator" is checked.
+5. **Verify**: "Run as Administrator" is unchecked.
 
-6. Close settings. Close Vimium.
+6. Change any setting (e.g. font size) so the config auto-saves, then close Vimium.
 
 7. Check the config file:
    ```powershell
    Get-Content "$env:APPDATA\Vimium\config.json"
    ```
 
-8. **Verify**: The config file still contains the original keys (`fontSize`, `theme`) and does NOT necessarily contain `runAsAdministrator` (since `true` is the default and `DefaultIgnoreCondition = WhenWritingDefault`).
+8. **Verify**: The file retains the original keys (`fontSize`, `theme`) and now also contains `"runAsAdministrator": false` — the key is always written on save (`JsonIgnoreCondition.Never`). (If no setting is changed, the file is not rewritten and the key is simply added on the next save.)
 
-**Expected Outcome**: Upgrading users keep existing settings, admin mode defaults to enabled.
+**Expected Outcome**: Upgrading users keep existing settings; admin mode defaults to disabled (non-elevated).
 
 ---
 
@@ -172,7 +174,7 @@
 
 4. **Verify**: Vimium does NOT crash. The elevated process fails to start (UAC denied), and the original process has already exited via `Current.Shutdown()`. The user can relaunch manually.
 
-> **Note**: This is the expected behavior with the self-elevation pattern. The original process exits after requesting elevation, so there's nothing to crash. The user relaunches the app manually, which starts non-elevated (since the config still has `runAsAdministrator: true`, it will try again — the user should disable admin mode first via editing config, or launch with a `--no-elevate` flag if added later).
+> **Note**: This is the expected behavior with the self-elevation pattern. The original process exits after requesting elevation, so there's nothing to crash. The user relaunches the app manually; because the config still has `runAsAdministrator: true` (they opted in), it will request elevation again — the user should disable admin mode via the settings toggle or by editing config if they cannot elevate.
 
 ---
 
@@ -188,7 +190,7 @@ dotnet test src\Vimium.sln
 
 **Expected Outcome**: All tests pass with zero failures. New tests cover:
 - `VimiumConfig` serialization round-trip with `RunAsAdministrator`
-- `VimiumConfig` deserialization from JSON missing the key → defaults to `true`
+- `VimiumConfig` deserialization from JSON missing the key → defaults to `false`
 - `ConfigService.RunAsAdministrator` get/set/property-changed
 - `GeneralSettingsViewModel` version display and admin toggle bindings
 
@@ -200,12 +202,12 @@ dotnet test src\Vimium.sln
 |---|----------|-----------|
 | 1 | Version visible in settings on open | ☐ |
 | 2 | Version matches `SolutionInfo.cs` const | ☐ |
-| 3 | Fresh install defaults to admin mode ON | ☐ |
-| 4 | UAC prompt appears when admin mode ON | ☐ |
-| 5 | Admin toggle unchecked → restart message shown | ☐ |
+| 3 | Fresh install defaults to admin mode OFF (non-elevated) | ☐ |
+| 4 | No UAC prompt on fresh launch; UAC appears only after enabling admin mode | ☐ |
+| 5 | Admin toggle checked → restart message shown | ☐ |
 | 6 | Admin toggle persists after settings close/reopen | ☐ |
 | 7 | No UAC when admin mode OFF | ☐ |
 | 8 | Task Manager shows "Not elevated" when OFF | ☐ |
 | 9 | Re-enable → UAC returns | ☐ |
-| 10 | Config migration (missing key → defaults true) | ☐ |
+| 10 | Config migration (missing key → defaults false / non-elevated) | ☐ |
 | 11 | Unit tests pass (`dotnet test`) | ☐ |

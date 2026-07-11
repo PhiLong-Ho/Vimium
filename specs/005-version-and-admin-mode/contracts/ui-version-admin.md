@@ -82,9 +82,9 @@ General settings page, as a new card section below the existing "Appearance" car
 
 ### Behavior
 
-- **Default state**: Checkbox checked (`true`). No restart message visible.
-- **On uncheck**: Setting saved immediately (auto-save via `ConfigService`). Restart message appears.
-- **On recheck**: Setting saved immediately. Restart message remains (the change still requires restart).
+- **Default state**: Checkbox unchecked (`false`, non-elevated). No restart message visible.
+- **On toggle (either direction)**: Setting saved immediately (auto-save via `ConfigService`). Restart message appears.
+- **On toggle back to the open-time value**: Restart message hidden again (config matches the value when the page opened).
 - **On settings close + reopen**: Restart message absent (config matches saved state). Current session privilege level unchanged.
 - **On change during same session without restart**: Checkbox reflects config value. The actual privilege level of the running process does NOT change until restart.
 - **Keyboard**: `Alt+R` access key on the checkbox label. `Tab` to navigate to it. `Space` to toggle.

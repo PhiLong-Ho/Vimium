@@ -183,10 +183,11 @@ namespace Vimium
             }
             else
             {
-                // Runtime elevation (feature 005): the manifest now requests
-                // asInvoker, so elevation is decided here. When the user keeps
-                // admin mode enabled (default) and we are not already elevated,
-                // relaunch elevated via the "runas" verb and exit this instance.
+                // Runtime elevation (feature 005): the manifest requests
+                // asInvoker, so elevation is decided here. Admin mode is OFF by
+                // default (enterprise-friendly); when a user opts into it and we
+                // are not already elevated, relaunch elevated via the "runas"
+                // verb and exit this instance.
                 if (ConfigService.Instance.RunAsAdministrator && !IsUserAdmin())
                 {
                     RelaunchElevated();

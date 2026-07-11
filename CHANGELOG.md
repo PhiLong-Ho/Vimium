@@ -2,6 +2,17 @@
 
 This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 
+## Unreleased
+
+### Changed
+
+- **Administrator mode now defaults to OFF (non-elevated).** A fresh install runs as `asInvoker` with no UAC prompt — the behavior enterprise-managed environments require. Elevation is strictly opt-in via **Options → General → "Run as Administrator"**. Users who explicitly enabled admin mode in a prior build keep their setting; users who never configured it adopt the non-elevated default. Supersedes the original v1.4 default of ON. See `specs/005-version-and-admin-mode/`.
+
+### Docs
+
+- **Code signing & publishing guide** (`docs/SIGNING.md`) — how to resolve the Microsoft Defender SmartScreen "unrecognized app" warning: Azure Trusted Signing (recommended), EV/OV certificates via `signtool`, and self-signed certs for internal enterprise deployment, plus timestamping, verification, and SmartScreen reputation notes.
+- **Signed-release CI** (`.github/workflows/release.yml`) — builds the portable single-file exe, signs it, and publishes a GitHub release on tag push.
+
 ## v1.4 — Line Navigation Mode, App Icon Theming & Theme Rename
 
 ### Added

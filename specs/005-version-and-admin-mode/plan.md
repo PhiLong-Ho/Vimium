@@ -37,7 +37,7 @@ Add version display to the settings window (read from assembly metadata at runti
 **Constraints**:
 - <100MB steady-state memory (no change — no new retained objects)
 - Elevated-process security implications (UIPI, cross-privilege COM) — read-only version display has no elevation impact; admin toggle follows established Windows patterns
-- Config migration: missing `RunAsAdministrator` key in existing configs must default to `true` silently
+- Config migration: missing `RunAsAdministrator` key in existing configs must default to `false` (non-elevated) silently
 
 **Scale/Scope**: Single-user desktop app. 3 existing settings pages. Feature adds one checkbox to General page and one version label to the sidebar/footer. Minimal surface area.
 
@@ -67,7 +67,7 @@ Add version display to the settings window (read from assembly metadata at runti
 **Status**: ✅ PASS
 
 - **Unit tests planned for**:
-  - `VimiumConfig`: serialization round-trip with `RunAsAdministrator`; deserialization of config missing the key (defaults to `true`)
+  - `VimiumConfig`: serialization round-trip with `RunAsAdministrator`; deserialization of config missing the key (defaults to `false`)
   - `ConfigService.RunAsAdministrator`: get/set/property-changed notification
   - `GeneralSettingsViewModel`: version display binding, admin toggle binding, restart-message visibility
   - `App.xaml.cs` elevation logic (if extracted into `IElevationService`)

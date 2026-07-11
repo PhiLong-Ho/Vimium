@@ -70,21 +70,20 @@ public class VimiumConfig
 
     /// <summary>
     /// Whether the application should launch with administrator privileges.
-    /// When true (default), the app self-elevates on startup via the "runas"
-    /// verb. When false, it runs in the user's current privilege context.
-    /// Missing key on load defaults to true (preserves legacy always-elevated
-    /// behavior for upgrading users).
+    /// When false (the default), Vimium runs in the user's current privilege
+    /// context with no UAC prompt — the enterprise-friendly behavior most
+    /// managed environments require. When true, the app self-elevates on
+    /// startup via the "runas" verb. Missing key on load defaults to false.
     /// </summary>
     /// <remarks>
-    /// Forced to always serialize (<see cref="JsonIgnoreCondition.Never"/>).
-    /// The class-wide <c>WhenWritingDefault</c> policy keys off the CLR type
-    /// default (<c>false</c> for bool), which would omit an explicit
-    /// <c>false</c> and silently re-default it to <c>true</c> on reload —
-    /// breaking the "disable admin mode" preference. Always writing the key
-    /// guarantees a chosen <c>false</c> round-trips correctly.
+    /// Forced to always serialize (<see cref="JsonIgnoreCondition.Never"/>) so
+    /// the key is always present in config.json — discoverable for users who
+    /// want to opt into elevation, and guaranteeing whichever value the user
+    /// chooses round-trips. Without this, the class-wide <c>WhenWritingDefault</c>
+    /// policy would omit the CLR-default <c>false</c> from the file entirely.
     /// </remarks>
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    public bool RunAsAdministrator { get; set; } = true;
+    public bool RunAsAdministrator { get; set; } = false;
 
     // ── Factory ──────────────────────────────────────────────
 

@@ -137,10 +137,10 @@ public class VimiumConfigTest
     // ── RunAsAdministrator (feature 005) ─────────────────────
 
     [Fact]
-    public void RunAsAdministrator_DefaultsToTrue()
+    public void RunAsAdministrator_DefaultsToFalse()
     {
         var cfg = VimiumConfig.Default;
-        Assert.True(cfg.RunAsAdministrator);
+        Assert.False(cfg.RunAsAdministrator);
     }
 
     [Fact]
@@ -155,13 +155,15 @@ public class VimiumConfigTest
     }
 
     [Fact]
-    public void RunAsAdministrator_AbsentKey_DefaultsToTrue()
+    public void RunAsAdministrator_AbsentKey_DefaultsToFalse()
     {
-        // Simulates an upgrading user whose config predates the key.
+        // A config that predates the key (or any config omitting it) must fall
+        // back to the non-elevated default — enterprise-managed machines expect
+        // no UAC prompt unless the user explicitly opts in.
         var json = """{"fontSize": "16", "theme": "Dark"}""";
         var cfg = VimiumConfig.FromJson(json);
 
-        Assert.True(cfg.RunAsAdministrator);
+        Assert.False(cfg.RunAsAdministrator);
     }
 
     [Fact]
@@ -174,15 +176,15 @@ public class VimiumConfigTest
     }
 
     [Fact]
-    public void RunAsAdministrator_Default_WrittenAsTrue()
+    public void RunAsAdministrator_Default_WrittenAsFalse()
     {
-        // Forced to always serialize (JsonIgnoreCondition.Never) so an explicit
-        // false round-trips; the default true is therefore also written.
+        // Forced to always serialize (JsonIgnoreCondition.Never) so the key is
+        // always present in config.json — the non-elevated default is explicit
+        // and discoverable, and a chosen value round-trips.
         var cfg = VimiumConfig.Default;
         var json = cfg.ToJson();
 
-        Assert.Contains("\"runAsAdministrator\"", json);
-        Assert.Contains("true", json);
+        Assert.Contains("\"runAsAdministrator\": false", json);
     }
 
     [Fact]

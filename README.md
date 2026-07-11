@@ -180,3 +180,24 @@ Requirements: [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) a
 ```bash
 dotnet build src\Vimium.sln
 ```
+
+### Portable build
+
+Produce a self-contained, single-file `Vimium.exe` (no .NET runtime needed):
+
+```powershell
+dotnet publish src\Vimium\Vimium.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o publish\win-x64
+```
+
+### Code signing (SmartScreen)
+
+Downloaded releases are unsigned, so Microsoft Defender SmartScreen shows an
+"unrecognized app" warning. See **[docs/SIGNING.md](docs/SIGNING.md)** for how to
+resolve it — Azure Trusted Signing (recommended), EV/OV certificates, or a
+self-signed certificate for internal enterprise deployment. The
+[`release`](.github/workflows/release.yml) workflow builds, signs, and publishes a
+release on tag push.
+
+> **Administrator mode is off by default.** Vimium runs non-elevated (no UAC
+> prompt) out of the box — suitable for managed/enterprise environments. Enable
+> elevation from **Options → General → "Run as Administrator"** if you want it.

@@ -103,28 +103,28 @@ When `RunAsAdministrator` changes in the settings UI, show a `TextBlock` message
 ## 4. Config Migration (Missing Key)
 
 ### Decision
-Rely on `System.Text.Json` default value handling. `VimiumConfig.RunAsAdministrator` defaults to `true`. When deserializing a config JSON that lacks the `runAsAdministrator` key, the serializer uses the CLR default (`true`). No explicit migration code needed.
+Rely on `System.Text.Json` default value handling. `VimiumConfig.RunAsAdministrator` defaults to `false`. When deserializing a config JSON that lacks the `runAsAdministrator` key, the property initializer supplies `false` (non-elevated). No explicit migration code needed.
 
 ### Rationale
-- `System.Text.Json` by default populates missing properties with their CLR default values. Since the C# property is `public bool RunAsAdministrator { get; set; } = true;`, the default matches the previous always-elevated behavior.
+- `System.Text.Json` leaves properties absent from the JSON at their initialized value. Since the C# property is `public bool RunAsAdministrator { get; set; } = false;`, a missing key resolves to the enterprise-friendly non-elevated default.
 - The existing `ConfigService.MigrateFromLegacy()` method only handles the old `Settings.settings` → `config.json` migration for `FontSize`. No additional migration needed for this property.
-- Test coverage will verify: deserialize `{"fontSize": "14"}` → `RunAsAdministrator` equals `true`.
+- Test coverage will verify: deserialize `{"fontSize": "14"}` → `RunAsAdministrator` equals `false`.
 
 ### Alternatives Considered
 | Alternative | Rejected Because |
 |-------------|------------------|
-| Custom `JsonConverter` to detect missing key | Over-engineered; CLR default achieves the same result |
+| Custom `JsonConverter` to detect missing key | Over-engineered; the property initializer achieves the same result |
 | Explicit migration code in `ConfigService.Load()` | Redundant when JSON deserialization handles it natively |
-| Store as `bool?` and coalesce null → true | Adds null-handling complexity for no benefit |
+| Store as `bool?` and coalesce null → false | Adds null-handling complexity for no benefit |
 
 ### Test Verification
 ```csharp
 [Fact]
-public void RunAsAdministrator_MissingFromJson_DefaultsToTrue()
+public void RunAsAdministrator_MissingFromJson_DefaultsToFalse()
 {
     var json = "{\"fontSize\": \"14\"}";
     var config = VimiumConfig.FromJson(json);
-    Assert.True(config.RunAsAdministrator);
+    Assert.False(config.RunAsAdministrator);
 }
 ```
 
@@ -145,5 +145,5 @@ On systems where UAC is disabled, `Process.Start` with `Verb = "runas"` will sti
 | Elevation manifest | Change to `asInvoker` | Runtime `runas` verb via `Process.Start` |
 | Elevation check | `WindowsPrincipal.IsInRole(Administrator)` | Guard in `App.OnStartup` |
 | Restart message | Inline `TextBlock` with visibility binding | MVVM `ShowRestartMessage` property |
-| Config migration | CLR default (`true`) via System.Text.Json | No explicit migration needed |
+| Config migration | Property default (`false`) via System.Text.Json | No explicit migration needed |
 | UAC-disabled systems | No special handling; `IsUserAdmin()` gate | Consistent behavior |

@@ -14,6 +14,10 @@
 
 - Q: (carried from combined spec 003) What is the default activation hotkey for mouse control mode? → A: Not applicable — this spec is version & admin mode only. Mouse control is in `specs/003-mouse-control-mode/`.
 
+### Session 2026-07-11
+
+- Q: Should administrator mode be enabled or disabled by default for new installations? → A: **Disabled (non-elevated) by default.** Most enterprise/managed environments prohibit user apps from self-elevating, and an app that triggers a UAC prompt on first launch cannot be deployed there. Elevation becomes strictly opt-in via Options → General. This supersedes the original FR-005 default of "enabled". Note: this also reduces Microsoft Defender SmartScreen friction — the app no longer requests elevation on an unrecognized (unsigned) binary. Code signing to fully clear the SmartScreen "unrecognized app" prompt is documented separately in `docs/SIGNING.md`.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - View Software Version (Priority: P1)
@@ -42,7 +46,7 @@ An enterprise user needs to disable administrator elevation to comply with their
 
 **Acceptance Scenarios**:
 
-1. **Given** Vimium is running with default settings, **When** a user checks the administrator mode setting, **Then** it is enabled by default.
+1. **Given** a fresh Vimium install with default settings, **When** the user opens the General settings page, **Then** "Run as Administrator" is unchecked (non-elevated) by default and no UAC prompt occurred at launch.
 2. **Given** an enterprise user opens settings, **When** they disable "Run as Administrator" and restart Vimium, **Then** the application launches without requesting elevation and runs in the user's current privilege context.
 3. **Given** a user has disabled administrator mode, **When** they re-enable it and restart, **Then** Vimium requests elevation on next launch as before.
 4. **Given** the administrator mode setting is changed, **When** the user closes and reopens settings, **Then** their preference is persisted correctly.
@@ -54,7 +58,7 @@ An enterprise user needs to disable administrator elevation to comply with their
 
 - **Administrator mode toggle mid-session**: Changing the setting takes effect on the next application restart. The current session continues with its existing privilege level.
 - **Version display on fresh install**: For a first-time install with no prior configuration, the version must still display correctly (read from assembly metadata, not from config).
-- **Config migration**: The `runAsAdministrator` key does not exist in config files from versions prior to v1.4. On first launch, the default value (`true`) must be used with no error.
+- **Config migration**: The `runAsAdministrator` key does not exist in config files from versions prior to v1.4. On load, a missing key MUST resolve to the default value (`false` — non-elevated) with no error. Users who had explicitly set the key to `true` in a prior build keep that value (it is persisted in the file and preserved on load).
 - **UAC disabled system-wide**: On systems where UAC is disabled entirely, the administrator mode toggle has no visible effect (the application always runs elevated). The setting should still be toggleable and persist correctly.
 - **Non-admin user**: If the current Windows user does not have administrator credentials, enabling "Run as Administrator" will cause the UAC prompt to fail. The application should handle this gracefully (fall back to non-elevated mode) rather than crashing.
 
@@ -71,14 +75,14 @@ An enterprise user needs to disable administrator elevation to comply with their
 **Administrator Mode Toggle**
 
 - **FR-004**: The application MUST provide a setting to enable or disable running with administrator privileges.
-- **FR-005**: The administrator mode setting MUST default to enabled (elevated) for new installations.
+- **FR-005**: The administrator mode setting MUST default to **disabled (non-elevated)** for new installations, so managed/enterprise environments run Vimium without elevation — and without a UAC prompt — out of the box. Elevation is strictly opt-in.
 - **FR-006**: Changing the administrator mode setting MUST persist across application restarts.
 - **FR-007**: When administrator mode is disabled, the application MUST launch without triggering a User Account Control (UAC) elevation prompt.
 - **FR-008**: The administrator mode change MUST take effect on the next application launch, with clear messaging to the user that a restart is required.
 
 ### Key Entities *(include if feature involves data)*
 
-- **ApplicationSettings**: Extended to include the `RunAsAdministrator` preference (boolean, default `true`) alongside the existing config fields. The application version string is derived from assembly metadata at runtime and exposed for display — it is NOT a persisted config field.
+- **ApplicationSettings**: Extended to include the `RunAsAdministrator` preference (boolean, default `false` — non-elevated) alongside the existing config fields. The application version string is derived from assembly metadata at runtime and exposed for display — it is NOT a persisted config field.
 
 ## Success Criteria *(mandatory)*
 
@@ -87,12 +91,12 @@ An enterprise user needs to disable administrator elevation to comply with their
 - **SC-001**: Users can view the application version in under 3 seconds from the system tray (right-click tray icon → open settings → version visible).
 - **SC-002**: Users can toggle administrator mode and restart the application in under 30 seconds.
 - **SC-003**: Enterprise users who previously could not install Vimium due to mandatory elevation can now run the application with administrator mode disabled.
-- **SC-004**: 100% of existing users upgrading from a previous version retain their existing settings (the new `RunAsAdministrator` default of `true` matches the previous always-elevated behavior).
+- **SC-004**: Existing users upgrading from a previous version retain any admin-mode preference they explicitly saved (`runAsAdministrator` persisted in their config). Users who never configured it adopt the new non-elevated default, aligning Vimium with enterprise policy without breaking a deliberate opt-in.
 
 ## Assumptions
 
 - **Version source**: The application version is embedded in the assembly metadata (e.g., `AssemblyInfo.cs` or project file version property) and can be read at runtime without additional build steps.
-- **Admin mode implementation**: Disabling administrator mode is achieved by changing the application manifest to `asInvoker` and conditionally relaunching with elevation (`runas` verb) when the setting is enabled. This avoids maintaining two separate executables.
+- **Admin mode implementation**: Disabling administrator mode is achieved by changing the application manifest to `asInvoker` and conditionally relaunching with elevation (`runas` verb) when the setting is enabled. This avoids maintaining two separate executables. The setting defaults to `false`, so the default launch path is `asInvoker` with no elevation.
 - **Restart requirement**: Users understand that administrator mode changes require an application restart, which is standard for privilege-level changes on Windows.
 - **Settings persistence**: The `RunAsAdministrator` setting is stored in the existing `%APPDATA%\Vimium\config.json` file using the existing `System.Text.Json` configuration infrastructure, alongside all other settings.
 - **Scope boundary**: This feature covers version display and administrator mode toggle only. Mouse control mode is specified separately in `specs/003-mouse-control-mode/`.

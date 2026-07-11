@@ -17,26 +17,26 @@ This feature extends one existing entity and introduces one read-only view-model
 
 | Field | Type | Default | Required | Description |
 |-------|------|---------|----------|-------------|
-| `RunAsAdministrator` | `bool` | `true` | No (CLR default) | Whether the application should launch with administrator privileges. When `true`, the app self-elevates on startup via `runas` verb. When `false`, the app runs in the user's current privilege context. |
+| `RunAsAdministrator` | `bool` | `false` | No | Whether the application should launch with administrator privileges. When `true`, the app self-elevates on startup via `runas` verb. When `false` (the default), the app runs in the user's current privilege context with no UAC prompt. |
 
 ### JSON Serialization
 
 ```json
 {
-  "runAsAdministrator": true
+  "runAsAdministrator": false
 }
 ```
 
 - Property name in JSON: `runAsAdministrator` (camelCase per existing naming policy)
-- Missing key on deserialization → CLR default `true` (preserves backward compatibility)
-- `DefaultIgnoreCondition = WhenWritingDefault`: If set to `false`, the key will be written. If `true`, the key is omitted from JSON (matching existing pattern for other boolean fields like `hintAnimationEnabled` which also defaults to `true` and is omitted when `true`).
+- Missing key on deserialization → default `false` (non-elevated — enterprise-friendly)
+- `[JsonIgnore(Condition = Never)]`: the key is **always written** regardless of value, so the non-elevated default is explicit and discoverable in `config.json`, and any value the user picks round-trips. (Without it, the class-wide `WhenWritingDefault` policy would omit the CLR-default `false`.)
 
 ### Validation Rules
 
 | Rule | Enforcement |
 |------|-------------|
 | Must be `true` or `false` | Compile-time (C# `bool`) |
-| Default value is `true` | Constructor initialization |
+| Default value is `false` | Constructor initialization |
 
 ### State Transitions
 
@@ -172,6 +172,6 @@ public bool RunAsAdministrator
 
 | Test Entity | Test Scenarios |
 |-------------|---------------|
-| `VimiumConfig` | Round-trip serialization with `RunAsAdministrator`; deserialization from JSON missing the key → defaults to `true`; deserialization from JSON with explicit `false` → preserved |
+| `VimiumConfig` | Round-trip serialization with `RunAsAdministrator`; deserialization from JSON missing the key → defaults to `false`; deserialization from JSON with explicit `true` → preserved |
 | `ConfigService` | `RunAsAdministrator` get/set; `PropertyChanged` raised on change; `IsDirty` updated; `Save()` persists the value; `Cancel()` reverts |
 | `GeneralSettingsViewModel` | `RunAsAdministrator` binding forwards to config; `ShowRestartMessage` transitions; `AppVersion` matches assembly const |

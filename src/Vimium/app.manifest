@@ -6,11 +6,11 @@
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
         <!--
           asInvoker runs Vimium at the caller's integrity level (no UAC prompt at
-          launch). Elevation is now decided at runtime: when the RunAsAdministrator
-          config setting is true (the default), App.OnStartup self-elevates by
-          relaunching with the "runas" verb. When false, Vimium stays non-elevated.
-          This keeps the enterprise opt-out working while preserving the historical
-          always-elevated default for existing users.
+          launch). Elevation is decided at runtime: when the RunAsAdministrator
+          config setting is true, App.OnStartup self-elevates by relaunching with
+          the "runas" verb. The setting defaults to false (non-elevated), so a
+          fresh install runs without a UAC prompt — the behavior enterprise-managed
+          environments expect. Users can opt into elevation from Options → General.
         -->
         <requestedExecutionLevel level="asInvoker" uiAccess="false" />
       </requestedPrivileges>

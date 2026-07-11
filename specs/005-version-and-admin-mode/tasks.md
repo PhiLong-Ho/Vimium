@@ -229,3 +229,28 @@ T001 ─→ T002 ─→ T003 ─→ T004 ─→ T005 ─→ T006
 - Commit after each task or logical group
 - Stop at any checkpoint to validate story independently
 - Avoid: vague tasks, same file conflicts, cross-story dependencies that break independence
+
+---
+
+## Addendum: Non-Elevated Default & SmartScreen Signing (2026-07-11)
+
+Follow-up change requested after the initial v1.4 implementation. Supersedes the
+original FR-005 "default enabled" decision (see spec.md Clarifications 2026-07-11).
+
+- [X] T023 [US2] Flip `VimiumConfig.RunAsAdministrator` default `true` → `false`;
+      update XML doc/remarks (`src/Vimium/Models/VimiumConfig.cs`)
+- [X] T024 [US2] Update `app.manifest` and `App.xaml.cs` comments to describe the
+      non-elevated default
+- [X] T025 [P] [US2] Update `VimiumConfigTest` cases: `DefaultsToFalse`,
+      `AbsentKey_DefaultsToFalse`, `Default_WrittenAsFalse`
+      (`src/Vimium.Tests/Models/VimiumConfigTest.cs`)
+- [X] T026 [P] Update design docs for the new default (spec.md, data-model.md,
+      contracts/config-schema.md, quickstart.md, research.md, CHANGELOG.md)
+- [X] T027 Write `docs/SIGNING.md` — SmartScreen resolution & code-signing guide
+      (Azure Trusted Signing, EV/OV signtool, self-signed enterprise)
+- [X] T028 Add `.github/workflows/release.yml` — build + sign + publish signed release
+- [X] T029 Build solution and run full test suite (green)
+
+> Note: Code signing itself requires a certificate the maintainer must obtain
+> (cost/identity validation). `docs/SIGNING.md` documents every path; the CI
+> workflow is wired for Azure Trusted Signing with secrets provided later.
