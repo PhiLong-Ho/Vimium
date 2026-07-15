@@ -24,18 +24,22 @@ namespace Vimium.Services
         private HotKey _lineNavigationHotKey;
 
         /// <summary>
-        /// Re-registers the current hotkey, unregistering any previous key
+        /// Re-registers the current hotkey, unregistering any previous key.
+        /// Accepts the old hotkey separately so the old OS-level registration
+        /// can be released even when a brand-new HotKey object is supplied.
         /// </summary>
-        private void ReRegisterHotKey(HotKey hotKey)
+        private void ReRegisterHotKey(HotKey newHotKey, HotKey oldHotKey)
         {
-            // Already registered, have to unregister first
-            if (hotKey.RegistrationId > 0)
+            // Unregister the *previous* OS registration first,
+            // otherwise the old shortcut stays blocked until restart.
+            if (oldHotKey?.RegistrationId > 0)
             {
-                User32.UnregisterHotKey(Handle, hotKey.RegistrationId);
+                User32.UnregisterHotKey(Handle, oldHotKey.RegistrationId);
             }
 
-            hotKey.RegistrationId = _hotkeyIdCounter++;
-            User32.RegisterHotKey(Handle, hotKey.RegistrationId, (uint)hotKey.Modifier, (uint)hotKey.Keys);
+            newHotKey.RegistrationId = _hotkeyIdCounter++;
+            User32.RegisterHotKey(Handle, newHotKey.RegistrationId,
+                (uint)newHotKey.Modifier, (uint)newHotKey.Keys);
         }
 
         /// <summary>
@@ -51,8 +55,8 @@ namespace Vimium.Services
             }
             set
             {
+                ReRegisterHotKey(value, _hotKey);
                 _hotKey = value;
-                ReRegisterHotKey(_hotKey);
             }
         }
 
@@ -69,8 +73,8 @@ namespace Vimium.Services
             }
             set
             {
+                ReRegisterHotKey(value, _taskbarHotKey);
                 _taskbarHotKey = value;
-                ReRegisterHotKey(_taskbarHotKey);
             }
         }
 
@@ -83,8 +87,8 @@ namespace Vimium.Services
             }
             set
             {
+                ReRegisterHotKey(value, _debugHotKey);
                 _debugHotKey = value;
-                ReRegisterHotKey(_debugHotKey);
             }
         }
 
@@ -97,8 +101,8 @@ namespace Vimium.Services
             }
             set
             {
+                ReRegisterHotKey(value, _lineNavigationHotKey);
                 _lineNavigationHotKey = value;
-                ReRegisterHotKey(_lineNavigationHotKey);
             }
         }
 
