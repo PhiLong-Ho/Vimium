@@ -157,12 +157,27 @@ namespace Vimium.ViewModels
             var overlapResolver = new Services.OverlapResolver();
             overlapResolver.ResolveOverlaps(positions, maxOffset: 20);
 
-            // Apply adjusted positions to HintViewModels
+            // Apply adjusted positions to HintViewModels and compute leader lines
             for (int i = 0; i < hintVMs.Count; i++)
             {
-                hintVMs[i].AdjustedLeft = positions[i].AdjustedLeft;
-                hintVMs[i].AdjustedTop = positions[i].AdjustedTop;
-                _hints.Add(hintVMs[i]);
+                var vm = hintVMs[i];
+                var pos = positions[i];
+                vm.AdjustedLeft = pos.AdjustedLeft;
+                vm.AdjustedTop = pos.AdjustedTop;
+
+                if (pos.ShowLeaderLine)
+                {
+                    vm.ShowLeaderLine = true;
+                    // Leader line from label center to element center, in
+                    // coordinates relative to the item's canvas position.
+                    // Item origin is at (AdjustedLeft, AdjustedTop).
+                    vm.LineX1 = pos.LabelWidth / 2.0;                // label center X, local
+                    vm.LineY1 = pos.LabelHeight / 2.0;               // label center Y, local
+                    vm.LineX2 = pos.ElementCenterX - pos.AdjustedLeft; // element center, local
+                    vm.LineY2 = pos.ElementCenterY - pos.AdjustedTop;  // element center, local
+                }
+
+                _hints.Add(vm);
             }
 
             IsLoading = false;

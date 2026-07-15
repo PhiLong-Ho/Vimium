@@ -56,6 +56,15 @@ public class HintLabelPosition
     /// <summary>Height of the target element in pixels.</summary>
     public double ElementHeight { get; set; }
 
+    /// <summary>Center X of the target element in window coordinates.</summary>
+    public double ElementCenterX => OriginalLeft + ElementWidth / 2.0;
+
+    /// <summary>Center Y of the target element in window coordinates.</summary>
+    public double ElementCenterY => OriginalTop + ElementHeight / 2.0;
+
+    /// <summary>True when the label was moved from its default position.</summary>
+    public bool ShowLeaderLine => Placement != PlacementDirection.Default;
+
     /// <summary>
     /// Returns the bounding rectangle of the label at its adjusted position.
     /// </summary>
@@ -84,6 +93,19 @@ public class HintLabelPosition
                 && Right > other.Left
                 && Top < other.Bottom
                 && Bottom > other.Top;
+        }
+
+        /// <summary>
+        /// True if this rect intersects with another, with a tolerance in pixels.
+        /// Positive tolerance shrinks each rect (harder to collide);
+        /// used to avoid treating barely-touching labels as overlaps.
+        /// </summary>
+        public bool IntersectsWith(Rect other, double tolerance)
+        {
+            return Left + tolerance < other.Right - tolerance
+                && Right - tolerance > other.Left + tolerance
+                && Top + tolerance < other.Bottom - tolerance
+                && Bottom - tolerance > other.Top + tolerance;
         }
     }
 }

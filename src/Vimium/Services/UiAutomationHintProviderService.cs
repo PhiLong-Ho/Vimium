@@ -263,21 +263,12 @@ namespace Vimium.Services
             cacheRequest.AddProperty(UIA_PropertyIds.UIA_BoundingRectanglePropertyId);
             cacheRequest.AddProperty(UIA_PropertyIds.UIA_ValueIsReadOnlyPropertyId);
             cacheRequest.AddProperty(UIA_PropertyIds.UIA_RangeValueIsReadOnlyPropertyId);
-            // T008: Cache ControlType and IsControlElement for tree trimming
-            cacheRequest.AddProperty(UIA_PropertyIds.UIA_ControlTypePropertyId);
-            cacheRequest.AddProperty(UIA_PropertyIds.UIA_IsControlElementPropertyId);
-            cacheRequest.AddProperty(UIA_PropertyIds.UIA_IsEnabledPropertyId);
-            cacheRequest.AddProperty(UIA_PropertyIds.UIA_IsOffscreenPropertyId);
             cacheRequest.AddPattern(UIA_PatternIds.UIA_InvokePatternId);
             cacheRequest.AddPattern(UIA_PatternIds.UIA_TogglePatternId);
             cacheRequest.AddPattern(UIA_PatternIds.UIA_SelectionItemPatternId);
             cacheRequest.AddPattern(UIA_PatternIds.UIA_ExpandCollapsePatternId);
             cacheRequest.AddPattern(UIA_PatternIds.UIA_ValuePatternId);
             cacheRequest.AddPattern(UIA_PatternIds.UIA_RangeValuePatternId);
-            // LegacyIAccessiblePattern covers many custom controls and menus
-            // (VS Code, Electron apps) that don't expose modern UIA patterns
-            // but do support DoDefaultAction through MSAA compatibility.
-            cacheRequest.AddPattern(UIA_PatternIds.UIA_LegacyIAccessiblePatternId);
 
             var elementArray = automationElement.FindAllBuildCache(TreeScope.TreeScope_Descendants, condition, cacheRequest);
             if (elementArray != null)
@@ -348,32 +339,6 @@ namespace Vimium.Services
                     return new UiAutomationFocusHint(owningWindow, automationElement, hintBounds);
                 }
 
-                // LegacyIAccessiblePattern (MSAA): many custom controls, menus in VS Code,
-                // and Electron apps expose interactivity solely through this compatibility
-                // pattern via DoDefaultAction(). Check this last as it's the broadest match.
-                var legacyPattern = (IUIAutomationLegacyIAccessiblePattern)automationElement.GetCachedPattern(UIA_PatternIds.UIA_LegacyIAccessiblePatternId);
-                if (legacyPattern != null)
-                {
-                    // Only use LegacyIAccessible if the element has a default action
-                    try
-                    {
-                        var defaultAction = legacyPattern.CurrentDefaultAction;
-                        if (!string.IsNullOrEmpty(defaultAction))
-                            return new UiAutomationLegacyIAccessibleHint(owningWindow, legacyPattern, hintBounds);
-                    }
-                    catch
-                    {
-                        // If we can't read DefaultAction, skip — element likely
-                        // not meaningfully interactable via LegacyIAccessible.
-                    }
-                }
-
-                // Menu fallback: menu items, menus, and menu bars are inherently
-                // clickable even when they don't advertise any UIA pattern.
-                // Use Win32 mouse click via UiAutomationClickHint.
-                if (IsMenuControlType(automationElement))
-                    return new UiAutomationClickHint(owningWindow, hintBounds);
-
                 return null;
             }
             catch (Exception)
@@ -381,29 +346,6 @@ namespace Vimium.Services
                 // May have gone
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Returns true if the element's ControlType is a menu-related type
-        /// that should always be hinted regardless of pattern support.
-        /// </summary>
-        private static bool IsMenuControlType(IUIAutomationElement element)
-        {
-            try
-            {
-                var ct = element.GetCachedPropertyValue(UIA_PropertyIds.UIA_ControlTypePropertyId);
-                if (ct is int controlTypeId)
-                {
-                    return controlTypeId == UIA_ControlTypeIds.UIA_MenuControlTypeId
-                        || controlTypeId == UIA_ControlTypeIds.UIA_MenuItemControlTypeId
-                        || controlTypeId == UIA_ControlTypeIds.UIA_MenuBarControlTypeId;
-                }
-            }
-            catch
-            {
-                // Can't read ControlType — skip
-            }
-            return false;
         }
 
         /// <summary>

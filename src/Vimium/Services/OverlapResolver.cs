@@ -11,6 +11,13 @@ namespace Vimium.Services;
 /// </summary>
 public class OverlapResolver : IOverlapResolver
 {
+    /// <summary>
+    /// Tolerance in pixels for collision detection. Labels that overlap by
+    /// 1px or less are not considered colliding — they're close enough that
+    /// the visual association to their element stays clear.
+    /// </summary>
+    private const double CollisionTolerance = 1.0;
+
     /// <inheritdoc />
     public void ResolveOverlaps(IReadOnlyList<HintLabelPosition> positions, double maxOffset)
     {
@@ -40,7 +47,7 @@ public class OverlapResolver : IOverlapResolver
                 var b = new HintLabelPosition.Rect(
                     positions[j].OriginalLeft, positions[j].OriginalTop,
                     positions[j].LabelWidth, positions[j].LabelHeight);
-                if (a.IntersectsWith(b))
+                if (a.IntersectsWith(b, CollisionTolerance))
                     anyOverlap = true;
             }
         }
@@ -78,7 +85,7 @@ public class OverlapResolver : IOverlapResolver
             {
                 var (left, top, placement) = candidates[c];
                 var bounds = new HintLabelPosition.Rect(left, top, pos.LabelWidth, pos.LabelHeight);
-                if (!HasCollision(bounds, placed))
+                if (!HasCollision(bounds, placed, CollisionTolerance))
                 {
                     pos.AdjustedLeft = left;
                     pos.AdjustedTop = top;
@@ -128,11 +135,11 @@ public class OverlapResolver : IOverlapResolver
     /// <summary>
     /// Tests whether the given bounds intersect with any already-placed label.
     /// </summary>
-    private static bool HasCollision(HintLabelPosition.Rect bounds, List<HintLabelPosition.Rect> placed)
+    private static bool HasCollision(HintLabelPosition.Rect bounds, List<HintLabelPosition.Rect> placed, double tolerance)
     {
         for (int i = 0; i < placed.Count; i++)
         {
-            if (bounds.IntersectsWith(placed[i]))
+            if (bounds.IntersectsWith(placed[i], tolerance))
                 return true;
         }
         return false;

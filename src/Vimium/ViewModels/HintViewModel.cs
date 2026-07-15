@@ -10,6 +10,8 @@ namespace Vimium.ViewModels
         private string _fontSizeReadValue;
         private double _adjustedLeft;
         private double _adjustedTop;
+        private bool _showLeaderLine;
+        private double _lineX1, _lineY1, _lineX2, _lineY2;
 
         public HintViewModel(Hint hint)
         {
@@ -57,6 +59,44 @@ namespace Vimium.ViewModels
         {
             get { return _adjustedTop; }
             set { _adjustedTop = value; NotifyOfPropertyChange(); }
+        }
+
+        /// <summary>
+        /// Whether to draw a leader line from the label back to the element.
+        /// Only true when the label was moved from its default position.
+        /// </summary>
+        public bool ShowLeaderLine
+        {
+            get { return _showLeaderLine; }
+            set { _showLeaderLine = value; NotifyOfPropertyChange(); }
+        }
+
+        /// <summary>Leader line start X (label edge) in canvas coordinates.</summary>
+        public double LineX1
+        {
+            get { return _lineX1; }
+            set { _lineX1 = value; NotifyOfPropertyChange(); }
+        }
+
+        /// <summary>Leader line start Y (label edge) in canvas coordinates.</summary>
+        public double LineY1
+        {
+            get { return _lineY1; }
+            set { _lineY1 = value; NotifyOfPropertyChange(); }
+        }
+
+        /// <summary>Leader line end X (element center) in canvas coordinates.</summary>
+        public double LineX2
+        {
+            get { return _lineX2; }
+            set { _lineX2 = value; NotifyOfPropertyChange(); }
+        }
+
+        /// <summary>Leader line end Y (element center) in canvas coordinates.</summary>
+        public double LineY2
+        {
+            get { return _lineY2; }
+            set { _lineY2 = value; NotifyOfPropertyChange(); }
         }
     }
 }

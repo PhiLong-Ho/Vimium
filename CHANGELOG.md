@@ -2,6 +2,25 @@
 
 This is a fork of [zsims/hunt-and-peck](https://github.com/zsims/hunt-and-peck).
 
+## v1.4.2
+
+### Fixed
+
+- **Hotkey not released on shortcut change** — changing a keyboard shortcut (e.g. line navigation from `Ctrl+/` to `Ctrl+]`) now properly unregisters the old OS-level hotkey. Previously the old keybinding remained registered until app restart, blocking the shortcut from other applications.
+- **Hint accuracy regression** — enumeration now uses a broad UIA condition (ControlView + Enabled + OnScreen) matching the original HuntAndPeck approach. Pattern-availability property filtering at the condition level was unreliable with custom UIA providers (VS Code, Electron apps), causing interactive elements to be missed. Post-filtering still uses cached pattern retrieval for speed.
+- **Phantom hints on empty space** — removed LegacyIAccessible pattern and menu-type fallbacks that were too broad, causing invisible/hidden UIA elements to receive hint labels.
+
+### Added
+
+- **Leader lines** — when the overlap resolver moves a hint label from its default position, a subtle line (2px, 80% opacity, theme-colored) connects the label back to its element center, preserving visual association in dense UIs.
+- **Collision tolerance** — labels overlapping by ≤1px are no longer treated as collisions, reducing unnecessary label repositioning and leader line clutter.
+- **Hint label minimum size** — labels never shrink below 20×14px, keeping hints readable even on tiny elements (e.g. 7px icons on Danbooru).
+- **Tighter label padding** — reduced vertical background space around hint text to match horizontal padding.
+
+### Removed
+
+- **Debug hint overlay** (`Alt+Shift+;`) — removed debug hint system (models, views, viewmodels, hotkey) that enumerated all UIA patterns per element. Not useful for end users and added maintenance overhead.
+
 ## v1.4.1
 
 ### Fixed
