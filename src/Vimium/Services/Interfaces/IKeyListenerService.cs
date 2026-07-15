@@ -73,12 +73,10 @@ namespace Vimium.Services.Interfaces
     {
         event EventHandler OnHotKeyActivated;
         event EventHandler OnTaskbarHotKeyActivated;
-        event EventHandler OnDebugHotKeyActivated;
         event EventHandler OnLineNavigationHotKeyActivated;
 
         HotKey TaskbarHotKey { get; set; }
         HotKey HotKey { get; set; }
-        HotKey DebugHotKey { get; set; }
         HotKey LineNavigationHotKey { get; set; }
     }
 }

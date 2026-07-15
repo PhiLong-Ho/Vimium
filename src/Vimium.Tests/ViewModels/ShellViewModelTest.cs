@@ -23,12 +23,10 @@ public class ShellViewModelTest
     {
         public HotKey? HotKey { get; set; }
         public HotKey? TaskbarHotKey { get; set; }
-        public HotKey? DebugHotKey { get; set; }
         public HotKey? LineNavigationHotKey { get; set; }
 
         public event EventHandler? OnHotKeyActivated;
         public event EventHandler? OnTaskbarHotKeyActivated;
-        public event EventHandler? OnDebugHotKeyActivated;
         public event EventHandler? OnLineNavigationHotKeyActivated;
 
         public void FireLineNavigationHotKey() =>
@@ -53,12 +51,6 @@ public class ShellViewModelTest
         public bool IsEnabled => true;
         public void LogSession(BenchmarkLogEntry entry) { }
         public void InvalidateCache() { }
-    }
-
-    private sealed class FakeDebugHintProviderService : IDebugHintProviderService
-    {
-        public HintSession EnumDebugHints() => null!;
-        public HintSession EnumDebugHints(IntPtr hWnd) => null!;
     }
 
     private sealed class FakeFindTextProviderService : IFindTextProviderService
@@ -98,11 +90,9 @@ public class ShellViewModelTest
             var shell = new ShellViewModel(
                 showOverlay: _ => { },
                 showSelectionModeOverlay: _ => { },
-                showDebugOverlay: _ => { },
                 showOptions: _ => { },
                 hintLabelService: new HintLabelService(),
                 hintProviderService: new FakeHintProviderService(),
-                debugHintProviderService: new FakeDebugHintProviderService(),
                 findTextProviderService: new FakeFindTextProviderService(),
                 keyListener: keyListener);
 
@@ -129,11 +119,9 @@ public class ShellViewModelTest
         var shell = new ShellViewModel(
             showOverlay: _ => { },
             showSelectionModeOverlay: _ => { },
-            showDebugOverlay: _ => { },
             showOptions: _ => { },
             hintLabelService: new HintLabelService(),
             hintProviderService: new FakeHintProviderService(),
-            debugHintProviderService: new FakeDebugHintProviderService(),
             findTextProviderService: new FakeFindTextProviderService(),
             keyListener: keyListener);
 
@@ -149,11 +137,9 @@ public class ShellViewModelTest
         var shell = new ShellViewModel(
             showOverlay: _ => { },
             showSelectionModeOverlay: _ => { },
-            showDebugOverlay: _ => { },
             showOptions: _ => { },
             hintLabelService: new HintLabelService(),
             hintProviderService: new FakeHintProviderService(),
-            debugHintProviderService: new FakeDebugHintProviderService(),
             findTextProviderService: findSvc,
             keyListener: keyListener);
 

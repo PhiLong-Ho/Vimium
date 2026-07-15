@@ -18,11 +18,9 @@ namespace Vimium.ViewModels
     {
         private readonly Action<OverlayViewModel> _showOverlay;
         private readonly Action<SelectionModeViewModel> _showSelectionModeOverlay;
-        private readonly Action<DebugOverlayViewModel> _showDebugOverlay;
         private readonly Action<OptionsViewModel> _showOptions;
         private readonly IHintLabelService _hintLabelService;
         private readonly IHintProviderService _hintProviderService;
-        private readonly IDebugHintProviderService _debugHintProviderService;
         private readonly IFindTextProviderService _findTextProviderService;
         private readonly IBenchmarkService _benchmarkService;
         private CancellationTokenSource _cts;
@@ -30,23 +28,19 @@ namespace Vimium.ViewModels
         public ShellViewModel(
             Action<OverlayViewModel> showOverlay,
             Action<SelectionModeViewModel> showSelectionModeOverlay,
-            Action<DebugOverlayViewModel> showDebugOverlay,
             Action<OptionsViewModel> showOptions,
             IHintLabelService hintLabelService,
             IHintProviderService hintProviderService,
-            IDebugHintProviderService debugHintProviderService,
             IFindTextProviderService findTextProviderService,
             IKeyListenerService keyListener,
             IBenchmarkService benchmarkService = null)
         {
             _showOverlay = showOverlay;
             _showSelectionModeOverlay = showSelectionModeOverlay;
-            _showDebugOverlay = showDebugOverlay;
             _showOptions = showOptions;
             _hintLabelService = hintLabelService;
             var keyListener1 = keyListener;
             _hintProviderService = hintProviderService;
-            _debugHintProviderService = debugHintProviderService;
             _findTextProviderService = findTextProviderService;
             _benchmarkService = benchmarkService ?? new BenchmarkService();
 
@@ -67,17 +61,8 @@ namespace Vimium.ViewModels
                     ApplyHotkeys(keyListener1);
             };
 
-#if DEBUG
-            keyListener1.DebugHotKey = new HotKey
-            {
-                Keys = Keys.OemSemicolon,
-                Modifier = KeyModifier.Alt | KeyModifier.Shift
-            };
-#endif
-
             keyListener1.OnHotKeyActivated += _keyListener_OnHotKeyActivated;
             keyListener1.OnTaskbarHotKeyActivated += _keyListener_OnTaskbarHotKeyActivated;
-            keyListener1.OnDebugHotKeyActivated += _keyListener_OnDebugHotKeyActivated;
             keyListener1.OnLineNavigationHotKeyActivated += _keyListener_OnLineNavigationHotKeyActivated;
 
             ShowOptionsCommand = new DelegateCommand(ShowOptions);
@@ -273,16 +258,6 @@ namespace Vimium.ViewModels
             {
                 LogService.Error("FindText: exception in handler", ex);
                 _selectionOverlayActive = false;
-            }
-        }
-
-        private void _keyListener_OnDebugHotKeyActivated(object sender, EventArgs e)
-        {
-            var session = _debugHintProviderService.EnumDebugHints();
-            if (session != null)
-            {
-                var vm = new DebugOverlayViewModel(session);
-                _showDebugOverlay(vm);
             }
         }
 

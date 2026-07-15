@@ -84,15 +84,6 @@ namespace Vimium
             view.Show();
         }
 
-        private void ShowDebugOverlay(DebugOverlayViewModel vm)
-        {
-            var view = new DebugOverlayView
-            {
-                DataContext = vm
-            };
-            view.ShowDialog();
-        }
-
         private void ShowOptions(OptionsViewModel vm)
         {
             var view = new OptionsView
@@ -226,10 +217,8 @@ namespace Vimium
                 var shellViewModel = new ShellViewModel(
                     ShowOverlay,
                     ShowSelectionModeOverlay,
-                    ShowDebugOverlay,
                     ShowOptions,
                     _hintLabelService,
-                    _hintProviderService,
                     _hintProviderService,
                     _findTextProviderService,
                     _keyListenerService);

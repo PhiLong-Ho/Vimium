@@ -10,7 +10,6 @@ namespace Vimium.Services
     {
         public event EventHandler OnHotKeyActivated;
         public event EventHandler OnTaskbarHotKeyActivated;
-        public event EventHandler OnDebugHotKeyActivated;
         public event EventHandler OnLineNavigationHotKeyActivated;
 
         /// <summary>
@@ -20,7 +19,6 @@ namespace Vimium.Services
 
         private HotKey _hotKey;
         private HotKey _taskbarHotKey;
-        private HotKey _debugHotKey;
         private HotKey _lineNavigationHotKey;
 
         /// <summary>
@@ -79,20 +77,6 @@ namespace Vimium.Services
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public HotKey DebugHotKey
-        {
-            get
-            {
-                return _debugHotKey;
-            }
-            set
-            {
-                ReRegisterHotKey(value, _debugHotKey);
-                _debugHotKey = value;
-            }
-        }
-
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public HotKey LineNavigationHotKey
         {
             get
@@ -129,16 +113,6 @@ namespace Vimium.Services
                     OnHotKeyActivated != null)
                 {
                     OnTaskbarHotKeyActivated(this, new EventArgs());
-                    return;
-                }
-
-                // Debug hotkey
-                if (_debugHotKey != null &&
-                    e.Key == _debugHotKey.Keys &&
-                    e.Modifiers == _debugHotKey.Modifier &&
-                    OnDebugHotKeyActivated != null)
-                {
-                    OnDebugHotKeyActivated(this, new EventArgs());
                     return;
                 }
 
