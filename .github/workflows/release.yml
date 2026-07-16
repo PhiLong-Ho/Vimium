@@ -86,15 +86,29 @@ jobs:
             Write-Host "Found: $_ ($((Get-Item $_).Length) bytes)"
           }
 
-          # Create the release first, then upload assets separately
-          # (avoids race condition where uploads hit 404)
+          # Create the release first (no assets), then upload with retry —
+          # GitHub's upload endpoint can 404 for a few seconds after creation
           gh release create $tag `
             --repo ${{ github.repository }} `
             --title "Vimium v$version" `
             --notes "$notes"
 
-          gh release upload $tag `
-            --repo ${{ github.repository }} `
-            "publish/win-x64/Vimium.exe#Vimium.exe (x64, portable)" `
-            "publish/win-x86/Vimium.exe#Vimium.exe (x86, portable)" `
+          $assets = @(
+            "publish/win-x64/Vimium.exe#Vimium.exe (x64, portable)",
+            "publish/win-x86/Vimium.exe#Vimium.exe (x86, portable)",
             "publish/win-arm64/Vimium.exe#Vimium.exe (arm64, portable)"
+          )
+          $maxRetries = 5
+          for ($i = 0; $i -lt $maxRetries; $i++) {
+            $result = gh release upload $tag --repo ${{ github.repository }} $assets 2>&1
+            if ($LASTEXITCODE -eq 0) {
+              Write-Host "Assets uploaded successfully"
+              break
+            }
+            Write-Host "Upload attempt $($i+1)/$maxRetries failed, retrying in 3s..."
+            Start-Sleep -Seconds 3
+          }
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "Upload failed after $maxRetries attempts"
+            exit 1
+          }
