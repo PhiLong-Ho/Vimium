@@ -1,5 +1,0 @@
-CHANGELOG.md
-CLAUDE.md
-README.md
-screenshots/explorer.png
-screenshots/visual-studio.png
