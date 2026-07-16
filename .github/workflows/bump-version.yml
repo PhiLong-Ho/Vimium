@@ -117,6 +117,15 @@ jobs:
           -p:Version=${{ steps.newver.outputs.version }}
           -o publish/win-arm64
 
+      # Rename to unique names — GitHub requires distinct asset filenames
+      - name: Rename artifacts
+        shell: pwsh
+        run: |
+          Rename-Item publish/win-x64/Vimium.exe Vimium-x64.exe
+          Rename-Item publish/win-x86/Vimium.exe Vimium-x86.exe
+          Rename-Item publish/win-arm64/Vimium.exe Vimium-arm64.exe
+          Write-Host "Renamed: Vimium-x64.exe, Vimium-x86.exe, Vimium-arm64.exe"
+
       # ── Commit, tag & release ───────────────────────────────────────
       - name: Commit version bump
         shell: pwsh
@@ -147,7 +156,7 @@ jobs:
           } else { "" }
 
           # Verify all builds produced output
-          @("publish/win-x64/Vimium.exe", "publish/win-x86/Vimium.exe", "publish/win-arm64/Vimium.exe") | ForEach-Object {
+          @("publish/win-x64/Vimium-x64.exe", "publish/win-x86/Vimium-x86.exe", "publish/win-arm64/Vimium-arm64.exe") | ForEach-Object {
             if (-not (Test-Path $_)) { Write-Error "Missing: $_"; exit 1 }
             Write-Host "Found: $_ ($((Get-Item $_).Length) bytes)"
           }
@@ -160,9 +169,9 @@ jobs:
             --notes "$notes"
 
           $assets = @(
-            "publish/win-x64/Vimium.exe#Vimium.exe (x64, portable)",
-            "publish/win-x86/Vimium.exe#Vimium.exe (x86, portable)",
-            "publish/win-arm64/Vimium.exe#Vimium.exe (arm64, portable)"
+            "publish/win-x64/Vimium-x64.exe#Vimium (x64, portable)",
+            "publish/win-x86/Vimium-x86.exe#Vimium (x86, portable)",
+            "publish/win-arm64/Vimium-arm64.exe#Vimium (arm64, portable)"
           )
           $maxRetries = 5
           for ($i = 0; $i -lt $maxRetries; $i++) {
