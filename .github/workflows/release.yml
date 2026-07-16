@@ -41,7 +41,8 @@ jobs:
           Write-Host "SolutionInfo version: $ver"
           "version=$ver" >> $env:GITHUB_OUTPUT
 
-      - name: Publish portable single-file exe
+      # ── Build for all architectures ─────────────────────────────────
+      - name: Publish (x64)
         shell: pwsh
         run: >
           dotnet publish src/Vimium/Vimium.csproj
@@ -49,6 +50,24 @@ jobs:
           -p:PublishSingleFile=true
           -p:Version=${{ steps.version.outputs.version }}
           -o publish/win-x64
+
+      - name: Publish (x86)
+        shell: pwsh
+        run: >
+          dotnet publish src/Vimium/Vimium.csproj
+          -c Release -r win-x86 --self-contained true
+          -p:PublishSingleFile=true
+          -p:Version=${{ steps.version.outputs.version }}
+          -o publish/win-x86
+
+      - name: Publish (arm64)
+        shell: pwsh
+        run: >
+          dotnet publish src/Vimium/Vimium.csproj
+          -c Release -r win-arm64 --self-contained true
+          -p:PublishSingleFile=true
+          -p:Version=${{ steps.version.outputs.version }}
+          -o publish/win-arm64
 
       # ── Publish the GitHub release ──────────────────────────────────────
       - name: Create GitHub release
@@ -59,10 +78,11 @@ jobs:
           $tag = "${{ github.ref_name }}"
           $version = "${{ steps.version.outputs.version }}"
           if ("${{ github.ref_type }}" -ne "tag") { $tag = "manual-$($env:GITHUB_SHA.Substring(0,7))" }
-          $label = "Vimium.exe (portable, unsigned)"
           $notes = if (Test-Path CHANGELOG.md) { "See CHANGELOG.md for release notes." } else { "" }
           gh release create $tag `
             --repo ${{ github.repository }} `
             --title "Vimium v$version" `
             --notes "$notes" `
-            "publish/win-x64/Vimium.exe#$label"
+            "publish/win-x64/Vimium.exe#Vimium.exe (x64, portable)" `
+            "publish/win-x86/Vimium.exe#Vimium.exe (x86, portable)" `
+            "publish/win-arm64/Vimium.exe#Vimium.exe (arm64, portable)"

@@ -89,8 +89,8 @@ jobs:
           Set-Content $path -Value $content -NoNewline
           Write-Host "Updated SolutionInfo.cs to $ver"
 
-      # ── Build ───────────────────────────────────────────────────────
-      - name: Publish portable single-file exe
+      # ── Build for all architectures ────────────────────────────────
+      - name: Publish (x64)
         shell: pwsh
         run: >
           dotnet publish src/Vimium/Vimium.csproj
@@ -98,6 +98,24 @@ jobs:
           -p:PublishSingleFile=true
           -p:Version=${{ steps.newver.outputs.version }}
           -o publish/win-x64
+
+      - name: Publish (x86)
+        shell: pwsh
+        run: >
+          dotnet publish src/Vimium/Vimium.csproj
+          -c Release -r win-x86 --self-contained true
+          -p:PublishSingleFile=true
+          -p:Version=${{ steps.newver.outputs.version }}
+          -o publish/win-x86
+
+      - name: Publish (arm64)
+        shell: pwsh
+        run: >
+          dotnet publish src/Vimium/Vimium.csproj
+          -c Release -r win-arm64 --self-contained true
+          -p:PublishSingleFile=true
+          -p:Version=${{ steps.newver.outputs.version }}
+          -o publish/win-arm64
 
       # ── Commit, tag & release ───────────────────────────────────────
       - name: Commit version bump
@@ -132,6 +150,8 @@ jobs:
             --repo ${{ github.repository }} `
             --title $title `
             --notes "$notes" `
-            "publish/win-x64/Vimium.exe#Vimium.exe (portable, unsigned)"
+            "publish/win-x64/Vimium.exe#Vimium.exe (x64, portable)" `
+            "publish/win-x86/Vimium.exe#Vimium.exe (x86, portable)" `
+            "publish/win-arm64/Vimium.exe#Vimium.exe (arm64, portable)"
 
           Write-Host "Release created: $title"
