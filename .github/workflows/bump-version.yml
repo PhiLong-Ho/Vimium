@@ -146,10 +146,21 @@ jobs:
             "See [CHANGELOG.md](CHANGELOG.md) for release notes."
           } else { "" }
 
+          # Verify all builds produced output
+          @("publish/win-x64/Vimium.exe", "publish/win-x86/Vimium.exe", "publish/win-arm64/Vimium.exe") | ForEach-Object {
+            if (-not (Test-Path $_)) { Write-Error "Missing: $_"; exit 1 }
+            Write-Host "Found: $_ ($((Get-Item $_).Length) bytes)"
+          }
+
+          # Create the release first, then upload assets separately
+          # (avoids race condition where uploads hit 404)
           gh release create $tag `
             --repo ${{ github.repository }} `
             --title $title `
-            --notes "$notes" `
+            --notes "$notes"
+
+          gh release upload $tag `
+            --repo ${{ github.repository }} `
             "publish/win-x64/Vimium.exe#Vimium.exe (x64, portable)" `
             "publish/win-x86/Vimium.exe#Vimium.exe (x86, portable)" `
             "publish/win-arm64/Vimium.exe#Vimium.exe (arm64, portable)"
