@@ -1,0 +1,137 @@
+# Triggered manually via the Actions tab. Bumps the version in
+# SolutionInfo.cs (the single source of truth), builds the portable exe,
+# commits the version change, and publishes a GitHub release.
+#
+# After the release is created, download the exe and install it:
+#   Copy-Item .\Vimium.exe $env:LOCALAPPDATA\Programs\Vimium\ -Force
+#
+# If you need to sign the exe, push a tag manually — the `release` workflow
+# handles signing when ENABLE_SIGNING is configured.
+
+name: bump-version
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: "Version segment to bump"
+        required: true
+        type: choice
+        options:
+          - minor  (default)
+          - patch
+          - major
+        default: "minor  (default)"
+
+permissions:
+  contents: write # commit + push + create release
+
+jobs:
+  bump:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      # ── Bump version ────────────────────────────────────────────────
+      - name: Read current version
+        id: current
+        shell: pwsh
+        run: |
+          $info = Get-Content src/SolutionInfo.cs -Raw
+          $ver = [regex]::Match($info, 'internal const string Version = "([^"]+)"').Groups[1].Value
+          if (-not $ver) { Write-Error "Could not parse version from SolutionInfo.cs"; exit 1 }
+          Write-Host "Current version: $ver"
+          "version=$ver" >> $env:GITHUB_OUTPUT
+
+      - name: Calculate new version
+        id: newver
+        shell: pwsh
+        run: |
+          $v = [Version]"${{ steps.current.outputs.version }}"
+          $bump = "${{ inputs.bump_type }}".Split(' ')[0]  # strip " (default)" suffix
+          switch ($bump) {
+            'major' { $new = [Version]::new($v.Major + 1, 0, 0, 0) }
+            'minor' { $new = [Version]::new($v.Major, $v.Minor + 1, 0, 0) }
+            'patch' { $new = [Version]::new($v.Major, $v.Minor, $v.Build + 1, 0) }
+            default { Write-Error "Unknown bump type: $bump"; exit 1 }
+          }
+          $newStr = $new.ToString()
+          $tag = "v$($new.Major).$($new.Minor).$($new.Build)"
+          Write-Host "New version: $newStr"
+          Write-Host "Tag:         $tag"
+          "version=$newStr" >> $env:GITHUB_OUTPUT
+          "tag=$tag" >> $env:GITHUB_OUTPUT
+
+      - name: Update SolutionInfo.cs
+        shell: pwsh
+        run: |
+          $ver = "${{ steps.newver.outputs.version }}"
+          $path = "src/SolutionInfo.cs"
+          $content = Get-Content $path -Raw
+
+          $content = [regex]::Replace($content,
+            'AssemblyVersionAttribute\("[^"]+"\)',
+            "AssemblyVersionAttribute(""$ver"")")
+          $content = [regex]::Replace($content,
+            'AssemblyFileVersionAttribute\("[^"]+"\)',
+            "AssemblyFileVersionAttribute(""$ver"")")
+          $content = [regex]::Replace($content,
+            'internal const string Version = "[^"]+"',
+            "internal const string Version = ""$ver""")
+
+          Set-Content $path -Value $content -NoNewline
+          Write-Host "Updated SolutionInfo.cs to $ver"
+
+      # ── Build ───────────────────────────────────────────────────────
+      - name: Publish portable single-file exe
+        shell: pwsh
+        run: >
+          dotnet publish src/Vimium/Vimium.csproj
+          -c Release -r win-x64 --self-contained true
+          -p:PublishSingleFile=true
+          -p:Version=${{ steps.newver.outputs.version }}
+          -o publish/win-x64
+
+      # ── Commit, tag & release ───────────────────────────────────────
+      - name: Commit version bump
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/SolutionInfo.cs
+
+          # Only commit if there are staged changes
+          $diff = git diff --cached --quiet
+          if ($LASTEXITCODE -ne 0) {
+            git commit -m "chore: bump version to ${{ steps.newver.outputs.version }}"
+            git push
+            Write-Host "Pushed version bump commit"
+          } else {
+            Write-Host "No changes to commit"
+          }
+
+      - name: Create GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = "${{ steps.newver.outputs.tag }}"
+          $title = "Vimium $tag"
+          $notes = if (Test-Path CHANGELOG.md) {
+            "See [CHANGELOG.md](CHANGELOG.md) for release notes."
+          } else { "" }
+
+          gh release create $tag `
+            --repo ${{ github.repository }} `
+            --title $title `
+            --notes "$notes" `
+            "publish/win-x64/Vimium.exe#Vimium.exe (portable, unsigned)"
+
+          Write-Host "Release created: $title"

@@ -1,16 +1,16 @@
-# Graph Report - Vimium  (2026-07-09)
+# Graph Report - Vimium  (2026-07-16)
 
 ## Corpus Check
-- 131 files · ~76,782 words
+- 193 files · ~140,502 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1278 nodes · 1568 edges · 119 communities (100 shown, 19 thin omitted)
+- 1342 nodes · 1622 edges · 125 communities (103 shown, 22 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `9ed3e25d`
+- Built from commit: `8ca21b69`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -125,6 +125,12 @@
 - [[_COMMUNITY_Community 116|Community 116]]
 - [[_COMMUNITY_Community 117|Community 117]]
 - [[_COMMUNITY_Community 118|Community 118]]
+- [[_COMMUNITY_Community 119|Community 119]]
+- [[_COMMUNITY_Community 120|Community 120]]
+- [[_COMMUNITY_Community 121|Community 121]]
+- [[_COMMUNITY_Community 122|Community 122]]
+- [[_COMMUNITY_Community 123|Community 123]]
+- [[_COMMUNITY_Community 124|Community 124]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `User32` - 27 edges
@@ -153,7 +159,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (119 total, 19 thin omitted)
+## Communities (125 total, 22 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.13
@@ -196,8 +202,8 @@ Cohesion: 0.05
 Nodes (31): Form, HotKey, IDebugHintProviderService, IHintProviderService, IKeyListenerService, int, HotKey, HuntAndPeck.Services.Interfaces (+23 more)
 
 ### Community 10 - "Community 10"
-Cohesion: 0.15
-Nodes (9): CancelEventArgs, DrawingContext, bool, EventArgs, bool, EventArgs, ForegroundWindow, HuntAndPeck.Views (+1 more)
+Cohesion: 0.08
+Nodes (16): CancelEventArgs, DrawingContext, KeyEventArgs, RoutedEventArgs, bool, EventArgs, bool, EventArgs (+8 more)
 
 ### Community 11 - "Community 11"
 Cohesion: 0.18
@@ -269,7 +275,7 @@ Nodes (3): Constants, Vimium.NativeMethods, UInt32
 
 ### Community 28 - "Community 28"
 Cohesion: 0.50
-Nodes (3): AssemblyVersionInformation, string, System
+Nodes (3): AssemblyVersionInformation, System, string
 
 ### Community 30 - "Community 30"
 Cohesion: 0.50
@@ -280,8 +286,8 @@ Cohesion: 0.50
 Nodes (3): DebugHintViewModel, HuntAndPeck.ViewModels, Vimium.ViewModels
 
 ### Community 32 - "Community 32"
-Cohesion: 0.40
-Nodes (4): Key Tools, MCP Tools: code-review-graph, When to use graph tools FIRST, Workflow
+Cohesion: 0.33
+Nodes (5): graphify, Key Tools, MCP Tools: code-review-graph, When to use graph tools FIRST, Workflow
 
 ### Community 41 - "Community 41"
 Cohesion: 0.07
@@ -440,12 +446,12 @@ Cohesion: 0.15
 Nodes (12): Prerequisites, Quickstart Validation Guide: Text Selection Mode (Redesigned), Validation Scenarios, VS-1: Activate text selection mode, VS-2: Search finds and highlights text, VS-3: Tab cycles through matches, VS-4: Arrow keys move cursor, VS-5: Shift+Arrow selects text (+4 more)
 
 ### Community 90 - "Community 90"
-Cohesion: 0.17
-Nodes (9): DispatcherTimer, KeyboardHookService, KeyDownEventArgs, EventArgs, string, EventArgs, HuntAndPeck.Views, OverlayView (+1 more)
+Cohesion: 0.07
+Nodes (18): DispatcherTimer, KeyboardHookService, KeyDownEventArgs, MouseButtonEventArgs, EventArgs, string, bool, DispatcherTimer (+10 more)
 
 ### Community 91 - "Community 91"
-Cohesion: 0.17
-Nodes (8): bool, DispatcherTimer, EventArgs, KeyboardHookService, KeyDownEventArgs, RoutedEventArgs, string, LineNavigationOverlayView
+Cohesion: 0.08
+Nodes (25): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+17 more)
 
 ### Community 92 - "Community 92"
 Cohesion: 0.17
@@ -492,8 +498,8 @@ Cohesion: 0.29
 Nodes (5): HuntAndPeck.Models, UiAutomationFocusHint, Vimium.Models, IUIAutomationElement, IUIAutomationElement
 
 ### Community 104 - "Community 104"
-Cohesion: 0.33
-Nodes (3): RoutedEventArgs, HuntAndPeck.Views, ShellView
+Cohesion: 0.22
+Nodes (8): graphify reference: extra exports and benchmark, Step 6b - Wiki (only if --wiki flag), Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag), Step 7a - FalkorDB export (only if --falkordb or --falkordb-push flag), Step 7b - SVG export (only if --svg flag), Step 7c - GraphML export (only if --graphml flag), Step 7d - MCP server (only if --mcp flag), Step 8 - Token reduction benchmark (only if total_words > 5000)
 
 ### Community 105 - "Community 105"
 Cohesion: 0.33
@@ -517,22 +523,34 @@ Nodes (4): IUIAutomationTogglePattern, HuntAndPeck.Models, UiAutomationToggleHin
 
 ### Community 110 - "Community 110"
 Cohesion: 0.33
-Nodes (4): KeyEventArgs, HuntAndPeck.Views, OptionsView, Window
+Nodes (5): For /graphify explain, For /graphify path, graphify reference: query, path, explain, Step 0 — Constrained query expansion (REQUIRED before traversal), Step 1 — Traversal
+
+### Community 115 - "Community 115"
+Cohesion: 0.50
+Nodes (3): For /graphify add, For --watch, graphify reference: add a URL and watch a folder
+
+### Community 119 - "Community 119"
+Cohesion: 0.50
+Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify reference: commit hook and native CLAUDE.md integration
+
+### Community 120 - "Community 120"
+Cohesion: 0.50
+Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
 
 ## Knowledge Gaps
-- **589 isolated node(s):** `I. MVVM Separation & Code Quality`, `II. Interface-Driven Services`, `III. Testing Standards`, `IV. User Experience Consistency`, `V. Performance & Non-Blocking UI` (+584 more)
+- **632 isolated node(s):** `graphify`, `Usage`, `What graphify is for`, `Step 0 - GitHub repos and multi-path merge (only if a URL or several paths)`, `Step 1 - Ensure graphify is installed` (+627 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **19 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **22 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `UiAutomationHintProviderService` connect `Community 1` to `Community 96`, `Community 9`, `Community 116`?**
-  _High betweenness centrality (0.018) - this node is a cross-community bridge._
-- **Why does `KeyListenerService` connect `Community 9` to `Community 3`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
-- **What connects `I. MVVM Separation & Code Quality`, `II. Interface-Driven Services`, `III. Testing Standards` to the rest of the system?**
-  _589 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _High betweenness centrality (0.011) - this node is a cross-community bridge._
+- **Why does `Hint` connect `Community 101` to `Community 96`, `Community 1`, `Community 103`, `Community 107`, `Community 108`, `Community 109`?**
+  _High betweenness centrality (0.009) - this node is a cross-community bridge._
+- **What connects `graphify`, `Usage`, `What graphify is for` to the rest of the system?**
+  _632 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.13015873015873017 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**

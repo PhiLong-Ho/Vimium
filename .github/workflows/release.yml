@@ -1,16 +1,9 @@
-# Builds the portable single-file Vimium.exe, optionally code-signs it with
-# Azure Trusted Signing, and publishes a GitHub release. Triggered by pushing a
-# version tag (e.g. `git tag v1.4.1 && git push origin v1.4.1`).
+# Fallback / manual-tag workflow. Builds the portable single-file Vimium.exe
+# and publishes a GitHub release. Triggered by pushing a version tag (e.g.
+# `git tag v1.4.3 && git push origin v1.4.3`).
 #
-# Signing is OPT-IN and OFF by default so this workflow works out of the box
-# (publishing an UNSIGNED exe). To turn on signing — and clear the Microsoft
-# Defender SmartScreen "unrecognized app" warning — see docs/SIGNING.md and:
-#   1. Set repository variable  ENABLE_SIGNING = true
-#   2. Configure Azure Trusted Signing (account + certificate profile) and a
-#      GitHub OIDC federated credential on an app registration.
-#   3. Add repository secrets: AZURE_CLIENT_ID, AZURE_TENANT_ID,
-#      AZURE_SUBSCRIPTION_ID
-#   4. Set repository variables: TS_ENDPOINT, TS_ACCOUNT_NAME, TS_PROFILE_NAME
+# For routine releases, use the **bump-version** workflow from the Actions tab
+# instead — it bumps SolutionInfo.cs, builds, commits, and releases in one go.
 
 name: release
 
@@ -37,43 +30,25 @@ jobs:
         with:
           dotnet-version: "10.0.x"
 
+      # ── Read version from SolutionInfo.cs (the single source of truth) ──
+      - name: Read version from SolutionInfo.cs
+        id: version
+        shell: pwsh
+        run: |
+          $info = Get-Content src/SolutionInfo.cs -Raw
+          $ver = [regex]::Match($info, 'internal const string Version = "([^"]+)"').Groups[1].Value
+          if (-not $ver) { Write-Error "Could not parse version from SolutionInfo.cs"; exit 1 }
+          Write-Host "SolutionInfo version: $ver"
+          "version=$ver" >> $env:GITHUB_OUTPUT
+
       - name: Publish portable single-file exe
         shell: pwsh
         run: >
           dotnet publish src/Vimium/Vimium.csproj
           -c Release -r win-x64 --self-contained true
           -p:PublishSingleFile=true
+          -p:Version=${{ steps.version.outputs.version }}
           -o publish/win-x64
-
-      # ── Signing (optional; enable via ENABLE_SIGNING=true) ──────────────
-      - name: Azure login (OIDC)
-        if: ${{ vars.ENABLE_SIGNING == 'true' }}
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Sign with Azure Trusted Signing
-        if: ${{ vars.ENABLE_SIGNING == 'true' }}
-        uses: azure/trusted-signing-action@v0
-        with:
-          endpoint: ${{ vars.TS_ENDPOINT }}                 # e.g. https://eus.codesigning.azure.net
-          trusted-signing-account-name: ${{ vars.TS_ACCOUNT_NAME }}
-          certificate-profile-name: ${{ vars.TS_PROFILE_NAME }}
-          files-folder: ${{ github.workspace }}/publish/win-x64
-          files-folder-filter: exe
-          file-digest: SHA256
-          timestamp-rfc3161: http://timestamp.acs.microsoft.com
-          timestamp-digest: SHA256
-
-      - name: Verify signature
-        if: ${{ vars.ENABLE_SIGNING == 'true' }}
-        shell: pwsh
-        run: |
-          $sig = Get-AuthenticodeSignature publish/win-x64/Vimium.exe
-          $sig | Format-List Status, StatusMessage, SignerCertificate
-          if ($sig.Status -ne 'Valid') { throw "Signature invalid: $($sig.Status)" }
 
       # ── Publish the GitHub release ──────────────────────────────────────
       - name: Create GitHub release
@@ -82,11 +57,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $tag = "${{ github.ref_name }}"
+          $version = "${{ steps.version.outputs.version }}"
           if ("${{ github.ref_type }}" -ne "tag") { $tag = "manual-$($env:GITHUB_SHA.Substring(0,7))" }
-          $label = if ("${{ vars.ENABLE_SIGNING }}" -eq "true") { "Vimium.exe (portable, signed)" } else { "Vimium.exe (portable, unsigned)" }
+          $label = "Vimium.exe (portable, unsigned)"
           $notes = if (Test-Path CHANGELOG.md) { "See CHANGELOG.md for release notes." } else { "" }
           gh release create $tag `
             --repo ${{ github.repository }} `
-            --title "Vimium $tag" `
+            --title "Vimium v$version" `
             --notes "$notes" `
             "publish/win-x64/Vimium.exe#$label"
